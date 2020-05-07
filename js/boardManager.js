@@ -59,6 +59,8 @@ function updateSigninStatus(isSignedIn){
     //if != null : already loaded, connection regained. Refresh page?
 
     if(storage == null){
+      alert("AAA");
+
       storage = new StorageManager();
       
       resetData();
@@ -73,11 +75,13 @@ function updateSigninStatus(isSignedIn){
             saveAll();
         }
       },project.preferences['textEditorAutoSaveInterval']*1000);
+
+      alert("AAA2");
+      
     }
 
   }
 
-  alert('handled');
 }
 
 function goLogin(){
@@ -134,8 +138,6 @@ function saveAll(callback = null, log = null) {
     startSavingIndicator();
 
     let contents = buildProject();
-
-    alert("AAAA");
 
     storage.fileUpload({ path: '/', name: 'pboard.pb', contents: contents},()=>{
       if(callback!=null) callback();
