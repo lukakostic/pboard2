@@ -33,12 +33,17 @@
           <a>Project and idea management and categorization tool inspired by Trello</a>
           </br>
           </br>
-          <a>Hosted on github, uses dropbox as storage</a>
+          <a>Hosted on github, uses google drive for storage (single json file)</a>
         </div>
+        <!--
         <form id="form" class="modal-footer" onsubmit="event.preventDefault(); loadFromDropbox();">
           <input id="token" name="d" type="text" placeholder="Dropbox access token" class="form-control" autocomplete="on">
           <input type="submit" class="btn btn-primary" value="Open">
         </form>
+        -->
+        <button style="display: none;" id="authorize_button" class="btn btn-primary" value="Authorize with Google Drive">
+        <button id="signout_button" style="display: none;">Sign Out</button>
+
       </div>
     </div>
   
@@ -60,27 +65,15 @@
 
 
 
-<!-- Google Drive API test -->
+<!-- Google Drive API -->
 <div>
-  <p>Drive API Quickstart</p>
 
   <!--Add buttons to initiate auth sequence and sign out-->
-  <button id="authorize_button" style="display: none;">Authorize</button>
-  <button id="signout_button" style="display: none;">Sign Out</button>
 
   <pre id="content" style="white-space: pre-wrap;"></pre>
 
   <script type="text/javascript">
-    // Client ID and API key from the Developer Console
-    var CLIENT_ID = '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com';
-    var API_KEY = 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU';
 
-    // Array of API discovery doc URLs for APIs used by the quickstart
-    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-
-    // Authorization scopes required by the API; multiple scopes can be
-    // included, separated by spaces.
-    var SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
 
     var authorizeButton = document.getElementById('authorize_button');
     var signoutButton = document.getElementById('signout_button');
@@ -98,10 +91,10 @@
      */
     function initClient() {
       gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES
+        apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
+        clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
+        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+        scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
       }).then(function () {
         // Listen for sign-in state changes.
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
