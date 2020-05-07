@@ -4,7 +4,24 @@ var signoutButton = document.getElementById('signout_button');
 
 // On load, called to load the auth2 library and API client library.
 function handleClientLoad() {
-  gapi.load('client:auth2', initClient);
+    gapi.load('client:auth2', ()=>{
+        gapi.client.init({
+                apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
+                clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
+                discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+                scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
+            }).then(function () {
+                // Listen for sign-in state changes.
+                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+            
+                // Handle the initial sign-in state.
+                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+                authorizeButton.onclick = handleAuthClick;
+                signoutButton.onclick = handleSignoutClick;
+            }, function(error) {
+                alert(JSON.stringify(error, null, 2));
+            });
+    });
 }
 
 function handleAuthClick(event) {
@@ -14,28 +31,6 @@ function handleSignoutClick(event) {
 gapi.auth2.getAuthInstance().signOut();
 }
 
-/**
- *  Initializes the API client library and sets up sign-in state
- *  listeners.
- */
-function initClient() {
-  gapi.client.init({
-    apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
-    clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
-    discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-    scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
-  }).then(function () {
-    // Listen for sign-in state changes.
-    gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-
-    // Handle the initial sign-in state.
-    updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-    authorizeButton.onclick = handleAuthClick;
-    signoutButton.onclick = handleSignoutClick;
-  }, function(error) {
-    appendPre(JSON.stringify(error, null, 2));
-  });
-}
 
 /**
  *  Called when the signed in status changes, to update the UI

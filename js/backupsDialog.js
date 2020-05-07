@@ -87,7 +87,7 @@ function makeBackupClicked(){
     let bkName = EbyId('newBackup').value;
     
 //new Date().getTime()+" "+ 
-    storage.filesUpload({ path: '/pboardbackups/' +bkName + '.pbb', contents: buildProject() , mode:'overwrite'},()=>{
+    storage.fileUpload({ path: '/pboardbackups/' , name: bkName + '.pbb', contents: buildProject()},()=>{
         
         getBackups(function(){backupsSearched();});
         alert('Made backup');  
@@ -99,7 +99,7 @@ function makeBackupClicked(){
 
 function deleteBackupClicked(){
     let ind = findWithAttr(availableBackups,'id', getDataId(event.srcElement.parentNode));
-    storage.filesDelete({path: availableBackups[ind].path_lower},function(){
+    storage.fileDelete(availableBackups[ind].path_lower,function(){
     //getBackups(function(){backupsSearched();});
     alert('Backup deleted');
     });
@@ -116,8 +116,7 @@ function renameBackupClicked(){
    
     if(name == "") return;
 
-    storage.filesMove({"from_path": availableBackups[ind].path_lower,
-    "to_path": availableBackups[ind].path_lower.substring(0, availableBackups[ind].path_lower.lastIndexOf("/"))+"/"+name },function(){
+    storage.fileMove(availableBackups[ind].path_lower,availableBackups[ind].path_lower.substring(0, availableBackups[ind].path_lower.lastIndexOf("/"))+"/"+name ,function(){
     //getBackups(function(){backupsSearched();});
     alert('Backup renamed');
     });
@@ -128,7 +127,7 @@ function renameBackupClicked(){
 function loadBackupClicked(){
 
     let ind = findWithAttr(availableBackups,'id', getDataId(event.srcElement.parentNode));
-    storage.filesDownload({path: availableBackups[ind].path_lower},function(contents){
+    storage.fileDownload(availableBackups[ind].path_lower,function(contents){
     //getBackups(function(){backupsSearched();});
     loadFromContent(contents);
     alert('Loaded');

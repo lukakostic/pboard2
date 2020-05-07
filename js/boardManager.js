@@ -23,27 +23,60 @@ htmlBackup.innerHTML = document.body.outerHTML;
 let textSave = false;
 let autosave = null; //interval, set after loading settings.
 
+let storage = null; //drive api, set after loading drive api
+
 function OnStorageLoad(){
-  let storage = new StorageManager(); //DropboxManager.fromUrl(url);
-
-  if(storage == null){
-    window.location.href = siteUrl + "login/";
-    return;
-  }
-
-  
-  resetData();
-
-  loadAll(()=>{
-    newPageOpened();
+    //Load drive api
+    gapi.load('client:auth2', ()=>{
+      gapi.client.init({
+              apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
+              clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
+              discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+              scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
+          }).then(()=>{
+              // Listen for sign-in state changes.
+              gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+          
+              // Handle the initial sign-in state.
+              updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          }, function(error) {
+              alert(JSON.stringify(error, null, 2));
+              goLogin();
+          });
   });
 
-  autosave = setInterval(()=>{
-    if(textSave){
-        textSave = false;
-        saveAll();
+
+}
+
+function updateSigninStatus(isSignedIn){
+  if(isSignedIn == false)
+    goLogin();
+  else{
+    
+    //if != null : already loaded, connection regained. Refresh page?
+
+    if(storage == null){
+      storage = new StorageManager();
+      
+      resetData();
+
+      loadAll(()=>{
+        newPageOpened();
+      });
+
+      autosave = setInterval(()=>{
+        if(textSave){
+            textSave = false;
+            saveAll();
+        }
+      },project.preferences['textEditorAutoSaveInterval']*1000);
     }
-  },project.preferences['textEditorAutoSaveInterval']*1000);
+
+  }
+}
+
+function goLogin(){
+  window.location.href = siteUrl + "login/";
 }
 
 
@@ -97,7 +130,7 @@ function saveAll(callback = null, log = null) {
 
     let contents = buildProject();
 
-    storage.filesUpload({ path: '/' + 'pboard.pb', contents: contents , mode:'overwrite'},()=>{
+    storage.fileUpload({ path: '/', name: 'pboard.pb', contents: contents},()=>{
       if(callback!=null) callback();
       stopSavingIndicator();
     
@@ -122,7 +155,7 @@ function loadAll(callback = null, log = null) {
 
       invokeListeners('pre_loadAll');
     
-      storage.filesDownload({ path: '/' + 'pboard.pb' },function loaded(contents){
+      storage.fileDownload( '/' + 'pboard.pb' ,function loaded(contents){
 
       if (contents != null) {
         

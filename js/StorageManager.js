@@ -1,40 +1,51 @@
 class StorageManager {
 
-    constructor(){
-        this.drive = 
-        //this.dropbox = new Dropbox.Dropbox({ accessToken: this.access, fetch: fetch});
+    constructor(){}
+
+    //file: path, name, mimeType
+
+    /////////////////////////////////////////////////////// !!!
+    fileDelete(filePath, callback=null, log=null){
+        fileId = null;
+
+
+        //get id from path
+
+        alert("NOT IMPLEMENTED");
+
+        gapi.client.drive.files.delete({
+           fileId: fileId
+          }, (err) => {
+            if (err)
+              log({msg: err, type: 'error'});
+            if(callback)
+                callback();
+          });
+
     }
 
-
-    filesDelete(obj, callback=null, log=null){
-        this.dropbox.filesDelete(obj)
-        .then(function (response) {
-            if(log) log({msg: response, type: 'log'});
-            else console.log(response);
-            if(callback) callback(response);
-        })
-        .catch(function (error) {
-            if(log) log({msg: error, type: 'error'});
-            else console.error(error);
-            if(callback) callback(error);
-        });
+    fileUpload(file, callback=null, log=null) {
+        if(fileObj.mimeType == null)
+            fileObj.mimeType = 'text/plain';
+        
+        gapi.client.drive.files.create({
+            resource: {'name' : file.name},
+            media: {
+                mimeType: file.mimeType,
+                body: file.contents
+            },
+            fields: null
+          }, (err, file)  => {
+            if (err)
+              log({msg: err, type: 'error'});
+            if(callback)
+                callback(file);
+          });
     }
 
-    filesUpload(obj, callback=null, log=null) {
-        this.dropbox.filesUpload(obj)
-            .then(function (response) {
-                if(log) log({msg: response, type: 'log'});
-                else console.log(response);
-                if(callback) callback(response);
-            })
-            .catch(function (error) {
-                if(log) log({msg: error, type: 'error'});
-                else console.error(error);
-                if(callback) callback(error);
-            });
-    }
-
-    filesMove(obj, callback=null, log=null) {
+    /////////////////////////////////////////////////////// !!!
+    fileMove(from,to, callback=null, log=null) {
+        alert("NOT IMPLEMENTED")
       this.dropbox.filesMove(obj)
           .then(function (response) {
               if(log) log({msg: response, type: 'log'});
@@ -48,23 +59,36 @@ class StorageManager {
           });
     }
 
-    filesDownload(obj, callback=null, log = null){
-        this.dropbox.filesDownload(obj)
-        .then(function (response) {
-          let blob = response.fileBlob;
-          let reader = new FileReader();
-    
-          reader.addEventListener("loadend", function () {
-            if(callback) callback(reader.result);
+    fileDownload(filePath, callback=null, log = null){
+        fileId = null;
+
+
+        //get id from path
+
+        alert("NOT IMPLEMENTED");
+
+        let dest = new FileReader();
+        dest.addEventListener("loadend", function () {
+            if(callback) callback(dest.result);
             if(log) log({msg: response, type: 'log'});
           });
-    
-          reader.readAsText(blob);
-        })
-        .catch(function (error) {
-            if(callback) callback(null);
-            if(log) log({msg: error, type: 'error'});
-        });
+
+        gapi.client.drive.files.get({
+           fileId: fileId,
+           alt: 'media'
+          })
+          .on('end', () => {
+              //Done
+            if(callback)
+                callback();
+          })
+          .on('error', (err) => {
+            if (err)
+              log({msg: err, type: 'error'});
+          })
+          .pipe(dest);
+
+          //dest.readAsText(response.fileBlob);
     }
 
     filesList(path = '',log = null) {
