@@ -23,10 +23,10 @@ class StorageManager {
 
 
     fileDelete(name, callback=null, log=null){
-        fileid = this.getFileIdByName(name);
+        let fileId = this.getFileIdByName(name);
 
         gapi.client.drive.files.delete({
-           fileId: fileid
+           'fileId': fileId
           }, (err) => {
             if (err)
               log({msg: err, type: 'error'});
@@ -73,7 +73,7 @@ class StorageManager {
     }
 
     fileDownload(name, callback=null, log = null){
-        fileid = this.getFileIdByName(name);
+        let fileId = this.getFileIdByName(name);
 
         let dest = new FileReader();
         dest.addEventListener("loadend", function () {
@@ -82,7 +82,7 @@ class StorageManager {
           });
 
         gapi.client.drive.files.get({
-           fileId: fileid,
+           'fileId': fileId,
            alt: 'media'
           })
           .on('end', () => {
