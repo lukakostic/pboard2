@@ -59,7 +59,6 @@ function updateSigninStatus(isSignedIn){
     //if != null : already loaded, connection regained. Refresh page?
 
     if(storage == null){
-      alert("AAA");
 
       storage = new StorageManager();
       
@@ -76,7 +75,6 @@ function updateSigninStatus(isSignedIn){
         }
       },project.preferences['textEditorAutoSaveInterval']*1000);
 
-      alert("AAA2");
       
     }
 
@@ -164,7 +162,9 @@ function loadAll(callback = null, log = null) {
 
       invokeListeners('pre_loadAll');
     
+      alert("AAA");
       storage.fileDownload( '/' + 'pboard.pb' ,function loaded(contents){
+      alert("AAA2");
 
       if (contents != null) {
         
