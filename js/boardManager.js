@@ -25,7 +25,6 @@ let autosave = null; //interval, set after loading settings.
 
 let storage = null; //drive api, set after loading drive api
 
-console.log("loaded");
 
 function OnStorageLoad(){
     //Load drive api
@@ -52,7 +51,6 @@ function OnStorageLoad(){
 
 function updateSigninStatus(isSignedIn){
   
-console.log("loaded 2");
 
   if(isSignedIn == false)
     goLogin();
