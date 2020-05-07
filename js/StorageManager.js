@@ -81,18 +81,18 @@ class StorageManager {
             if(log) log({msg: response, type: 'log'});
           });
 
-          try{
-        gapi.client.drive.files.get({
-           'fileId': fileId,
-           alt: 'media'
-          },(res)=>{
+        try{
+            gapi.client.drive.files.get({
+            'fileId': fileId,
+            alt: 'media'
+            },(res)=>{
             console.log('download ',res);  
             alert(JSON.stringify(res));
-
-        });
-    }catch(err){
-        log({msg: err, type: 'error'});
-    }/*
+            });
+        }catch(err){
+            log({msg: err, type: 'error'});
+        }
+        /*
           .on('end', () => {
               //Done
             if(callback)
