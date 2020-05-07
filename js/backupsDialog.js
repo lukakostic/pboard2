@@ -32,7 +32,7 @@ function getBackups(callB=null){
 
     if(fld != undefined) fld.innerHTML = 'Loading..';
 
-    dbx.list('/pboardbackups',function(msg){
+    storage.filesList('/pboardbackups',function(msg){
         
         availableBackups = [];
 
@@ -87,7 +87,7 @@ function makeBackupClicked(){
     let bkName = EbyId('newBackup').value;
     
 //new Date().getTime()+" "+ 
-    dbx.filesUpload({ path: '/pboardbackups/' +bkName + '.lbb', contents: buildProject() , mode:'overwrite'},()=>{
+    storage.filesUpload({ path: '/pboardbackups/' +bkName + '.pbb', contents: buildProject() , mode:'overwrite'},()=>{
         
         getBackups(function(){backupsSearched();});
         alert('Made backup');  
@@ -99,7 +99,7 @@ function makeBackupClicked(){
 
 function deleteBackupClicked(){
     let ind = findWithAttr(availableBackups,'id', getDataId(event.srcElement.parentNode));
-   dbx.filesDelete({path: availableBackups[ind].path_lower},function(){
+    storage.filesDelete({path: availableBackups[ind].path_lower},function(){
     //getBackups(function(){backupsSearched();});
     alert('Backup deleted');
     });
@@ -116,7 +116,7 @@ function renameBackupClicked(){
    
     if(name == "") return;
 
-    dbx.filesMove({"from_path": availableBackups[ind].path_lower,
+    storage.filesMove({"from_path": availableBackups[ind].path_lower,
     "to_path": availableBackups[ind].path_lower.substring(0, availableBackups[ind].path_lower.lastIndexOf("/"))+"/"+name },function(){
     //getBackups(function(){backupsSearched();});
     alert('Backup renamed');
@@ -128,7 +128,7 @@ function renameBackupClicked(){
 function loadBackupClicked(){
 
     let ind = findWithAttr(availableBackups,'id', getDataId(event.srcElement.parentNode));
-   dbx.filesDownload({path: availableBackups[ind].path_lower},function(contents){
+    storage.filesDownload({path: availableBackups[ind].path_lower},function(contents){
     //getBackups(function(){backupsSearched();});
     loadFromContent(contents);
     alert('Loaded');

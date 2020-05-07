@@ -1,7 +1,5 @@
 let url = window.location.href;
 
-let dbx = DropboxManager.fromUrl(url);
-
 let historyStack = [];
 let project,board; //project.boards = hashmap of all board objects: [id]:board, board = current id
 
@@ -22,20 +20,32 @@ let htmlBackup = document.createElement('template');
 htmlBackup.innerHTML = document.body.outerHTML;
 
 
-resetData();
-
-loadAll(()=>{
-  newPageOpened();
-});
-
-
 let textSave = false;
-let autosave = setInterval(()=>{
+let autosave = null; //interval, set after loading settings.
+
+function OnStorageLoad(){
+  let storage = new StorageManager(); //DropboxManager.fromUrl(url);
+
+  if(storage == null){
+    window.location.href = siteUrl + "login/";
+    return;
+  }
+
+  
+  resetData();
+
+  loadAll(()=>{
+    newPageOpened();
+  });
+
+  autosave = setInterval(()=>{
     if(textSave){
         textSave = false;
         saveAll();
     }
-},project.preferences['textEditorAutoSaveInterval']*1000);
+  },project.preferences['textEditorAutoSaveInterval']*1000);
+}
+
 
 function invokeListeners(listener = ""){
   
@@ -46,7 +56,7 @@ function invokeListeners(listener = ""){
 }
 
 function urlFromBoardId(boardId){
-  return siteUrl + "#" + "?d=" + dbx.access + "?b=" + boardId;
+  return siteUrl + "#" + boardId;
 }
 
 function load(content){
@@ -87,7 +97,7 @@ function saveAll(callback = null, log = null) {
 
     let contents = buildProject();
 
-    dbx.filesUpload({ path: '/' + 'lukaboard.lb', contents: contents , mode:'overwrite'},()=>{
+    storage.filesUpload({ path: '/' + 'pboard.pb', contents: contents , mode:'overwrite'},()=>{
       if(callback!=null) callback();
       stopSavingIndicator();
     
@@ -112,7 +122,7 @@ function loadAll(callback = null, log = null) {
 
       invokeListeners('pre_loadAll');
     
-    dbx.filesDownload({ path: '/' + 'lukaboard.lb' },function loaded(contents){
+      storage.filesDownload({ path: '/' + 'pboard.pb' },function loaded(contents){
 
       if (contents != null) {
         

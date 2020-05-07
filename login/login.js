@@ -1,6 +1,4 @@
 
-
-
 var authorizeButton = document.getElementById('authorize_button');
 var signoutButton = document.getElementById('signout_button');
 
@@ -55,17 +53,6 @@ function updateSigninStatus(isSignedIn) {
 }
 
 
-
-/**
- * Append a pre element to the body containing the given message
- * as its text node. Used to display the results of the API call.
- *
- * @param {string} message Text to be placed in pre element.
- */
-function appendPre(message) {
-  alert(message);
-}
-
 /**
  * Print files.
  */
@@ -74,6 +61,7 @@ function listFiles() {
     'pageSize': 10,
     'fields': "nextPageToken, files(id, name)"
   }).then(function(response) {
+      /*
     appendPre('Files:');
     var files = response.result.files;
     if (files && files.length > 0) {
@@ -84,9 +72,11 @@ function listFiles() {
     } else {
       appendPre('No files found.');
     }
+    */
+   redirect();
   });
 }
 
 function redirect(){
-    window.location.href = siteUrl + "#?d=" + document.getElementById('token').value;
+    window.location.href = siteUrl;
 }

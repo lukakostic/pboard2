@@ -405,7 +405,6 @@ function loadAllBoardsByDataId(brdId){
 
 function home(){
   loadBoardId("");
-  //window.location.href = siteUrl+"/?d="+dbx.access;
 }
 
 function up(){

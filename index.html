@@ -21,11 +21,10 @@
 
   
   <script src="./js/devVersion.js"></script>
-  <script src="./js/homepageRedirect.js"></script> <!-- Side effect! -->
   <script src="./js/utils.js"></script>
   <script src="./js/updater.js"></script>
   
-  <script src="./js/DropboxManager.js"></script>
+  <script src="./js/StorageManager.js"></script>
   <script src="./js/Board.js"></script>
   <script src="./js/Tag.js"></script>
   <script src="./js/Extension.js"></script>
@@ -47,7 +46,13 @@
   
   <script src="./js/htmlStaticElements.js"></script>
   <script src="./js/ui.js"></script>
-  <script src="./js/boardManager.js" defer></script>
+  <script src="./js/boardManager.js"></script>
+
+  <!-- Connect to storage: google drive -->
+  <script async defer src="https://apis.google.com/js/api.js"
+  onload="this.onload=function(){};OnStorageLoad()"
+  onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  </script>
   
 
   <title>PBoard</title>
