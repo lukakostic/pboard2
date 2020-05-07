@@ -135,6 +135,8 @@ function saveAll(callback = null, log = null) {
 
     let contents = buildProject();
 
+    alert("AAAA");
+
     storage.fileUpload({ path: '/', name: 'pboard.pb', contents: contents},()=>{
       if(callback!=null) callback();
       stopSavingIndicator();
