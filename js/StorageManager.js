@@ -85,7 +85,7 @@ class StorageManager {
            'fileId': fileId,
            alt: 'media'
           },(res)=>{
-            console.log(res);  
+            console.log('download ',res);  
             alert(JSON.stringify(res));
 
         });/*
