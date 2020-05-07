@@ -15,7 +15,7 @@ class StorageManager {
             if (files && files.length > 0) {
               return files[0].id;
             }
-            //console.log('response', response);
+            console.log('getId ', response);
             //return response.entries; //listFiles(response.entries);
         //    if(log) log({msg: response, type: 'log'});
           });
