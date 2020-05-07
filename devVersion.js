@@ -1,8 +1,8 @@
 //let siteUrl = "http://localhost:8000/";
 
 
-let siteUrl = "https://lukakostic.com/lukaboard/";
+let siteUrl = "https://lukakostic.github.io/pboard/";
 
-if(window.location.pathname.includes('lukaboarddev')){
-siteUrl = "https://lukakostic.com/lukaboarddev/";
+if(window.location.pathname.includes('pboarddev')){
+siteUrl = "https://lukakostic.github.io/pboarddev/";
 }

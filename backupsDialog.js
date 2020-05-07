@@ -32,7 +32,7 @@ function getBackups(callB=null){
 
     if(fld != undefined) fld.innerHTML = 'Loading..';
 
-    dbx.list('/lukaboardbackups',function(msg){
+    dbx.list('/pboardbackups',function(msg){
         
         availableBackups = [];
 
@@ -87,7 +87,7 @@ function makeBackupClicked(){
     let bkName = EbyId('newBackup').value;
     
 //new Date().getTime()+" "+ 
-    dbx.filesUpload({ path: '/lukaboardbackups/' +bkName + '.lbb', contents: buildProject() , mode:'overwrite'},()=>{
+    dbx.filesUpload({ path: '/pboardbackups/' +bkName + '.lbb', contents: buildProject() , mode:'overwrite'},()=>{
         
         getBackups(function(){backupsSearched();});
         alert('Made backup');  
