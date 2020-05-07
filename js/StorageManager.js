@@ -81,6 +81,7 @@ class StorageManager {
             if(log) log({msg: response, type: 'log'});
           });
 
+          try{
         gapi.client.drive.files.get({
            'fileId': fileId,
            alt: 'media'
@@ -88,7 +89,10 @@ class StorageManager {
             console.log('download ',res);  
             alert(JSON.stringify(res));
 
-        });/*
+        });
+    }catch(err){
+        log({msg: err, type: 'error'});
+    }/*
           .on('end', () => {
               //Done
             if(callback)
