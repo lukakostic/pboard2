@@ -2,19 +2,31 @@ class StorageManager {
 
     constructor(){}
 
-    //file: path, name, mimeType
+    
+    getFileIdByName(_name){
+        gapi.client.drive.files.list({
+            'pageSize': 10,
+            'fields': "nextPageToken, files(id, name)",
+            'q': {
+                name: _name
+            }
+          }).then(function (response) {
+            var files = response.result.files;
+            if (files && files.length > 0) {
+              return files[0].id;
+            }
+            //console.log('response', response);
+            //return response.entries; //listFiles(response.entries);
+        //    if(log) log({msg: response, type: 'log'});
+          });
+    }
 
-    /////////////////////////////////////////////////////// !!!
-    fileDelete(filePath, callback=null, log=null){
-        fileId = null;
 
-
-        //get id from path
-
-        alert("NOT IMPLEMENTED");
+    fileDelete(name, callback=null, log=null){
+        fileid = this.getFileIdByName(name);
 
         gapi.client.drive.files.delete({
-           fileId: fileId
+           fileId: fileid
           }, (err) => {
             if (err)
               log({msg: err, type: 'error'});
@@ -24,6 +36,7 @@ class StorageManager {
 
     }
 
+    //file: path, name, mimeType
     fileUpload(file, callback=null, log=null) {
         if(fileObj.mimeType == null)
             fileObj.mimeType = 'text/plain';
@@ -59,13 +72,8 @@ class StorageManager {
           });
     }
 
-    fileDownload(filePath, callback=null, log = null){
-        fileId = null;
-
-
-        //get id from path
-
-        alert("NOT IMPLEMENTED");
+    fileDownload(name, callback=null, log = null){
+        fileid = this.getFileIdByName(name);
 
         let dest = new FileReader();
         dest.addEventListener("loadend", function () {
@@ -74,7 +82,7 @@ class StorageManager {
           });
 
         gapi.client.drive.files.get({
-           fileId: fileId,
+           fileId: fileid,
            alt: 'media'
           })
           .on('end', () => {
@@ -91,17 +99,37 @@ class StorageManager {
           //dest.readAsText(response.fileBlob);
     }
 
+
+    ////////////////////////////////////////////!!!!!!!!
     filesList(path = '',log = null) {
-      this.dropbox.filesListFolder({ path: path })
-        .then(function (response) {
-          //console.log('response', response);
-          //return response.entries; //listFiles(response.entries);
-          if(log) log({msg: response, type: 'log'});
-        })
-        .catch(function (error) {
-          //console.error(error);
-          if(log) log({msg: error, type: 'error'});
-        });
+        alert("Not implemented");
+
+        gapi.client.drive.files.list({
+            'pageSize': 10,
+            'fields': "nextPageToken, files(id, name)"
+          }).then(function (response) {
+            //console.log('response', response);
+            //return response.entries; //listFiles(response.entries);
+            if(log) log({msg: response, type: 'log'});
+          })
+          .catch(function (error) {
+            //console.error(error);
+            if(log) log({msg: error, type: 'error'});
+          });
+          /*
+          .then(function(response) {
+            appendPre('Files:');
+            var files = response.result.files;
+            if (files && files.length > 0) {
+              for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                appendPre(file.name + ' (' + file.id + ')');
+              }
+            } else {
+              appendPre('No files found.');
+            }
+          });
+          */
     }
 
 }

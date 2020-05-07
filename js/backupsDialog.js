@@ -87,6 +87,7 @@ function makeBackupClicked(){
     let bkName = EbyId('newBackup').value;
     
 //new Date().getTime()+" "+ 
+alert("Not implemented"); //Upload by path
     storage.fileUpload({ path: '/pboardbackups/' , name: bkName + '.pbb', contents: buildProject()},()=>{
         
         getBackups(function(){backupsSearched();});
@@ -99,6 +100,8 @@ function makeBackupClicked(){
 
 function deleteBackupClicked(){
     let ind = findWithAttr(availableBackups,'id', getDataId(event.srcElement.parentNode));
+
+    alert("Not implemented"); //deleting by path
     storage.fileDelete(availableBackups[ind].path_lower,function(){
     //getBackups(function(){backupsSearched();});
     alert('Backup deleted');
@@ -127,6 +130,8 @@ function renameBackupClicked(){
 function loadBackupClicked(){
 
     let ind = findWithAttr(availableBackups,'id', getDataId(event.srcElement.parentNode));
+
+    alert("Not implemented"); //download by path
     storage.fileDownload(availableBackups[ind].path_lower,function(contents){
     //getBackups(function(){backupsSearched();});
     loadFromContent(contents);

@@ -137,7 +137,7 @@ function saveAll(callback = null, log = null) {
 
     let contents = buildProject();
 
-    storage.fileUpload({ path: '/', name: 'pboard.pb', contents: contents},()=>{
+    storage.fileUpload({name: 'pboard.pb', contents: contents},()=>{
       if(callback!=null) callback();
       stopSavingIndicator();
     
@@ -162,9 +162,7 @@ function loadAll(callback = null, log = null) {
 
       invokeListeners('pre_loadAll');
     
-      alert("AAA");
-      storage.fileDownload( '/' + 'pboard.pb' ,function loaded(contents){
-      alert("AAA2");
+      storage.fileDownload('pboard.pb' ,function loaded(contents){
 
       if (contents != null) {
         
