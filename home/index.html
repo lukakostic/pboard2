@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="../external/bootstrap.min.css">
+  <link rel="stylesheet" href="../index.css">
+  
+  <script src="../external/jquery-3.3.1.min.js"></script>
+  <script src="../external/popper.min.js"></script>
+  <script src="../external/bootstrap.min.js"></script>
+  <script src="../external/Dropbox-sdk.min.js"></script>
+
+  <script src="../devVersion.js"></script>
+  <script src="./homepage.js" defer></script>
+
+
+  <title>LukaBoard</title>
+</head>
+
+
+<body class="">
+<main role="main">
+
+  <div class="modal-dialog" style="max-width: 90% !important; width: 700px !important;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">LukaBoard</h4>
+        </div>
+        <div class="modal-body">
+          <a>Project management system inspired by Trello</a>
+          </br>
+          </br>
+          <a>Hosted on github, uses dropbox as storage</a>
+        </div>
+        <form id="form" class="modal-footer" onsubmit="event.preventDefault(); loadFromDropbox();">
+          <input id="token" name="d" type="text" placeholder="Dropbox access token" class="form-control" autocomplete="on">
+          <input type="submit" class="btn btn-primary" value="Open">
+        </form>
+      </div>
+    </div>
+  
+<!--
+  <form action="/lukaboarddev">
+      <div class="container-fluid">
+        <div class="input-group mb-3 jumbotron bg-dark">
+          <input id="token" name="d" type="text" placeholder="Dropbox access token" class="form-control bg-dark text-white" autocomplete="on">
+          <div class="input-group-append">
+            <button id="loginBtn" class="btn btn-outline-secondary" type="submit">Open boards</button>
+          </div>
+        </div>
+      </div>
+    </form>
+-->
+
+
+</main>
+</body>
+
+<footer class="text-muted bg-dark">
+
+      <p class="float-right">
+      </p>
+      <p>Made by <a href="https://github.com/lukakostic"> Luka Kostic</a></p>
+
+  </footer>
+
+</html>
