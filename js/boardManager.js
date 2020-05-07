@@ -76,6 +76,8 @@ function updateSigninStatus(isSignedIn){
     }
 
   }
+
+  alert('handled');
 }
 
 function goLogin(){
