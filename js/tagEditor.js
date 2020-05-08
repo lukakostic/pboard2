@@ -71,7 +71,7 @@ function tagEditorDelete(){
     //remove from boards
     let boards = Object.keys(project.boards);
     for(let i = 0; i < boards.length; i++){
-        let ind = getBrdAttrOrDef(boards[i],'tags',[]).indexOf(selectedTagInEditor);
+        let ind = BrdAttrOrDef(boards[i],'tags',[]).indexOf(selectedTagInEditor);
         if(ind!=-1)
             project.boards[boards[i]].attributes['tags'].splice(ind,1);
     }
@@ -184,7 +184,7 @@ function tagEditorRemoveCheckedFromParentsClicked(){
 
     for(let i = 0; i < nodes.length; i++){
         if(nodes[i].childNodes[1].checked){
-            let id = getDataId(nodes[i]);
+            let id = DataId(nodes[i]);
 
             tags.push(id);
         }
@@ -209,7 +209,7 @@ function tagEditorRemoveCheckedFromParentsAllClicked(){
 
     for(let i = 0; i < nodes.length; i++){
         if(nodes[i].childNodes[1].checked){
-            let id = getDataId(nodes[i]);
+            let id = DataId(nodes[i]);
 
             tags.push(id);
         }
@@ -233,9 +233,9 @@ function tagEditorAddCheckedToParentsClicked(){
 
     for(let i = 0; i < nodes.length; i++){
         if(nodes[i].childNodes[1].checked){
-            let id = getDataId(nodes[i]);
+            let id = DataId(nodes[i]);
 
-            if(Object.keys(Tag.getAllUpstreamParents(id)).includes(selectedTagInEditor)){
+            if(Object.keys(Tag.AllUpstreamParents(id)).includes(selectedTagInEditor)){
                 alert('Cant add ' + project.tags[id].name + ' as parent, because its a (possibly indirect) child of the selected tag.');
                 return;
             }
@@ -262,7 +262,7 @@ function tagEditorAddCheckedToParentsClicked(){
 }
 
 function tagInEditorClicked(){
-    let id = getDataId(event.srcElement.parentNode);
+    let id = DataId(event.srcElement.parentNode);
     
     selectTagToEdit(id);
     tagEditorSearched();

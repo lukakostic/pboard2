@@ -38,12 +38,12 @@ class Tag {
         return null
     }
 
-    static getAllUpstreamParents(tagChild, oldLst = {}){
+    static AllUpstreamParents(tagChild, oldLst = {}){
         let lst = oldLst
 
         for(let i = 0; i < project.tags[tagChild].parentTags.length; i++){
             if(lst[project.tags[tagChild].parentTags[i]] == null){
-                let k = Object.keys(Tag.getAllUpstreamParents(project.tags[tagChild].parentTags[i],lst))
+                let k = Object.keys(Tag.AllUpstreamParents(project.tags[tagChild].parentTags[i],lst))
                 for(let j = 0; j < k.length; j++){
                     lst[k[j]] = 1
                 }

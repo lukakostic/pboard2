@@ -26,7 +26,7 @@ function showExtensionsDialog(){
     let boardExtensions = EbyId('boardExtensions');
 
     
-    let allExtensionIds = getBrdAttrOrDef(extrasSelected,'extensions',[]);
+    let allExtensionIds = BrdAttrOrDef(extrasSelected,'extensions',[]);
     for(let i = 0; i < allExtensionIds.length; i++){
         let btn = boardExtensionBtnTemplate(project.extensions[allExtensionIds[i].id].name  + " : " + project.extensions[allExtensionIds[i].id].description, allExtensionIds[i].on , allExtensionIds[i].id, boardExtensions, boardExtensionClicked);
     }
@@ -61,8 +61,8 @@ function boardExtensionBtnTemplate(text="Extension", checked=true,id="",parent =
 
 
 function boardExtensionChecked(){
-    let id = getDataId(event.srcElement.parentNode);
-    let ind = findWithAttr(getBrdAttr(extrasSelected, 'extensions'),'id',id);
+    let id = DataId(event.srcElement.parentNode);
+    let ind = findWithAttr(BrdAttr(extrasSelected, 'extensions'),'id',id);
     //project.boards[extrasSelected].attributes['extensions'].splice(findWithAttr(getBrdAttr(extrasSelected, 'extensions'),'id',id),1);
     //event.srcElement.parentNode.removeChild(event.srcElement);
      
@@ -72,8 +72,8 @@ function boardExtensionChecked(){
 }
 
 function boardExtensionClicked(){
-    let id = getDataId(event.srcElement);
-    project.boards[extrasSelected].attributes['extensions'].splice(findWithAttr(getBrdAttr(extrasSelected, 'extensions'),'id',id),1);
+    let id = DataId(event.srcElement);
+    project.boards[extrasSelected].attributes['extensions'].splice(findWithAttr(BrdAttr(extrasSelected, 'extensions'),'id',id),1);
     event.srcElement.parentNode.removeChild(event.srcElement);
 
     
@@ -81,11 +81,11 @@ function boardExtensionClicked(){
 }
 
 function filteredExtensionClicked(){
-    let id = getDataId(event.srcElement);
+    let id = DataId(event.srcElement);
     
     setBrdAttrIfNull(extrasSelected,'extensions',[]);
 
-    if(findWithAttr(getBrdAttr(extrasSelected,'extensions'),'ID',id)==-1)
+    if(findWithAttr(BrdAttr(extrasSelected,'extensions'),'ID',id)==-1)
         project.boards[extrasSelected].attributes['extensions'].push(new AddedExtension(true,id));
     else{alert('Already is added to this board');return;}
     

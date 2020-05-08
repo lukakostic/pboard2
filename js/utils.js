@@ -23,13 +23,13 @@ function findFirstBoardId(el){
 }
 
 // if text/board get list element (state=1/2), if list return Board (state=3), else float up till first
-function getParentElementBoard(el,state=-1){
+function ParentElementBoard(el,state=-1){
 
     if(state==-1){
         let id = nulledGetAttribute(el,'data-id')
         if(id == null){
             if(el.parentNode==null) return null
-            else return getParentElementBoard(el.parentNode)
+            else return ParentElementBoard(el.parentNode)
         }else if(id == ""){ //has attribute but empty
             alert('empty attribute')
             return null
@@ -40,7 +40,7 @@ function getParentElementBoard(el,state=-1){
     
 
     if(state==1||state==2){
-        return getDataId(el.parentNode)
+        return DataId(el.parentNode)
     }else if(state == 3){
         return board
     }
@@ -51,8 +51,8 @@ function getParentElementBoard(el,state=-1){
 }
 
 //Get/Set Board id (data-id) from html element
-function getDataId(el){
-    return el.getAttribute('data-id')
+function DataId(el){
+    return el.Attribute('data-id')
 }
 function setDataId(el,id){
     el.setAttribute('data-id',id)
@@ -73,12 +73,12 @@ function setBrdAttr(id,attr,val){
 }
 
 //Get attribute of board by id
-function getBrdAttr(id,attr){
+function BrdAttr(id,attr){
     return project.boards[id].attributes[attr]
 }
 
 //Get attribute of board by id, or if it doesnt exist return val
-function getBrdAttrOrDef(id,attr,val){
+function BrdAttrOrDef(id,attr,val){
     if(attr in project.boards[id].attributes)
         return getBrdAttr(id,attr,val)
     return val

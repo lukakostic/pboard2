@@ -71,7 +71,7 @@ function makeExtensionEditorBtn(text="?",id="",parent = null){
 }
 
 function deleteExtensionClicked(){
-    let id = getDataId(event.srcElement.parentNode);
+    let id = dataId(event.srcElement.parentNode);
 
     delete project.extensions[id];
 
@@ -79,7 +79,7 @@ function deleteExtensionClicked(){
     //remove from boards
     let boards = Object.keys(project.boards);
     for(let i = 0; i < boards.length; i++){
-        let ind = findWithAttr( getBrdAttrOrDef(boards[i],'extensions',[]),'id',id);
+        let ind = findWithAttr( BrdAttrOrDef(boards[i],'extensions',[]),'id',id);
         if(ind!=-1)
             project.boards[boards[i]].attributes['extensions'].splice(ind,1);
     }
@@ -100,7 +100,7 @@ function extensionEditorDelete(){
     //remove from boards
     let boards = Object.keys(project.boards);
     for(let i = 0; i < boards.length; i++){
-        let ind = findWithAttr( getBrdAttrOrDef(boards[i],'extensions',[]),'id',selectedExtensionInEditor);
+        let ind = findWithAttr( BrdAttrOrDef(boards[i],'extensions',[]),'id',selectedExtensionInEditor);
         //let ind = getBrdAttrOrDef(boards[i],'extensions',[]).indexOf(selectedExtensionInEditor);
         if(ind!=-1)
             project.boards[boards[i]].attributes['extensions'].splice(ind,1);
@@ -185,7 +185,7 @@ function selectExtensionToEdit(id){
 }
 
 function extensionInEditorClicked(){
-    let id = getDataId(event.srcElement.parentNode);
+    let id = DataId(event.srcElement.parentNode);
     
     selectExtensionToEdit(id);
     extensionEditorSearched();

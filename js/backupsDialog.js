@@ -22,11 +22,11 @@ function showBackupsDialog(){
     static.extrasBack.onclick = showExtrasClicked;
 
 
-    showExtrasDialog();
-    getBackups(function(){backupsSearched();});
+    showExtrasDialog()
+    Backups(()=>{backupsSearched()});
 }
 
-function getBackups(callB=null){
+function Backups(callB=null){
 
     let fld = EbyId('backupsFiltered');
 
@@ -90,7 +90,7 @@ function makeBackupClicked(){
 alert("Not implemented"); //Upload by path
     storage.fileUpload({ path: '/pboardbackups/' , name: bkName + '.pbb', contents: buildProject()},()=>{
         
-        getBackups(function(){backupsSearched();});
+        backups(function(){backupsSearched();});
         alert('Made backup');  
     },
       (msg)=>{
@@ -99,7 +99,7 @@ alert("Not implemented"); //Upload by path
 }
 
 function deleteBackupClicked(){
-    let ind = findWithAttr(availableBackups,'id', getDataId(event.srcElement.parentNode));
+    let ind = findWithAttr(availableBackups,'id', DataId(event.srcElement.parentNode));
 
     alert("Not implemented"); //deleting by path
     storage.fileDelete(availableBackups[ind].path_lower,function(){
@@ -113,7 +113,7 @@ function deleteBackupClicked(){
 
 function renameBackupClicked(){
 
-    let ind = findWithAttr(availableBackups,'id', getDataId(event.srcElement.parentNode));
+    let ind = findWithAttr(availableBackups,'id', DataId(event.srcElement.parentNode));
    
     let name = prompt("New name for "+availableBackups[ind].name+"? (cant match a different backup)",availableBackups[ind].name);
    
@@ -129,7 +129,7 @@ function renameBackupClicked(){
 
 function loadBackupClicked(){
 
-    let ind = findWithAttr(availableBackups,'id', getDataId(event.srcElement.parentNode));
+    let ind = findWithAttr(availableBackups,'id', DataId(event.srcElement.parentNode));
 
     alert("Not implemented"); //download by path
     storage.fileDownload(availableBackups[ind].path_lower,function(contents){

@@ -139,12 +139,12 @@ function newText(){
   let brd = new Board(boardTypes.Text,"Text","",{references:1})
 
   project.boards[brd.id] = brd
-  project.boards[getDataId(parent)].content.push(brd.id) //Add to parent list
+  project.boards[dataId(parent)].content.push(brd.id) //Add to parent list
 
   parent.appendChild(el)
   loadTextBoard(el,brd.id)
 
-  el.getElementsByClassName('textBtn')[0].click() ////////////////////////// auto open
+  el.ElementsByClassName('textBtn')[0].click() ////////////////////////// auto open
 
   fixListUI(parent)
   saveAll()
@@ -160,7 +160,7 @@ function newBoard(){
   let brd = new Board(boardTypes.Board,"Board",[],atr)
 
   project.boards[brd.id] = brd
-  project.boards[getDataId(parent)].content.push(brd.id) //Add to parent list
+  project.boards[DataId(parent)].content.push(brd.id) //Add to parent list
 
   parent.appendChild(el)
   loadBoardBoard(el,brd.id)
@@ -168,7 +168,7 @@ function newBoard(){
   
   fixListUI(parent)
 
-  el.getElementsByClassName('textBtn')[0].click() // load board on add, might not want to do this.
+  el.elementsByClassName('textBtn')[0].click() // load board on add, might not want to do this.
 
   saveAll(()=>{
     //el.getElementsByClassName('textBtn')[0].click(); // load board on add, might not want to do this. and to be moved to before saving?
@@ -182,7 +182,7 @@ function newList(){
   let inp = event.srcElement.firstElementChild
   let name = inp.value
 
-  let titleText = el.getElementsByClassName("title-text")[0]
+  let titleText = el.ElementsByClassName("title-text")[0]
 //  $(titleText).val(name);
   $(titleText).html(name) //we assume its div at start
   //$(titleText).prop("readonly",true);

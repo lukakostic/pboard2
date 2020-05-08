@@ -35,7 +35,7 @@ function pageOpened(){
 }
 
 function executeExtensions(){
-  let extensions = getBrdAttrOrDef(board(),'extensions',[])
+  let extensions = BrdAttrOrDef(board(),'extensions',[])
   for(let i = 0; i < extensions.length; i++){
     if(extensions[i].on){
       eval(project.extensions[extensions[i].id].code)
@@ -46,7 +46,7 @@ function executeExtensions(){
 function loadBoardBackgroundImage(){
   let brdEl = EbyId('main')
   
-  brdEl.style.backgroundImage = "url('"+getBrdAttr(board(),'background')+"')"
+  brdEl.style.backgroundImage = "url('"+BrdAttr(board(),'background')+"')"
   brdEl.style.repeatMode = "no-repeat"
   brdEl.style.backgroundSize = "cover"
 }
@@ -74,7 +74,7 @@ function stopSavingIndicator(){
 }
 
 function expandInputAll(){
-  let expandoInputs = document.getElementsByClassName('expandInput')
+  let expandoInputs = document.ElementsByClassName('expandInput')
   for (let i = 0; i < expandoInputs.length; i++) {
    expandInput(expandoInputs[i])
  }
@@ -87,7 +87,7 @@ function expandInput(el){
 }
 
 function clearLists(){
-  let lists = document.getElementsByClassName('list')
+  let lists = document.ElementsByClassName('list')
     
   for(let j = 0; j < lists.length; j++){
     if (lists[j].id != "") continue
@@ -105,7 +105,7 @@ function makeDraggable(){
     start: (event, ui)=>{
       console.log('drag start')
         dragItem = ui.item
-        oldDragIndex = getElementIndex(dragItem[0])
+        oldDragIndex = ElementIndex(dragItem[0])
         dragNew = dragOld = ui.item.parent()
     },
     stop: (event, ui)=>{
@@ -113,11 +113,11 @@ function makeDraggable(){
       //With a delay so that dragging a board doesnt click its button at end
       setTimeout(()=>{
         //actually move the board
-        newDragIndex = getElementIndex(dragItem[0])
+        newDragIndex = ElementIndex(dragItem[0])
 
         
-          project.boards[getDataId(dragOld[0])].content.splice(oldDragIndex-1,1)
-          project.boards[getDataId(dragNew[0])].content.splice(newDragIndex-1,0,getDataId(dragItem[0]))
+          project.boards[DataId(dragOld[0])].content.splice(oldDragIndex-1,1)
+          project.boards[DataId(dragNew[0])].content.splice(newDragIndex-1,0,DataId(dragItem[0]))
         
         dragItem = null
         saveAll()
@@ -140,18 +140,18 @@ function makeDraggable(){
     start: (event, ui)=>{
       console.log('drag list start')
         dragItem = ui.item
-        oldDragIndex = getElementIndex(dragItem[0])
+        oldDragIndex = ElementIndex(dragItem[0])
     },
     stop: (event, ui)=>{
       console.log('drag list stop')
       //With a delay so that dragging a board doesnt click its button at end
       setTimeout(()=>{
         //actually move the board
-        newDragIndex = getElementIndex(dragItem[0])
+        newDragIndex = ElementIndex(dragItem[0])
 
         
           project.boards[board()].content.splice(oldDragIndex,1)
-          project.boards[board()].content.splice(newDragIndex,0,getDataId(dragItem[0]))
+          project.boards[board()].content.splice(newDragIndex,0,DataId(dragItem[0]))
         
         dragItem = null
         saveAll()
@@ -204,7 +204,7 @@ function draw(){
   
 function clearBoards(lst = null) {
   let lists = [lst]
-  if(lst == null) lists = document.getElementsByClassName('list')
+  if(lst == null) lists = document.ElementsByClassName('list')
   
   for(let j = 0; j < lists.length; j++){
 
@@ -220,11 +220,11 @@ function clearBoards(lst = null) {
 
 function fixListUI(listEl=null){
   if(listEl!=null){
-    var newPanel = listEl.getElementsByClassName('newPanel')[0]
+    var newPanel = listEl.ElementsByClassName('newPanel')[0]
     newPanel.parentNode.appendChild(newPanel)
   }else{
     var album = fixAlbumUI()
-    var lists = album.getElementsByClassName('list')
+    var lists = album.ElementsByClassName('list')
     for(var i = 0; i<lists.length; i++){
       if(lists[i].id=="") fixListUI(lists[i])
     }
@@ -255,7 +255,7 @@ function drawBoard(){
   clearBoards()
 
   EbyId('boardTitle').value = project.boards[board()].name
-  EbyId('boardDescription').value = getBrdAttr(board(),'description')
+  EbyId('boardDescription').value = BrdAttr(board(),'description')
 
 
   //fill lists & boards
@@ -320,18 +320,18 @@ function loadTextBoard(textBoardEl, brd){
 
   setDataId(textBoardEl, brd.id)
 
-  $(textBoardEl.getElementsByClassName('textBtn')[0]).contents()[1].nodeValue = brd.name
+  $(textBoardEl.ElementsByClassName('textBtn')[0]).contents()[1].nodeValue = brd.name
   
   if(brd.content.length>0) 
-      textBoardEl.getElementsByClassName('descriptionIcon')[0].classList.remove('d-none')
+      textBoardEl.ElementsByClassName('descriptionIcon')[0].classList.remove('d-none')
   else 
-      textBoardEl.getElementsByClassName('descriptionIcon')[0].classList.add('d-none')
+      textBoardEl.ElementsByClassName('descriptionIcon')[0].classList.add('d-none')
 
   loadBackground(textBoardEl,brd.id)
 }
 
 function loadBackground(brdEl, id){
-  brdEl.style.backgroundImage = "url('"+getBrdAttr(id,'background')+"')"
+  brdEl.style.backgroundImage = "url('"+BrdAttr(id,'background')+"')"
   brdEl.style.repeatMode = "no-repeat"
   brdEl.style.backgroundSize = "cover"
 }
@@ -340,7 +340,7 @@ function loadBoardBoard(boardBoardEl, brd){
   if (typeof brd === 'string' || brd instanceof String) brd = project.boards[brd]
 
   setDataId(boardBoardEl, brd.id)
-  $(boardBoardEl.getElementsByClassName('textBtn')[0]).contents()[0].nodeValue = brd.name
+  $(boardBoardEl.ElementsByClassName('textBtn')[0]).contents()[0].nodeValue = brd.name
 
   loadBackground(boardBoardEl, brd.id)
 }
@@ -348,7 +348,7 @@ function loadBoardBoard(boardBoardEl, brd){
 function loadList(listEl, brd){
   if (typeof brd === 'string' || brd instanceof String) brd = project.boards[brd]
 
-  titleText = listEl.getElementsByClassName("title-text")[0]
+  titleText = listEl.ElementsByClassName("title-text")[0]
 
   //could cause issues with main board (probably not)?
   //can only be blur while as input, so turn to div
@@ -388,10 +388,10 @@ function loadList(listEl, brd){
 }
 
 function loadAllBoardsByDataId(brdId){
-  let boardEls = document.getElementsByClassName('board')
+  let boardEls = document.ElementsByClassName('board')
 
   for(let i = 0; i < boardEls.length; i++){
-      if(getDataId(boardEls[i])==brdId){
+      if(DataId(boardEls[i])==brdId){
           if(project.boards[brdId].type == boardTypes.Text)
            loadTextBoard(boardEls[i],brdId)
           else if(project.boards[brdId].type == boardTypes.Board)

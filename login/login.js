@@ -1,5 +1,5 @@
-let authorizeButton = document.getElementById('authorize_button')
-let signoutButton = document.getElementById('signout_button')
+let authorizeButton = EbyId('authorize_button')
+let signoutButton = EbyId('signout_button')
 
 // On load, called to load the auth2 library and API client library.
 function handleClientLoad() {
