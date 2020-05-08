@@ -1,6 +1,7 @@
-let project = new Project()
+let project
 
-let extensionListeners = {
+let extensionListeners = //arrays of callbacks
+{
   newPage: [],
   pre_newPage: [],
   saveAll: [],
@@ -11,15 +12,14 @@ let extensionListeners = {
   draw: [],
 }
 
+let autosave = null //interval, set after loading settings.
+let textSave = false //text changed, save
 
 let htmlBackup = document.createElement('template')
 htmlBackup.innerHTML = document.body.outerHTML
 
 
-let autosave = null //interval, set after loading settings.
-let textSave = false //text changed, save
-
-
+//Entry point
 //Init drive api and listen for signIn changes
 function OnStorageLoad(){
     gapi.load('client:auth2', ()=>{
@@ -34,6 +34,8 @@ function OnStorageLoad(){
   })
 }
 
+//after Entry point
+//Logged in (or not). Lets load everything up!
 function updateSigninStatus(isSignedIn){
   
   if(isSignedIn == false){
@@ -98,9 +100,9 @@ function saveAll(callback = null) {
       stopSavingIndicator()
       invokeListeners('saveAll')
     
-    },(msg)=>{log(msg)})
+    },(msg)=>{ log(msg) })
 
-  }catch(e){log(e)}
+  }catch(e){ log(e) }
 }
 
 function buildProject(){
@@ -111,21 +113,21 @@ function loadAll(callback = null) {
     try{
 
       invokeListeners('pre_loadAll')
-      storage.fileDownload('pboard.pb' ,function loaded(contents){
+      storage.fileDownload('pboard.pb' , (contents)=>{
 
       if (contents != null) {
         
         load(contents)
         invokeListeners('loadAll')
     
-      }else
-        resetData() 
+      }
+      else resetData() 
         
       if(callback) callback()
 
-    },(msg)=>{log(msg)})
+    },(msg)=>{ log(msg) })
 
-  }catch(e){log(e)}
+  }catch(e){ log(e) }
 }
 
 function newText(){
