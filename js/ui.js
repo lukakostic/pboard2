@@ -4,7 +4,6 @@ let oldDragIndex, newDragIndex;
 
 function reloadHTML(){
   document.body.outerHTML = htmlBackup.innerHTML;
-  getStaticHtml();
   uiToFunctions();
 
   invokeListeners('reloadHTML');
