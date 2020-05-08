@@ -6,7 +6,7 @@ function showBoardBoardDialog(id=null){
     if(id == null)
         id = getDataId(event.srcElement.parentNode)
     
-    loadBoardId(id)
+    setBoard(id)
 }
 
 function listTitleClicked(){
