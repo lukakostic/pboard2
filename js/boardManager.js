@@ -168,7 +168,7 @@ function newBoard(){
   
   fixListUI(parent)
 
-  el.elementsByClassName('textBtn')[0].click() // load board on add, might not want to do this.
+  el.getElementsByClassName('textBtn')[0].click() // load board on add, might not want to do this.
 
   saveAll(()=>{
     //el.getElementsByClassName('textBtn')[0].click(); // load board on add, might not want to do this. and to be moved to before saving?
