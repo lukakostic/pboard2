@@ -57,7 +57,7 @@ function updateSigninStatus(isSignedIn){
 }
 
 function goLogin(){
-  web.url = web.siteUrl + "login/"
+  setUrl(siteUrl + "login/")
 }
 
 
@@ -83,7 +83,7 @@ function resetData(){
   project = new Project("", curVer)
   //main board
   project.boards[""] = new Board(boardTypes.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
-  web.board = ""
+  setBoard("")
 }
 
 function saveAll(callback = null) {

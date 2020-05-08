@@ -9,10 +9,10 @@ function log(msg, logType = 2){
 }
 
 function getUrlFromBoard(boardId){
-    return web.siteUrl + "#" + boardId
+    return siteUrl + "#" + boardId
 }
 function getBoardFromUrl(url){
-    return url.replace(web.siteUrl,'').replace('#','')
+    return url.replace(siteUrl,'').replace('#','')
 }
 
 function findFirstBoardId(el){

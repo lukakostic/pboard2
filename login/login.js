@@ -30,7 +30,7 @@ function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
     authorizeButton.style.display = 'none'
     signoutButton.style.display = 'block'
-    web.url = web.siteUrl // Redirect to site
+    setUrl(siteUrl) // Redirect to site
   } else {
     authorizeButton.style.display = 'block'
     signoutButton.style.display = 'none'
