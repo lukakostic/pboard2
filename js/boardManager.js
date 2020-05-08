@@ -25,28 +25,25 @@ let autosave = null; //interval, set after loading settings.
 
 let storage = null; //drive api, set after loading drive api
 
-
+//Load drive api
 function OnStorageLoad(){
-    //Load drive api
     gapi.load('client:auth2', ()=>{
       gapi.client.init({
-              apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
-              clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
-              discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-              scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
+            apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
+            clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
+            discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+            scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
           }).then(()=>{
-              // Listen for sign-in state changes.
-              gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-          
-              // Handle the initial sign-in state.
-              updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
+            //Listen for sign in changes and call updateSigninStatus, as well as call the initial one
+            gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+            updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
           }, function(error) {
-              alert(JSON.stringify(error, null, 2));
-              goLogin();
+            alert(JSON.stringify(error, null, 2));
+            goLogin();
           });
   });
-
-
 }
 
 function updateSigninStatus(isSignedIn){

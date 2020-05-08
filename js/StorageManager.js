@@ -10,7 +10,7 @@ class StorageManager {
             'q': {
                 name: _name
             }
-          }).then(function (response) {
+          }).then((response)=>{
             var files = response.result.files;
             if (files && files.length > 0) {
               return files[0].id;
@@ -26,16 +26,18 @@ class StorageManager {
 
     fileDelete(name, callback=null, log=null){
         let fileId = this.getFileIdByName(name);
-
-        gapi.client.drive.files.delete({
-           'fileId': fileId
-          }, (err) => {
-            if (err)
-              log({msg: err, type: 'error'});
-            if(callback)
-                callback();
-          });
-
+        if(fileId != null){
+            gapi.client.drive.files.delete({
+            'fileId': fileId
+            }, (err) => {
+                if (err)
+                log({msg: err, type: 'error'});
+                if(callback)
+                    callback();
+            });
+        }else{
+            return false;
+        }
     }
 
     //file: path, name, mimeType
@@ -74,25 +76,31 @@ class StorageManager {
           });
     }
 
+    //If downloaded, pass contents. Else pass null to callback
     fileDownload(name, callback=null, log = null){
         let fileId = this.getFileIdByName(name);
 
-        let dest = new FileReader();
-        dest.addEventListener("loadend", function () {
-            if(callback) callback(dest.result);
-            if(log) log({msg: response, type: 'log'});
-          });
+        if(fileId != null){
 
-        try{
-            gapi.client.drive.files.get({
-            'fileId': fileId,
-            alt: 'media'
-            },(res)=>{
-            console.log('download ',res);  
-            alert(JSON.stringify(res));
+            let dest = new FileReader();
+            dest.addEventListener("loadend", function () {
+                if(callback) callback(dest.result);
+                if(log) log({msg: response, type: 'log'});
             });
-        }catch(err){
-            log({msg: err, type: 'error'});
+
+            try{
+                gapi.client.drive.files.get({
+                'fileId': fileId,
+                alt: 'media'
+                },(res)=>{
+                console.log('download ',res);  
+                alert(JSON.stringify(res));
+                });
+            }catch(err){
+                log({msg: err, type: 'error'});
+            }
+        }else{
+            callback(null);
         }
         /*
           .on('end', () => {
