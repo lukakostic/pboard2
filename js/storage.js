@@ -44,7 +44,6 @@ let storage = {
 
     //file: name, contents, mimeType
     fileUpload(file, callback=null) {
-      console.log('uploading file', JSON.stringify(file));/////////////
         if(file.mimeType == null)
             file.mimeType = 'text/plain'
         
@@ -55,10 +54,11 @@ let storage = {
                 body: file.contents
             },
             fields: null
-          }, (err, file)  => {
+          })
+          .then((resp)=>{
             console.log('uploading file response');/////////////
-            if(err) log(err)
-            if(callback) callback(file)
+            if(resp.status != 200) log(resp);
+            if(callback) callback(resp)
           })
     },
 
