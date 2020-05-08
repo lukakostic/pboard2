@@ -1,7 +1,11 @@
-class StorageManager {
+let driveAPI_Creds = {
+  apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
+  clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
+  discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+  scope: 'https://www.googleapis.com/auth/drive.metadata.readonly', //space separated
+}
 
-    constructor(){}
-
+let storage = {
     
     getFileIdByName(_name){
         gapi.client.drive.files.list({
@@ -21,7 +25,7 @@ class StorageManager {
           }).catch((err)=>{
               console.log('getId err ',err);
           });
-    }
+    },
 
 
     fileDelete(name, callback=null, log=null){
@@ -38,7 +42,7 @@ class StorageManager {
         }else{
             return false;
         }
-    }
+    },
 
     //file: path, name, mimeType
     fileUpload(file, callback=null, log=null) {
@@ -58,7 +62,7 @@ class StorageManager {
             if(callback)
                 callback(file);
           });
-    }
+    },
 
     /////////////////////////////////////////////////////// !!!
     fileMove(from,to, callback=null, log=null) {
@@ -74,7 +78,7 @@ class StorageManager {
               else console.error(error);
               if(callback) callback(error);
           });
-    }
+    },
 
     //If downloaded, pass contents. Else pass null to callback
     fileDownload(name, callback=null, log = null){
@@ -115,7 +119,7 @@ class StorageManager {
           .pipe(dest);
 */
           //dest.readAsText(response.fileBlob);
-    }
+    },
 
 
     ////////////////////////////////////////////!!!!!!!!
@@ -148,6 +152,6 @@ class StorageManager {
             }
           });
           */
-    }
+    },
 
 }

@@ -5,20 +5,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="../external/bootstrap.min.css">
-  <link rel="stylesheet" href="../index.css">
-  
   <script src="../external/jquery-3.3.1.min.js"></script>
   <script src="../external/popper.min.js"></script>
   <script src="../external/bootstrap.min.js"></script>
-  <!-- <script src="../external/Dropbox-sdk.min.js"></script> -->
 
-  <script src="../js/devVersion.js"></script>
+  <link rel="stylesheet" href="../external/bootstrap.min.css">
+  <link rel="stylesheet" href="../index.css">
+
+  <script src="../js/static.js"></script>
+  <script src="./js/storageManager.js"></script>
   <script src="./login.js" defer></script>
 
-  <script async defer src="https://apis.google.com/js/api.js"
-    onload="this.onload=function(){};handleClientLoad()"
-    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  <script defer src="https://apis.google.com/js/api.js"
+  onload="this.onload=function(){};handleClientLoad()"
+  onreadystatechange="if (this.readyState === 'complete') this.onload()">
   </script>
 
   <title>PBoard</title>

@@ -1,6 +1,6 @@
 
-var authorizeButton = document.getElementById('authorize_button');
-var signoutButton = document.getElementById('signout_button');
+var authorizeButton = document.getElementById('authorize_button')
+var signoutButton = document.getElementById('signout_button')
 
 // On load, called to load the auth2 library and API client library.
 function handleClientLoad() {
@@ -28,10 +28,10 @@ function handleClientLoad() {
 }
 
 function handleAuthClick(event) {
-gapi.auth2.getAuthInstance().signIn();
+  gapi.auth2.getAuthInstance().signIn();
 }
 function handleSignoutClick(event) {
-gapi.auth2.getAuthInstance().signOut();
+  gapi.auth2.getAuthInstance().signOut();
 }
 
 
@@ -76,5 +76,5 @@ function listFiles() {
 }
 
 function redirect(){
-    window.location.href = siteUrl;
+    window.location.href = web.siteUrl;
 }

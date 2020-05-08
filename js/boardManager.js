@@ -1,7 +1,7 @@
-let url = window.location.href;
 
-let historyStack = [];
-let project,board; //project.boards = hashmap of all board objects: [id]:board, board = current id
+
+
+let project, board //project.boards = hashmap of all board objects: [id]:board, board = current id
 
 let extensionListeners = {
   newPage: [],
@@ -11,176 +11,137 @@ let extensionListeners = {
   loadAll: [],
   pre_loadAll: [],
   reloadHTML: [],
-  draw: []
-};
-
-let static = {};
-
-let htmlBackup = document.createElement('template');
-htmlBackup.innerHTML = document.body.outerHTML;
+  draw: [],
+}
 
 
-let textSave = false;
-let autosave = null; //interval, set after loading settings.
+let htmlBackup = document.createElement('template')
+htmlBackup.innerHTML = document.body.outerHTML
 
-let storage = null; //drive api, set after loading drive api
 
-//Load drive api
+let autosave = null //interval, set after loading settings.
+let textSave = false //text changed, save
+
+
+//Init drive api and listen for signIn changes
 function OnStorageLoad(){
     gapi.load('client:auth2', ()=>{
-      gapi.client.init({
-            apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
-            clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
-            discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-            scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
-          }).then(()=>{
-
-            //Listen for sign in changes and call updateSigninStatus, as well as call the initial one
-            gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-            updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-
-          }, function(error) {
-            alert(JSON.stringify(error, null, 2));
-            goLogin();
-          });
-  });
+      gapi.client.init(driveAPI_Creds).then( ()=>{
+        //Listen for sign in changes and call updateSigninStatus, as well as call the initial one
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
+      }, (error)=>{
+        log(error)
+        goLogin() //error initing drive, probably not logged in
+      })
+  })
 }
 
 function updateSigninStatus(isSignedIn){
   
-
-  if(isSignedIn == false)
-    goLogin();
-  else{
+  if(isSignedIn == false){
+    goLogin()
+  } else {
     
-    //if != null : already loaded, connection regained. Refresh page?
+    resetData()
 
-    if(storage == null){
+    loadAll(()=>{
+      newPageOpened()
+    });
 
-      storage = new StorageManager();
-      
-      resetData();
-
-      loadAll(()=>{
-        newPageOpened();
-      });
-
-      autosave = setInterval(()=>{
-        if(textSave){
-            textSave = false;
-            saveAll();
-        }
-      },project.preferences['textEditorAutoSaveInterval']*1000);
-
-      
-    }
+    autosave = setInterval(()=>{
+      if(textSave){
+          textSave = false
+          saveAll()
+      }
+    }, project.preferences['textEditorAutoSaveInterval']*1000)
 
   }
 
 }
 
 function goLogin(){
-  window.location.href = siteUrl + "login/";
+  window.location.href = web.siteUrl + "login/";
 }
 
 
 function invokeListeners(listener = ""){
   
   for(let i = 0; i < extensionListeners[listener].length; i++){
-    if(extensionListeners[listener]) extensionListeners[listener][i]();
+    if(extensionListeners[listener]) extensionListeners[listener][i]()
   }
-  extensionListeners[listener] = [];
+  extensionListeners[listener] = []
 }
 
 function urlFromBoardId(boardId){
-  return siteUrl + "#" + boardId;
+  return web.siteUrl + "#" + boardId
 }
 
 function load(content){
-  project = updateProject(JSON.parse(content));
+  project = updateProject(JSON.parse(content))
 }
 
 function loadFromContent(content){
-  resetData();
-  load(content);
-  newPageOpened();
-}
-
-function loadURL(newUrl, forceRefresh = false){
-  url = newUrl;
-  window.location.hash = getHashFromUrl(url);
-  if(forceRefresh) window.location.href = url;
-  else{
-    newPageOpened();
-  }
-}
-
-function loadBoardId(boardToLoad, forceRefresh = false){
-  loadURL(urlFromBoardId(boardToLoad, forceRefresh));
+  resetData()
+  load(content)
+  newPageOpened()
 }
 
 function resetData(){
-  project = new Project("", curVer);
+  project = new Project("", curVer)
   //main board
-  project.boards[""] = new Board(boardTypes.List,"",[],{references:99999999999,main:true},""); //////////////////////////////////////// change to ListBoard ?
-  board = "";
+  project.boards[""] = new Board(boardTypes.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
+  web.board = ""
 }
 
-function saveAll(callback = null, log = null) {
+function saveAll(callback = null) {
   try{ 
-    invokeListeners('pre_saveAll');
+    invokeListeners('pre_saveAll')
 
-    startSavingIndicator();
+    startSavingIndicator()
 
-    let contents = buildProject();
+    let contents = buildProject()
 
     storage.fileUpload({name: 'pboard.pb', contents: contents},()=>{
-      if(callback!=null) callback();
-      stopSavingIndicator();
-    
-      invokeListeners('saveAll');
-    
-    },
-    (msg)=>{
-      if(msg.type == 'error') bootbox.alert(JSON.stringify(msg.msg));
-      if(log)log(msg);
-    });
 
+      if(callback!=null) callback()
+
+      stopSavingIndicator()
     
-  }catch(e){bootbox.alert(e.message);}
+      invokeListeners('saveAll')
+    
+    },(msg)=>{log(msg)})
+    
+  }catch(e){log(e)}
 }
 
 function buildProject(){
-  return JSON.stringify(project);
+  return JSON.stringify(project)
 }
 
-function loadAll(callback = null, log = null) {
+function loadAll(callback = null) {
     try{
 
-      invokeListeners('pre_loadAll');
+      invokeListeners('pre_loadAll')
     
       storage.fileDownload('pboard.pb' ,function loaded(contents){
 
       if (contents != null) {
         
-        load(contents);
+        load(contents)
     
-        invokeListeners('loadAll');
+        invokeListeners('loadAll')
     
         //bootbox.alert(contents);
       }else{
-        resetData();
+        resetData()
       }
         
-      if(callback) callback();
+      if(callback) callback()
 
-    },
-    (msg)=>{
-      if(msg.type == 'error') bootbox.alert(JSON.stringify(msg.msg) + '');
-      if(log)log(msg);
-    });
+    },(msg)=>{log(msg)})
 
-  }catch(e){bootbox.alert(e.message);}
+  }catch(e){log(e)}
 }
 
 function newText(){
@@ -189,72 +150,72 @@ function newText(){
 
   let el = static.textBrdTemplate.cloneNode(true);
 
-  let brd = new Board(boardTypes.Text,"Text","",{references:1});
+  let brd = new Board(boardTypes.Text,"Text","",{references:1})
 
-  project.boards[brd.id]=brd;
-  project.boards[getDataId(parent)].content.push(brd.id); //Add to parent list
+  project.boards[brd.id] = brd
+  project.boards[getDataId(parent)].content.push(brd.id) //Add to parent list
 
-  parent.appendChild(el);
-  loadTextBoard(el,brd.id);
+  parent.appendChild(el)
+  loadTextBoard(el,brd.id)
 
-  el.getElementsByClassName('textBtn')[0].click(); ////////////////////////// auto open
+  el.getElementsByClassName('textBtn')[0].click() ////////////////////////// auto open
 
-  fixListUI(parent);
-  saveAll();
+  fixListUI(parent)
+  saveAll()
 }
 
 function newBoard(){
 
-  let parent = event.srcElement.parentNode.parentNode.parentNode; ////////////// replace by find parent thing?
+  let parent = event.srcElement.parentNode.parentNode.parentNode ////////////// replace by find parent thing?
 
-  let el = static.boardBrdTemplate.cloneNode(true);
+  let el = static.boardBrdTemplate.cloneNode(true)
 
-  let atr = {description:'Description',references:1};
-  let brd = new Board(boardTypes.Board,"Board",[],atr);
+  let atr = {description:'Description',references:1}
+  let brd = new Board(boardTypes.Board,"Board",[],atr)
 
-  project.boards[brd.id]=brd;
-  project.boards[getDataId(parent)].content.push(brd.id); //Add to parent list
+  project.boards[brd.id] = brd
+  project.boards[getDataId(parent)].content.push(brd.id) //Add to parent list
 
-  parent.appendChild(el);
-  loadBoardBoard(el,brd.id);
+  parent.appendChild(el)
+  loadBoardBoard(el,brd.id)
 
   
-  fixListUI(parent);
+  fixListUI(parent)
 
-  el.getElementsByClassName('textBtn')[0].click(); // load board on add, might not want to do this.
+  el.getElementsByClassName('textBtn')[0].click() // load board on add, might not want to do this.
 
   saveAll(()=>{
     //el.getElementsByClassName('textBtn')[0].click(); // load board on add, might not want to do this. and to be moved to before saving?
-  });
+  })
 }
 
 function newList(){
 
-  let el = static.listTemplate.cloneNode(true);
+  let el = static.listTemplate.cloneNode(true)
 
-  let inp = event.srcElement.firstElementChild;
-  let name = inp.value;
+  let inp = event.srcElement.firstElementChild
+  let name = inp.value
 
-  let titleText = el.getElementsByClassName("title-text")[0];
+  let titleText = el.getElementsByClassName("title-text")[0]
 //  $(titleText).val(name);
-  $(titleText).html(name); //we assume its div at start
+  $(titleText).html(name) //we assume its div at start
   //$(titleText).prop("readonly",true);
-  titleText.addEventListener('click',listTitleClicked,true);
-  titleText.onblur = ()=>{listTitleBlur();};
+  titleText.addEventListener('click',listTitleClicked,true)
+  titleText.onblur = ()=>{listTitleBlur()}
 
-  let brd = new Board(boardTypes.List,name,[],{references:1});
-  project.boards[brd.id]=brd;
-  project.boards[board].content.push(brd.id);
+  let brd = new Board(boardTypes.List,name,[],{references:1})
+  project.boards[brd.id]=brd
+  project.boards[board].content.push(brd.id)
 
-  static.contentAlbum.appendChild(el);
-  setDataId(el, brd.id);
+  static.contentAlbum.appendChild(el)
+  setDataId(el, brd.id)
 
   
-  fixNewListUI();
-  fixAlbumUI();
+  fixNewListUI()
+  fixAlbumUI()
 
-  makeDraggable();
-  $(inp).val(''); //clear new list textbox
+  makeDraggable()
+  $(inp).val('') //clear new list textbox
 
-  saveAll();
+  saveAll()
 }

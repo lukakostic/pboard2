@@ -1,16 +1,25 @@
 
 ////////////////////////////////////////////////////////////////////// specific
 
+//logType 1 console, 2 console & alert, 3 console & bootbox
+function log(msg, logType = 2){
+    console.log(msg)
+    msg = JSON.stringify(msg, null, 2)
+    if(logType == 2)
+        alert(msg)
+    else if(logType == 3)
+        bootbox.alert(msg)
+}
+
+function getBoardFromUrl(url){
+    return url.replace(web.siteUrl,'').replace('#','')
+}
+
 function findFirstBoardId(el){
-    let id = nulledGetAttribute(el,'data-id');
-
-    if(id!=null) return id;
-    else{
-        if(el.parentNode == null)return null;
-        return findFirstBoardId(el.parentNode);
-    }
-
-    return null;
+    let id = nulledGetAttribute(el,'data-id')
+    if(id!=null) return id
+    if(el.parentNode == null) return null
+    return findFirstBoardId(el.parentNode)
 }
 
 // if text/board get list element (state=1/2), if list return Board (state=3), else float up till first
@@ -35,7 +44,7 @@ function getParentElementBoard(el,state=-1){
         return board;
     }
 
-    alert('unknown board type');
+    log('unknown board type');
 
     return null;
 }
@@ -83,6 +92,7 @@ function delBrdAttr(id,attr){
     delete project.boards[id].attributes[attr];
 }
 
+
 ////////////////////////////////////////////////////////////////////// standard
 function nulledGetAttribute(el,attr){
     let atr = null;
@@ -104,15 +114,6 @@ function getElementIndex(node) {
         index++;
     }
     return index;
-}
-
-function getHashFromUrl(someUrl){
-let h = "";
-if (someUrl.includes('#')) {
-    for (let i = someUrl.indexOf('#') + 1; i < someUrl.length; i++)
-        h += someUrl[i];
-}
-return h;
 }
 
 function findWithAttr(array, attr, value) {
