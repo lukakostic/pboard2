@@ -74,7 +74,7 @@ function stopSavingIndicator(){
 }
 
 function expandInputAll(){
-  let expandoInputs = document.ElementsByClassName('expandInput')
+  let expandoInputs = document.getElementsByClassName('expandInput')
   for (let i = 0; i < expandoInputs.length; i++) {
    expandInput(expandoInputs[i])
  }
@@ -87,7 +87,7 @@ function expandInput(el){
 }
 
 function clearLists(){
-  let lists = document.ElementsByClassName('list')
+  let lists = document.getElementsByClassName('list')
     
   for(let j = 0; j < lists.length; j++){
     if (lists[j].id != "") continue
@@ -204,7 +204,7 @@ function draw(){
   
 function clearBoards(lst = null) {
   let lists = [lst]
-  if(lst == null) lists = document.ElementsByClassName('list')
+  if(lst == null) lists = document.getElementsByClassName('list')
   
   for(let j = 0; j < lists.length; j++){
 
@@ -220,11 +220,11 @@ function clearBoards(lst = null) {
 
 function fixListUI(listEl=null){
   if(listEl!=null){
-    var newPanel = listEl.ElementsByClassName('newPanel')[0]
+    var newPanel = listEl.getElementsByClassName('newPanel')[0]
     newPanel.parentNode.appendChild(newPanel)
   }else{
     var album = fixAlbumUI()
-    var lists = album.ElementsByClassName('list')
+    var lists = album.getElementsByClassName('list')
     for(var i = 0; i<lists.length; i++){
       if(lists[i].id=="") fixListUI(lists[i])
     }
@@ -320,12 +320,12 @@ function loadTextBoard(textBoardEl, brd){
 
   set_dataId(textBoardEl, brd.id)
 
-  $(textBoardEl.ElementsByClassName('textBtn')[0]).contents()[1].nodeValue = brd.name
+  $(textBoardEl.getElementsByClassName('textBtn')[0]).contents()[1].nodeValue = brd.name
   
   if(brd.content.length>0) 
-      textBoardEl.ElementsByClassName('descriptionIcon')[0].classList.remove('d-none')
+      textBoardEl.getElementsByClassName('descriptionIcon')[0].classList.remove('d-none')
   else 
-      textBoardEl.ElementsByClassName('descriptionIcon')[0].classList.add('d-none')
+      textBoardEl.getElementsByClassName('descriptionIcon')[0].classList.add('d-none')
 
   loadBackground(textBoardEl,brd.id)
 }
@@ -340,7 +340,7 @@ function loadBoardBoard(boardBoardEl, brd){
   if (typeof brd === 'string' || brd instanceof String) brd = project.boards[brd]
 
   set_dataId(boardBoardEl, brd.id)
-  $(boardBoardEl.ElementsByClassName('textBtn')[0]).contents()[0].nodeValue = brd.name
+  $(boardBoardEl.getElementsByClassName('textBtn')[0]).contents()[0].nodeValue = brd.name
 
   loadBackground(boardBoardEl, brd.id)
 }
@@ -348,7 +348,7 @@ function loadBoardBoard(boardBoardEl, brd){
 function loadList(listEl, brd){
   if (typeof brd === 'string' || brd instanceof String) brd = project.boards[brd]
 
-  titleText = listEl.ElementsByClassName("title-text")[0]
+  titleText = listEl.getElementsByClassName("title-text")[0]
 
   //could cause issues with main board (probably not)?
   //can only be blur while as input, so turn to div
@@ -388,7 +388,7 @@ function loadList(listEl, brd){
 }
 
 function loadAllBoardsByDataId(brdId){
-  let boardEls = document.ElementsByClassName('board')
+  let boardEls = document.getElementsByClassName('board')
 
   for(let i = 0; i < boardEls.length; i++){
       if(dataId(boardEls[i])==brdId){

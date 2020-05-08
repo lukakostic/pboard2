@@ -144,7 +144,7 @@ function newText(){
   parent.appendChild(el)
   loadTextBoard(el,brd.id)
 
-  el.ElementsByClassName('textBtn')[0].click() ////////////////////////// auto open
+  el.getElementsByClassName('textBtn')[0].click() ////////////////////////// auto open
 
   fixListUI(parent)
   saveAll()
@@ -182,7 +182,7 @@ function newList(){
   let inp = event.srcElement.firstElementChild
   let name = inp.value
 
-  let titleText = el.ElementsByClassName("title-text")[0]
+  let titleText = el.getElementsByClassName("title-text")[0]
 //  $(titleText).val(name);
   $(titleText).html(name) //we assume its div at start
   //$(titleText).prop("readonly",true);
