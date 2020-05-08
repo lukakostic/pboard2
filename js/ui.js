@@ -192,7 +192,7 @@ $(".textBtn").each(function() {
 }
 
 function draw(){
-  if(board!="") drawBoard()
+  if(board()!="") drawBoard()
   else drawMain()
 
   loadBoardBackgroundImage()
@@ -254,18 +254,18 @@ function drawBoard(){
 
   clearBoards()
 
-  EbyId('boardTitle').value = project.boards[board].name
-  EbyId('boardDescription').value = getBrdAttr(board,'description')
+  EbyId('boardTitle').value = project.boards[board()].name
+  EbyId('boardDescription').value = getBrdAttr(board(),'description')
 
 
   //fill lists & boards
-  for(let l = 0; l < project.boards[board].content.length; l++){
+  for(let l = 0; l < project.boards[board()].content.length; l++){
 
     let listEl = static.listTemplate.cloneNode(true)
     static.contentAlbum.appendChild(listEl)
 
     
-    loadList(listEl,project.boards[board].content[l])
+    loadList(listEl,project.boards[board()].content[l])
 
     
 
