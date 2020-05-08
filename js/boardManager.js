@@ -38,9 +38,9 @@ function OnStorageLoad(){
 //Logged in (or not). Lets load everything up!
 function updateSigninStatus(isSignedIn){
   
-  if(isSignedIn == false){
+  if(isSignedIn == false)
     goLogin()
-  } else {
+  else{
     
     resetData()
     loadAll(()=>{

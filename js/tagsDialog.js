@@ -1,6 +1,6 @@
 function showTagsDialog(){
     
-    static.extrasTitle.innerHTML = 'Board Tags';
+    static.extrasTitle.innerHTML = 'Board Tags'
     static.extrasContent.innerHTML = `
     <a style="color: white;">Board tags</a><br>
     <div id = "boardTags" style="width: 100%; background-color: black; text-align: left;">
@@ -14,67 +14,67 @@ function showTagsDialog(){
     <br>
     <div id = "allTagsFiltered" style="width: 100%; background-color: black; text-align: left;">
     </div>
-    `;
-    static.extrasBack.onclick = showExtrasClicked;
-    let boardTags = EbyId('boardTags');
+    `
+    static.extrasBack.onclick = showExtrasClicked
+    let boardTags = EbyId('boardTags')
 
     
-    let allTagIds = brdAttrOrDef(extrasSelected,'tags',[]);
+    let allTagIds = brdAttrOrDef(extrasSelected,'tags',[])
     for(let i = 0; i < allTagIds.length; i++){
-        let btn = tagBtnTemplate(project.tags[allTagIds[i]].name, allTagIds[i], boardTags, boardTagClicked);
+        let btn = tagBtnTemplate(project.tags[allTagIds[i]].name, allTagIds[i], boardTags, boardTagClicked)
     }
 
 
-    showExtrasDialog();
-    tagsDialogSearched();
+    showExtrasDialog()
+    tagsDialogSearched()
 }
 
 function tagBtnTemplate(text="Tag",id="",parent = null, click = null){
-    let b = document.createElement('button');
-    if(parent!=null)parent.appendChild(b);
-    b.style = "color: white; border: 0px; background-color: #4444;";
-    set_dataId(b,id);
-    b.onclick = click;
-    b.innerHTML = text;
-    return b;
+    let b = document.createElement('button')
+    if(parent!=null)parent.appendChild(b)
+    b.style = "color: white; border: 0px; background-color: #4444;"
+    set_dataId(b,id)
+    b.onclick = click
+    b.innerHTML = text
+    return b
 }
 
 function boardTagClicked(){
-    let id = dataId(event.srcElement);
-    project.boards[extrasSelected].attributes['tags'].splice(brdAttr(extrasSelected, 'tags').indexOf(id),1);
-    event.srcElement.parentNode.removeChild(event.srcElement);
+    let id = dataId(event.srcElement)
+    project.boards[extrasSelected].attributes['tags'].splice(brdAttr(extrasSelected, 'tags').indexOf(id),1)
+    event.srcElement.parentNode.removeChild(event.srcElement)
 
     
-    saveAll();
+    saveAll()
 }
 
 function filteredTagClicked(){
-    let id = dataId(event.srcElement);
+    let id = dataId(event.srcElement)
     
-    set_brdAttrIfNull(extrasSelected,'tags',[]);
+    set_brdAttrIfNull(extrasSelected,'tags',[])
 
     if(brdAttr(extrasSelected,'tags').indexOf(id)==-1)
-        project.boards[extrasSelected].attributes['tags'].push(id);
-    else{alert('Already is added to board');return;}
+        project.boards[extrasSelected].attributes['tags'].push(id)
+    else{alert('Already is added to board'); return}
     
-    let boardTags = EbyId('boardTags');
+    let boardTags = EbyId('boardTags')
 
-    let btn = tagBtnTemplate(project.tags[id].name,id,boardTags,boardTagClicked);
+    let btn = tagBtnTemplate(project.tags[id].name,id,boardTags,boardTagClicked)
     
     
-    saveAll();
+    saveAll()
 }
 
 function tagsDialogSearched(){
-    let s = EbyId('tagsDialogSearch').value;
+    let s = EbyId('tagsDialogSearch').value
     
-    let allTagsFiltered = EbyId('allTagsFiltered');
-    allTagsFiltered.innerHTML = '';
+    let allTagsFiltered = EbyId('allTagsFiltered')
+    allTagsFiltered.innerHTML = ''
 
-    let allTagIds = Object.keys(project.tags);
+    let allTagIds = Object.keys(project.tags)
     for(let i = 0; i < allTagIds.length; i++){
         if(s==""||project.tags[allTagIds[i]].name.includes(s)){
-            let btn = tagBtnTemplate(project.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,filteredTagClicked);
+            let btn = tagBtnTemplate(project.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,filteredTagClicked)
         }
     }
 

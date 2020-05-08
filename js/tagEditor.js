@@ -1,8 +1,8 @@
-let selectedTagInEditor = "";
+let selectedTagInEditor = ""
 
 function showTagEditor(){
     
-    static.extrasTitle.innerHTML = 'Tag Editor';
+    static.extrasTitle.innerHTML = 'Tag Editor'
     static.extrasContent.innerHTML = `
     <a id="tagEditorSelected" style="color: white; font-size: 24px;">Selected: none</a><br>
     <form class="input-group-append" onsubmit="event.preventDefault(); tagEditorNew();" style="width:100%">
@@ -35,249 +35,249 @@ function showTagEditor(){
     </form>
     <div id = "allTagsFiltered" style="min-height: 10px; width: 100%; background-color: black; text-align: left;">
     </div>
-    `;
-    static.extrasBack.onclick = showExtrasClicked;
+    `
+    static.extrasBack.onclick = showExtrasClicked
     
-    showExtrasDialog();
-    selectTagToEdit("");
-    tagEditorSearched();
+    showExtrasDialog()
+    selectTagToEdit("")
+    tagEditorSearched()
 }
 
 function makeTagEditorBtn(text="Tag",id="",parent = null, onclick = null){
-    let b = document.createElement('span');
-    set_dataId(b,id);
-    let style = "color: white; border: 0px; background-color: #"+((selectedTagInEditor==id)?"8F8F8F":"4444")+";";
-    b.style = style;
+    let b = document.createElement('span')
+    set_dataId(b,id)
+    let style = "color: white; border: 0px; background-color: #"+((selectedTagInEditor==id)?"8F8F8F":"4444")+";"
+    b.style = style
     b.innerHTML = `
     <input type="checkbox" style="`+style+`">
-    <button onclick="`+onclick+`" style="`+style+`">`+text+`</button>`;
-    if(parent!=null)parent.appendChild(b);
-    return b;
+    <button onclick="`+onclick+`" style="`+style+`">`+text+`</button>`
+    if(parent!=null) parent.appendChild(b)
+    return b
 }
 
 function tagEditorDelete(){
-    if(selectedTagInEditor == "") return;
+    if(selectedTagInEditor == "") return
 
-    delete project.tags[selectedTagInEditor];
+    delete project.tags[selectedTagInEditor]
     
     //remove from tags where parent
-    let tags = Object.keys(project.tags);
+    let tags = Object.keys(project.tags)
     for(let i = 0; i < tags.length; i++){
-        let ind = project.tags[tags[i]].parentTags.indexOf(selectedTagInEditor);
+        let ind = project.tags[tags[i]].parentTags.indexOf(selectedTagInEditor)
         if(ind!=-1)
-            project.tags[tags[i]].parentTags.splice(ind,1);
+            project.tags[tags[i]].parentTags.splice(ind,1)
     }
 
     //remove from boards
-    let boards = Object.keys(project.boards);
+    let boards = Object.keys(project.boards)
     for(let i = 0; i < boards.length; i++){
-        let ind = brdAttrOrDef(boards[i],'tags',[]).indexOf(selectedTagInEditor);
+        let ind = brdAttrOrDef(boards[i],'tags',[]).indexOf(selectedTagInEditor)
         if(ind!=-1)
-            project.boards[boards[i]].attributes['tags'].splice(ind,1);
+            project.boards[boards[i]].attributes['tags'].splice(ind,1)
     }
 
 
-    selectTagToEdit("");
-    tagEditorSearched();
+    selectTagToEdit("")
+    tagEditorSearched()
 
-    saveAll();
+    saveAll()
 }
 
 function tagEditorRename(){
-    if(selectedTagInEditor == "") return;
+    if(selectedTagInEditor == "") return
 
-    let s = EbyId('tagEditorInput').value;
+    let s = EbyId('tagEditorInput').value
     if(s==""){
-        alert('Tag cant have no name');
-        return;
+        alert('Tag cant have no name')
+        return
     }
-    let tgnm = Tag.findTagByName(s);
+    let tgnm = Tag.findTagByName(s)
     if(tgnm!=null&&tgnm!=selectedTagInEditor){
-        alert('Tag with same name already exists');
+        alert('Tag with same name already exists')
     }
-    project.tags[selectedTagInEditor].name = s;
+    project.tags[selectedTagInEditor].name = s
 
 
-    selectTagToEdit(selectedTagInEditor);
-    tagEditorSearched();
+    selectTagToEdit(selectedTagInEditor)
+    tagEditorSearched()
 
-    saveAll();
+    saveAll()
 }
 
 function tagEditorNew(){
-    let s = EbyId('tagEditorInput').value;
+    let s = EbyId('tagEditorInput').value
     if(s==""){
-        alert('New tag cant have no name');
-        return;
+        alert('New tag cant have no name')
+        return
     }
     if(Tag.findTagByName(s)!=null){
-        alert('Tag with same name already exists');
+        alert('Tag with same name already exists')
     }
-    let tag = new Tag(s);
-    project.tags[tag.id] = tag;
-    selectTagToEdit(tag.id);
+    let tag = new Tag(s)
+    project.tags[tag.id] = tag
+    selectTagToEdit(tag.id)
 
 
-    tagEditorSearched();
+    tagEditorSearched()
 
-    saveAll();
+    saveAll()
 }
 
 function selectTagToEdit(id){
-    selectedTagInEditor = id;
+    selectedTagInEditor = id
 
     //draw parents
-    let parents = EbyId('parentTags');
-    parents.innerHTML = '';
+    let parents = EbyId('parentTags')
+    parents.innerHTML = ''
     
     if(id!=""){
-        EbyId('tagEditorSelected').innerHTML = 'Selected: ' + project.tags[id].name;
-        EbyId('tagEditorInput').value = project.tags[id].name;
+        EbyId('tagEditorSelected').innerHTML = 'Selected: ' + project.tags[id].name
+        EbyId('tagEditorInput').value = project.tags[id].name
 
         for(let i = 0; i < project.tags[selectedTagInEditor].parentTags.length; i++){
-            makeTagEditorBtn(project.tags[project.tags[selectedTagInEditor].parentTags[i]].name,project.tags[selectedTagInEditor].parentTags[i],parents,'tagInEditorClicked();');
+            makeTagEditorBtn(project.tags[project.tags[selectedTagInEditor].parentTags[i]].name,project.tags[selectedTagInEditor].parentTags[i],parents,'tagInEditorClicked();')
         }
 
     }else{
-        EbyId('tagEditorSelected').innerHTML = 'Selected: none';    
-        EbyId('tagEditorInput').value = "";
+        EbyId('tagEditorSelected').innerHTML = 'Selected: none'
+        EbyId('tagEditorInput').value = ""
     }
 
 
 }
 
 function tagEditorCheckAll(){
-    let nodes = EbyId('allTagsFiltered').childNodes;
+    let nodes = EbyId('allTagsFiltered').childNodes
     
     for(let i = 0; i < nodes.length; i++){
-     nodes[i].childNodes[1].checked = true;
+     nodes[i].childNodes[1].checked = true
     }
 }
 
 function tagEditorUncheckAll(){
-    let nodes = EbyId('allTagsFiltered').childNodes;
+    let nodes = EbyId('allTagsFiltered').childNodes
     
     for(let i = 0; i < nodes.length; i++){
-     nodes[i].childNodes[1].checked = false;
+     nodes[i].childNodes[1].checked = false
     }
 }
 
 function tagEditorCheckAllParents(){
-    let nodes = EbyId('parentTags').childNodes;
+    let nodes = EbyId('parentTags').childNodes
     
     for(let i = 0; i < nodes.length; i++){
-     nodes[i].childNodes[1].checked = true;
+     nodes[i].childNodes[1].checked = true
     }
 }
 
 function tagEditorUncheckAllParents(){
-    let nodes = EbyId('parentTags').childNodes;
+    let nodes = EbyId('parentTags').childNodes
     
     for(let i = 0; i < nodes.length; i++){
-     nodes[i].childNodes[1].checked = false;
+     nodes[i].childNodes[1].checked = false
     }
 }
 
 function tagEditorRemoveCheckedFromParentsClicked(){
-    let nodes = EbyId('parentTags').childNodes;
-    let tags = [];
+    let nodes = EbyId('parentTags').childNodes
+    let tags = []
 
     for(let i = 0; i < nodes.length; i++){
         if(nodes[i].childNodes[1].checked){
-            let id = dataId(nodes[i]);
+            let id = dataId(nodes[i])
 
-            tags.push(id);
+            tags.push(id)
         }
     }
 
     for(let i = 0; i < tags.length; i++){
-        let ind = project.tags[selectedTagInEditor].parentTags.indexOf(tags[i]);
+        let ind = project.tags[selectedTagInEditor].parentTags.indexOf(tags[i])
         if(ind!=-1)
-            project.tags[selectedTagInEditor].parentTags.splice(ind,1);
+            project.tags[selectedTagInEditor].parentTags.splice(ind,1)
     }
 
     
 
-    selectTagToEdit(selectedTagInEditor);
+    selectTagToEdit(selectedTagInEditor)
     
-    saveAll();
+    saveAll()
 }
 
 function tagEditorRemoveCheckedFromParentsAllClicked(){
-    let nodes = EbyId('allTagsFiltered').childNodes;
-    let tags = [];
+    let nodes = EbyId('allTagsFiltered').childNodes
+    let tags = []
 
     for(let i = 0; i < nodes.length; i++){
         if(nodes[i].childNodes[1].checked){
-            let id = dataId(nodes[i]);
+            let id = dataId(nodes[i])
 
-            tags.push(id);
+            tags.push(id)
         }
     }
 
     for(let i = 0; i < tags.length; i++){
-        let ind = project.tags[selectedTagInEditor].parentTags.indexOf(tags[i]);
+        let ind = project.tags[selectedTagInEditor].parentTags.indexOf(tags[i])
         if(ind!=-1)
-            project.tags[selectedTagInEditor].parentTags.splice(ind,1);
+            project.tags[selectedTagInEditor].parentTags.splice(ind,1)
     }
 
 
-    selectTagToEdit(selectedTagInEditor);
+    selectTagToEdit(selectedTagInEditor)
 
-    saveAll();
+    saveAll()
 }
 
 function tagEditorAddCheckedToParentsClicked(){
-    let nodes = EbyId('allTagsFiltered').childNodes;
-    let tags = [];
+    let nodes = EbyId('allTagsFiltered').childNodes
+    let tags = []
 
     for(let i = 0; i < nodes.length; i++){
         if(nodes[i].childNodes[1].checked){
-            let id = dataId(nodes[i]);
+            let id = dataId(nodes[i])
 
             if(Object.keys(Tag.AllUpstreamParents(id)).includes(selectedTagInEditor)){
-                alert('Cant add ' + project.tags[id].name + ' as parent, because its a (possibly indirect) child of the selected tag.');
-                return;
+                alert('Cant add ' + project.tags[id].name + ' as parent, because its a (possibly indirect) child of the selected tag.')
+                return
             }
 
-            if(project.tags[selectedTagInEditor].parentTags.includes(id)) continue; //already a parent
+            if(project.tags[selectedTagInEditor].parentTags.includes(id)) continue //already a parent
 
             if(id == selectedTagInEditor){
-                alert('Cant parent tag to itself.');
-                return;
+                alert('Cant parent tag to itself.')
+                return
             }
 
-            tags.push(id);
+            tags.push(id)
         }
     }
 
     for(let i = 0; i < tags.length; i++){
-        project.tags[selectedTagInEditor].parentTags.push(tags[i]);
+        project.tags[selectedTagInEditor].parentTags.push(tags[i])
     }
 
 
-    selectTagToEdit(selectedTagInEditor);
+    selectTagToEdit(selectedTagInEditor)
 
-    saveAll();
+    saveAll()
 }
 
 function tagInEditorClicked(){
-    let id = dataId(event.srcElement.parentNode);
+    let id = dataId(event.srcElement.parentNode)
     
-    selectTagToEdit(id);
-    tagEditorSearched();
+    selectTagToEdit(id)
+    tagEditorSearched()
 }
 
 function tagEditorSearched(){
-    let s = EbyId('tagEditorSearch').value;
+    let s = EbyId('tagEditorSearch').value
     
-    let allTagsFiltered = EbyId('allTagsFiltered');
-    allTagsFiltered.innerHTML = '';
+    let allTagsFiltered = EbyId('allTagsFiltered')
+    allTagsFiltered.innerHTML = ''
 
-    let allTagIds = Object.keys(project.tags);
+    let allTagIds = Object.keys(project.tags)
     for(let i = 0; i < allTagIds.length; i++){
         if(s==""||project.tags[allTagIds[i]].name.includes(s)){
-            makeTagEditorBtn(project.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,'tagInEditorClicked();');
+            makeTagEditorBtn(project.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,'tagInEditorClicked();')
         }
     }
 

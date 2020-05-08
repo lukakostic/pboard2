@@ -1,26 +1,26 @@
-let extrasSelected = null;
+let extrasSelected = null
 
 function showExtrasDialog(){
-    $(static.extrasDialog).modal('show');
+    $(static.extrasDialog).modal('show')
 }
 
 function extrasBackgroundClicked(){
-    if(event.target.id != 'static.extrasDialog') return;
-    closeExtrasDialog();
+    if(event.target.id != 'static.extrasDialog') return
+    closeExtrasDialog()
 }
 
 function closeExtrasDialog(){
-    $(static.extrasDialog).modal('hide');
+    $(static.extrasDialog).modal('hide')
 }
 
 function showExtrasClicked(){
-    extrasSelected = board();
-    showExtras();
+    extrasSelected = board()
+    showExtras()
 }
 
 function showExtras(){
     
-    static.extrasTitle.innerHTML = 'Extras';
+    static.extrasTitle.innerHTML = 'Extras'
     static.extrasContent.innerHTML = `
     <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showPreferencesDialog()">Preferences</button>
     <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showTagEditor()">Tags</button>
@@ -30,22 +30,22 @@ function showExtras(){
     <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="setBackgroundClicked()">Set Background Image</button>
     <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showTagsDialog()">Set Board Tags</button>
     <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showExtensionsDialog()">Set Board Extensions</button>
-    `;
-    static.extrasBack.onclick = closeExtrasDialog;
+    `
+    static.extrasBack.onclick = closeExtrasDialog
 
-    showExtrasDialog();
+    showExtrasDialog()
 }
 
 function setBackgroundClicked(){
-    let backgroundURL = "";
-    backgroundURL = prompt("Enter the url of the background:");
-    if(backgroundURL==null)backgroundURL="";
+    let backgroundURL = ""
+    backgroundURL = prompt("Enter the url of the background:")
+    if(backgroundURL==null) backgroundURL=""
 
-    if(backgroundURL!="") set_brdAttr(extrasSelected,'background',backgroundURL);
-    if(backgroundURL=="") delBrdAttr(extrasSelected,'background');
+    if(backgroundURL!="") set_brdAttr(extrasSelected,'background', backgroundURL)
+    if(backgroundURL=="") delBrdAttr(extrasSelected,'background')
 
-    loadBoardBackgroundImage();
-    loadAllBoardsByDataId(extrasSelected);
+    loadBoardBackgroundImage()
+    loadAllBoardsByDataId(extrasSelected)
 
-    saveAll();
+    saveAll()
 }

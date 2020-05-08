@@ -1,37 +1,37 @@
-let dataSave = false;
+let dataSave = false
 setInterval(()=>{
     if(dataSave){
-        dataSave = false;
-        saveAll();
+        dataSave = false
+        saveAll()
     }
-},5000);
+},5000)
 
 function boardTitleChanged(){
     //alert("Board title changed");
-    project.boards[board].name = event.srcElement.value;
+    project.boards[board()].name = event.srcElement.value
 
-    loadAllBoardsByDataId(board);
+    loadAllBoardsByDataId(board())
 
-    dataSave = true;
+    dataSave = true
 }
 
 function boardDescriptionChanged(){
     //alert("Board title changed");
-    set_brdAttr(board,'description',event.srcElement.value);
+    set_brdAttr(board(),'description',event.srcElement.value)
 
-    loadAllBoardsByDataId(board);
+    loadAllBoardsByDataId(board())
 
-    dataSave = true;
+    dataSave = true
 }
 
 function listTitleChanged(){
-    console.log('list title changed');
+    console.log('list title changed')
 
     //alert("List title changed");
-    let listId = event.srcElement.parentNode.parentNode.Attribute('data-id');
-    project.boards[listId].name = $(event.srcElement).text();
+    let listId = event.srcElement.parentNode.parentNode.Attribute('data-id')
+    project.boards[listId].name = $(event.srcElement).text()
 
-    dataSave = true;
+    dataSave = true
 }
 
 

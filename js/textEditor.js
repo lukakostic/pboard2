@@ -1,61 +1,61 @@
 
 function showTextBoardDialog(){
-    if(dragItem!=null && ( event.srcElement==dragItem[0] || event.srcElement.parentNode == dragItem[0]))return;
+    if(dragItem!=null && ( event.srcElement==dragItem[0] || event.srcElement.parentNode == dragItem[0])) return
 
-    var textBtn = event.srcElement;
-    var brd = project.boards[dataId(textBtn.parentNode)];
+    var textBtn = event.srcElement
+    var brd = project.boards[dataId(textBtn.parentNode)]
 
-    if(brd==null) alert('Text board modal: brd == null');
+    if(brd==null) alert('Text board modal: brd == null')
 
-    $('#textBoardDialogTitle').val(brd.name);
-    let text = $('#textBoardDialogText');
-    text.val(brd.content);
-    let modal = $('#textBoardDialog');
-    set_dataId(modal[0],brd.id);
-    modal.modal('show');
+    $('#textBoardDialogTitle').val(brd.name)
+    let text = $('#textBoardDialogText')
+    text.val(brd.content)
+    let modal = $('#textBoardDialog')
+    set_dataId(modal[0],brd.id)
+    modal.modal('show')
 
     //can do without timeout, but set timeout to like 0.8 seconds if you add 'modal fade' instead of just 'modal'
     setTimeout(()=>{
-        expandInput(text[0]);
-        EbyId('textBoardDialogTitle').select();
-    },10);
+        expandInput(text[0])
+        EbyId('textBoardDialogTitle').select()
+    },10)
 }
 
 function closeTextBoardDialog(){
-    EbyId('textBoardDialog').click();
+    EbyId('textBoardDialog').click()
 }
 
 function textCloseClicked(){
-    if(textSave) saveAll(); ////////[NOTICE] what if save fails?
+    if(textSave) saveAll() ////////[NOTICE] what if save fails?
 
-    textSave = false;
+    textSave = false
 }
 
 function textBackClicked(){
-    if(event.target.id != 'textBoardDialog') return;
+    if(event.target.id != 'textBoardDialog') return
 
     //alert('closing back??'); //save now?
-    textCloseClicked();
+    textCloseClicked()
 }
 
 function textTitleChanged(){
     
     //alert("Text title changed");
-    let brdId = EbyId('textBoardDialog').Attribute('data-id');
-    project.boards[brdId].name = event.srcElement.value;
+    let brdId = EbyId('textBoardDialog').attribute('data-id')
+    project.boards[brdId].name = event.srcElement.value
 
-    loadAllBoardsByDataId(brdId);
+    loadAllBoardsByDataId(brdId)
 
-    textSave = true; //saveAll();
+    textSave = true //saveAll();
 }
 
 function textDescriptionChanged(){
 
     //alert("Text description changed");
-    let brdId = EbyId('textBoardDialog').Attribute('data-id');
-    project.boards[brdId].content = event.srcElement.value;
+    let brdId = EbyId('textBoardDialog').attribute('data-id')
+    project.boards[brdId].content = event.srcElement.value
 
-    loadAllBoardsByDataId(brdId);
+    loadAllBoardsByDataId(brdId)
 
-    textSave = true; //saveAll();
+    textSave = true //saveAll();
 }

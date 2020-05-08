@@ -1,8 +1,8 @@
-let availableBackups = [];
+let availableBackups = []
 
 function showBackupsDialog(){
     
-    static.extrasTitle.innerHTML = 'Backups';
+    static.extrasTitle.innerHTML = 'Backups'
     static.extrasContent.innerHTML = `
     <a style="color: white;">New backup</a><br>
     <form class="input-group-append" onsubmit="event.preventDefault(); makeBackupClicked();" style="width:100%">
@@ -18,65 +18,65 @@ function showBackupsDialog(){
     <br>
     <div id = "backupsFiltered" style="width: 100%; background-color: black; color: white; text-align: left;">
     </div>
-    `;
-    static.extrasBack.onclick = showExtrasClicked;
+    `
+    static.extrasBack.onclick = showExtrasClicked
 
 
     showExtrasDialog()
-    Backups(()=>{backupsSearched()});
+    backups(()=>{backupsSearched()})
 }
 
-function Backups(callB=null){
+function backups(callB=null){
 
-    let fld = EbyId('backupsFiltered');
+    let fld = EbyId('backupsFiltered')
 
-    if(fld != undefined) fld.innerHTML = 'Loading..';
+    if(fld != undefined) fld.innerHTML = 'Loading..'
 
-    storage.filesList('/pboardbackups',function(msg){
+    storage.filesList('pboardbackups', (msg)=>{
         
-        availableBackups = [];
+        availableBackups = []
 
-        if(msg.type == 'error')return; //either not found or error
-        let backupsFiltered = EbyId('backupsFiltered');
-        if(backupsFiltered == undefined)return;
+        if(msg.type == 'error')return //either not found or error
+        let backupsFiltered = EbyId('backupsFiltered')
+        if(backupsFiltered == undefined) return
 
         for(let i = 0; i < msg.msg.entries.length; i++){
-            availableBackups.push(msg.msg.entries[i]);
+            availableBackups.push(msg.msg.entries[i])
         }
 
-        if(callB)callB();
-    });
+        if(callB) callB()
+    })
 
 }
 
 function backupsSearched(){
-    let s = EbyId('backupSearch').value;
-    let fld = EbyId('backupsFiltered');
+    let s = EbyId('backupSearch').value
+    let fld = EbyId('backupsFiltered')
 
-    if(fld == undefined) return;
+    if(fld == undefined) return
 
-    fld.innerHTML = '';
+    fld.innerHTML = ''
 
-    if(availableBackups.length==0)return;
+    if(availableBackups.length==0) return
 
     for(let i = 0; i < availableBackups.length; i++){
 
-        if(s!="" && availableBackups[i].name.includes(s)==false)continue;
+        if(s!="" && availableBackups[i].name.includes(s)==false) continue
 
-        let btn = document.createElement('div');
-        fld.appendChild(btn);
-        btn.style = "width: 100%;";
-        btn.classList.toggle("input-group-append",true);
+        let btn = document.createElement('div')
+        fld.appendChild(btn)
+        btn.style = "width: 100%;"
+        btn.classList.toggle("input-group-append",true)
         //console.log('done');
 
-        set_dataId(btn,availableBackups[i].id);
+        set_dataId(btn,availableBackups[i].id)
 
         btn.innerHTML = `
             <div style="color: white;">`+'['+availableBackups[i].client_modified+'] '+availableBackups[i].name+`</div>
             <input type="button" class="btn btn-primary btn-spaced-1" onclick="loadBackupClicked();" value="Load">
             <input type="button" class="btn btn-primary btn-spaced-1" onclick="renameBackupClicked();" value="Rename">
             <input type="button" class="btn btn-primary btn-spaced-1" onclick="deleteBackupClicked();" value="Delete">
-        `;
+        `
 
     }
 
@@ -84,58 +84,56 @@ function backupsSearched(){
 
 function makeBackupClicked(){
 
-    let bkName = EbyId('newBackup').value;
+    let bkName = EbyId('newBackup').value
     
-//new Date().getTime()+" "+ 
-alert("Not implemented"); //Upload by path
+    //new Date().getTime()+" "+ 
+    alert("Not implemented") //Upload by path
     storage.fileUpload({ path: '/pboardbackups/' , name: bkName + '.pbb', contents: buildProject()},()=>{
         
-        backups(function(){backupsSearched();});
-        alert('Made backup');  
-    },
-      (msg)=>{
-        if(msg.type == 'error') bootbox.alert(JSON.stringify(msg.msg));
-      });
+        backups(()=>{ backupsSearched() })
+        alert('Made backup'); 
+
+    },(msg)=>{ log(msg) })
 }
 
 function deleteBackupClicked(){
-    let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode));
+    let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
 
-    alert("Not implemented"); //deleting by path
-    storage.fileDelete(availableBackups[ind].path_lower,function(){
-    //getBackups(function(){backupsSearched();});
-    alert('Backup deleted');
-    });
-   availableBackups.splice(ind,1);
-   backupsSearched();
+    alert("Not implemented") //deleting by path
+    storage.fileDelete(availableBackups[ind].path_lower,()=>{
+    //getBackups(function(){backupsSearched();})
+    alert('Backup deleted')
+    })
+   availableBackups.splice(ind,1)
+   backupsSearched()
 }
 
 
 function renameBackupClicked(){
 
-    let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode));
+    let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
    
-    let name = prompt("New name for "+availableBackups[ind].name+"? (cant match a different backup)",availableBackups[ind].name);
+    let name = prompt("New name for "+availableBackups[ind].name+"? (cant match a different backup)",availableBackups[ind].name)
    
-    if(name == "") return;
+    if(name == "") return
 
-    storage.fileMove(availableBackups[ind].path_lower,availableBackups[ind].path_lower.substring(0, availableBackups[ind].path_lower.lastIndexOf("/"))+"/"+name ,function(){
+    storage.fileMove(availableBackups[ind].path_lower,availableBackups[ind].path_lower.substring(0, availableBackups[ind].path_lower.lastIndexOf("/"))+"/"+name ,()=>{
     //getBackups(function(){backupsSearched();});
-    alert('Backup renamed');
-    });
-   availableBackups[ind].name = name;
-   backupsSearched();
+    alert('Backup renamed')
+    })
+   availableBackups[ind].name = name
+   backupsSearched()
 }
 
 function loadBackupClicked(){
 
-    let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode));
+    let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
 
-    alert("Not implemented"); //download by path
+    alert("Not implemented") //download by path
     storage.fileDownload(availableBackups[ind].path_lower,function(contents){
     //getBackups(function(){backupsSearched();});
-    loadFromContent(contents);
-    alert('Loaded');
-    if(confirm('Save?'))saveAll();
-    });
+    loadFromContent(contents)
+    alert('Loaded')
+    if(confirm('Save?')) saveAll()
+    })
 }

@@ -1,9 +1,9 @@
 
-let selectedExtensionInEditor = "";
+let selectedExtensionInEditor = ""
 
 function showExtensionEditor(){
     
-    static.extrasTitle.innerHTML = 'Extension Editor';
+    static.extrasTitle.innerHTML = 'Extension Editor'
     static.extrasContent.innerHTML = `
     <a style="color: white; margin-bottom: 10px;">All Extensions</a>
     
@@ -41,21 +41,21 @@ function showExtensionEditor(){
         <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
     </form>
 
-    `;
-    static.extrasBack.onclick = showExtrasClicked;
+    `
+    static.extrasBack.onclick = showExtrasClicked
     
-    showExtrasDialog();
-    selectExtensionToEdit("");
-    extensionEditorSearched();
+    showExtrasDialog()
+    selectExtensionToEdit("")
+    extensionEditorSearched()
 
-    expandInputAll();
+    expandInputAll()
 }
 
 function makeExtensionEditorBtn(text="?",id="",parent = null){
-    let b = document.createElement('div');
-    set_dataId(b,id);
-    let style = "color: white; border: 0px; background-color: #"+((selectedExtensionInEditor==id)?"8F8F8F":"4444")+";";
-    b.style = style;
+    let b = document.createElement('div')
+    set_dataId(b,id)
+    let style = "color: white; border: 0px; background-color: #"+((selectedExtensionInEditor==id)?"8F8F8F":"4444")+";"
+    b.style = style
     /*
     b.innerHTML = `
     <input type="checkbox" style="`+style+`">
@@ -65,142 +65,142 @@ function makeExtensionEditorBtn(text="?",id="",parent = null){
    <a style="color: `+style+`">`+text+`</a>
    <input type="button" class="btn btn-primary btn-spaced-1" onclick="extensionInEditorClicked();" value="Select">
    <input type="button" class="btn btn-primary btn-spaced-1" onclick="deleteExtensionClicked();" value="Delete">
-`;
-    if(parent!=null)parent.appendChild(b);
-    return b;
+`
+    if(parent!=null) parent.appendChild(b)
+    return b
 }
 
 function deleteExtensionClicked(){
-    let id = dataId(event.srcElement.parentNode);
+    let id = dataId(event.srcElement.parentNode)
 
-    delete project.extensions[id];
+    delete project.extensions[id]
 
 
     //remove from boards
-    let boards = Object.keys(project.boards);
+    let boards = Object.keys(project.boards)
     for(let i = 0; i < boards.length; i++){
-        let ind = findWithAttr( brdAttrOrDef(boards[i],'extensions',[]),'id',id);
+        let ind = findWithAttr( brdAttrOrDef(boards[i],'extensions',[]),'id',id)
         if(ind!=-1)
-            project.boards[boards[i]].attributes['extensions'].splice(ind,1);
+            project.boards[boards[i]].attributes['extensions'].splice(ind,1)
     }
 
 
-    if(selectedExtensionInEditor == id) selectExtensionToEdit("");
-    extensionEditorSearched();
+    if(selectedExtensionInEditor == id) selectExtensionToEdit("")
+    extensionEditorSearched()
 
-    saveAll();
+    saveAll()
 }
 
 function extensionEditorDelete(){
-    if(selectedExtensionInEditor == "") return;
+    if(selectedExtensionInEditor == "") return
 
-    delete project.extensions[selectedExtensionInEditor];
+    delete project.extensions[selectedExtensionInEditor]
     
 
     //remove from boards
-    let boards = Object.keys(project.boards);
+    let boards = Object.keys(project.boards)
     for(let i = 0; i < boards.length; i++){
-        let ind = findWithAttr( brdAttrOrDef(boards[i],'extensions',[]),'id',selectedExtensionInEditor);
+        let ind = findWithAttr( brdAttrOrDef(boards[i],'extensions',[]),'id',selectedExtensionInEditor)
         //let ind = getBrdAttrOrDef(boards[i],'extensions',[]).indexOf(selectedExtensionInEditor);
         if(ind!=-1)
-            project.boards[boards[i]].attributes['extensions'].splice(ind,1);
+            project.boards[boards[i]].attributes['extensions'].splice(ind,1)
     }
 
 
-    selectExtensionToEdit("");
-    extensionEditorSearched();
+    selectExtensionToEdit("")
+    extensionEditorSearched()
 
-    saveAll();
+    saveAll()
 }
 
 function extensionEditorSave(){
-    if(selectedExtensionInEditor == "") return;
+    if(selectedExtensionInEditor == "") return
 
-    let s = EbyId('extensionEditorInput').value;
-    let desc = EbyId('extensionEditorDescription').value;
-    let code = EbyId('extensionEditorCode').value;
+    let s = EbyId('extensionEditorInput').value
+    let desc = EbyId('extensionEditorDescription').value
+    let code = EbyId('extensionEditorCode').value
 
     if(s==""){
-        alert('Extension cant have no name');
-        return;
+        alert('Extension cant have no name')
+        return
     }
 
-    project.extensions[selectedExtensionInEditor].name = s;
-    project.extensions[selectedExtensionInEditor].description = desc;
-    project.extensions[selectedExtensionInEditor].code = code;
+    project.extensions[selectedExtensionInEditor].name = s
+    project.extensions[selectedExtensionInEditor].description = desc
+    project.extensions[selectedExtensionInEditor].code = code
 
 
-    selectExtensionToEdit(selectedExtensionInEditor);
-    extensionEditorSearched();
+    selectExtensionToEdit(selectedExtensionInEditor)
+    extensionEditorSearched()
 
-    saveAll();
+    saveAll()
 }
 
 function extensionEditorNew(){
-    let s = EbyId('extensionEditorInput').value;
-    let desc = EbyId('extensionEditorDescription').value;
-    let code = EbyId('extensionEditorCode').value;
+    let s = EbyId('extensionEditorInput').value
+    let desc = EbyId('extensionEditorDescription').value
+    let code = EbyId('extensionEditorCode').value
 
     if(s==""){
-        alert('New extension cant have no name');
-        return;
+        alert('New extension cant have no name')
+        return
     }
     
-    let extension = new Extension(s,desc,code);
-    project.extensions[extension.id] = extension;
-    selectExtensionToEdit(extension.id);
+    let extension = new Extension(s,desc,code)
+    project.extensions[extension.id] = extension
+    selectExtensionToEdit(extension.id)
 
 
-    extensionEditorSearched();
+    extensionEditorSearched()
 
-    saveAll();
+    saveAll()
 }
 
 function selectExtensionToEdit(id){
-    selectedExtensionInEditor = id;
+    selectedExtensionInEditor = id
 
     //draw parents
     //let parents = EbyId('parentExtensions');
     //parents.innerHTML = '';
     
     if(id!=""){
-        EbyId('extensionEditorSelected').innerHTML = 'Selected: ' + project.extensions[id].name;
-        EbyId('extensionEditorInput').value = project.extensions[id].name;
-        EbyId('extensionEditorDescription').value = project.extensions[id].description;
-        EbyId('extensionEditorCode').value = project.extensions[id].code;
+        EbyId('extensionEditorSelected').innerHTML = 'Selected: ' + project.extensions[id].name
+        EbyId('extensionEditorInput').value = project.extensions[id].name
+        EbyId('extensionEditorDescription').value = project.extensions[id].description
+        EbyId('extensionEditorCode').value = project.extensions[id].code
     
         //for(let i = 0; i < project.extensions[selectedExtensionInEditor].parentExtensions.length; i++){
         //    makeExtensionEditorBtn(project.extensions[project.extensions[selectedExtensionInEditor].parentExtensions[i]].name,project.extensions[selectedExtensionInEditor].parentExtensions[i],parents,'extensionInEditorClicked();');
         //}
 
     }else{
-        EbyId('extensionEditorSelected').innerHTML = 'Selected: none';    
-        EbyId('extensionEditorInput').value = "";
-        EbyId('extensionEditorDescription').value = "";
-        EbyId('extensionEditorCode').value = "";
+        EbyId('extensionEditorSelected').innerHTML = 'Selected: none';   
+        EbyId('extensionEditorInput').value = ""
+        EbyId('extensionEditorDescription').value = ""
+        EbyId('extensionEditorCode').value = ""
     }
 
 
-    expandInputAll();
+    expandInputAll()
 }
 
 function extensionInEditorClicked(){
-    let id = dataId(event.srcElement.parentNode);
+    let id = dataId(event.srcElement.parentNode)
     
-    selectExtensionToEdit(id);
-    extensionEditorSearched();
+    selectExtensionToEdit(id)
+    extensionEditorSearched()
 }
 
 function extensionEditorSearched(){
-    let s = EbyId('extensionEditorSearch').value;
+    let s = EbyId('extensionEditorSearch').value
     
-    let allExtensionsFiltered = EbyId('allExtensionsFiltered');
-    allExtensionsFiltered.innerHTML = '';
+    let allExtensionsFiltered = EbyId('allExtensionsFiltered')
+    allExtensionsFiltered.innerHTML = ''
 
-    let allExtensionIds = Object.keys(project.extensions);
+    let allExtensionIds = Object.keys(project.extensions)
     for(let i = 0; i < allExtensionIds.length; i++){
         if(s==""||project.extensions[allExtensionIds[i]].name.includes(s)){
-            makeExtensionEditorBtn(project.extensions[allExtensionIds[i]].name + " : " + project.extensions[allExtensionIds[i]].description,allExtensionIds[i],allExtensionsFiltered);
+            makeExtensionEditorBtn(project.extensions[allExtensionIds[i]].name + " : " + project.extensions[allExtensionIds[i]].description,allExtensionIds[i],allExtensionsFiltered)
         }
     }
 

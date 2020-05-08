@@ -18,9 +18,9 @@ let storage = {
         .then((response)=>{
           var files = response.result.files;
           if (files && files.length > 0) {
-            return files[0].id;
+            return files[0].id
           }
-          console.log('getId ', response);
+          console.log('getId ', response)
           //return response.entries; //listFiles(response.entries);
       //    if(log) log({msg: response, type: 'log'});
         })
@@ -36,9 +36,9 @@ let storage = {
             }, (err) => {
                 if (err) log(err)
                 if(callback) callback()
-            });
+            })
         }else{
-            return false;
+            return false
         }
     },
 

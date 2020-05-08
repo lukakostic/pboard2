@@ -23,13 +23,13 @@ function findFirstBoardId(el){
 }
 
 // if text/board get list element (state=1/2), if list return Board (state=3), else float up till first
-function ParentElementBoard(el,state=-1){
+function parentElementBoard(el,state=-1){
 
     if(state==-1){
         let id = nulledGetAttribute(el,'data-id')
         if(id == null){
             if(el.parentNode==null) return null
-            else return ParentElementBoard(el.parentNode)
+            else return parentElementBoard(el.parentNode)
         }else if(id == ""){ //has attribute but empty
             alert('empty attribute')
             return null
@@ -39,11 +39,11 @@ function ParentElementBoard(el,state=-1){
     }
     
 
-    if(state==1||state==2){
+    if(state==1||state==2)
         return dataId(el.parentNode)
-    }else if(state == 3){
-        return board
-    }
+    else if(state == 3)
+        return board()
+    
 
     log('unknown board type')
 
@@ -52,10 +52,10 @@ function ParentElementBoard(el,state=-1){
 
 //Get/Set Board id (data-id) from html element
 function dataId(el){
-    return el.Attribute('data-id')
+    return el.attribute('data-id')
 }
 function set_dataId(el,id){
-    el.setAttribute('data-id',id)
+    el.set_attribute('data-id',id)
 }
 
 //Set attribute of board by id, if it already doesnt have it
@@ -94,7 +94,7 @@ function delBrdAttr(id,attr){
 
 function nulledGetAttribute(el,attr){
     let atr = null
-    if(el.hasAttribute(attr)) atr = el.Attribute(attr)
+    if(el.hasAttribute(attr)) atr = el.attribute(attr)
     return atr
 }
 
