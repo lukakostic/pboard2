@@ -44,8 +44,8 @@ let storage = {
 
     //file: path, name, mimeType
     fileUpload(file, callback=null) {
-        if(fileObj.mimeType == null)
-            fileObj.mimeType = 'text/plain'
+        if(file.mimeType == null)
+            file.mimeType = 'text/plain'
         
         gapi.client.drive.files.create({
             resource: {'name' : file.name},
