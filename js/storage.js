@@ -42,7 +42,7 @@ let storage = {
         }
     },
 
-    //file: path, name, mimeType
+    //file: name, contents, mimeType
     fileUpload(file, callback=null) {
         if(file.mimeType == null)
             file.mimeType = 'text/plain'
