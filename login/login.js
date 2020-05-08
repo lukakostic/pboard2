@@ -1,8 +1,11 @@
-let authorizeButton = EbyId('authorize_button')
-let signoutButton = EbyId('signout_button')
+let authorizeButton
+let signoutButton
 
 // On load, called to load the auth2 library and API client library.
 function handleClientLoad() {
+  authorizeButton = EbyId('authorize_button')
+  signoutButton = EbyId('signout_button')
+
   gapi.load('client:auth2', ()=>{
     gapi.client.init(driveAPI_Creds)
     .then(function () {

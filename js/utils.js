@@ -99,7 +99,7 @@ function nulledGetAttribute(el,attr){
 }
 
 function EbyId(id){
-    return document.ElementById(id)
+    return document.getElementById(id)
 }
 
 function templateFChild(id){
