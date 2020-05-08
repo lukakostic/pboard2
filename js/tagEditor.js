@@ -45,7 +45,7 @@ function showTagEditor(){
 
 function makeTagEditorBtn(text="Tag",id="",parent = null, onclick = null){
     let b = document.createElement('span');
-    setDataId(b,id);
+    set_dataId(b,id);
     let style = "color: white; border: 0px; background-color: #"+((selectedTagInEditor==id)?"8F8F8F":"4444")+";";
     b.style = style;
     b.innerHTML = `
@@ -71,7 +71,7 @@ function tagEditorDelete(){
     //remove from boards
     let boards = Object.keys(project.boards);
     for(let i = 0; i < boards.length; i++){
-        let ind = BrdAttrOrDef(boards[i],'tags',[]).indexOf(selectedTagInEditor);
+        let ind = brdAttrOrDef(boards[i],'tags',[]).indexOf(selectedTagInEditor);
         if(ind!=-1)
             project.boards[boards[i]].attributes['tags'].splice(ind,1);
     }
@@ -184,7 +184,7 @@ function tagEditorRemoveCheckedFromParentsClicked(){
 
     for(let i = 0; i < nodes.length; i++){
         if(nodes[i].childNodes[1].checked){
-            let id = DataId(nodes[i]);
+            let id = dataId(nodes[i]);
 
             tags.push(id);
         }
@@ -209,7 +209,7 @@ function tagEditorRemoveCheckedFromParentsAllClicked(){
 
     for(let i = 0; i < nodes.length; i++){
         if(nodes[i].childNodes[1].checked){
-            let id = DataId(nodes[i]);
+            let id = dataId(nodes[i]);
 
             tags.push(id);
         }
@@ -233,7 +233,7 @@ function tagEditorAddCheckedToParentsClicked(){
 
     for(let i = 0; i < nodes.length; i++){
         if(nodes[i].childNodes[1].checked){
-            let id = DataId(nodes[i]);
+            let id = dataId(nodes[i]);
 
             if(Object.keys(Tag.AllUpstreamParents(id)).includes(selectedTagInEditor)){
                 alert('Cant add ' + project.tags[id].name + ' as parent, because its a (possibly indirect) child of the selected tag.');
@@ -262,7 +262,7 @@ function tagEditorAddCheckedToParentsClicked(){
 }
 
 function tagInEditorClicked(){
-    let id = DataId(event.srcElement.parentNode);
+    let id = dataId(event.srcElement.parentNode);
     
     selectTagToEdit(id);
     tagEditorSearched();

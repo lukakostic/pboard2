@@ -19,7 +19,7 @@ function showTagsDialog(){
     let boardTags = EbyId('boardTags');
 
     
-    let allTagIds = BrdAttrOrDef(extrasSelected,'tags',[]);
+    let allTagIds = brdAttrOrDef(extrasSelected,'tags',[]);
     for(let i = 0; i < allTagIds.length; i++){
         let btn = tagBtnTemplate(project.tags[allTagIds[i]].name, allTagIds[i], boardTags, boardTagClicked);
     }
@@ -33,15 +33,15 @@ function tagBtnTemplate(text="Tag",id="",parent = null, click = null){
     let b = document.createElement('button');
     if(parent!=null)parent.appendChild(b);
     b.style = "color: white; border: 0px; background-color: #4444;";
-    setDataId(b,id);
+    set_dataId(b,id);
     b.onclick = click;
     b.innerHTML = text;
     return b;
 }
 
 function boardTagClicked(){
-    let id = DataId(event.srcElement);
-    project.boards[extrasSelected].attributes['tags'].splice(BrdAttr(extrasSelected, 'tags').indexOf(id),1);
+    let id = dataId(event.srcElement);
+    project.boards[extrasSelected].attributes['tags'].splice(brdAttr(extrasSelected, 'tags').indexOf(id),1);
     event.srcElement.parentNode.removeChild(event.srcElement);
 
     
@@ -49,11 +49,11 @@ function boardTagClicked(){
 }
 
 function filteredTagClicked(){
-    let id = DataId(event.srcElement);
+    let id = dataId(event.srcElement);
     
-    setBrdAttrIfNull(extrasSelected,'tags',[]);
+    set_brdAttrIfNull(extrasSelected,'tags',[]);
 
-    if(BrdAttr(extrasSelected,'tags').indexOf(id)==-1)
+    if(brdAttr(extrasSelected,'tags').indexOf(id)==-1)
         project.boards[extrasSelected].attributes['tags'].push(id);
     else{alert('Already is added to board');return;}
     

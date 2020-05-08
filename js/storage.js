@@ -7,7 +7,7 @@ let driveAPI_Creds = {
 
 let storage = {
     
-    getFileIdByName(_name){
+    fileIdByName(_name){
         gapi.client.drive.files.list({
           'pageSize': 10,
           'fields': "nextPageToken, files(id, name)",
@@ -29,7 +29,7 @@ let storage = {
 
 
     fileDelete(name, callback=null){
-        let fileId = this.getFileIdByName(name)
+        let fileId = this.fileIdByName(name)
         if(fileId != null){
             gapi.client.drive.files.delete({
             'fileId': fileId

@@ -26,7 +26,7 @@ function showExtensionsDialog(){
     let boardExtensions = EbyId('boardExtensions');
 
     
-    let allExtensionIds = BrdAttrOrDef(extrasSelected,'extensions',[]);
+    let allExtensionIds = brdAttrOrDef(extrasSelected,'extensions',[]);
     for(let i = 0; i < allExtensionIds.length; i++){
         let btn = boardExtensionBtnTemplate(project.extensions[allExtensionIds[i].id].name  + " : " + project.extensions[allExtensionIds[i].id].description, allExtensionIds[i].on , allExtensionIds[i].id, boardExtensions, boardExtensionClicked);
     }
@@ -40,7 +40,7 @@ function extensionBtnTemplate(text="Extension",id="",parent = null, click = null
     let b = document.createElement('button');
     if(parent!=null)parent.appendChild(b);
     b.style = "text-align: left; margin: 2px; color: white; border: 0px; background-color: #4444;  width: 100%;";
-    setDataId(b,id);
+    set_dataId(b,id);
     b.onclick = click;
     b.innerHTML = text;
     return b;
@@ -50,7 +50,7 @@ function boardExtensionBtnTemplate(text="Extension", checked=true,id="",parent =
     let b = document.createElement('button');
     if(parent!=null)parent.appendChild(b);
     b.style = "text-align: left; margin: 2px; color: white; border: 0px; background-color: #4444;  width: 100%;";
-    setDataId(b,id);
+    set_dataId(b,id);
     b.onclick = click;
     b.innerHTML = `
     <input type="checkbox" onclick="event.stopPropagation(); boardExtensionChecked();" `+(checked?'checked':'')+`>
@@ -61,8 +61,8 @@ function boardExtensionBtnTemplate(text="Extension", checked=true,id="",parent =
 
 
 function boardExtensionChecked(){
-    let id = DataId(event.srcElement.parentNode);
-    let ind = findWithAttr(BrdAttr(extrasSelected, 'extensions'),'id',id);
+    let id = dataId(event.srcElement.parentNode);
+    let ind = findWithAttr(brdAttr(extrasSelected, 'extensions'),'id',id);
     //project.boards[extrasSelected].attributes['extensions'].splice(findWithAttr(getBrdAttr(extrasSelected, 'extensions'),'id',id),1);
     //event.srcElement.parentNode.removeChild(event.srcElement);
      
@@ -72,8 +72,8 @@ function boardExtensionChecked(){
 }
 
 function boardExtensionClicked(){
-    let id = DataId(event.srcElement);
-    project.boards[extrasSelected].attributes['extensions'].splice(findWithAttr(BrdAttr(extrasSelected, 'extensions'),'id',id),1);
+    let id = dataId(event.srcElement);
+    project.boards[extrasSelected].attributes['extensions'].splice(findWithAttr(brdAttr(extrasSelected, 'extensions'),'id',id),1);
     event.srcElement.parentNode.removeChild(event.srcElement);
 
     
@@ -81,11 +81,11 @@ function boardExtensionClicked(){
 }
 
 function filteredExtensionClicked(){
-    let id = DataId(event.srcElement);
+    let id = dataId(event.srcElement);
     
-    setBrdAttrIfNull(extrasSelected,'extensions',[]);
+    set_brdAttrIfNull(extrasSelected,'extensions',[]);
 
-    if(findWithAttr(BrdAttr(extrasSelected,'extensions'),'ID',id)==-1)
+    if(findWithAttr(brdAttr(extrasSelected,'extensions'),'ID',id)==-1)
         project.boards[extrasSelected].attributes['extensions'].push(new AddedExtension(true,id));
     else{alert('Already is added to this board');return;}
     

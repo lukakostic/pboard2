@@ -53,7 +53,7 @@ function showExtensionEditor(){
 
 function makeExtensionEditorBtn(text="?",id="",parent = null){
     let b = document.createElement('div');
-    setDataId(b,id);
+    set_dataId(b,id);
     let style = "color: white; border: 0px; background-color: #"+((selectedExtensionInEditor==id)?"8F8F8F":"4444")+";";
     b.style = style;
     /*
@@ -79,7 +79,7 @@ function deleteExtensionClicked(){
     //remove from boards
     let boards = Object.keys(project.boards);
     for(let i = 0; i < boards.length; i++){
-        let ind = findWithAttr( BrdAttrOrDef(boards[i],'extensions',[]),'id',id);
+        let ind = findWithAttr( brdAttrOrDef(boards[i],'extensions',[]),'id',id);
         if(ind!=-1)
             project.boards[boards[i]].attributes['extensions'].splice(ind,1);
     }
@@ -100,7 +100,7 @@ function extensionEditorDelete(){
     //remove from boards
     let boards = Object.keys(project.boards);
     for(let i = 0; i < boards.length; i++){
-        let ind = findWithAttr( BrdAttrOrDef(boards[i],'extensions',[]),'id',selectedExtensionInEditor);
+        let ind = findWithAttr( brdAttrOrDef(boards[i],'extensions',[]),'id',selectedExtensionInEditor);
         //let ind = getBrdAttrOrDef(boards[i],'extensions',[]).indexOf(selectedExtensionInEditor);
         if(ind!=-1)
             project.boards[boards[i]].attributes['extensions'].splice(ind,1);
@@ -185,7 +185,7 @@ function selectExtensionToEdit(id){
 }
 
 function extensionInEditorClicked(){
-    let id = DataId(event.srcElement.parentNode);
+    let id = dataId(event.srcElement.parentNode);
     
     selectExtensionToEdit(id);
     extensionEditorSearched();

@@ -57,7 +57,7 @@ function updateSigninStatus(isSignedIn){
 }
 
 function goLogin(){
-  setUrl(siteUrl + "login/")
+  set_url(siteUrl + "login/")
 }
 
 
@@ -83,7 +83,7 @@ function resetData(){
   project = new Project("", curVer)
   //main board
   project.boards[""] = new Board(boardTypes.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
-  setBoard("")
+  set_board("")
 }
 
 function saveAll(callback = null) {
@@ -160,7 +160,7 @@ function newBoard(){
   let brd = new Board(boardTypes.Board,"Board",[],atr)
 
   project.boards[brd.id] = brd
-  project.boards[DataId(parent)].content.push(brd.id) //Add to parent list
+  project.boards[dataId(parent)].content.push(brd.id) //Add to parent list
 
   parent.appendChild(el)
   loadBoardBoard(el,brd.id)
@@ -194,7 +194,7 @@ function newList(){
   project.boards[board].content.push(brd.id)
 
   static.contentAlbum.appendChild(el)
-  setDataId(el, brd.id)
+  set_dataId(el, brd.id)
 
   
   fixNewListUI()

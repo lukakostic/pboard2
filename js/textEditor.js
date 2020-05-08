@@ -3,7 +3,7 @@ function showTextBoardDialog(){
     if(dragItem!=null && ( event.srcElement==dragItem[0] || event.srcElement.parentNode == dragItem[0]))return;
 
     var textBtn = event.srcElement;
-    var brd = project.boards[DataId(textBtn.parentNode)];
+    var brd = project.boards[dataId(textBtn.parentNode)];
 
     if(brd==null) alert('Text board modal: brd == null');
 
@@ -11,7 +11,7 @@ function showTextBoardDialog(){
     let text = $('#textBoardDialogText');
     text.val(brd.content);
     let modal = $('#textBoardDialog');
-    setDataId(modal[0],brd.id);
+    set_dataId(modal[0],brd.id);
     modal.modal('show');
 
     //can do without timeout, but set timeout to like 0.8 seconds if you add 'modal fade' instead of just 'modal'

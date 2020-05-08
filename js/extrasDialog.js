@@ -14,7 +14,7 @@ function closeExtrasDialog(){
 }
 
 function showExtrasClicked(){
-    extrasSelected = board;
+    extrasSelected = board();
     showExtras();
 }
 
@@ -41,7 +41,7 @@ function setBackgroundClicked(){
     backgroundURL = prompt("Enter the url of the background:");
     if(backgroundURL==null)backgroundURL="";
 
-    if(backgroundURL!="") setBrdAttr(extrasSelected,'background',backgroundURL);
+    if(backgroundURL!="") set_brdAttr(extrasSelected,'background',backgroundURL);
     if(backgroundURL=="") delBrdAttr(extrasSelected,'background');
 
     loadBoardBackgroundImage();

@@ -6,7 +6,7 @@ let siteUrl = "https://lukakostic.github.io/pboard/"
 function url(){
     return window.location.href
 }
-function setUrl(value){
+function set_url(value){
     pushBoardHistory(value)
     window.location.href = value
 }
@@ -15,7 +15,7 @@ function setUrl(value){
 function board(){
     return boardFromUrl(url())
 }
-function setBoard(value){
+function set_board(value){
     window.location.hash = value
     pageOpened()
 }
@@ -34,9 +34,9 @@ function pushBoardHistory(boardIdOrUrl){
 
 //Static html elements
 let static = {
-    get textBrdTemplate(){return getTemplateFChild('textBoardTemplate')},
-    get boardBrdTemplate(){return getTemplateFChild('boardBoardTemplate')},
-    get listTemplate(){return getTemplateFChild('listTemplate')},
+    get textBrdTemplate(){return templateFChild('textBoardTemplate')},
+    get boardBrdTemplate(){return templateFChild('boardBoardTemplate')},
+    get listTemplate(){return templateFChild('listTemplate')},
 
     get contentAlbum(){return EbyId('contentAlbum')},
     get mainContentAlbum(){return EbyId('mainContentAlbum')},

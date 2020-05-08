@@ -69,7 +69,7 @@ function backupsSearched(){
         btn.classList.toggle("input-group-append",true);
         //console.log('done');
 
-        setDataId(btn,availableBackups[i].id);
+        set_dataId(btn,availableBackups[i].id);
 
         btn.innerHTML = `
             <div style="color: white;">`+'['+availableBackups[i].client_modified+'] '+availableBackups[i].name+`</div>
@@ -99,7 +99,7 @@ alert("Not implemented"); //Upload by path
 }
 
 function deleteBackupClicked(){
-    let ind = findWithAttr(availableBackups,'id', DataId(event.srcElement.parentNode));
+    let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode));
 
     alert("Not implemented"); //deleting by path
     storage.fileDelete(availableBackups[ind].path_lower,function(){
@@ -113,7 +113,7 @@ function deleteBackupClicked(){
 
 function renameBackupClicked(){
 
-    let ind = findWithAttr(availableBackups,'id', DataId(event.srcElement.parentNode));
+    let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode));
    
     let name = prompt("New name for "+availableBackups[ind].name+"? (cant match a different backup)",availableBackups[ind].name);
    
@@ -129,7 +129,7 @@ function renameBackupClicked(){
 
 function loadBackupClicked(){
 
-    let ind = findWithAttr(availableBackups,'id', DataId(event.srcElement.parentNode));
+    let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode));
 
     alert("Not implemented"); //download by path
     storage.fileDownload(availableBackups[ind].path_lower,function(contents){

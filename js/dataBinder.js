@@ -17,7 +17,7 @@ function boardTitleChanged(){
 
 function boardDescriptionChanged(){
     //alert("Board title changed");
-    setBrdAttr(board,'description',event.srcElement.value);
+    set_brdAttr(board,'description',event.srcElement.value);
 
     loadAllBoardsByDataId(board);
 

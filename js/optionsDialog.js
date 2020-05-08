@@ -24,10 +24,10 @@ function showSeeReferencesDialog(){
 
     var Btn = optionsElement;
 
-    if(getDataId(Btn.parentNode) == ""){alert('No references');return;}
-    var brd = getDataId(Btn.parentNode);
+    if(dataId(Btn.parentNode) == ""){alert('No references');return;}
+    var brd = dataId(Btn.parentNode);
 
-    if(getBrdAttr(brd,'references') == 1){alert('This is the only reference');return;}
+    if(brdAttr(brd,'references') == 1){alert('This is the only reference');return;}
 
     let listReferences = [];
 
@@ -54,7 +54,7 @@ function showSeeReferencesDialog(){
     }
 
 
-    let btnTemplate = getTemplateFChild('referencesDialogBtn');
+    let btnTemplate = templateFChild('referencesDialogBtn');
     let list = EbyId('referencesDialogList');
 
     //clear previous buttons
@@ -71,7 +71,7 @@ function showSeeReferencesDialog(){
 
         list.appendChild(el);
 
-        setDataId(el, brds[i]);
+        set_dataId(el, brds[i]);
 
         if(brds[i] == "")
             $(el).text('Main Board');
@@ -79,7 +79,7 @@ function showSeeReferencesDialog(){
             $(el).text('List(s) on Board ' + brds[i]);
     }
 
-    setDataId(modal[0], brd);
+    set_dataId(modal[0], brd);
     modal.modal('show');
 
 
@@ -95,22 +95,22 @@ function removeClicked(){
     let isBoard = idEl.classList.contains('board');
     if(isBoard == false) idEl = idEl.parentNode;
 
-    let id = getDataId(idEl);
+    let id = dataId(idEl);
 
-    if(getBrdAttr(id,'references')<=1 && confirm('This is the last reference to this board, really remove it? (Will delete the board)')==false)return;
+    if(brdAttr(id,'references')<=1 && confirm('This is the last reference to this board, really remove it? (Will delete the board)')==false)return;
 
     if(isBoard){
-        let ind = getElementIndex(idEl)-1;
+        let ind = elementIndex(idEl)-1;
 
         console.log('removed ind '+ ind);
 
-        project.boards[getDataId(idEl.parentNode)].content.splice(ind,1);
+        project.boards[dataId(idEl.parentNode)].content.splice(ind,1);
     }else{
         //is List
         //if(board == ""){
         //    delete project.boards[id].attributes['onMain']; 
         //}else{
-            let ind = getElementIndex(idEl);
+            let ind = elementIndex(idEl);
 
             console.log('removed ind '+ ind);
 
@@ -137,7 +137,7 @@ function deleteClicked(){
     let isBoard = idEl.classList.contains('board');
     if(isBoard == false) idEl = idEl.parentNode;
 
-    let id = getDataId(idEl);
+    let id = dataId(idEl);
 
     Board.deleteBoardById(id);
 
@@ -150,7 +150,7 @@ function deleteClicked(){
 }
 
 function copyIdClicked(){
-    let id = getDataId(optionsElement.parentNode);
+    let id = dataId(optionsElement.parentNode);
     window.prompt("Copy to clipboard: Ctrl+C, Enter", id);
 
     hideOptionsDialog();
@@ -158,5 +158,5 @@ function copyIdClicked(){
 
 
 function referencesDialogBtn(){
-    showBoardBoardDialog(getDataId(event.srcElement));
+    showBoardBoardDialog(dataId(event.srcElement));
 }

@@ -35,7 +35,7 @@ function pageOpened(){
 }
 
 function executeExtensions(){
-  let extensions = BrdAttrOrDef(board(),'extensions',[])
+  let extensions = brdAttrOrDef(board(),'extensions',[])
   for(let i = 0; i < extensions.length; i++){
     if(extensions[i].on){
       eval(project.extensions[extensions[i].id].code)
@@ -46,7 +46,7 @@ function executeExtensions(){
 function loadBoardBackgroundImage(){
   let brdEl = EbyId('main')
   
-  brdEl.style.backgroundImage = "url('"+BrdAttr(board(),'background')+"')"
+  brdEl.style.backgroundImage = "url('"+brdAttr(board(),'background')+"')"
   brdEl.style.repeatMode = "no-repeat"
   brdEl.style.backgroundSize = "cover"
 }
@@ -116,8 +116,8 @@ function makeDraggable(){
         newDragIndex = ElementIndex(dragItem[0])
 
         
-          project.boards[DataId(dragOld[0])].content.splice(oldDragIndex-1,1)
-          project.boards[DataId(dragNew[0])].content.splice(newDragIndex-1,0,DataId(dragItem[0]))
+          project.boards[dataId(dragOld[0])].content.splice(oldDragIndex-1,1)
+          project.boards[dataId(dragNew[0])].content.splice(newDragIndex-1,0,dataId(dragItem[0]))
         
         dragItem = null
         saveAll()
@@ -151,7 +151,7 @@ function makeDraggable(){
 
         
           project.boards[board()].content.splice(oldDragIndex,1)
-          project.boards[board()].content.splice(newDragIndex,0,DataId(dragItem[0]))
+          project.boards[board()].content.splice(newDragIndex,0,dataId(dragItem[0]))
         
         dragItem = null
         saveAll()
@@ -255,7 +255,7 @@ function drawBoard(){
   clearBoards()
 
   EbyId('boardTitle').value = project.boards[board()].name
-  EbyId('boardDescription').value = BrdAttr(board(),'description')
+  EbyId('boardDescription').value = brdAttr(board(),'description')
 
 
   //fill lists & boards
@@ -318,7 +318,7 @@ function drawMain(){
 function loadTextBoard(textBoardEl, brd){
   if (typeof brd === 'string' || brd instanceof String) brd = project.boards[brd]
 
-  setDataId(textBoardEl, brd.id)
+  set_dataId(textBoardEl, brd.id)
 
   $(textBoardEl.ElementsByClassName('textBtn')[0]).contents()[1].nodeValue = brd.name
   
@@ -331,7 +331,7 @@ function loadTextBoard(textBoardEl, brd){
 }
 
 function loadBackground(brdEl, id){
-  brdEl.style.backgroundImage = "url('"+BrdAttr(id,'background')+"')"
+  brdEl.style.backgroundImage = "url('"+brdAttr(id,'background')+"')"
   brdEl.style.repeatMode = "no-repeat"
   brdEl.style.backgroundSize = "cover"
 }
@@ -339,7 +339,7 @@ function loadBackground(brdEl, id){
 function loadBoardBoard(boardBoardEl, brd){
   if (typeof brd === 'string' || brd instanceof String) brd = project.boards[brd]
 
-  setDataId(boardBoardEl, brd.id)
+  set_dataId(boardBoardEl, brd.id)
   $(boardBoardEl.ElementsByClassName('textBtn')[0]).contents()[0].nodeValue = brd.name
 
   loadBackground(boardBoardEl, brd.id)
@@ -363,7 +363,7 @@ function loadList(listEl, brd){
 //  $(titleText).val(brd.name);
   $(titleText).html(brd.name) //we assume its div at start
 //  $(titleText).prop("readonly",true);
-  setDataId(listEl, brd.id)
+  set_dataId(listEl, brd.id)
 
   
   
@@ -391,7 +391,7 @@ function loadAllBoardsByDataId(brdId){
   let boardEls = document.ElementsByClassName('board')
 
   for(let i = 0; i < boardEls.length; i++){
-      if(DataId(boardEls[i])==brdId){
+      if(dataId(boardEls[i])==brdId){
           if(project.boards[brdId].type == boardTypes.Text)
            loadTextBoard(boardEls[i],brdId)
           else if(project.boards[brdId].type == boardTypes.Board)
@@ -401,7 +401,7 @@ function loadAllBoardsByDataId(brdId){
 }
 
 function home(){
-  setBoard("")
+  set_board("")
 }
 
 function up(){
@@ -409,6 +409,6 @@ function up(){
 
   let prev = boardHistory.pop()
   if(prev == null) prev = ""
-  setBoard(prev)
+  set_board(prev)
   //window.history.back();
 }

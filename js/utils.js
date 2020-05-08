@@ -40,7 +40,7 @@ function ParentElementBoard(el,state=-1){
     
 
     if(state==1||state==2){
-        return DataId(el.parentNode)
+        return dataId(el.parentNode)
     }else if(state == 3){
         return board
     }
@@ -51,36 +51,36 @@ function ParentElementBoard(el,state=-1){
 }
 
 //Get/Set Board id (data-id) from html element
-function DataId(el){
+function dataId(el){
     return el.Attribute('data-id')
 }
-function setDataId(el,id){
+function set_dataId(el,id){
     el.setAttribute('data-id',id)
 }
 
 //Set attribute of board by id, if it already doesnt have it
-function setBrdAttrIfNull(id,attr,val){
+function set_brdAttrIfNull(id,attr,val){
     if((attr in project.boards[id].attributes) == false){
-        setBrdAttr(id,attr,val)
+        set_brdAttr(id,attr,val)
         return true
     }
     return false
 }
 
 //Set attribute of board by id
-function setBrdAttr(id,attr,val){
+function set_brdAttr(id,attr,val){
     project.boards[id].attributes[attr] = val
 }
 
 //Get attribute of board by id
-function BrdAttr(id,attr){
+function brdAttr(id,attr){
     return project.boards[id].attributes[attr]
 }
 
 //Get attribute of board by id, or if it doesnt exist return val
-function BrdAttrOrDef(id,attr,val){
+function brdAttrOrDef(id,attr,val){
     if(attr in project.boards[id].attributes)
-        return getBrdAttr(id,attr,val)
+        return brdAttr(id,attr,val)
     return val
 }
 
@@ -94,19 +94,19 @@ function delBrdAttr(id,attr){
 
 function nulledGetAttribute(el,attr){
     let atr = null
-    if(el.hasAttribute(attr)) atr = el.getAttribute(attr)
+    if(el.hasAttribute(attr)) atr = el.Attribute(attr)
     return atr
 }
 
 function EbyId(id){
-    return document.getElementById(id)
+    return document.ElementById(id)
 }
 
-function getTemplateFChild(id){
+function templateFChild(id){
     return EbyId(id).content.firstElementChild
 }
 
-function getElementIndex(node) {
+function elementIndex(node) {
     var index = 0
     while ( (node = node.previousElementSibling) ) {
         index++

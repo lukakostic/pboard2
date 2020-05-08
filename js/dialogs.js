@@ -4,9 +4,9 @@ function showBoardBoardDialog(id=null){
         return //stop drag-click
 
     if(id == null)
-        id = DataId(event.srcElement.parentNode)
+        id = dataId(event.srcElement.parentNode)
     
-    setBoard(id)
+    set_board(id)
 }
 
 function listTitleClicked(){
@@ -50,7 +50,7 @@ function newReferenceBtn(){
     }else{
   */
         let lst = event.srcElement.parentNode.parentNode.parentNode
-        let lstId = DataId(lst)
+        let lstId = dataId(lst)
 
         project.boards[lstId].content.push(refer)
 
