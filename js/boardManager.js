@@ -1,7 +1,4 @@
-
-
-
-let project, board //project.boards = hashmap of all board objects: [id]:board, board = current id
+let project = new Project()
 
 let extensionListeners = {
   newPage: [],
@@ -44,11 +41,9 @@ function updateSigninStatus(isSignedIn){
   } else {
     
     resetData()
-
     loadAll(()=>{
       newPageOpened()
-    });
-
+    })
     autosave = setInterval(()=>{
       if(textSave){
           textSave = false
@@ -57,25 +52,20 @@ function updateSigninStatus(isSignedIn){
     }, project.preferences['textEditorAutoSaveInterval']*1000)
 
   }
-
 }
 
 function goLogin(){
-  window.location.href = web.siteUrl + "login/";
+  web.url = web.siteUrl + "login/"
 }
 
 
 function invokeListeners(listener = ""){
-  
   for(let i = 0; i < extensionListeners[listener].length; i++){
     if(extensionListeners[listener]) extensionListeners[listener][i]()
   }
   extensionListeners[listener] = []
 }
 
-function urlFromBoardId(boardId){
-  return web.siteUrl + "#" + boardId
-}
 
 function load(content){
   project = updateProject(JSON.parse(content))
@@ -96,8 +86,8 @@ function resetData(){
 
 function saveAll(callback = null) {
   try{ 
-    invokeListeners('pre_saveAll')
 
+    invokeListeners('pre_saveAll')
     startSavingIndicator()
 
     let contents = buildProject()
@@ -105,13 +95,11 @@ function saveAll(callback = null) {
     storage.fileUpload({name: 'pboard.pb', contents: contents},()=>{
 
       if(callback!=null) callback()
-
       stopSavingIndicator()
-    
       invokeListeners('saveAll')
     
     },(msg)=>{log(msg)})
-    
+
   }catch(e){log(e)}
 }
 
@@ -123,19 +111,15 @@ function loadAll(callback = null) {
     try{
 
       invokeListeners('pre_loadAll')
-    
       storage.fileDownload('pboard.pb' ,function loaded(contents){
 
       if (contents != null) {
         
         load(contents)
-    
         invokeListeners('loadAll')
     
-        //bootbox.alert(contents);
-      }else{
-        resetData()
-      }
+      }else
+        resetData() 
         
       if(callback) callback()
 
@@ -146,9 +130,9 @@ function loadAll(callback = null) {
 
 function newText(){
   
-  let parent = event.srcElement.parentNode.parentNode.parentNode; ////////////// replace by find parent thing?
+  let parent = event.srcElement.parentNode.parentNode.parentNode ////////////// replace by find parent thing?
 
-  let el = static.textBrdTemplate.cloneNode(true);
+  let el = static.textBrdTemplate.cloneNode(true)
 
   let brd = new Board(boardTypes.Text,"Text","",{references:1})
 
@@ -204,7 +188,7 @@ function newList(){
   titleText.onblur = ()=>{listTitleBlur()}
 
   let brd = new Board(boardTypes.List,name,[],{references:1})
-  project.boards[brd.id]=brd
+  project.boards[brd.id] = brd
   project.boards[board].content.push(brd.id)
 
   static.contentAlbum.appendChild(el)

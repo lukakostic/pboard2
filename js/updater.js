@@ -1,25 +1,25 @@
-let curVer = 2;
+let curVer = 2
 
 function copyNewProperties(from, to){
-    let fields = Object.keys(from);
+    let fields = Object.keys(from)
     for(let i = 0; i < fields.length; i++){
         if((fields[i] in to) == false){
-            to[fields[i]] = from[fields[i]];
+            to[fields[i]] = from[fields[i]]
         }
     }
-    return to;
+    return to
 }
 
 function updateProject(proj){
     if(proj.version == curVer){
-        return proj;   
+        return proj
     }
     if(proj.version == 1){
-        delete proj.preferences['manualSaveLoad'];
-        let pref = copyNewProperties(new Project().preferences,proj.preferences);
-        proj.preferences = pref;
-        proj.version = 2;
-        return updateProject(proj);
+        delete proj.preferences['manualSaveLoad']
+        let pref = copyNewProperties(new Project().preferences,proj.preferences)
+        proj.preferences = pref
+        proj.version = 2
+        return updateProject(proj)
     }
-    return null;
+    return null
 }
