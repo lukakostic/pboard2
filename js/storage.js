@@ -48,12 +48,11 @@ let storage = {
             file.mimeType = 'text/plain'
         
         gapi.client.drive.files.create({
-            resource: {'name' : file.name},
-            media: {
-                mimeType: file.mimeType,
-                body: file.contents
-            },
-            fields: null
+            resource: {
+              name: file.name,
+              mimeType: file.mimeType,
+              body: file.contents
+            }
           })
           .then((resp)=>{
             console.log('uploading file response');/////////////
