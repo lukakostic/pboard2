@@ -1,6 +1,7 @@
 //Base site url
 let siteUrl = "https://lukakostic.github.io/pboard/"
 
+
 //Full url
 function url(){
     return window.location.href
@@ -16,7 +17,7 @@ function board(){
 }
 function setBoard(value){
     window.location.hash = value
-    newPageOpened()
+    pageOpened()
 }
 
 //Only board IDs

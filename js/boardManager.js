@@ -44,7 +44,7 @@ function updateSigninStatus(isSignedIn){
     
     resetData()
     loadAll(()=>{
-      newPageOpened()
+      pageOpened()
     })
     autosave = setInterval(()=>{
       if(textSave){
@@ -76,7 +76,7 @@ function load(content){
 function loadFromContent(content){
   resetData()
   load(content)
-  newPageOpened()
+  pageOpened()
 }
 
 function resetData(){

@@ -10,7 +10,7 @@ function reloadHTML(){
     
 }
 
-function newPageOpened(){
+function pageOpened(){
   invokeListeners('pre_newPage')
 
   reloadHTML()
