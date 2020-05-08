@@ -8,10 +8,10 @@ function log(msg, logType = 2){
     else if(logType == 3) bootbox.alert(msg)
 }
 
-function getUrlFromBoard(boardId){
+function urlFromBoard(boardId){
     return siteUrl + "#" + boardId
 }
-function getBoardFromUrl(url){
+function boardFromUrl(url){
     return url.replace(siteUrl,'').replace('#','')
 }
 

@@ -7,13 +7,13 @@ function url(){
     return window.location.href
 }
 function setUrl(value){
-    this.pushBoardHistory(value)
+    pushBoardHistory(value)
     window.location.href = value
 }
 
 //Current board (from url): siteUrl#<boardId>
 function board(){
-    return getBoardFromUrl(this.url())
+    return boardFromUrl(url())
 }
 function setBoard(value){
     window.location.hash = value
@@ -23,13 +23,13 @@ function setBoard(value){
 //Only board IDs
 let boardHistory = []
 function lastBoardHistory(){
-    return this.boardHistory.slice(-1)[0]
+    return boardHistory.slice(-1)[0]
 }
 //Add board to history, skip if already last
 function pushBoardHistory(boardIdOrUrl){
-    let bId = this.boardFromUrl(boardIdOrUrl)
-    if(bId != this.lastBoardHistory())
-        this.boardHistory.push(bId)
+    let bId = boardFromUrl(boardIdOrUrl)
+    if(bId != lastBoardHistory())
+        boardHistory.push(bId)
 }
 
 //Static html elements
