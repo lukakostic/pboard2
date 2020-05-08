@@ -29,7 +29,7 @@ let storage = {
 
 
     fileDelete(name, callback=null){
-        let fileId = fileIdByName(name)
+        let fileId = this.fileIdByName(name)
         if(fileId != null){
             gapi.client.drive.files.delete({
             'fileId': fileId
@@ -77,7 +77,7 @@ let storage = {
 
     //If downloaded, pass contents. Else pass null to callback
     fileDownload(name, callback=null){
-        let fileId = fileIdByName(name)
+        let fileId = this.fileIdByName(name)
 
         if(fileId != null){
 
