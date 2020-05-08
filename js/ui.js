@@ -35,7 +35,7 @@ function pageOpened(){
 }
 
 function executeExtensions(){
-  let extensions = getBrdAttrOrDef(board,'extensions',[])
+  let extensions = getBrdAttrOrDef(board(),'extensions',[])
   for(let i = 0; i < extensions.length; i++){
     if(extensions[i].on){
       eval(project.extensions[extensions[i].id].code)
@@ -46,7 +46,7 @@ function executeExtensions(){
 function loadBoardBackgroundImage(){
   let brdEl = EbyId('main')
   
-  brdEl.style.backgroundImage = "url('"+getBrdAttr(board,'background')+"')"
+  brdEl.style.backgroundImage = "url('"+getBrdAttr(board(),'background')+"')"
   brdEl.style.repeatMode = "no-repeat"
   brdEl.style.backgroundSize = "cover"
 }
@@ -150,8 +150,8 @@ function makeDraggable(){
         newDragIndex = getElementIndex(dragItem[0])
 
         
-          project.boards[board].content.splice(oldDragIndex,1)
-          project.boards[board].content.splice(newDragIndex,0,getDataId(dragItem[0]))
+          project.boards[board()].content.splice(oldDragIndex,1)
+          project.boards[board()].content.splice(newDragIndex,0,getDataId(dragItem[0]))
         
         dragItem = null
         saveAll()
