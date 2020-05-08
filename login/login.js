@@ -11,13 +11,16 @@ function handleClientLoad() {
                 discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
                 scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
             }).then(function () {
+
                 // Listen for sign-in state changes.
                 gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
             
                 // Handle the initial sign-in state.
                 updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
                 authorizeButton.onclick = handleAuthClick;
                 signoutButton.onclick = handleSignoutClick;
+                
             }, function(error) {
                 alert(JSON.stringify(error, null, 2));
             });

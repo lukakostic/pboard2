@@ -18,6 +18,8 @@ class StorageManager {
             console.log('getId ', response);
             //return response.entries; //listFiles(response.entries);
         //    if(log) log({msg: response, type: 'log'});
+          }).catch((err)=>{
+              console.log('getId err ',err);
           });
     }
 
