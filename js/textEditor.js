@@ -41,7 +41,7 @@ function textBackClicked(){
 function textTitleChanged(){
     
     //alert("Text title changed");
-    let brdId = EbyId('textBoardDialog').attribute('data-id')
+    let brdId = EbyId('textBoardDialog').getAttribute('data-id')
     project.boards[brdId].name = event.srcElement.value
 
     loadAllBoardsByDataId(brdId)
@@ -52,7 +52,7 @@ function textTitleChanged(){
 function textDescriptionChanged(){
 
     //alert("Text description changed");
-    let brdId = EbyId('textBoardDialog').attribute('data-id')
+    let brdId = EbyId('textBoardDialog').getAttribute('data-id')
     project.boards[brdId].content = event.srcElement.value
 
     loadAllBoardsByDataId(brdId)

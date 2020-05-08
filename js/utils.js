@@ -52,10 +52,10 @@ function parentElementBoard(el,state=-1){
 
 //Get/Set Board id (data-id) from html element
 function dataId(el){
-    return el.attribute('data-id')
+    return el.getAttribute('data-id')
 }
 function set_dataId(el,id){
-    el.set_attribute('data-id',id)
+    el.setAttribute('data-id',id)
 }
 
 //Set attribute of board by id, if it already doesnt have it
@@ -94,7 +94,7 @@ function delBrdAttr(id,attr){
 
 function nulledGetAttribute(el,attr){
     let atr = null
-    if(el.hasAttribute(attr)) atr = el.attribute(attr)
+    if(el.hasAttribute(attr)) atr = el.getAttribute(attr)
     return atr
 }
 
