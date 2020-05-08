@@ -1,58 +1,21 @@
+//Static html elements
+let static = {
+    get textBrdTemplate(){return getTemplateFChild('textBoardTemplate')},
+    get boardBrdTemplate(){return getTemplateFChild('boardBoardTemplate')},
+    get listTemplate(){return getTemplateFChild('listTemplate')},
 
-let web = {
+    get contentAlbum(){return EbyId('contentAlbum')},
+    get mainContentAlbum(){return EbyId('mainContentAlbum')},
+    get mainList(){return EbyId('main-list')},
 
-    //Base site url
-    siteUrl: "https://lukakostic.github.io/pboard/",
+    get loadingIndicator(){return EbyId('loadingIndicator')},
+    get savingIndicator(){return EbyId('savingIndicator')},
 
-    //Full url
-    get url(){
-        return window.location.href
-    },
-    set url(value){
-        this.pushBoardHistory(value)
-        window.location.href = value
-    },
+    get header(){return EbyId('header')},
+    get headerMain(){return EbyId('headerMain')},
 
-    //Current board (from url): siteUrl#<boardId>
-    get board(){
-        return getBoardFromUrl(this.url)
-    },
-    set board(value){
-        window.location.hash = value
-        newPageOpened()
-    },
-
-    //Only board IDs
-    boardHistory: [],
-    lastBoardHistory(){
-        return this.boardHistory.slice(-1)[0]
-    },
-    //Add board to history, skip if already last
-    pushBoardHistory(boardIdOrUrl){
-        let bId = this.getBoardFromUrl(boardIdOrUrl)
-        if(bId != this.lastBoardHistory())
-            this.boardHistory.push(bId)
-    },
-
-    //Static html elements
-    static: {
-        textBrdTemplate : getTemplateFChild('textBoardTemplate'),
-        boardBrdTemplate : getTemplateFChild('boardBoardTemplate'),
-        listTemplate : getTemplateFChild('listTemplate'),
-    
-        contentAlbum : EbyId('contentAlbum'),
-        mainContentAlbum: EbyId('mainContentAlbum'),
-        mainList : EbyId('main-list'),
-    
-        loadingIndicator : EbyId('loadingIndicator'),
-        savingIndicator : EbyId('savingIndicator'),
-    
-        header : EbyId('header'),
-        headerMain : EbyId('headerMain'),
-    
-        extrasDialog : EbyId('extrasDialog'),
-        extrasTitle : EbyId('extrasTitle'),
-        extrasContent : EbyId('extrasContent'),
-        extrasBack : EbyId('extrasBack'),
-    },
-  }
+    get extrasDialog(){return EbyId('extrasDialog')},
+    get extrasTitle(){return EbyId('extrasTitle')},
+    get extrasContent(){return EbyId('extrasContent')},
+    get extrasBack(){return EbyId('extrasBack')},
+}
