@@ -1,9 +1,8 @@
 
 let dragOld, dragNew, dragItem
 let oldDragIndex, newDragIndex
-
+/*
 function reloadHTML(){
-  console.log('reload html')
   
   document.body.outerHTML = static.htmlBackup.innerHTML
   uiToFunctions()
@@ -11,14 +10,38 @@ function reloadHTML(){
   invokeListeners('reloadHTML')
     
 }
+*/
+function htmlLoaded(){
+  static = {
+    textBrdTemplate: templateFChild('textBoardTemplate'),
+    boardBrdTemplate: templateFChild('boardBoardTemplate'),
+    listTemplate: templateFChild('listTemplate'),
+
+    contentAlbum: EbyId('contentAlbum'),
+    mainContentAlbum: EbyId('mainContentAlbum'),
+    mainList: EbyId('main-list'),
+
+    loadingIndicator: EbyId('loadingIndicator'),
+    savingIndicator: EbyId('savingIndicator'),
+
+    header: EbyId('header'),
+    headerMain: EbyId('headerMain'),
+
+    extrasDialog: EbyId('extrasDialog'),
+    extrasTitle: EbyId('extrasTitle'),
+    extrasContent: EbyId('extrasContent'),
+    extrasBack: EbyId('extrasBack'),
+  }
+
+  uiToFunctions()
+  static.loadingIndicator.style.display = 'none'
+}
 
 function pageOpened(){
   invokeListeners('pre_newPage')
 
-  reloadHTML()
+  //reloadHTML()
 
-  console.log('disable loading indicator')
-  static.loadingIndicator.style.display = 'none'
 
   
   if(board() == ""){
