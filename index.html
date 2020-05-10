@@ -38,48 +38,9 @@
   <script src="./js/extensionEditor.js"></script>
   <script src="./js/tagEditor.js"></script>
   <script src="./js/ui.js"></script>
+  
   <script src="./js/boardManager.js"></script>
   
-<!--
-  <script type="text/javascript">
-let driveAPI_Creds = {
-  apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
-  clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
-  discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-  scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
-}
-function OnStorageLoad(){
-    gapi.load('client:auth2', ()=>{
-      gapi.client.init(driveAPI_Creds).then(()=>{
-        //Listen for sign in changes and call updateSigninStatus, as well as call the initial one
-        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
-        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
-      }, (error)=>{
-        console.log(error)
-      })
-  })
-}
-function updateSigninStatus(isSignedIn){
-  console.log('logged in: ' + isSignedIn)
-
-  if(isSignedIn == false)
-    alert('not logged in')
-  else{
-    
-    console.log('sending',1)
-    gapi.client.drive.files.list({
-      'pageSize': 10,
-      'fields': "nextPageToken, files(id, name)"
-    }).then((response)=>{
-      console.log('response',1)
-      console.log(response.result.files)
-    })
-    console.log('sent',1)
-    
-  }
-}
-  </script>
--->
   <!-- Connect to storage: google drive -->
   <script async defer src="https://apis.google.com/js/api.js"
   onload="this.onload=function(){};OnStorageLoad()"
