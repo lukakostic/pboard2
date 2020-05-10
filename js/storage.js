@@ -42,7 +42,7 @@ let storage = {
       let xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              callback(xmlhttp.responseText);
+              callback(xmlhttp);
           }
       }
       xmlhttp.open('GET', url, true);
@@ -109,7 +109,7 @@ let storage = {
 */
 var url = 'https://www.googleapis.com/drive/v2/files/' + fileId;
 this.getData(url, (responseMeta)=>{
-  this.getData(JSON.parse(responseMeta).downloadUrl, (resp)=>{
+  this.getData(JSON.parse(responseMeta.responseText).downloadUrl, (resp)=>{
       log(resp)
   })
 })
