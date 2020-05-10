@@ -109,7 +109,7 @@ let storage = {
 */
 var url = 'https://www.googleapis.com/drive/v2/files/' + fileId;
 this.getData(url, (responseMeta)=>{
-  getData(JSON.parse(responseMeta).downloadUrl, (resp)=>{
+  this.getData(JSON.parse(responseMeta).downloadUrl, (resp)=>{
       log(resp)
   })
 })
