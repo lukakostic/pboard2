@@ -86,7 +86,8 @@ let storage = {
               'fileId': fileId,
               alt: 'media'
             })
-            .then((response,rawData)=>{
+            .execute((response,rawData)=>{
+              log(response)
               log(rawData)
               if(callback) callback(response)
             })
