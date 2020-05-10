@@ -33,17 +33,13 @@ function pushBoardHistory(boardIdOrUrl){
         boardHistory.push(bId)
 }
 
-alert(this)
-
 //Static html elements
 Object.defineProperties(this, {
     _static: null,
-    static: {
-        get: function () {
-            if(_static == null)
-                getStatic()
-            return this._static
-        }
+    get staic() {
+        if(_static == null)
+            getStatic()
+        return this._static
     }
 })
 
