@@ -53,7 +53,6 @@ let storage = {
             }
           })
           .then((resp)=>{
-            console.log('uploading file response');/////////////
             if(resp.status != 200) log(resp);
             if(callback) callback(resp)
           })
@@ -89,9 +88,12 @@ let storage = {
                 gapi.client.drive.files.get({
                 'fileId': fileId,
                 alt: 'media'
-                },(res)=>{
-                  console.log('download ',res)
-                  alert(JSON.stringify(res))
+                })
+                .on('end', function () {
+                  console.log('Done downloading');
+                })
+                .on('error', function (err) {
+                  log('Error during download', err);
                 })
             }catch(err){ log(err) }
             
