@@ -42,6 +42,13 @@ function updateSigninStatus(isSignedIn){
     goLogin()
   else{
     
+    gapi.client.drive.files.list({
+      'pageSize': 10,
+      'fields': "nextPageToken, files(id, name)"
+    }).then((response)=>{
+      log(response.result.files)
+    })
+
     resetData()
     loadAll(()=>{
       pageOpened()
