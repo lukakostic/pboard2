@@ -37,12 +37,14 @@ function pushBoardHistory(boardIdOrUrl){
 static = {
     _static: null,
     get:()=>{
+        alert('GET')
         if(_static == null)
             getStatic()
         return this._static
     },
     set:(value)=>{_static = value},
     getStatic(){
+        alert('GET STATIC')
         _static = {
             htmlBackup: document.createElement('template'),
     
