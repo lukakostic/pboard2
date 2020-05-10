@@ -33,21 +33,10 @@ function OnStorageLoad(){
 //after Entry point
 //Logged in (or not). Lets load everything up!
 function updateSigninStatus(isSignedIn){
-  log('logged in: ' + isSignedIn)
 
   if(isSignedIn == false)
     goLogin()
   else{
-    
-    log('sending',1)
-    gapi.client.drive.files.list({
-      'pageSize': 10,
-      'fields': "nextPageToken, files(id, name)"
-    }).then((response)=>{
-      log('response',1)
-      log(response.result.files)
-    })
-    log('sent',1)
     
     resetData()
     loadAll(()=>{
