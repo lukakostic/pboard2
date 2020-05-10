@@ -75,7 +75,7 @@ let storage = {
             .then((success)=>{
               var xhr = new XMLHttpRequest()
               let oauthToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
-              xhr.open("GET", success.result.webContentLink + '?access_token=' + encodeURIComponent(oauthToken))
+              xhr.open("GET", success.result.webContentLink + '&access_token=' + encodeURIComponent(oauthToken))
               xhr.responseType = "blob";
               
               xhr.onload = ()=>{
