@@ -7,7 +7,7 @@ let driveAPI_Creds = {
 
 let storage = {
     
-    fileIdByName(name){
+    fileIdByName(name, callback){
         gapi.client.drive.files.list({
           'pageSize': 10,
           fields: "nextPageToken, files(id, name)",
@@ -16,28 +16,27 @@ let storage = {
         .then((response)=>{
           var files = response.result.files;
           if (files && files.length > 0) {
-            return files[0].id
+            callback(files[0].id)
+            return;
           }
-          console.log('getId ', response)
           //return response.entries; //listFiles(response.entries);
       //    if(log) log({msg: response, type: 'log'});
         })
-        .catch((err)=>{ console.log('getId err ',err) })
+        .catch((err)=>{ console.log('getId err ',err); callback(null) })
     },
 
 
     fileDelete(name, callback=null){
-        let fileId = this.fileIdByName(name)
-        if(fileId != null){
+        this.fileIdByName(name,(fileId)=>{
+          if(fileId != null){
             gapi.client.drive.files.delete({
             'fileId': fileId
             }, (err) => {
                 if (err) log(err)
                 if(callback) callback()
             })
-        }else{
-            return false
-        }
+          }
+        })
     },
 
     //file: name, contents, mimeType
@@ -74,7 +73,7 @@ let storage = {
 
     //If downloaded, pass contents. Else pass null to callback
     fileDownload(name, callback=null){
-        let fileId = this.fileIdByName(name)
+      this.fileIdByName(name,(fileId)=>{
         console.log('fileID:',fileId)
         if(fileId != null){
 
@@ -111,6 +110,7 @@ let storage = {
           .pipe(dest);
 */
           //dest.readAsText(response.fileBlob);
+        })
     },
 
 
