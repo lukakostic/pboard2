@@ -61,8 +61,11 @@ let storage = {
 
            gapi.client.request({
             'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
-          }).execute((resp)=>{
-            log(resp,'Request resp')
+          })
+          .execute((response,rawData)=>{
+            log(response,'resp')
+            log(rawData,'raw')
+            if(callback) callback(response)
           })
 /*
             gapi.client.drive.files.get({
