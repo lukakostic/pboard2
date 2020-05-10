@@ -23,7 +23,7 @@ htmlBackup.innerHTML = document.body.outerHTML
 //Init drive api and listen for signIn changes
 function OnStorageLoad(){
     gapi.load('client:auth2', ()=>{
-      gapi.client.init(driveAPI_Creds).then( ()=>{
+      gapi.client.init(driveAPI_Creds).then(()=>{
         //Listen for sign in changes and call updateSigninStatus, as well as call the initial one
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
@@ -38,7 +38,7 @@ function OnStorageLoad(){
 //Logged in (or not). Lets load everything up!
 function updateSigninStatus(isSignedIn){
   log('logged in: ' + isSignedIn)
-  
+
   if(isSignedIn == false)
     goLogin()
   else{

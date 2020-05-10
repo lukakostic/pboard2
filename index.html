@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="./external/fa-v4-shims.css">
   <link rel="stylesheet" href="./index.css">
   
+  <!--
   <script src="./js/utils.js"></script>
   <script src="./js/static.js"></script>
   <script src="./js/updater.js"></script>
@@ -38,6 +39,58 @@
   <script src="./js/tagEditor.js"></script>
   <script src="./js/ui.js"></script>
   <script defer src="./js/boardManager.js"></script>
+  -->
+
+  <script type="text/javascript">
+let driveAPI_Creds = {
+  apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
+  clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
+  discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+  scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
+}
+    function handleClientLoad() {
+      gapi.load('client:auth2', initClient);
+    }
+    function initClient() {
+      gapi.client.init(driveAPI_Creds).then(function () {
+        
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
+      }, function(error) {
+        appendPre(JSON.stringify(error, null, 2));
+      });
+    }
+    function updateSigninStatus(isSignedIn) {
+      if (isSignedIn) {
+        listFiles();
+      } else {
+        alert('not signed in');
+      }
+    }
+    function appendPre(message) {
+      console.log(message);
+    }
+
+    function listFiles() {
+      gapi.client.drive.files.list({
+        'pageSize': 10,
+        'fields': "nextPageToken, files(id, name)"
+      }).then(function(response) {
+        appendPre('Files:');
+        var files = response.result.files;
+        if (files && files.length > 0) {
+          for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            appendPre(file.name + ' (' + file.id + ')');
+          }
+        } else {
+          appendPre('No files found.');
+        }
+      });
+    }
+
+  </script>
 
   <!-- Connect to storage: google drive -->
   <script async defer src="https://apis.google.com/js/api.js"
