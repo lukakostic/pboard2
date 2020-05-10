@@ -67,7 +67,7 @@ static = {
         }
         
         _static.htmlBackup.innerHTML = document.body.outerHTML
-        alert(_static.htmlBackup)
+        alert(_static.htmlBackup.innerHTML)
     }
 }
 
