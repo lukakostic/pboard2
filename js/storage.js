@@ -15,10 +15,12 @@ let storage = {
         })
         .then((response)=>{
           var files = response.result.files;
-          if (files && files.length > 0)
+          if (files != null && files.length > 0)
             callback(files[0].id)
+          else
+            callback(null)
         })
-        .catch((err)=>{ log(t='getId err ',err); callback(null) })
+        .catch((err)=>{ log(t='fileIdByName err ',err); callback(null) })
     },
 
 
@@ -27,10 +29,11 @@ let storage = {
           if(fileId != null){
             gapi.client.drive.files.delete({
             'fileId': fileId
-            }, (err) => {
-                if (err) log(err)
-                if(callback) callback()
             })
+            .then((response)=>{
+              log(response,t='fileDelete log')
+            })
+            .catch((err)=>{ log(t='fileDelete err ',err); callback(null) })
           }
         })
     },
