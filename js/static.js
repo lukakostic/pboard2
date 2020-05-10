@@ -34,37 +34,37 @@ function pushBoardHistory(boardIdOrUrl){
 }
 
 //Static html elements
+let _static = null
 Object.defineProperty(window, 'static', {
-    _static: null,
-    getStatic: ()=>{
-        _static = {
-            htmlBackup: document.createElement('template'),
-    
-            textBrdTemplate: templateFChild('textBoardTemplate'),
-            boardBrdTemplate: templateFChild('boardBoardTemplate'),
-            listTemplate: templateFChild('listTemplate'),
-    
-            contentAlbum: EbyId('contentAlbum'),
-            mainContentAlbum: EbyId('mainContentAlbum'),
-            mainList: EbyId('main-list'),
-    
-            loadingIndicator: EbyId('loadingIndicator'),
-            savingIndicator: EbyId('savingIndicator'),
-    
-            header: EbyId('header'),
-            headerMain: EbyId('headerMain'),
-    
-            extrasDialog: EbyId('extrasDialog'),
-            extrasTitle: EbyId('extrasTitle'),
-            extrasContent: EbyId('extrasContent'),
-            extrasBack: EbyId('extrasBack'),
-        }
-        
-        _static.htmlBackup.innerHTML = document.body.outerHTML
-    },
     get: ()=>{
         if(_static == null)
             getStatic()
         return _static
     }
 })
+function getStatic(){
+    _static = {
+        htmlBackup: document.createElement('template'),
+
+        textBrdTemplate: templateFChild('textBoardTemplate'),
+        boardBrdTemplate: templateFChild('boardBoardTemplate'),
+        listTemplate: templateFChild('listTemplate'),
+
+        contentAlbum: EbyId('contentAlbum'),
+        mainContentAlbum: EbyId('mainContentAlbum'),
+        mainList: EbyId('main-list'),
+
+        loadingIndicator: EbyId('loadingIndicator'),
+        savingIndicator: EbyId('savingIndicator'),
+
+        header: EbyId('header'),
+        headerMain: EbyId('headerMain'),
+
+        extrasDialog: EbyId('extrasDialog'),
+        extrasTitle: EbyId('extrasTitle'),
+        extrasContent: EbyId('extrasContent'),
+        extrasBack: EbyId('extrasBack'),
+    }
+    
+    _static.htmlBackup.innerHTML = document.body.outerHTML
+}
