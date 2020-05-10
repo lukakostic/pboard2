@@ -40,7 +40,7 @@ let static = {
         alert('GET')
         if(_static == null)
             getStatic()
-        return this._static
+        return _static
     },
     set:(value)=>{_static = value},
 }
