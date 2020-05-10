@@ -48,7 +48,7 @@ let driveAPI_Creds = {
   discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
   scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
 }
-    function handleClientLoad() {
+    function OnStorageLoad() {
       gapi.load('client:auth2', initClient);
     }
     function initClient() {
