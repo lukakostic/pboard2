@@ -72,5 +72,3 @@ function getStatic(){
     
     _static.htmlBackup.innerHTML = document.body.outerHTML
 }
-
-alert(JSON.stringify(static))
