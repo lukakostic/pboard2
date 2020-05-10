@@ -34,8 +34,8 @@ function pushBoardHistory(boardIdOrUrl){
 }
 
 //Static html elements
+let _static = null
 static = {
-    _static: null,
     get:()=>{
         alert('GET')
         if(_static == null)
@@ -43,33 +43,32 @@ static = {
         return this._static
     },
     set:(value)=>{_static = value},
-    getStatic(){
-        alert('GET STATIC')
-        _static = {
-            htmlBackup: document.createElement('template'),
-    
-            textBrdTemplate: templateFChild('textBoardTemplate'),
-            boardBrdTemplate: templateFChild('boardBoardTemplate'),
-            listTemplate: templateFChild('listTemplate'),
-    
-            contentAlbum: EbyId('contentAlbum'),
-            mainContentAlbum: EbyId('mainContentAlbum'),
-            mainList: EbyId('main-list'),
-    
-            loadingIndicator: EbyId('loadingIndicator'),
-            savingIndicator: EbyId('savingIndicator'),
-    
-            header: EbyId('header'),
-            headerMain: EbyId('headerMain'),
-    
-            extrasDialog: EbyId('extrasDialog'),
-            extrasTitle: EbyId('extrasTitle'),
-            extrasContent: EbyId('extrasContent'),
-            extrasBack: EbyId('extrasBack'),
-        }
-        
-        _static.htmlBackup.innerHTML = document.body.outerHTML
-        alert(_static.htmlBackup.innerHTML)
-    }
 }
+function getStatic(){
+    alert('GET STATIC')
+    _static = {
+        htmlBackup: document.createElement('template'),
 
+        textBrdTemplate: templateFChild('textBoardTemplate'),
+        boardBrdTemplate: templateFChild('boardBoardTemplate'),
+        listTemplate: templateFChild('listTemplate'),
+
+        contentAlbum: EbyId('contentAlbum'),
+        mainContentAlbum: EbyId('mainContentAlbum'),
+        mainList: EbyId('main-list'),
+
+        loadingIndicator: EbyId('loadingIndicator'),
+        savingIndicator: EbyId('savingIndicator'),
+
+        header: EbyId('header'),
+        headerMain: EbyId('headerMain'),
+
+        extrasDialog: EbyId('extrasDialog'),
+        extrasTitle: EbyId('extrasTitle'),
+        extrasContent: EbyId('extrasContent'),
+        extrasBack: EbyId('extrasBack'),
+    }
+    
+    _static.htmlBackup.innerHTML = document.body.outerHTML
+    alert(_static.htmlBackup.innerHTML)
+}
