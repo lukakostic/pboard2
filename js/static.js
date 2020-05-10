@@ -34,8 +34,8 @@ function pushBoardHistory(boardIdOrUrl){
 }
 
 //Static html elements
+let _static = null
 Object.defineProperty(this, 'static', {
-    _static: null,
     get:()=>{
         if(_static == null)
             getStatic()
