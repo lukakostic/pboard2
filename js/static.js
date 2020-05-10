@@ -35,7 +35,7 @@ function pushBoardHistory(boardIdOrUrl){
 
 //Static html elements
 let _static = null
-static = {
+let static = {
     get:()=>{
         alert('GET')
         if(_static == null)
