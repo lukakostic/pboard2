@@ -108,9 +108,11 @@ let storage = {
             },(fail)=>{ log(fail,'File download fail') })
 */
 var url = 'https://www.googleapis.com/drive/v2/files/' + fileId;
-this.getData(url, (responseText)=>{
-    log(responseText)
-});
+this.getData(url, (responseMeta)=>{
+  getData(JSON.parse(responseMeta).downloadUrl, (resp)=>{
+      log(resp)
+  })
+})
 
             //.catch((err)=>{ log(err) })
             
