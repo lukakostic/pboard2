@@ -73,6 +73,7 @@ let storage = {
               fields: 'webContentLink'
             })
             .then((success)=>{
+              log(success)
               log(success.result.webContentLink.result)    
             },(fail)=>{ log(fail,'File download fail') })
 
