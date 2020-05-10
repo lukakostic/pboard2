@@ -64,7 +64,7 @@ Object.defineProperty(window, 'static', {
     },
     get: ()=>{
         if(this._static == null)
-            this.getStatic()
+            getStatic()
         return this._static
     }
 })
