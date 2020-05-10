@@ -15,10 +15,6 @@ let extensionListeners = //arrays of callbacks
 let autosave = null //interval, set after loading settings.
 let textSave = false //text changed, save
 
-let htmlBackup = document.createElement('template')
-htmlBackup.innerHTML = document.body.outerHTML
-
-
 //Entry point
 //Init drive api and listen for signIn changes
 function OnStorageLoad(){
@@ -32,6 +28,7 @@ function OnStorageLoad(){
         goLogin() //error initing drive, probably not logged in
       })
   })
+
 }
 
 //after Entry point

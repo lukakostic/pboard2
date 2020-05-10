@@ -33,23 +33,36 @@ function pushBoardHistory(boardIdOrUrl){
 }
 
 //Static html elements
-let static = {
-    get textBrdTemplate(){return templateFChild('textBoardTemplate')},
-    get boardBrdTemplate(){return templateFChild('boardBoardTemplate')},
-    get listTemplate(){return templateFChild('listTemplate')},
+let _static = null;
+Object.defineProperty(this, 'static', { get: ()=>{
+        if(_static == null)
+            getStatic()
+        return this._static
+}})
+function getStatic(){
+    _static = {
+        
+        htmlBackup: document.createElement('template'),
 
-    get contentAlbum(){return EbyId('contentAlbum')},
-    get mainContentAlbum(){return EbyId('mainContentAlbum')},
-    get mainList(){return EbyId('main-list')},
+        textBrdTemplate: templateFChild('textBoardTemplate'),
+        boardBrdTemplate: templateFChild('boardBoardTemplate'),
+        listTemplate: templateFChild('listTemplate'),
 
-    get loadingIndicator(){return EbyId('loadingIndicator')},
-    get savingIndicator(){return EbyId('savingIndicator')},
+        contentAlbum: EbyId('contentAlbum'),
+        mainContentAlbum: EbyId('mainContentAlbum'),
+        mainList: EbyId('main-list'),
 
-    get header(){return EbyId('header')},
-    get headerMain(){return EbyId('headerMain')},
+        loadingIndicator: EbyId('loadingIndicator'),
+        savingIndicator: EbyId('savingIndicator'),
 
-    get extrasDialog(){return EbyId('extrasDialog')},
-    get extrasTitle(){return EbyId('extrasTitle')},
-    get extrasContent(){return EbyId('extrasContent')},
-    get extrasBack(){return EbyId('extrasBack')},
+        header: EbyId('header'),
+        headerMain: EbyId('headerMain'),
+
+        extrasDialog: EbyId('extrasDialog'),
+        extrasTitle: EbyId('extrasTitle'),
+        extrasContent: EbyId('extrasContent'),
+        extrasBack: EbyId('extrasBack'),
+    }
+    
+    _static.htmlBackup.innerHTML = document.body.outerHTML
 }

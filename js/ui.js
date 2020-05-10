@@ -3,7 +3,7 @@ let dragOld, dragNew, dragItem
 let oldDragIndex, newDragIndex
 
 function reloadHTML(){
-  document.body.outerHTML = htmlBackup.innerHTML
+  document.body.outerHTML = static.htmlBackup.innerHTML
   uiToFunctions()
 
   invokeListeners('reloadHTML')
