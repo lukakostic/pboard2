@@ -33,6 +33,8 @@ function pushBoardHistory(boardIdOrUrl){
         boardHistory.push(bId)
 }
 
+alert(this)
+
 //Static html elements
 Object.defineProperties(this, {
     _static: null,
