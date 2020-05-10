@@ -11,7 +11,7 @@ let storage = {
         gapi.client.drive.files.list({
           'pageSize': 10,
           fields: "nextPageToken, files(id, name)",
-          q: "name: "+_name+"'"
+          q: "name='"+_name+"'"
         })
         .then((response)=>{
           var files = response.result.files;
