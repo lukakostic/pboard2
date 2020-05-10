@@ -76,17 +76,19 @@ let storage = {
             .then((success)=>{
 
 
+              let oauthToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
+
+              let reqUrl = success.result.webContentLink + '&access_token=' + encodeURIComponent(oauthToken)
               
               var xhr = new XMLHttpRequest()
-              xhr.open("GET", success.result.webContentLink, true)
+              xhr.open("GET", reqUrl, true)
               xhr.responseType = "blob";
               
               xhr.onload = ()=>{
                 dest.readAsText(response.fileBlob);
               }
 
-              let oauthToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
-              xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
+              //xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
               xhr.send();
               
             },(fail)=>{ log(fail,'File download fail') })
