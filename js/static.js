@@ -34,13 +34,14 @@ function pushBoardHistory(boardIdOrUrl){
 }
 
 //Static html elements
-Object.defineProperties(this, {
+Object.defineProperty(this, 'static', {
     _static: null,
-    get staic() {
+    get:()=>{
         if(_static == null)
             getStatic()
         return this._static
-    }
+    },
+    set:(value)=>{_static = value}
 })
 
 function getStatic(){
