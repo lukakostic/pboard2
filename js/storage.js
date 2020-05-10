@@ -71,10 +71,12 @@ let storage = {
 
             gapi.client.drive.files.get({
               'fileId': fileId,
-              fields: 'webContentLink'
+              //fields: 'webContentLink'
+              fields: 'downloadUrl'
             })
             .then((success)=>{
 
+              log(success)
 
               let oauthToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
 
