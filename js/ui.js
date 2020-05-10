@@ -3,6 +3,8 @@ let dragOld, dragNew, dragItem
 let oldDragIndex, newDragIndex
 
 function reloadHTML(){
+  console.log('reload html')
+  
   document.body.outerHTML = static.htmlBackup.innerHTML
   uiToFunctions()
 
@@ -14,6 +16,8 @@ function pageOpened(){
   invokeListeners('pre_newPage')
 
   reloadHTML()
+
+  console.log('disable loading indicator')
   static.loadingIndicator.style.display = 'none'
 
   
