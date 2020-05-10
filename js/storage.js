@@ -75,7 +75,7 @@ let storage = {
     //If downloaded, pass contents. Else pass null to callback
     fileDownload(name, callback=null){
         let fileId = this.fileIdByName(name)
-
+        console.log('fileID:',fileId)
         if(fileId != null){
 
             let dest = new FileReader()
