@@ -2,7 +2,7 @@ let driveAPI_Creds = {
   apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
   clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
   discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-  scope: 'https://www.googleapis.com/auth/drive.metadata.readonly' //space separated
+  scope: 'https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.file' //space separated
 }
 
 let storage = {
