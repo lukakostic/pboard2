@@ -73,4 +73,3 @@ function getStatic(){
     _static.htmlBackup.innerHTML = document.body.outerHTML
 }
 
-alert(static)
