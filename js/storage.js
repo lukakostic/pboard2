@@ -38,6 +38,19 @@ let storage = {
           })
     },
 
+    getData(url, callback) {
+      let xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+              callback(xmlhttp.responseText);
+          }
+      }
+      xmlhttp.open('GET', url, true);
+      let oauthToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
+      xmlhttp.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
+      xmlhttp.send();
+  },
+
     //If downloaded, pass contents. Else pass null to callback
     fileDownload(name, callback){
       this.fileIdByName(name,(fileId)=>{
@@ -68,7 +81,7 @@ let storage = {
             if(callback) callback(response)
           })
 */
-
+/*
             gapi.client.drive.files.get({
               'fileId': fileId,
               //fields: 'webContentLink'
@@ -93,8 +106,11 @@ let storage = {
               xhr.send();
               
             },(fail)=>{ log(fail,'File download fail') })
-
-
+*/
+var url = 'https://www.googleapis.com/drive/v2/files/' + fileId;
+this.getData(url, (responseText)=>{
+    log(responseText)
+});
 
             //.catch((err)=>{ log(err) })
             
