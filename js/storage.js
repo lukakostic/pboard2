@@ -45,8 +45,8 @@ let storage = {
 
             let dest = new FileReader()
             dest.addEventListener("loadend", function () {
+                log(dest.result)
                 if(callback) callback(dest.result)
-                log(response)
             })
           
             /*
@@ -73,8 +73,14 @@ let storage = {
               fields: 'webContentLink'
             })
             .then((success)=>{
-              log(success)
-              log(success.result.webContentLink.result)    
+              var xhr = new XMLHttpRequest()
+              xhr.open("GET", success.result.webContentLink)
+              xhr.responseType = "blob";
+
+              xhr.onload = ()=>{
+                dest.readAsText(response.fileBlob);
+              }
+              xhr.send();
             },(fail)=>{ log(fail,'File download fail') })
 
             //.catch((err)=>{ log(err) })
@@ -94,7 +100,7 @@ let storage = {
           })
           .pipe(dest);
 */
-          //dest.readAsText(response.fileBlob);
+          
         })
     },
 
