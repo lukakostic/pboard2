@@ -89,15 +89,11 @@ let storage = {
                 })
                 .then((response)=>{
                   
-                  log('getReqInThen:',1)
-                  log(getReq,1)
-                  log('download response:',1)
-                  log(response,1)
+                  alert(response)
                   
                   if(callback) callback(response)
                 })
-                log('getReq:',1)
-                log(getReq,1)
+                alert(getReq)
             }catch(err){ log(err) }
             
         }else{
