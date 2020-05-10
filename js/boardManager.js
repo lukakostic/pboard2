@@ -107,9 +107,13 @@ function buildProject(){
 
 function loadAll(callback = null) {
     try{
+      console.log('loading..')
 
       invokeListeners('pre_loadAll')
       storage.fileDownload('pboard.pb' , (contents)=>{
+
+        
+      console.log('loaded..')
 
       if (contents != null) {
         
