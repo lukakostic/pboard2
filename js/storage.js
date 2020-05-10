@@ -20,7 +20,7 @@ let storage = {
           else
             callback(null)
         })
-        .catch((err)=>{ log(t='fileIdByName err ',err); callback(null) })
+        .catch((err)=>{ log(err,'fileIdByName err '); callback(null) })
     },
 
 
@@ -62,7 +62,7 @@ let storage = {
            gapi.client.request({
             'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
           }).execute((resp)=>{
-            log(resp,t='Request resp')
+            log(resp,'Request resp')
           })
 /*
             gapi.client.drive.files.get({
@@ -106,7 +106,7 @@ let storage = {
           .then((response)=>{
             log(response,t='fileDelete log')
           })
-          .catch((err)=>{ log(t='fileDelete err ',err); callback(null) })
+          .catch((err)=>{ log(err,'fileDelete err '); callback(null) })
         }
       })
   },

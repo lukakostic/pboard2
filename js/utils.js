@@ -1,12 +1,15 @@
 //Helper functions (ONLY FUNCTIONS, NO OBJECTS)
 
 //logType 1 console, 2 console & alert, 3 console & bootbox
-function log(msg, logType = 2, t = ''){
-    if(t!='')
-        console.log(t,msg)
+function log(msg, title = '', logType = 2){
+    if(typeof(title) == 'number') //log(a,1)
+        logType = title
+
+    if(title!='')
+        console.log(title,msg)
     else
         console.log(msg)
-    msg = t + '\n' + JSON.stringify(msg, null, 2)
+    msg = title + '\n' + JSON.stringify(msg, null, 2)
     if(logType == 2) alert(msg)
     else if(logType == 3) bootbox.alert(msg)
 }
