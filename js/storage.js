@@ -82,7 +82,7 @@ let storage = {
                 log(response)
             })
 
-            let getReq = gapi.client.drive.files.get({
+            gapi.client.drive.files.get({
               'fileId': fileId,
               alt: 'media'
             })
