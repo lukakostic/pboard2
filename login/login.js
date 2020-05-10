@@ -12,7 +12,7 @@ function handleClientLoad() {
 
       //Listen for sign in changes and call updateSigninStatus, as well as call the initial one
       gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
-      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
+      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get(), true)
 
       authorizeButton.onclick = handleAuthClick
       signoutButton.onclick = handleSignoutClick
@@ -29,11 +29,11 @@ function handleSignoutClick(event) {
 }
 
 // Called when the signed in status changes, to update the UI
-function updateSigninStatus(isSignedIn) {
+function updateSigninStatus(isSignedIn, initial = false) {
   if (isSignedIn) {
     authorizeButton.style.display = 'none'
     signoutButton.style.display = 'block'
-    set_url(siteUrl) // Redirect to site
+    if(initial) set_url(siteUrl) // Redirect to site
   } else {
     authorizeButton.style.display = 'block'
     signoutButton.style.display = 'none'
