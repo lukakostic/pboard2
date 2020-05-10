@@ -83,15 +83,21 @@ let storage = {
             })
 
             try{
-                gapi.client.drive.files.get({
+                let getReq = gapi.client.drive.files.get({
                   'fileId': fileId,
                   alt: 'media'
                 })
                 .then((response)=>{
-                  log('download response:')
-                  log(response)
+                  
+                  log('getReqInThen:',1)
+                  log(getReq,1)
+                  log('download response:',1)
+                  log(response,1)
+                  
                   if(callback) callback(response)
                 })
+                log('getReq:',1)
+                log(getReq,1)
             }catch(err){ log(err) }
             
         }else{
