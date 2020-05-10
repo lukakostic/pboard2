@@ -34,38 +34,37 @@ function pushBoardHistory(boardIdOrUrl){
 }
 
 //Static html elements
-let _static = null
-Object.defineProperty(window, 'static', { get: ()=>{
-    alert('GET')
-    if(_static == null)
-        getStatic()
-    return _static
-}})
-function getStatic(){
-    alert('GET STATIC')
-    _static = {
-        htmlBackup: document.createElement('template'),
-
-        textBrdTemplate: templateFChild('textBoardTemplate'),
-        boardBrdTemplate: templateFChild('boardBoardTemplate'),
-        listTemplate: templateFChild('listTemplate'),
-
-        contentAlbum: EbyId('contentAlbum'),
-        mainContentAlbum: EbyId('mainContentAlbum'),
-        mainList: EbyId('main-list'),
-
-        loadingIndicator: EbyId('loadingIndicator'),
-        savingIndicator: EbyId('savingIndicator'),
-
-        header: EbyId('header'),
-        headerMain: EbyId('headerMain'),
-
-        extrasDialog: EbyId('extrasDialog'),
-        extrasTitle: EbyId('extrasTitle'),
-        extrasContent: EbyId('extrasContent'),
-        extrasBack: EbyId('extrasBack'),
-    }
+Object.defineProperty(window, 'static', {
+    _static: null,
+    get: ()=>{
+        if(this._static == null)
+            this.getStatic()
+        return this._static
+    },
+    getStatic(){
+        this._static = {
+            htmlBackup: document.createElement('template'),
     
-    _static.htmlBackup.innerHTML = document.body.outerHTML
-    alert(_static.htmlBackup.innerHTML)
-}
+            textBrdTemplate: templateFChild('textBoardTemplate'),
+            boardBrdTemplate: templateFChild('boardBoardTemplate'),
+            listTemplate: templateFChild('listTemplate'),
+    
+            contentAlbum: EbyId('contentAlbum'),
+            mainContentAlbum: EbyId('mainContentAlbum'),
+            mainList: EbyId('main-list'),
+    
+            loadingIndicator: EbyId('loadingIndicator'),
+            savingIndicator: EbyId('savingIndicator'),
+    
+            header: EbyId('header'),
+            headerMain: EbyId('headerMain'),
+    
+            extrasDialog: EbyId('extrasDialog'),
+            extrasTitle: EbyId('extrasTitle'),
+            extrasContent: EbyId('extrasContent'),
+            extrasBack: EbyId('extrasBack'),
+        }
+        
+        this._static.htmlBackup.innerHTML = document.body.outerHTML
+    }
+})
