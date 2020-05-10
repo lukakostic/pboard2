@@ -24,50 +24,18 @@ let storage = {
     },
 
 
-    fileDelete(name, callback=null){
-        this.fileIdByName(name,(fileId)=>{
-          if(fileId != null){
-            gapi.client.drive.files.delete({
-            'fileId': fileId
-            })
-            .then((response)=>{
-              log(response,t='fileDelete log')
-            })
-            .catch((err)=>{ log(t='fileDelete err ',err); callback(null) })
-          }
-        })
-    },
-
-    //file: name, contents, mimeType
+    //file: name, body, mimeType
     fileUpload(file, callback=null) {
         if(file.mimeType == null)
             file.mimeType = 'text/plain'
         
         gapi.client.drive.files.create({
-            resource: {
-              name: file.name,
-              mimeType: file.mimeType,
-              body: file.contents
-            }
+            resource: file
           })
           .then((resp)=>{
             if(resp.status != 200) log(resp);
             if(callback) callback(resp)
           })
-    },
-
-    /////////////////////////////////////////////////////// !!!
-    fileMove(from,to, callback=null) {
-      alert("NOT IMPLEMENTED")
-      this.dropbox.filesMove(obj)
-      .then(function (response) {
-          log(response)
-          if(callback) callback(response)
-      })
-      .catch(function (error) {
-          log(error)
-          if(callback) callback(error)
-      })
     },
 
     //If downloaded, pass contents. Else pass null to callback
@@ -80,7 +48,23 @@ let storage = {
                 if(callback) callback(dest.result)
                 log(response)
             })
+          
+            /*
+            var user = gapi.auth2.getAuthInstance().currentUser.get();
+            var oauthToken = user.getAuthResponse().access_token;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET',
+              'https://www.googleapis.com/drive/v3/files/' + fileId +
+              '?access_token=' + encodeURIComponent(oauthToken));
+            xhr.send();
+            */
 
+           gapi.client.request({
+            'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
+          }).execute((resp)=>{
+            log(resp,t='Request resp')
+          })
+/*
             gapi.client.drive.files.get({
               'fileId': fileId,
               alt: 'media'
@@ -90,6 +74,7 @@ let storage = {
               log(rawData)
               if(callback) callback(response)
             })
+*/
             //.catch((err)=>{ log(err) })
             
         }else{
@@ -110,6 +95,36 @@ let storage = {
           //dest.readAsText(response.fileBlob);
         })
     },
+
+
+    fileDelete(name, callback=null){
+      this.fileIdByName(name,(fileId)=>{
+        if(fileId != null){
+          gapi.client.drive.files.delete({
+          'fileId': fileId
+          })
+          .then((response)=>{
+            log(response,t='fileDelete log')
+          })
+          .catch((err)=>{ log(t='fileDelete err ',err); callback(null) })
+        }
+      })
+  },
+
+    /////////////////////////////////////////////////////// !!!
+    fileMove(from,to, callback=null) {
+      alert("NOT IMPLEMENTED")
+      this.dropbox.filesMove(obj)
+      .then(function (response) {
+          log(response)
+          if(callback) callback(response)
+      })
+      .catch(function (error) {
+          log(error)
+          if(callback) callback(error)
+      })
+    },
+
 
 
     ////////////////////////////////////////////!!!!!!!!

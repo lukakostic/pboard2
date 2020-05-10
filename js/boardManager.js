@@ -92,7 +92,7 @@ function saveAll(callback = null) {
 
     let contents = buildProject()
 
-    storage.fileUpload({name: 'pboard.pb', contents: contents},()=>{
+    storage.fileUpload({name: 'pboard.pb', body: contents},()=>{
 
       if(callback!=null) callback()
       stopSavingIndicator()

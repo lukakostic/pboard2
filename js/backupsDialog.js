@@ -88,7 +88,7 @@ function makeBackupClicked(){
     
     //new Date().getTime()+" "+ 
     alert("Not implemented") //Upload by path
-    storage.fileUpload({ path: '/pboardbackups/' , name: bkName + '.pbb', contents: buildProject()},()=>{
+    storage.fileUpload({ path: '/pboardbackups/' , name: bkName + '.pbb', body: buildProject()},()=>{
         
         backups(()=>{ backupsSearched() })
         alert('Made backup'); 
