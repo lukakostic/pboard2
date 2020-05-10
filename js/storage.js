@@ -9,20 +9,16 @@ let storage = {
     
     fileIdByName(name, callback){
         gapi.client.drive.files.list({
-          'pageSize': 10,
-          fields: "nextPageToken, files(id, name)",
+          'pageSize': 1,
+          fields: "files(id)",
           q: "name='"+name+"'"
         })
         .then((response)=>{
           var files = response.result.files;
-          if (files && files.length > 0) {
+          if (files && files.length > 0)
             callback(files[0].id)
-            return;
-          }
-          //return response.entries; //listFiles(response.entries);
-      //    if(log) log({msg: response, type: 'log'});
         })
-        .catch((err)=>{ console.log('getId err ',err); callback(null) })
+        .catch((err)=>{ log(t='getId err ',err); callback(null) })
     },
 
 
@@ -91,7 +87,7 @@ let storage = {
               log(rawData)
               if(callback) callback(response)
             })
-            .catch((err)=>{ log(err) })
+            //.catch((err)=>{ log(err) })
             
         }else{
             callback(null)
