@@ -74,7 +74,6 @@ let storage = {
     //If downloaded, pass contents. Else pass null to callback
     fileDownload(name, callback=null){
       this.fileIdByName(name,(fileId)=>{
-        console.log('fileID:',fileId)
         if(fileId != null){
 
             let dest = new FileReader()
@@ -85,10 +84,11 @@ let storage = {
 
             try{
                 gapi.client.drive.files.get({
-                'fileId': fileId,
-                alt: 'media'
+                  'fileId': fileId,
+                  alt: 'media'
                 })
-                .then(function (response) {
+                .then((response)=>{
+                  log('download response:')
                   log(response)
                   if(callback) callback(response)
                 })
