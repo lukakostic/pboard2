@@ -1,4 +1,4 @@
-
+//Helper functions (ONLY FUNCTIONS, NO OBJECTS)
 
 //logType 1 console, 2 console & alert, 3 console & bootbox
 function log(msg, logType = 2){

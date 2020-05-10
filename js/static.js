@@ -1,3 +1,4 @@
+
 //Base site url
 let siteUrl = "https://lukakostic.github.io/pboard/"
 
@@ -33,12 +34,17 @@ function pushBoardHistory(boardIdOrUrl){
 }
 
 //Static html elements
-let _static = null;
-Object.defineProperty(this, 'static', { get: ()=>{
-        if(_static == null)
-            getStatic()
-        return this._static
-}})
+Object.defineProperties(this, {
+    _static: null,
+    static: {
+        get: function () {
+            if(_static == null)
+                getStatic()
+            return this._static
+        }
+    }
+})
+
 function getStatic(){
     _static = {
         
