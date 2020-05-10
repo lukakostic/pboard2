@@ -36,7 +36,7 @@ function pushBoardHistory(boardIdOrUrl){
 //Static html elements
 Object.defineProperty(window, 'static', {
     _static: null,
-    getStatic(){
+    getStatic: ()=>{
         this._static = {
             htmlBackup: document.createElement('template'),
     
@@ -64,7 +64,7 @@ Object.defineProperty(window, 'static', {
     },
     get: ()=>{
         if(this._static == null)
-            getStatic()
+            this.getStatic()
         return this._static
     }
 })
