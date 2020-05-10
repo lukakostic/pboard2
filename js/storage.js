@@ -72,7 +72,6 @@ let storage = {
             gapi.client.drive.files.get({
               'fileId': fileId,
               //fields: 'webContentLink'
-              fields: 'downloadUrl'
             })
             .then((success)=>{
 
