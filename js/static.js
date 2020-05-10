@@ -35,15 +35,12 @@ function pushBoardHistory(boardIdOrUrl){
 
 //Static html elements
 let _static = null
-let static = {
-    get:()=>{
-        alert('GET')
-        if(_static == null)
-            getStatic()
-        return _static
-    },
-    set:(value)=>{_static = value},
-}
+Object.defineProperty(window, 'static', { get: ()=>{
+    alert('GET')
+    if(_static == null)
+        getStatic()
+    return _static
+}})
 function getStatic(){
     alert('GET STATIC')
     _static = {
