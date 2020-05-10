@@ -44,7 +44,6 @@ static = {
     set:(value)=>{_static = value},
     getStatic(){
         _static = {
-            
             htmlBackup: document.createElement('template'),
     
             textBrdTemplate: templateFChild('textBoardTemplate'),
@@ -68,6 +67,7 @@ static = {
         }
         
         _static.htmlBackup.innerHTML = document.body.outerHTML
+        alert(_static.htmlBackup)
     }
 }
 
