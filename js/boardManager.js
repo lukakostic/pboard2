@@ -111,7 +111,7 @@ function loadAll(callback = null) {
       invokeListeners('pre_loadAll')
       storage.fileDownload('pboard.pb' , (contents)=>{
 
-        
+      log('contents')
       log(contents)
 
       if (contents != null) {
