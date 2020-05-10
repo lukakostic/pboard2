@@ -96,6 +96,7 @@ let storage = {
                   alert(JSON.stringify(res))
                 })
             }catch(err){ log(err) }
+            
         }else{
             callback(null)
         }
