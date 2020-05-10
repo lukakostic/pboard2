@@ -89,11 +89,9 @@ let storage = {
                 'fileId': fileId,
                 alt: 'media'
                 })
-                .on('end', function () {
-                  console.log('Done downloading');
-                })
-                .on('error', function (err) {
-                  log('Error during download', err);
+                .then(function (response) {
+                  log(response)
+                  if(callback) callback(response)
                 })
             }catch(err){ log(err) }
             
