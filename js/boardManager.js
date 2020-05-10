@@ -37,6 +37,7 @@ function OnStorageLoad(){
 //after Entry point
 //Logged in (or not). Lets load everything up!
 function updateSigninStatus(isSignedIn){
+  log('logged in: ' + isSignedIn)
   
   if(isSignedIn == false)
     goLogin()
