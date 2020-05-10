@@ -7,11 +7,11 @@ let driveAPI_Creds = {
 
 let storage = {
     
-    fileIdByName(_name){
+    fileIdByName(name){
         gapi.client.drive.files.list({
           'pageSize': 10,
           fields: "nextPageToken, files(id, name)",
-          q: "name='"+_name+"'"
+          q: "name='"+name+"'"
         })
         .then((response)=>{
           var files = response.result.files;
