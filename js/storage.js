@@ -64,7 +64,7 @@ let storage = {
           'method': 'GET',
           'body': resource
         })
-        .execute((response,rawData)=>{
+        .then((response,rawData)=>{
           log(response,'resp')
           log(rawData,'raw')
           if(callback) callback(response)
