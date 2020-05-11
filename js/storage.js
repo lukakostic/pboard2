@@ -66,11 +66,11 @@ let storage = {
             var user = gapi.auth2.getAuthInstance().currentUser.get()
             var oauthToken = user.getAuthResponse().access_token
             var xhr = new XMLHttpRequest();
-              xhr.open('GET',
-              'https://www.googleapis.com/drive/v3/files/' + fileId +
-              '?alt=media&access_token=' + encodeURIComponent(oauthToken), true)
-              xhr.responseType = "blob"
-              xhr.onreadystatechange = ()=>{
+            xhr.open('GET',
+            'https://www.googleapis.com/drive/v3/files/' + fileId +
+            '?alt=media&access_token=' + encodeURIComponent(oauthToken), true)
+            xhr.responseType = "blob"
+            xhr.onreadystatechange = ()=>{
               log(xhr,'readyStateChange')
               //dest.readAsText(response.fileBlob);
             }
