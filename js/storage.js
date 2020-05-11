@@ -102,20 +102,21 @@ let storage = {
       })
       */
 
-      //
+      //401 Unauthorized
+      
      let reqUrl = wcLink + '&access_token=' + encodeURIComponent(oToken)
             
      var xhr = new XMLHttpRequest()
      xhr.open("GET", reqUrl, true)
-     xhr.responseType = "blob";
+     xhr.responseType = "blob"
      
      xhr.onreadystatechange = ()=>{
        log(xhr,'readyStateChange')
        //dest.readAsText(response.fileBlob);
      }
 
-     xhr.setRequestHeader('Authorization', 'Bearer ' + oToken);
-     xhr.send();
+     //xhr.setRequestHeader('Authorization', 'Bearer ' + oToken)
+     xhr.send()
      
 
     },
