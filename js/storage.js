@@ -65,7 +65,9 @@ let storage = {
       {
         let r = gapi.client.request({
           'path': wcLink,
-          'method': 'GET'
+          'method': 'GET',
+          'params': {'fileId': fileId, 'alt': 'media'},
+          'headers': {'Authorization': 'Bearer ' + oToken }
         })
         r.execute((response,rawData)=>{
           console.log('resp',response)
@@ -80,7 +82,9 @@ let storage = {
       {
         let r = gapi.client.request({
           'path': 'https://www.googleapis.com/drive/v3/files/'+fileId,
-          'method': 'GET'
+          'method': 'GET',
+          'params': {'fileId': fileId, 'alt': 'media'},
+          'headers': {'Authorization': 'Bearer ' + oToken }
         })
         r.execute((response,rawData)=>{
           console.log('resp',response)
