@@ -103,7 +103,7 @@ let storage = {
       */
 
       //
-     let reqUrl = wcLink + '&access_token=' + encodeURIComponent(oauthToken)
+     let reqUrl = wcLink + '&access_token=' + encodeURIComponent(oToken)
             
      var xhr = new XMLHttpRequest()
      xhr.open("GET", reqUrl, true)
@@ -114,7 +114,7 @@ let storage = {
        //dest.readAsText(response.fileBlob);
      }
 
-     xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
+     xhr.setRequestHeader('Authorization', 'Bearer ' + oToken);
      xhr.send();
      
 
