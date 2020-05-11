@@ -51,111 +51,107 @@ let storage = {
       xmlhttp.send()
   },
 
+    testDownload(fileId, wcLink, oToken, callback){
+
+      //Weird proxy 404 thing
+      /*
+        let resource = {
+          'alt':'media'
+        }
+        gapi.client.request({
+          'path': success.result.webContentLink,
+          'method': 'GET',
+          'body': resource
+        })
+        .execute((response,rawData)=>{
+          log(response,'resp')
+          log(rawData,'raw')
+          if(callback) callback(response)
+        })
+      */
+
+      //403 forbidden
+      /*
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET',
+        'https://www.googleapis.com/drive/v3/files/' + fileId +
+        '?alt=media&access_token=' + encodeURIComponent(oToken), true)
+        xhr.responseType = "blob"
+        xhr.onreadystatechange = ()=>{
+          log(xhr,'readyStateChange')
+          //dest.readAsText(response.fileBlob);
+        }
+        xhr.setRequestHeader('Authorization', 'Bearer ' + oToken)
+        xhr.send();
+      */
+
+      //returns id in resp and metadata? in raw
+      /*
+      let resource = {
+        'alt':'media'
+      }
+      gapi.client.request({
+        'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
+        'method': 'GET', //not req
+        'body': resource //not req
+      })
+      .execute((response,rawData)=>{
+        log(response,'resp')
+        log(rawData,'raw')
+        if(callback) callback(response)
+      })
+      */
+
+      //
+     let reqUrl = wcLink + '&access_token=' + encodeURIComponent(oauthToken)
+            
+     var xhr = new XMLHttpRequest()
+     xhr.open("GET", reqUrl, true)
+     xhr.responseType = "blob";
+     
+     xhr.onreadystatechange = ()=>{
+       log(xhr,'readyStateChange')
+       //dest.readAsText(response.fileBlob);
+     }
+
+     xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
+     xhr.send();
+     
+
+    },
+
     //If downloaded, pass contents. Else pass null to callback
     fileDownload(name, callback){
       this.fileIdByName(name,(fileId)=>{
         if(fileId != null){
-
-            let dest = new FileReader()
-            dest.addEventListener("loadend", function () {
-                log(dest.result)
-                if(callback) callback(dest.result)
-            })
-          
-            //403 forbidden
-            /*
-            var user = gapi.auth2.getAuthInstance().currentUser.get()
-            var oauthToken = user.getAuthResponse().access_token
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET',
-            'https://www.googleapis.com/drive/v3/files/' + fileId +
-            '?alt=media&access_token=' + encodeURIComponent(oauthToken), true)
-            xhr.responseType = "blob"
-            xhr.onreadystatechange = ()=>{
-              log(xhr,'readyStateChange')
-              //dest.readAsText(response.fileBlob);
-            }
-            xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken)
-            xhr.send();
-            */
-
-          //returns id in resp and metadata? in raw
           /*
-          let resource = {
-            'alt':'media'
-          }
-          gapi.client.request({
-            'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
-            'method': 'GET', //not req
-            'body': resource //not req
+          let dest = new FileReader()
+          dest.addEventListener("loadend", function () {
+              log(dest.result)
+              if(callback) callback(dest.result)
           })
-          .execute((response,rawData)=>{
-            log(response,'resp')
-            log(rawData,'raw')
-            if(callback) callback(response)
+          */
+        
+          let oauthToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
+
+          gapi.client.drive.files.get({
+            'fileId': fileId,
+            fields: 'webContentLink'
           })
-*/
-gapi.client.drive.files.get({
-  'fileId': fileId,
-  fields: 'webContentLink'
-})
-.then((success)=>{
-
-  log(success,'webContentLink success')
-
-  
-  let resource = {
-    'alt':'media'
-  }
-  gapi.client.request({
-    'path': success.result.webContentLink,
-    'method': 'GET',
-    'body': resource
-  })
-  .execute((response,rawData)=>{
-    log(response,'resp')
-    log(rawData,'raw')
-    if(callback) callback(response)
-  })
-  
-},(fail)=>{ log(fail,'File download fail') })
+          .then((success)=>{
+          this.testDownload(fileId, success.result.webContentLink, oauthToken, callback)
+          },(fail)=>{ log(fail,'webContentLink fail') })
           
-          
-/*
-            gapi.client.drive.files.get({
-              'fileId': fileId,
-              fields: 'webContentLink'
+
+          /*
+          var url = 'https://www.googleapis.com/drive/v2/files/' + fileId;
+          this.getData(url, (responseMeta)=>{
+            log(responseMeta,'getId')
+            this.getData(JSON.parse(responseMeta.responseText).downloadUrl, (resp)=>{
+                log(resp)
             })
-            .then((success)=>{
-
-              log(success,'webContentLink success')
-
-              let oauthToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
-              let reqUrl = success.result.webContentLink + '&access_token=' + encodeURIComponent(oauthToken)
-              
-              var xhr = new XMLHttpRequest()
-              xhr.open("GET", reqUrl, true)
-              xhr.responseType = "blob";
-              
-              xhr.onreadystatechange = ()=>{
-                log(xhr,'readyStateChange')
-                //dest.readAsText(response.fileBlob);
-              }
-
-              xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
-              xhr.send();
-              
-            },(fail)=>{ log(fail,'File download fail') })
-*/
-/*
-var url = 'https://www.googleapis.com/drive/v2/files/' + fileId;
-this.getData(url, (responseMeta)=>{
-  log(responseMeta,'getId')
-  this.getData(JSON.parse(responseMeta.responseText).downloadUrl, (resp)=>{
-      log(resp)
-  })
-})
-*/
+          })
+          */
             //.catch((err)=>{ log(err) })
             
         }else{
