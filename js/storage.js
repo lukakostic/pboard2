@@ -5,6 +5,10 @@ let driveAPI_Creds = {
   scope: 'https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.file' //space separated
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 let storage = {
     
     fileIdByName(name, callback){
@@ -52,62 +56,78 @@ let storage = {
       xmlhttp.send()
   },
 
-    testDownload(fileId, wcLink, oToken, callback){
+    async testDownload(fileId, wcLink, oToken, callback){
 
       //Weird proxy 404 thing
       
-      
-/*
+      log('Test1',1)
+
+      {
         let r = gapi.client.request({
           'path': wcLink,
           'method': 'GET',
           'body': resource
         })
-        
+        r.execute((response,rawData)=>{
+          log(response,'resp',1)
+          log(rawData,'raw',1)
+        })
+      }
+
+
+      await sleep(8000)
+      log('Test2',1)
+
+      {
+        let r = gapi.client.request({
+          'path': 'https://www.googleapis.com/drive/v3/files/'+fileId,
+          'method': 'GET'
+        })
         r.execute((response,rawData)=>{
           log(response,'resp')
           log(rawData,'raw')
-          if(callback) callback(response)
         })
-*/
-/*
-      let r = gapi.client.request({
-        'path': 'https://www.googleapis.com/drive/v3/files/'+fileId,
-        'method': 'GET'
-      })
+      }
 
-      r.execute((response,rawData)=>{
-        log(response,'resp')
-        log(rawData,'raw')
-        if(callback) callback(response)
-      })
-*/
-/*
-gapi.client.drive.files.get({
-  'fileId': fileId,
-  'alt': 'media'
-})
-.then((response,rawData)=>{
-  log(response,'resp') //body: '', result: false
-  log(rawData,'raw') //undefined
-})
-.catch((fail)=>{ log(fail,'fail') })
-*/
+      await sleep(8000)
+      log('Test3',1)
 
-gapi.client.request({
-  'path': 'https://www.googleapis.com/drive/v3/files/'+fileId,
-  'method': 'GET',
-  'params': {'fileId': fileId, 'alt': 'media'},
-  'headers': {'Authorization': 'Bearer ' + oToken }
-})
-.then((response,rawData)=>{
-  log(response,'resp') //body: '', result: false
-  log(rawData,'raw') //undefined
-})
-.catch((fail)=>{ log(fail,'fail') })
+      //body: '', result: false
+      {
+        gapi.client.drive.files.get({
+          'fileId': fileId,
+          'alt': 'media'
+        })
+        .then((response,rawData)=>{
+          log(response,'resp') //body: '', result: false
+          log(rawData,'raw') //undefined
+        })
+        .catch((fail)=>{ log(fail,'fail') })
+      }
+
+      await sleep(8000)
+      log('Test4',1)
+      
+      //same as above
+      {
+        gapi.client.request({
+          'path': 'https://www.googleapis.com/drive/v3/files/'+fileId,
+          'method': 'GET',
+          'params': {'fileId': fileId, 'alt': 'media'},
+          'headers': {'Authorization': 'Bearer ' + oToken }
+        })
+        .then((response,rawData)=>{
+          log(response,'resp') //body: '', result: false
+          log(rawData,'raw') //undefined
+        })
+        .catch((fail)=>{ log(fail,'fail') })
+      }
+
+      await sleep(8000)
+      log('Test5',1)
 
       //403 forbidden
-      /*
+      {
         var xhr = new XMLHttpRequest();
         xhr.open('GET',
         'https://www.googleapis.com/drive/v3/files/' + fileId +
@@ -119,45 +139,45 @@ gapi.client.request({
         }
         xhr.setRequestHeader('Authorization', 'Bearer ' + oToken)
         xhr.send();
-      */
+      }      
 
-      //returns id in resp and metadata? in raw
-      /*
-      let resource = {
-        'alt':'media'
-      }
-      gapi.client.request({
-        'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
-        'method': 'GET', //not req
-        'body': resource //not req
-      })
-      .execute((response,rawData)=>{
-        log(response,'resp')
-        log(rawData,'raw')
-        if(callback) callback(response)
-      })
-      */
+
+      await sleep(8000)
+      log('Test6',1)
+
 
       //401 Unauthorized
-      /*
-     let reqUrl = wcLink + '&access_token=' + encodeURIComponent(oToken)
-            
-     var xhr = new XMLHttpRequest()
-     xhr.open("GET", reqUrl, true)
-     xhr.responseType = "blob"
+      {
+        let reqUrl = wcLink + '&access_token=' + encodeURIComponent(oToken)
+                
+        var xhr = new XMLHttpRequest()
+        xhr.open("GET", reqUrl, true)
+        xhr.responseType = "blob"
+        
+        xhr.onreadystatechange = ()=>{
+          log(xhr,'readyStateChange')
+          //dest.readAsText(response.fileBlob);
+        }
+
+        xhr.setRequestHeader('Authorization', 'Bearer ' + oToken)
+        xhr.send()
+      }
+
+     await sleep(8000)
+     log('Test7',1)
+
      
-     xhr.onreadystatechange = ()=>{
-       log(xhr,'readyStateChange')
-       //dest.readAsText(response.fileBlob);
+     let xmlhttp = new XMLHttpRequest()
+     xmlhttp.onreadystatechange = ()=>{
+         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+             log(xmlhttp)
+         }
      }
+     xmlhttp.open('GET', wcLink, true)
 
-     xhr.setRequestHeader('Authorization', 'Bearer ' + oToken)
-     xhr.send()
-     */
-
-    this.getData(wcLink, oToken, (resp)=>{
-      log(resp)
-  })
+     xmlhttp.setRequestHeader('Authorization', 'Bearer ' + oToken)
+     xmlhttp.send()
+  
 
     /*
     var url = 'https://www.googleapis.com/drive/v2/files/' + fileId;
