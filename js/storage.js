@@ -108,7 +108,7 @@ gapi.client.drive.files.get({
     'alt':'media'
   }
   gapi.client.request({
-    'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
+    'path': success.result.webContentLink,
     'method': 'GET',
     'body': resource
   })
