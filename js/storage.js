@@ -62,7 +62,7 @@ let storage = {
         gapi.client.request({
           'path': wcLink,
           'method': 'GET',
-          //'body': resource
+          'body': resource
         })
         .execute((response,rawData)=>{
           log(response,'resp')
