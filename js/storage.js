@@ -88,7 +88,7 @@ gapi.client.drive.files.get({
   'alt': 'media'
 })
 .then((response,rawData)=>{
-  log(response,'resp') //metadata, body: '', result: false
+  log(response,'resp') //body: '', result: false
   log(rawData,'raw') //undefined
 })
 .catch((fail)=>{ log(fail,'fail') })
@@ -101,7 +101,7 @@ gapi.client.request({
   'headers': {'Authorization': 'Bearer ' + oToken }
 })
 .then((response,rawData)=>{
-  log(response,'resp') //metadata, body: '', result: false
+  log(response,'resp') //body: '', result: false
   log(rawData,'raw') //undefined
 })
 .catch((fail)=>{ log(fail,'fail') })
