@@ -38,7 +38,7 @@ let storage = {
           })
     },
 
-    getData(_url, callback) {
+    getData(_url, oToken=null, callback) {
       let xmlhttp = new XMLHttpRequest()
       xmlhttp.onreadystatechange = ()=>{
           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -46,8 +46,9 @@ let storage = {
           }
       }
       xmlhttp.open('GET', _url, true)
-      let oauthToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
-      xmlhttp.setRequestHeader('Authorization', 'Bearer ' + oauthToken)
+      if(oToken == null) oToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
+      
+      xmlhttp.setRequestHeader('Authorization', 'Bearer ' + oToken)
       xmlhttp.send()
   },
 
@@ -103,7 +104,7 @@ let storage = {
       */
 
       //401 Unauthorized
-      
+      /*
      let reqUrl = wcLink + '&access_token=' + encodeURIComponent(oToken)
             
      var xhr = new XMLHttpRequest()
@@ -115,9 +116,24 @@ let storage = {
        //dest.readAsText(response.fileBlob);
      }
 
-     //xhr.setRequestHeader('Authorization', 'Bearer ' + oToken)
+     xhr.setRequestHeader('Authorization', 'Bearer ' + oToken)
      xhr.send()
-     
+     */
+
+    this.getData(wcLink, (resp)=>{
+      log(resp)
+  })
+
+    /*
+    var url = 'https://www.googleapis.com/drive/v2/files/' + fileId;
+    this.getData(url, (responseMeta)=>{
+      log(responseMeta,'getId')
+      this.getData(JSON.parse(responseMeta.responseText).downloadUrl, (resp)=>{
+          log(resp)
+      })
+    })
+    */
+    //.catch((err)=>{ log(err) })
 
     },
 
@@ -144,16 +160,7 @@ let storage = {
           },(fail)=>{ log(fail,'webContentLink fail') })
           
 
-          /*
-          var url = 'https://www.googleapis.com/drive/v2/files/' + fileId;
-          this.getData(url, (responseMeta)=>{
-            log(responseMeta,'getId')
-            this.getData(JSON.parse(responseMeta.responseText).downloadUrl, (resp)=>{
-                log(resp)
-            })
-          })
-          */
-            //.catch((err)=>{ log(err) })
+
             
         }else{
             callback(null)
