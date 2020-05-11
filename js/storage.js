@@ -81,17 +81,16 @@ let storage = {
             if(callback) callback(response)
           })
 */
-/*
+
             gapi.client.drive.files.get({
               'fileId': fileId,
-              //fields: 'webContentLink'
+              fields: 'webContentLink'
             })
             .then((success)=>{
 
-              log(success)
+              log(success,'webContentLink success')
 
               let oauthToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
-
               let reqUrl = success.result.webContentLink + '&access_token=' + encodeURIComponent(oauthToken)
               
               var xhr = new XMLHttpRequest()
@@ -102,19 +101,20 @@ let storage = {
                 dest.readAsText(response.fileBlob);
               }
 
-              //xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
+              xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
               xhr.send();
               
             },(fail)=>{ log(fail,'File download fail') })
-*/
+
+/*
 var url = 'https://www.googleapis.com/drive/v3/files/' + fileId;
 this.getData(url, (responseMeta)=>{
-  log(responseMeta)
+  log(responseMeta,'getId')
   this.getData(JSON.parse(responseMeta.responseText).downloadUrl, (resp)=>{
       log(resp)
   })
 })
-
+*/
             //.catch((err)=>{ log(err) })
             
         }else{
