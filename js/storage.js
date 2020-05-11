@@ -60,7 +60,7 @@ let storage = {
 
       //Weird proxy 404 thing
       
-      log('Test1',1)
+      console.log('Test1')
 
       {
         let r = gapi.client.request({
@@ -68,14 +68,14 @@ let storage = {
           'method': 'GET'
         })
         r.execute((response,rawData)=>{
-          log(response,'resp',1)
-          log(rawData,'raw',1)
+          console.log('resp',response)
+          console.log('raw',rawData)
         })
       }
 
 
       await sleep(8000)
-      log('Test2',1)
+      console.log('Test2')
 
       {
         let r = gapi.client.request({
@@ -83,13 +83,13 @@ let storage = {
           'method': 'GET'
         })
         r.execute((response,rawData)=>{
-          log(response,'resp',1)
-          log(rawData,'raw',1)
+          console.log('resp',response)
+          console.log('raw',rawData)
         })
       }
 
       await sleep(8000)
-      log('Test3',1)
+      console.log('Test3')
 
       //body: '', result: false
       {
@@ -98,14 +98,14 @@ let storage = {
           'alt': 'media'
         })
         .then((response,rawData)=>{
-          log(response,'resp',1) //body: '', result: false
-          log(rawData,'raw',1) //undefined
+          console.log('resp',response) //body: '', result: false
+          console.log('raw',rawData) //undefined
         })
-        .catch((fail)=>{ log(fail,'fail') })
+        .catch((fail)=>{ console.log('fail',fail) })
       }
 
       await sleep(8000)
-      log('Test4',1)
+      console.log('Test4')
       
       //same as above
       {
@@ -116,14 +116,14 @@ let storage = {
           'headers': {'Authorization': 'Bearer ' + oToken }
         })
         .then((response,rawData)=>{
-          log(response,'resp',1) //body: '', result: false
-          log(rawData,'raw',1) //undefined
+          console.log('resp',response) //body: '', result: false
+          console.log('raw',rawData) //undefined
         })
-        .catch((fail)=>{ log(fail,'fail') })
+        .catch((fail)=>{ console.log('fail',fail) })
       }
 
       await sleep(8000)
-      log('Test5',1)
+      console.log('Test5')
 
       //403 forbidden
       {
@@ -133,7 +133,7 @@ let storage = {
         '?alt=media&access_token=' + encodeURIComponent(oToken), true)
         xhr.responseType = "blob"
         xhr.onreadystatechange = ()=>{
-          log(xhr,'readyStateChange',1)
+          console.log('readyStateChange',xhr)
           //dest.readAsText(response.fileBlob);
         }
         xhr.setRequestHeader('Authorization', 'Bearer ' + oToken)
@@ -142,7 +142,7 @@ let storage = {
 
 
       await sleep(8000)
-      log('Test6',1)
+      console.log('Test6')
 
 
       //401 Unauthorized
@@ -154,7 +154,7 @@ let storage = {
         xhr.responseType = "blob"
         
         xhr.onreadystatechange = ()=>{
-          log(xhr,'readyStateChange',1)
+          console.log('readyStateChange',xhr)
           //dest.readAsText(response.fileBlob);
         }
 
@@ -163,13 +163,13 @@ let storage = {
       }
 
      await sleep(8000)
-     log('Test7',1)
+     console.log('Test7')
 
-    {     
+    {
       let xmlhttp = new XMLHttpRequest()
       xmlhttp.onreadystatechange = ()=>{
           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              log(xmlhttp,'response',1)
+            console.log('response',xmlhttp)
           }
       }
       xmlhttp.open('GET', wcLink, true)
