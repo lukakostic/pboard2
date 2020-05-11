@@ -60,8 +60,10 @@ let storage = {
 
       //Weird proxy 404 thing
       
+      await sleep(12000)
       console.error('Test1')
 
+      //Weird 404 proxy thing
       {
         let r = gapi.client.request({
           'path': wcLink,
