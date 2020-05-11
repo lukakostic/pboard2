@@ -69,6 +69,7 @@ let storage = {
           log(rawData,'raw')
           if(callback) callback(response)
         })
+        .catch((err)=>{log(err,'Error')})
       
 
       //403 forbidden
