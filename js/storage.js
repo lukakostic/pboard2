@@ -55,21 +55,21 @@ let storage = {
     testDownload(fileId, wcLink, oToken, callback){
 
       //Weird proxy 404 thing
-      /*
+      
         let resource = {
           'alt':'media'
         }
         gapi.client.request({
-          'path': success.result.webContentLink,
+          'path': wcLink,
           'method': 'GET',
-          'body': resource
+          //'body': resource
         })
         .execute((response,rawData)=>{
           log(response,'resp')
           log(rawData,'raw')
           if(callback) callback(response)
         })
-      */
+      
 
       //403 forbidden
       /*
