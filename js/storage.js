@@ -166,18 +166,18 @@ let storage = {
      await sleep(8000)
      log('Test7',1)
 
-     
-     let xmlhttp = new XMLHttpRequest()
-     xmlhttp.onreadystatechange = ()=>{
-         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-             log(xmlhttp)
-         }
-     }
-     xmlhttp.open('GET', wcLink, true)
+    {     
+      let xmlhttp = new XMLHttpRequest()
+      xmlhttp.onreadystatechange = ()=>{
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+              log(xmlhttp)
+          }
+      }
+      xmlhttp.open('GET', wcLink, true)
 
-     xmlhttp.setRequestHeader('Authorization', 'Bearer ' + oToken)
-     xmlhttp.send()
-  
+      xmlhttp.setRequestHeader('Authorization', 'Bearer ' + oToken)
+      xmlhttp.send()
+    }
 
     /*
     var url = 'https://www.googleapis.com/drive/v2/files/' + fileId;
