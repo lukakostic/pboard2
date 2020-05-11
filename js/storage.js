@@ -62,7 +62,8 @@ let storage = {
                 if(callback) callback(dest.result)
             })
           
-            
+            //403 forbidden
+            /*
             var user = gapi.auth2.getAuthInstance().currentUser.get()
             var oauthToken = user.getAuthResponse().access_token
             var xhr = new XMLHttpRequest();
@@ -76,8 +77,8 @@ let storage = {
             }
             xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken)
             xhr.send();
-            
-/*
+            */
+
            gapi.client.request({
             'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
           })
@@ -86,7 +87,7 @@ let storage = {
             log(rawData,'raw')
             if(callback) callback(response)
           })
-*/
+
 
 /*
             gapi.client.drive.files.get({
