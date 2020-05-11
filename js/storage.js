@@ -82,15 +82,27 @@ let storage = {
         if(callback) callback(response)
       })
 */
-
+/*
 gapi.client.drive.files.get({
   'fileId': fileId,
   'alt': 'media'
 })
 .then((response,rawData)=>{
-  log(response,'resp')
-  log(rawData,'raw')
-  if(callback) callback(response)
+  log(response,'resp') //metadata, body: '', result: false
+  log(rawData,'raw') //undefined
+})
+.catch((fail)=>{ log(fail,'fail') })
+*/
+
+gapi.client.request({
+  'path': 'https://www.googleapis.com/drive/v3/files/'+fileId,
+  'method': 'GET',
+  'params': {'fileId': fileId, 'alt': 'media'},
+  'headers': {'Authorization': 'Bearer ' + oToken }
+})
+.then((response,rawData)=>{
+  log(response,'resp') //metadata, body: '', result: false
+  log(rawData,'raw') //undefined
 })
 .catch((fail)=>{ log(fail,'fail') })
 
