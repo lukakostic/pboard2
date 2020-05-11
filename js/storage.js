@@ -62,15 +62,19 @@ let storage = {
                 if(callback) callback(dest.result)
             })
           
-            /*
-            var user = gapi.auth2.getAuthInstance().currentUser.get();
-            var oauthToken = user.getAuthResponse().access_token;
+            
+            var user = gapi.auth2.getAuthInstance().currentUser.get()
+            var oauthToken = user.getAuthResponse().access_token
             var xhr = new XMLHttpRequest();
             xhr.open('GET',
               'https://www.googleapis.com/drive/v3/files/' + fileId +
-              '?access_token=' + encodeURIComponent(oauthToken));
+              '?alt=media&access_token=' + encodeURIComponent(oauthToken))
+            xhr.onreadystatechange = ()=>{
+              log(xhr,'readyStateChange')
+              //dest.readAsText(response.fileBlob);
+            }
             xhr.send();
-            */
+            
 /*
            gapi.client.request({
             'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
@@ -82,6 +86,7 @@ let storage = {
           })
 */
 
+/*
             gapi.client.drive.files.get({
               'fileId': fileId,
               fields: 'webContentLink'
@@ -106,9 +111,9 @@ let storage = {
               xhr.send();
               
             },(fail)=>{ log(fail,'File download fail') })
-
+*/
 /*
-var url = 'https://www.googleapis.com/drive/v3/files/' + fileId;
+var url = 'https://www.googleapis.com/drive/v2/files/' + fileId;
 this.getData(url, (responseMeta)=>{
   log(responseMeta,'getId')
   this.getData(JSON.parse(responseMeta.responseText).downloadUrl, (resp)=>{
