@@ -79,7 +79,7 @@ let storage = {
             xhr.send();
             */
 
-          //returns id
+          //returns id in resp and metadata? in raw
           /*
           let resource = {
             'alt':'media'
