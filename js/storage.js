@@ -80,21 +80,47 @@ let storage = {
             */
 
           //returns id
+          /*
           let resource = {
             'alt':'media'
           }
           gapi.client.request({
             'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
-            'method': 'GET',
-            'body': resource
+            'method': 'GET', //not req
+            'body': resource //not req
           })
           .execute((response,rawData)=>{
             log(response,'resp')
             log(rawData,'raw')
             if(callback) callback(response)
           })
+*/
+gapi.client.drive.files.get({
+  'fileId': fileId,
+  fields: 'webContentLink'
+})
+.then((success)=>{
 
+  log(success,'webContentLink success')
 
+  
+  let resource = {
+    'alt':'media'
+  }
+  gapi.client.request({
+    'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
+    'method': 'GET',
+    'body': resource
+  })
+  .execute((response,rawData)=>{
+    log(response,'resp')
+    log(rawData,'raw')
+    if(callback) callback(response)
+  })
+  
+},(fail)=>{ log(fail,'File download fail') })
+          
+          
 /*
             gapi.client.drive.files.get({
               'fileId': fileId,
