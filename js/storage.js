@@ -56,21 +56,31 @@ let storage = {
 
       //Weird proxy 404 thing
       
-        let resource = {
-          'alt':'media'
-        }
-        gapi.client.request({
+      
+/*
+        let r = gapi.client.request({
           'path': wcLink,
           'method': 'GET',
           'body': resource
         })
-        .then((response,rawData)=>{
+        
+        r.execute((response,rawData)=>{
           log(response,'resp')
           log(rawData,'raw')
           if(callback) callback(response)
         })
-        .catch((err)=>{log(err,'Error')})
-      
+*/
+      let r = gapi.client.request({
+        'path': 'https://www.googleapis.com/drive/v3/files/'+fileId,
+        'method': 'GET'
+      })
+
+      r.execute((response,rawData)=>{
+        log(response,'resp')
+        log(rawData,'raw')
+        if(callback) callback(response)
+      })
+
 
       //403 forbidden
       /*
