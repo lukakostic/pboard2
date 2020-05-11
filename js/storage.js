@@ -70,6 +70,7 @@ let storage = {
           if(callback) callback(response)
         })
 */
+/*
       let r = gapi.client.request({
         'path': 'https://www.googleapis.com/drive/v3/files/'+fileId,
         'method': 'GET'
@@ -80,7 +81,18 @@ let storage = {
         log(rawData,'raw')
         if(callback) callback(response)
       })
+*/
 
+gapi.client.drive.files.get({
+  'fileId': fileId,
+  'alt': 'media'
+})
+.then((response,rawData)=>{
+  log(response,'resp')
+  log(rawData,'raw')
+  if(callback) callback(response)
+})
+.catch((fail)=>{ log(fail,'fail') })
 
       //403 forbidden
       /*
