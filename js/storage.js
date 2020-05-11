@@ -60,7 +60,7 @@ let storage = {
 
       //Weird proxy 404 thing
       
-      console.log('Test1')
+      console.error('Test1')
 
       {
         let r = gapi.client.request({
@@ -75,7 +75,7 @@ let storage = {
 
 
       await sleep(12000)
-      console.log('Test2')
+      console.error('Test2')
 
       {
         let r = gapi.client.request({
@@ -89,7 +89,7 @@ let storage = {
       }
 
       await sleep(12000)
-      console.log('Test3')
+      console.error('Test3')
 
       //body: '', result: false
       {
@@ -105,7 +105,7 @@ let storage = {
       }
 
       await sleep(12000)
-      console.log('Test4')
+      console.error('Test4')
       
       //same as above
       {
@@ -123,7 +123,7 @@ let storage = {
       }
 
       await sleep(12000)
-      console.log('Test5')
+      console.error('Test5')
 
       //403 forbidden
       {
@@ -142,7 +142,7 @@ let storage = {
 
 
       await sleep(12000)
-      console.log('Test6')
+      console.error('Test6')
 
 
       //401 Unauthorized
@@ -163,7 +163,7 @@ let storage = {
       }
 
      await sleep(12000)
-     console.log('Test7')
+     console.error('Test7')
 
     {
       let xmlhttp = new XMLHttpRequest()
