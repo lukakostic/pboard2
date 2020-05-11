@@ -38,17 +38,17 @@ let storage = {
           })
     },
 
-    getData(url, callback) {
-      let xmlhttp = new XMLHttpRequest();
+    getData(_url, callback) {
+      let xmlhttp = new XMLHttpRequest()
       xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              callback(xmlhttp);
+              callback(xmlhttp)
           }
       }
-      xmlhttp.open('GET', url, true);
+      xmlhttp.open('GET', _url, true)
       let oauthToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
-      xmlhttp.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
-      xmlhttp.send();
+      xmlhttp.setRequestHeader('Authorization', 'Bearer ' + oauthToken)
+      xmlhttp.send()
   },
 
     //If downloaded, pass contents. Else pass null to callback
@@ -97,7 +97,8 @@ let storage = {
               xhr.open("GET", reqUrl, true)
               xhr.responseType = "blob";
               
-              xhr.onload = ()=>{
+              xhr.onload = (response)=>{
+                log(response,'response')
                 dest.readAsText(response.fileBlob);
               }
 
