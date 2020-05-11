@@ -170,16 +170,14 @@ let storage = {
      console.error('Test7')
 
     {
-      let xmlhttp = new XMLHttpRequest()
-      xmlhttp.onreadystatechange = ()=>{
-          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            console.log('response',xmlhttp)
-          }
+      let xhr = new XMLHttpRequest()
+      xhr.onreadystatechange = ()=>{
+          console.log('response',xhr)
       }
-      xmlhttp.open('GET', wcLink, true)
+      xhr.open('GET', wcLink, true)
 
-      xmlhttp.setRequestHeader('Authorization', 'Bearer ' + oToken)
-      xmlhttp.send()
+      xhr.setRequestHeader('Authorization', 'Bearer ' + oToken)
+      xhr.send()
     }
 
     /*
