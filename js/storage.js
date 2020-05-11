@@ -65,8 +65,7 @@ let storage = {
       {
         let r = gapi.client.request({
           'path': wcLink,
-          'method': 'GET',
-          'body': resource
+          'method': 'GET'
         })
         r.execute((response,rawData)=>{
           log(response,'resp',1)
@@ -84,8 +83,8 @@ let storage = {
           'method': 'GET'
         })
         r.execute((response,rawData)=>{
-          log(response,'resp')
-          log(rawData,'raw')
+          log(response,'resp',1)
+          log(rawData,'raw',1)
         })
       }
 
@@ -99,8 +98,8 @@ let storage = {
           'alt': 'media'
         })
         .then((response,rawData)=>{
-          log(response,'resp') //body: '', result: false
-          log(rawData,'raw') //undefined
+          log(response,'resp',1) //body: '', result: false
+          log(rawData,'raw',1) //undefined
         })
         .catch((fail)=>{ log(fail,'fail') })
       }
@@ -117,8 +116,8 @@ let storage = {
           'headers': {'Authorization': 'Bearer ' + oToken }
         })
         .then((response,rawData)=>{
-          log(response,'resp') //body: '', result: false
-          log(rawData,'raw') //undefined
+          log(response,'resp',1) //body: '', result: false
+          log(rawData,'raw',1) //undefined
         })
         .catch((fail)=>{ log(fail,'fail') })
       }
@@ -134,7 +133,7 @@ let storage = {
         '?alt=media&access_token=' + encodeURIComponent(oToken), true)
         xhr.responseType = "blob"
         xhr.onreadystatechange = ()=>{
-          log(xhr,'readyStateChange')
+          log(xhr,'readyStateChange',1)
           //dest.readAsText(response.fileBlob);
         }
         xhr.setRequestHeader('Authorization', 'Bearer ' + oToken)
@@ -155,7 +154,7 @@ let storage = {
         xhr.responseType = "blob"
         
         xhr.onreadystatechange = ()=>{
-          log(xhr,'readyStateChange')
+          log(xhr,'readyStateChange',1)
           //dest.readAsText(response.fileBlob);
         }
 
@@ -170,7 +169,7 @@ let storage = {
       let xmlhttp = new XMLHttpRequest()
       xmlhttp.onreadystatechange = ()=>{
           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              log(xmlhttp)
+              log(xmlhttp,'response',1)
           }
       }
       xmlhttp.open('GET', wcLink, true)
