@@ -40,7 +40,7 @@ let storage = {
 
     getData(_url, callback) {
       let xmlhttp = new XMLHttpRequest()
-      xmlhttp.onreadystatechange = function() {
+      xmlhttp.onreadystatechange = ()=>{
           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
               callback(xmlhttp)
           }
@@ -97,9 +97,9 @@ let storage = {
               xhr.open("GET", reqUrl, true)
               xhr.responseType = "blob";
               
-              xhr.onload = (response)=>{
-                log(response,'response')
-                dest.readAsText(response.fileBlob);
+              xhr.onreadystatechange = ()=>{
+                log(xhr,'readyStateChange')
+                //dest.readAsText(response.fileBlob);
               }
 
               xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
