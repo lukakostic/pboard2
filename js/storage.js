@@ -47,7 +47,7 @@ let storage = {
       }
       xmlhttp.open('GET', _url, true)
       if(oToken == null) oToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
-      
+
       xmlhttp.setRequestHeader('Authorization', 'Bearer ' + oToken)
       xmlhttp.send()
   },
@@ -120,7 +120,7 @@ let storage = {
      xhr.send()
      */
 
-    this.getData(wcLink, (resp)=>{
+    this.getData(wcLink, oToken, (resp)=>{
       log(resp)
   })
 
