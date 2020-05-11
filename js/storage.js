@@ -79,8 +79,14 @@ let storage = {
             xhr.send();
             */
 
-           gapi.client.request({
+          //returns id
+          let resource = {
+            'alt':'media'
+          }
+          gapi.client.request({
             'path': 'https://www.googleapis.com/drive/v3/files/' + fileId,
+            'method': 'GET',
+            'body': resource
           })
           .execute((response,rawData)=>{
             log(response,'resp')
