@@ -74,7 +74,7 @@ let storage = {
       }
 
 
-      await sleep(8000)
+      await sleep(12000)
       console.log('Test2')
 
       {
@@ -88,7 +88,7 @@ let storage = {
         })
       }
 
-      await sleep(8000)
+      await sleep(12000)
       console.log('Test3')
 
       //body: '', result: false
@@ -104,7 +104,7 @@ let storage = {
         .catch((fail)=>{ console.log('fail',fail) })
       }
 
-      await sleep(8000)
+      await sleep(12000)
       console.log('Test4')
       
       //same as above
@@ -122,7 +122,7 @@ let storage = {
         .catch((fail)=>{ console.log('fail',fail) })
       }
 
-      await sleep(8000)
+      await sleep(12000)
       console.log('Test5')
 
       //403 forbidden
@@ -141,7 +141,7 @@ let storage = {
       }      
 
 
-      await sleep(8000)
+      await sleep(12000)
       console.log('Test6')
 
 
@@ -162,7 +162,7 @@ let storage = {
         xhr.send()
       }
 
-     await sleep(8000)
+     await sleep(12000)
      console.log('Test7')
 
     {
