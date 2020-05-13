@@ -35,19 +35,12 @@ let storage = {
         
             console.log('uploading',file)
 
-        let file_metadata = {
-          name: file.name
-        }
 
-        let media = {
-          mimeType: file.mimeType,
-          body: file.body
-        }
 
 var file = new Blob([file.body], {type: 'text/plain'});
 var metadata = {
-    'name': 'sampleName', // Filename at Google Drive
-    'mimeType': 'text/plain' // mimeType at Google Drive
+    'name': file.name, // Filename at Google Drive
+    'mimeType': file.mimeType // mimeType at Google Drive
 };
 
 var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
@@ -61,6 +54,7 @@ xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
 xhr.responseType = 'json';
 xhr.onload = () => {
     console.log(xhr.response); // Retrieve uploaded file ID.
+    if(callback) callback(xhr.response)
 };
 xhr.send(form);
         
