@@ -28,15 +28,26 @@ let storage = {
     },
 
 
-    //file: name, body, mimeType
+    //file: name, body
     fileUpload(file, callback=null) {
         if(file.mimeType == null)
             file.mimeType = 'text/plain'
         
             console.log('uploading',file)
 
+        let file_metadata = {
+          name: file.name
+        }
+
+        let media = {
+          mimeType: file.mimeType,
+          body: file.body
+        }
+        
         gapi.client.drive.files.create({
-            resource: file
+            resource: file_metadata,
+            media: media,
+            fields: 'id'
           })
           .then((resp)=>{
             if(resp.status != 200) log(resp);
