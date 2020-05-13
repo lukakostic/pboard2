@@ -114,7 +114,7 @@ function loadAll(callback = null) {
       storage.fileDownload('pboard.pb' , (contents)=>{
 
 
-        if (contents != null) {
+        if (contents != null && contents != '') {
           
           console.log('loading contents: ' + contents)
           load(contents)
