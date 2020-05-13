@@ -43,7 +43,28 @@ let storage = {
           mimeType: file.mimeType,
           body: file.body
         }
+
+var file = new Blob([file.body], {type: 'text/plain'});
+var metadata = {
+    'name': 'sampleName', // Filename at Google Drive
+    'mimeType': 'text/plain' // mimeType at Google Drive
+};
+
+var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+var form = new FormData();
+form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+form.append('file', file);
+
+var xhr = new XMLHttpRequest();
+xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+xhr.responseType = 'json';
+xhr.onload = () => {
+    console.log(xhr.response); // Retrieve uploaded file ID.
+};
+xhr.send(form);
         
+/*
         gapi.client.drive.files.create({
             resource: file_metadata,
             media: media,
@@ -53,6 +74,11 @@ let storage = {
             if(resp.status != 200) log(resp);
             if(callback) callback(resp)
           })
+          .catch((fail)=>{
+            console.log('fail',fail) 
+            callback(null)
+          })
+          */
     },
 
 
