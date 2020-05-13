@@ -116,6 +116,7 @@ function loadAll(callback = null) {
 
         if (contents != null) {
           
+          console.log('loading contents: ' + contents)
           load(contents)
           invokeListeners('loadAll')
       
