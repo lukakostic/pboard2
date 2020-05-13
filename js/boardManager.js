@@ -98,7 +98,7 @@ function saveAll(callback = null) {
       stopSavingIndicator()
       invokeListeners('saveAll')
     
-    },(msg)=>{ log(msg) })
+    })
 
   }catch(e){ log(e) }
 }
@@ -114,17 +114,17 @@ function loadAll(callback = null) {
       storage.fileDownload('pboard.pb' , (contents)=>{
 
 
-      if (contents != null) {
-        
-        load(contents)
-        invokeListeners('loadAll')
-    
-      }
-      else resetData() 
-        
-      if(callback) callback()
+        if (contents != null) {
+          
+          load(contents)
+          invokeListeners('loadAll')
+      
+        }
+        else resetData() 
+          
+        if(callback) callback()
 
-    },(msg)=>{ log(msg) })
+      })
 
   }catch(e){ log(e) }
 }
