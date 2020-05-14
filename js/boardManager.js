@@ -51,7 +51,7 @@ function updateSigninStatus(isSignedIn){
       log("loadAll callback: -starting url: " + _url)
 
       set_board(_url) //go back to previous url
-    }.apply(null,[_url]))
+    }.bind(null,_url))
 
     autosave = setInterval(()=>{
       if(textSave){
