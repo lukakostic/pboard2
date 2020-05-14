@@ -45,7 +45,7 @@ function updateSigninStatus(isSignedIn){
       console.log("_url " + _url)
       set_board(_url)
       pageOpened()
-    }.apply(null[url()]))
+    }.apply(null,[url()]))
     autosave = setInterval(()=>{
       if(textSave){
           textSave = false
