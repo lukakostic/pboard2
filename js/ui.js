@@ -447,7 +447,7 @@ function home(){
 }
 
 function up(){
-  boardHistory.pop() //since last url is yours
+  //boardHistory.pop() //since last url is yours
 
   let prev = boardHistory.pop()
   if(prev == null) prev = ""
