@@ -88,7 +88,7 @@ function loadFromContent(content){
 }
 
 function resetData(){
-  log("resetData())")
+  log("resetData()")
   project = new Project("", curVer)
   //main board
   project.boards[""] = new Board(boardTypes.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?

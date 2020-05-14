@@ -234,7 +234,7 @@ function draw(){
 }
   
 function clearBoards(lst = null) {
-  log('clearBoards')
+  log('clearBoards('+lst+')')
 
   let lists = [lst]
   if(lst == null) lists = document.getElementsByClassName('list')
