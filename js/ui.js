@@ -118,7 +118,7 @@ function expandInput(el){
 
 function clearLists(){
   log('clearLists()')
-  let lists = document.getElementsByClassName('list')
+  let lists = qSelAll('.list')
     
   for(let j = 0; j < lists.length; j++){
     if (lists[j].id != "") continue
