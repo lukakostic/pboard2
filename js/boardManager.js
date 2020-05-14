@@ -40,7 +40,9 @@ function updateSigninStatus(isSignedIn){
     goLogin()
   else{
     
-    let _url = board() //Save url because resetData resets it, to load after it downloads data
+    console.log("url: " + url())
+    console.log("bfrom url: " + boardFromUrl(url()))
+    let _url = boardFromUrl(url())//board() //Save url because resetData resets it, to load after it downloads data
 
     resetData()
     loadAll(function(_url){
