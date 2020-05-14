@@ -443,10 +443,12 @@ function loadAllBoardsByDataId(brdId){
 }
 
 function home(){
+  log('up')
   set_board("")
 }
 
 function up(){
+  log('up')
   //boardHistory.pop() //since last url is yours
 
   let prev = boardHistory.pop()
