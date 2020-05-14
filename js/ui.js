@@ -355,12 +355,12 @@ function loadTextBoard(textBoardEl, brd){
 
   set_dataId(textBoardEl, brd.id)
 
-  $(textBoardEl.getElementsByClassName('textBtn')[0]).contents()[1].nodeValue = brd.name
+  $(qSel('textBtn',textBoardEl)).contents()[1].nodeValue = brd.name
   
   if(brd.content.length>0) 
-      textBoardEl.getElementsByClassName('descriptionIcon')[0].classList.remove('d-none')
+      qSel('.descriptionIcon', textBoardEl).classList.remove('d-none')
   else 
-      textBoardEl.getElementsByClassName('descriptionIcon')[0].classList.add('d-none')
+    qSel('.descriptionIcon', textBoardEl).classList.add('d-none')
 
   loadBackground(textBoardEl,brd.id)
 }
@@ -378,7 +378,7 @@ function loadBoardBoard(boardBoardEl, brd){
   brd = project.boards[brd]
 
   set_dataId(boardBoardEl, brd.id)
-  $(boardBoardEl.getElementsByClassName('textBtn')[0]).contents()[0].nodeValue = brd.name
+  $(qSel('.textBtn',boardBoardEl)).contents()[0].nodeValue = brd.name
 
   loadBackground(boardBoardEl, brd.id)
 }
@@ -389,7 +389,7 @@ function loadList(listEl, brd){
   if (typeof brd === 'string' || brd instanceof String)
   brd = project.boards[brd]
 
-  titleText = listEl.getElementsByClassName("title-text")[0]
+  titleText = qSel(".title-text",listEl)[0]
 
   //could cause issues with main board (probably not)?
   //can only be blur while as input, so turn to div
@@ -429,7 +429,7 @@ function loadList(listEl, brd){
 }
 
 function loadAllBoardsByDataId(brdId){
-  let boardEls = document.getElementsByClassName('board')
+  let boardEls = qSelAll('.board')
 
   for(let i = 0; i < boardEls.length; i++){
       if(dataId(boardEls[i])==brdId){
