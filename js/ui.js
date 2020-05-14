@@ -236,7 +236,7 @@ function clearBoards(lst = null) {
   log('clearBoards(',lst,')')
 
   let lists = [lst]
-  if(lst == null) lists = qSelAll('.list:not(#newPanel)')
+  if(lst == null) lists = qSelAll('.list:not(#newlist)')
 
   logw('lists', lists)
   
