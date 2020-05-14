@@ -38,7 +38,7 @@ function htmlLoaded(){
 }
 
 function pageOpened(){
-  log("pageOpened")
+  log("pageOpened()")
 
   invokeListeners('pre_newPage')
 
@@ -222,7 +222,7 @@ $(".textBtn").each(function() {
 }
 
 function draw(){
-  log('draw')
+  log('draw()')
   if(board()!="") drawBoard()
   else drawMain()
 
@@ -235,7 +235,7 @@ function draw(){
   
 function clearBoards(lst = null) {
   log('clearBoards')
-  
+
   let lists = [lst]
   if(lst == null) lists = document.getElementsByClassName('list')
   
@@ -281,7 +281,7 @@ function fixAlbumUI(){
 }
 
 function drawBoard(){
-log('drawBoard')
+log('drawBoard()')
   static.mainContentAlbum.classList.add('d-none')
   static.contentAlbum.classList.remove('d-none')
 
@@ -312,7 +312,7 @@ log('drawBoard')
 }
 
 function drawMain(){
-  log('drawMain')
+  log('drawMain()')
   static.contentAlbum.classList.add('d-none')
   static.mainContentAlbum.classList.remove('d-none')
 

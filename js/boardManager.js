@@ -42,13 +42,13 @@ function updateSigninStatus(isSignedIn){
     
     let _url = board() //Save url because resetData resets it, to load after it downloads data
 
-    log('initial reset')
+    log('-initial reset')
 
     resetData()
 
     loadAll(function(_url){
 
-      log("starting url " + _url)
+      log("loadAll callback: -starting url " + _url)
 
       set_board(_url) //go back to previous url
     }.apply(null,[_url]))
@@ -88,7 +88,7 @@ function loadFromContent(content){
 }
 
 function resetData(){
-  log("resetData")
+  log("resetData())")
   project = new Project("", curVer)
   //main board
   project.boards[""] = new Board(boardTypes.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
