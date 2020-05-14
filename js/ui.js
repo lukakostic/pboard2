@@ -389,7 +389,7 @@ function loadList(listEl, brd){
   if (typeof brd === 'string' || brd instanceof String)
   brd = project.boards[brd]
 
-  titleText = qSel(".title-text",listEl)[0]
+  titleText = qSel(".title-text",listEl)
 
   //could cause issues with main board (probably not)?
   //can only be blur while as input, so turn to div
