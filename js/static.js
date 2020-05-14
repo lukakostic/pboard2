@@ -36,7 +36,8 @@ function pushBoardHistory(boardIdOrUrl){
 }
 
 function popBoardHistory(){
-    return boardHistory.pop()
+    boardHistory.pop() //pop current
+    return boardHistory.pop() //pop before current
 }
 
 //Static html elements
