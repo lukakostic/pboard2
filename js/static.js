@@ -18,6 +18,7 @@ function board(){
 }
 function set_board(value){
     log("set_board('" + value + "')")
+    pushBoardHistory(value)
     window.location.hash = value
     pageOpened()
 }
@@ -32,6 +33,10 @@ function pushBoardHistory(boardIdOrUrl){
     let bId = boardFromUrl(boardIdOrUrl)
     if(bId != lastBoardHistory())
         boardHistory.push(bId)
+}
+
+function popBoardHistory(){
+    return boardHistory.pop()
 }
 
 //Static html elements

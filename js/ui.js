@@ -451,7 +451,7 @@ function up(){
   log('up')
   //boardHistory.pop() //since last url is yours
 
-  let prev = boardHistory.pop()
+  let prev = popBoardHistory()
   if(prev == null) prev = ""
   set_board(prev)
   //window.history.back();
