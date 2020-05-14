@@ -17,6 +17,7 @@ function board(){
     return boardFromUrl(url())
 }
 function set_board(value){
+    log("set_board " + value)
     window.location.hash = value
     pageOpened()
 }

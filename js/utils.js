@@ -1,5 +1,24 @@
-//Helper functions (ONLY FUNCTIONS, NO OBJECTS)
+//Debug logs, only used for debug and not actual messages.
+//console log
+log = function(){
+    var context = "My Descriptive Logger Prefix:";
+    return Function.prototype.bind.call(console.log, console);
+    //return Function.prototype.bind.call(console.log, console, context);
+}();
+//alert log
+alog = function(){
+    var context = "My Descriptive Logger Prefix:";
+    return Function.prototype.bind.call(console.log, console);
+    //return Function.prototype.bind.call(console.log, console, context);
+}();
+//modal log
+mlog = function(){
+    var context = "My Descriptive Logger Prefix:";
+    return Function.prototype.bind.call(console.log, console);
+    //return Function.prototype.bind.call(console.log, console, context);
+}();
 
+/*
 //logType 1 console, 2 console & alert, 3 console & bootbox
 function log(msg, title = '', logType = 2){
     if(typeof(title) == 'number') //log(a,1)
@@ -13,6 +32,7 @@ function log(msg, title = '', logType = 2){
     if(logType == 2) alert(msg)
     else if(logType == 3) bootbox.alert(msg)
 }
+*/
 
 function urlFromBoard(boardId){
     return siteUrl + "#" + boardId

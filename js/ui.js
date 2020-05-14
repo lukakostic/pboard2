@@ -38,6 +38,8 @@ function htmlLoaded(){
 }
 
 function pageOpened(){
+  log("pageOpened")
+
   invokeListeners('pre_newPage')
 
   //reloadHTML()

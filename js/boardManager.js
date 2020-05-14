@@ -26,7 +26,7 @@ function OnStorageLoad(){
       gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
       updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
     }, (error)=>{
-      log(error)
+      alog(error)
       goLogin() //error initing drive, probably not logged in
     })
   })
@@ -44,7 +44,7 @@ function updateSigninStatus(isSignedIn){
 
     resetData()
     loadAll(function(_url){
-      console.log("_url " + _url)
+      log("starting url " + _url)
       set_board(_url) //go back to previous url
     }.apply(null,[_url]))
 
@@ -82,6 +82,7 @@ function loadFromContent(content){
 }
 
 function resetData(){
+  log("resetData")
   project = new Project("", curVer)
   //main board
   project.boards[""] = new Board(boardTypes.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
@@ -95,6 +96,8 @@ function saveAll(callback = null) {
     startSavingIndicator()
 
     let contents = buildProject()
+    
+    log('saveAll ',contents)
 
     storage.fileUpload({name: 'pboard.pb', body: contents},()=>{
 
@@ -120,13 +123,13 @@ function loadAll(callback = null) {
 
         if (contents != null && contents != '') {
           
-          console.log('loading contents: ' + contents)
+          log('loading contents ',contents)
           load(contents)
           invokeListeners('loadAll')
       
         }
         else{
-          console.log('loaded null, resetting')
+          log('loaded null, resetting')
           resetData()
         } 
           
