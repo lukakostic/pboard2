@@ -349,6 +349,8 @@ function drawMain(){
 
 
 function loadTextBoard(textBoardEl, brdId){
+  log('loadTextBoard(',textBoardEl,"'"+brdId+"'",')')
+
   //if (typeof brd === 'string' || brd instanceof String)
   let brd = project.boards[brdId]
 
@@ -371,6 +373,8 @@ function loadBackground(brdEl, id){
 }
 
 function loadBoardBoard(boardBoardEl, brdId){
+  log('loadBoardBoard(',boardBoardEl,"'"+brdId+"'",')')
+
   //if (typeof brd === 'string' || brd instanceof String)
   let brd = project.boards[brdId]
 
@@ -381,7 +385,7 @@ function loadBoardBoard(boardBoardEl, brdId){
 }
 
 function loadList(listEl, brdId){
-  log('loadList(',listEl,brdId,')')
+  log('loadList(',listEl,"'"+brdId+"'",')')
 
   //if (typeof brd === 'string' || brd instanceof String)
   let brd = project.boards[brdId]
