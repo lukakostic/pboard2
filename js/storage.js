@@ -64,7 +64,7 @@ let storage = {
               }else{
 
 
-                //var fileBlob = new Blob([file.body]);
+                var fileBlob = new Blob([file.body]);
                 /*
                 var metadata = {
                     'name': file.name, // Filename at Google Drive
@@ -83,7 +83,7 @@ let storage = {
                     console.log(xhr.response); // Retrieve uploaded file ID.
                     if(callback) callback(xhr.response)
                 };
-                xhr.send(file.body);
+                xhr.send(fileBlob);
 
 
               }
