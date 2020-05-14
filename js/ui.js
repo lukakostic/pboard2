@@ -348,11 +348,11 @@ function drawMain(){
 }
 
 
-function loadTextBoard(textBoardEl, brdId){
-  log('loadTextBoard(',textBoardEl,"'"+brdId+"'",')')
+function loadTextBoard(textBoardEl, brd){
+  log('loadTextBoard(',textBoardEl,"'"+JSON.stringify(brd)+"'",')')
 
-  //if (typeof brd === 'string' || brd instanceof String)
-  let brd = project.boards[brdId]
+  if (typeof brd === 'string' || brd instanceof String)
+  brd = project.boards[brd]
 
   set_dataId(textBoardEl, brd.id)
 
@@ -372,11 +372,11 @@ function loadBackground(brdEl, id){
   brdEl.style.backgroundSize = "cover"
 }
 
-function loadBoardBoard(boardBoardEl, brdId){
-  log('loadBoardBoard(',boardBoardEl,"'"+brdId+"'",')')
+function loadBoardBoard(boardBoardEl, brd){
+  log('loadBoardBoard(',boardBoardEl,"'"+JSON.stringify(brd)+"'",')')
 
-  //if (typeof brd === 'string' || brd instanceof String)
-  let brd = project.boards[brdId]
+  if (typeof brd === 'string' || brd instanceof String)
+  brd = project.boards[brd]
 
   set_dataId(boardBoardEl, brd.id)
   $(boardBoardEl.getElementsByClassName('textBtn')[0]).contents()[0].nodeValue = brd.name
@@ -385,10 +385,10 @@ function loadBoardBoard(boardBoardEl, brdId){
 }
 
 function loadList(listEl, brdId){
-  log('loadList(',listEl,"'"+brdId+"'",')')
+  log('loadList(',listEl,"'"+JSON.stringify(brd)+"'",')')
 
-  //if (typeof brd === 'string' || brd instanceof String)
-  let brd = project.boards[brdId]
+  if (typeof brd === 'string' || brd instanceof String)
+  brd = project.boards[brd]
 
   titleText = listEl.getElementsByClassName("title-text")[0]
 
