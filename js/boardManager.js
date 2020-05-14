@@ -45,8 +45,7 @@ function updateSigninStatus(isSignedIn){
     resetData()
     loadAll(function(_url){
       console.log("_url " + _url)
-      set_board(_url)
-      pageOpened()
+      set_board(_url) //go back to previous url
     }.apply(null,[_url]))
 
     autosave = setInterval(()=>{
