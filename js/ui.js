@@ -384,7 +384,7 @@ function loadBoardBoard(boardBoardEl, brd){
   loadBackground(boardBoardEl, brd.id)
 }
 
-function loadList(listEl, brdId){
+function loadList(listEl, brd){
   log('loadList(',listEl,"'"+JSON.stringify(brd)+"'",')')
 
   if (typeof brd === 'string' || brd instanceof String)
