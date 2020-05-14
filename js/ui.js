@@ -120,11 +120,10 @@ function clearLists(){
   log('clearLists()')
   let lists = qSelAll('.list')
     
-  for(let j = lists.length-1; j > -1; j--){
-    if (lists[j].id != "") continue
-    
-    $(lists[j]).remove()
-  }
+  for(let j = lists.length-1; j > -1; j--)
+    if (lists[j].id == "")
+      $(lists[j]).remove()
+  
 }
 
 function makeDraggable(){
@@ -244,9 +243,9 @@ function clearBoards(lst = null) {
   for(let j = 0; j < lists.length; j++){
 
     let boards = qSelAll('.board',lists[j])//lists[j].childNodes
-    for (let i = boards.length-1; i > -1; i--){
-      boards[i].parentNode.removeChild(boards[i])
-    }
+    for (let i = boards.length-1; i > -1; i--)
+      $(boards[i]).remove()
+    
 
   }
 }
