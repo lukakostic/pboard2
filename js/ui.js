@@ -236,13 +236,13 @@ function clearBoards(lst = null) {
   log('clearBoards(',lst,')')
 
   let lists = [lst]
-  if(lst == null) lists = qSelAll('.list:not(#newlist)')
+  if(lst == null) lists = qSelAll('.list:not([id])')
 
   logw('lists', lists)
   
   for(let j = 0; j < lists.length; j++){
 
-    let boards = EbyClass('board',lists[j])//lists[j].childNodes
+    let boards = qSelAll('.board:not([id])',lists[j])//lists[j].childNodes
     for (let i = boards.length-1; i > -1; i--)
       $(boards[i]).remove()
     
