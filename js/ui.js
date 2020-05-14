@@ -378,7 +378,7 @@ function loadBoardBoard(boardBoardEl, brd){
   brd = project.boards[brd]
 
   set_dataId(boardBoardEl, brd.id)
-  $(EbyClass('.textBtn',boardBoardEl)[0]).contents()[0].nodeValue = brd.name
+  $(EbyClass('textBtn',boardBoardEl)[0]).contents()[0].nodeValue = brd.name
 
   loadBackground(boardBoardEl, brd.id)
 }
@@ -389,7 +389,7 @@ function loadList(listEl, brd){
   if (typeof brd === 'string' || brd instanceof String)
   brd = project.boards[brd]
 
-  titleText = EbyClass(".title-text",listEl)[0]
+  titleText = EbyClass('title-text',listEl)[0]
 
   //could cause issues with main board (probably not)?
   //can only be blur while as input, so turn to div
