@@ -238,6 +238,8 @@ function clearBoards(lst = null) {
 
   let lists = [lst]
   if(lst == null) lists = document.getElementsByClassName('list')
+
+  log('     lists ', lists)
   
   for(let j = 0; j < lists.length; j++){
 
