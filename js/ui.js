@@ -65,6 +65,7 @@ function executeExtensions(){
   let extensions = brdAttrOrDef(board(),'extensions',[])
   for(let i = 0; i < extensions.length; i++){
     if(extensions[i].on){
+      console.log('executing extension ' + extensions[i].id)
       eval(project.extensions[extensions[i].id].code)
     }
   }
