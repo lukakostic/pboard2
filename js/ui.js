@@ -134,7 +134,7 @@ function makeDraggable(){
     start: (event, ui)=>{
       console.log('drag start')
         dragItem = ui.item
-        oldDragIndex = ElementIndex(dragItem[0])
+        oldDragIndex = elementIndex(dragItem[0])
         dragNew = dragOld = ui.item.parent()
     },
     stop: (event, ui)=>{
@@ -142,7 +142,7 @@ function makeDraggable(){
       //With a delay so that dragging a board doesnt click its button at end
       setTimeout(()=>{
         //actually move the board
-        newDragIndex = ElementIndex(dragItem[0])
+        newDragIndex = elementIndex(dragItem[0])
 
         
           project.boards[dataId(dragOld[0])].content.splice(oldDragIndex-1,1)
@@ -169,14 +169,14 @@ function makeDraggable(){
     start: (event, ui)=>{
       console.log('drag list start')
         dragItem = ui.item
-        oldDragIndex = ElementIndex(dragItem[0])
+        oldDragIndex = elementIndex(dragItem[0])
     },
     stop: (event, ui)=>{
       console.log('drag list stop')
       //With a delay so that dragging a board doesnt click its button at end
       setTimeout(()=>{
         //actually move the board
-        newDragIndex = ElementIndex(dragItem[0])
+        newDragIndex = elementIndex(dragItem[0])
 
         
           project.boards[board()].content.splice(oldDragIndex,1)
