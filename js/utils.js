@@ -17,6 +17,18 @@ mlog = function(){
     return Function.prototype.bind.call(console.log, console);
     //return Function.prototype.bind.call(console.log, console, context);
 }();
+//console log warning
+logw = function(){
+    var context = "My Descriptive Logger Prefix:";
+    return Function.prototype.bind.call(console.warn, console);
+    //return Function.prototype.bind.call(console.log, console, context);
+}();
+//console log warning
+loge = function(){
+    var context = "My Descriptive Logger Prefix:";
+    return Function.prototype.bind.call(console.error, console);
+    //return Function.prototype.bind.call(console.log, console, context);
+}();
 
 /*
 //logType 1 console, 2 console & alert, 3 console & bootbox
