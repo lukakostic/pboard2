@@ -40,12 +40,15 @@ function updateSigninStatus(isSignedIn){
     goLogin()
   else{
     
+    let _url = board() //Save url because resetData resets it
+    console.log("_url " + _url)
+
     resetData()
     loadAll(function(_url){
-      console.log("_url " + _url)
       set_board(_url)
       pageOpened()
-    }.apply(null,[url()]))
+    }.apply(null,[_url]))
+
     autosave = setInterval(()=>{
       if(textSave){
           textSave = false
