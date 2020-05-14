@@ -117,6 +117,7 @@ function expandInput(el){
 }
 
 function clearLists(){
+  log('clearLists()')
   let lists = document.getElementsByClassName('list')
     
   for(let j = 0; j < lists.length; j++){
