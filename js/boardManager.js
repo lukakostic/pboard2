@@ -116,12 +116,15 @@ function loadAll(callback = null) {
 
         if (contents != null && contents != '') {
           
-          //console.log('loading contents: ' + contents)
+          console.log('loading contents: ' + contents)
           load(contents)
           invokeListeners('loadAll')
       
         }
-        else resetData() 
+        else{
+          console.log('loaded null, resetting')
+          resetData()
+        } 
           
         if(callback) callback()
 
