@@ -234,7 +234,7 @@ function draw(){
 }
   
 function clearBoards(lst = null) {
-  log('clearBoards('+lst+')')
+  log('clearBoards(',lst,')')
 
   let lists = [lst]
   if(lst == null) lists = document.getElementsByClassName('list')
@@ -379,6 +379,7 @@ function loadBoardBoard(boardBoardEl, brd){
 }
 
 function loadList(listEl, brd){
+  log('loadList(',listEl,brd,')')
   if (typeof brd === 'string' || brd instanceof String) brd = project.boards[brd]
 
   titleText = listEl.getElementsByClassName("title-text")[0]
