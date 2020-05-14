@@ -53,6 +53,13 @@ function boardFromUrl(url){
     return url.replace(siteUrl,'').replace('#','')
 }
 
+function qSel(query,element = document){
+return element.querySelector(query);
+}
+function qSelAll(query,element = document){
+    return element.querySelectorAll(query);
+}
+
 function findFirstBoardId(el){
     let id = nulledGetAttribute(el,'data-id')
     if(id!=null) return id

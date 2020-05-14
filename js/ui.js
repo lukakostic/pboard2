@@ -237,19 +237,17 @@ function clearBoards(lst = null) {
   log('clearBoards(',lst,')')
 
   let lists = [lst]
-  if(lst == null) lists = document.getElementsByClassName('list')
+  if(lst == null) lists = qSelAll('.list:not(#newList)')
 
   logw('lists', lists)
   
   for(let j = 0; j < lists.length; j++){
 
-    let boards = lists[j].childNodes
-    for (let i = 0; i < boards.length; i++) {
-      if(boards[i].classList != null && boards[i].classList.contains('board') && boards[i].id == ""){
+    let boards = qSelAll('.board',lists[j])//lists[j].childNodes
+    for (let i = boards.length-1; i > -1; i--){
       boards[i].parentNode.removeChild(boards[i])
-      i--
-      }  
     }
+
   }
 }
 
