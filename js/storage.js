@@ -55,7 +55,7 @@ let storage = {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
                 xhr.responseType = 'json';
                 xhr.onload = () => {
-                    console.log(xhr.response); // Retrieve uploaded file ID.
+                    //console.log(xhr.response); // Retrieve uploaded file ID.
                     if(callback) callback(xhr.response)
                 };
                 xhr.send(form);
@@ -80,7 +80,7 @@ let storage = {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
                 xhr.responseType = 'json';
                 xhr.onload = () => {
-                    console.log(xhr.response); // Retrieve uploaded file ID.
+                    //console.log(xhr.response); // Retrieve uploaded file ID.
                     if(callback) callback(xhr.response)
                 };
                 xhr.send(fileBlob);
