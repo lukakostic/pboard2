@@ -104,7 +104,7 @@ function stopSavingIndicator(){
 }
 
 function expandInputAll(){
-  let expandoInputs = document.getElementsByClassName('expandInput')
+  let expandoInputs = qSelAll('.expandInput')
   for (let i = 0; i < expandoInputs.length; i++) {
    expandInput(expandoInputs[i])
  }
