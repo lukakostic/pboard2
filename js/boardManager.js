@@ -40,11 +40,11 @@ function updateSigninStatus(isSignedIn){
     goLogin()
   else{
     
-    let _url = board() //Save url because resetData resets it
-    console.log("_url " + _url)
+    let _url = board() //Save url because resetData resets it, to load after it downloads data
 
     resetData()
     loadAll(function(_url){
+      console.log("_url " + _url)
       set_board(_url)
       pageOpened()
     }.apply(null,[_url]))
