@@ -146,6 +146,9 @@ function nulledGetAttribute(el,attr){
 function EbyId(id){
     return document.getElementById(id)
 }
+function EbyClass(className, element = document){
+    return element.getElementsByClassName(className);
+}
 
 function templateFChild(id){
     return EbyId(id).content.firstElementChild

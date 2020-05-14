@@ -104,7 +104,7 @@ function stopSavingIndicator(){
 }
 
 function expandInputAll(){
-  let expandoInputs = qSelAll('.expandInput')
+  let expandoInputs = EbyClass('expandInput')
   for (let i = 0; i < expandoInputs.length; i++) {
    expandInput(expandoInputs[i])
  }
@@ -118,7 +118,7 @@ function expandInput(el){
 
 function clearLists(){
   log('clearLists()')
-  let lists = qSelAll('.list')
+  let lists = EbyClass('list')
     
   for(let j = lists.length-1; j > -1; j--)
     if (lists[j].id == "")
@@ -242,7 +242,7 @@ function clearBoards(lst = null) {
   
   for(let j = 0; j < lists.length; j++){
 
-    let boards = qSelAll('.board',lists[j])//lists[j].childNodes
+    let boards = EbyClass('board',lists[j])//lists[j].childNodes
     for (let i = boards.length-1; i > -1; i--)
       $(boards[i]).remove()
     
@@ -252,11 +252,11 @@ function clearBoards(lst = null) {
 
 function fixListUI(listEl=null){
   if(listEl!=null){
-    var newPanel = qSel('.newPanel',listEl)
+    var newPanel = EbyClass('newPanel',listEl)[0]
     newPanel.parentNode.appendChild(newPanel)
   }else{
     var album = fixAlbumUI()
-    var lists = qSelAll('.list', album)
+    var lists = EbyClass('list', album)[0]
     for(var i = 0; i<lists.length; i++){
       if(lists[i].id=="") fixListUI(lists[i])
     }
@@ -355,12 +355,12 @@ function loadTextBoard(textBoardEl, brd){
 
   set_dataId(textBoardEl, brd.id)
 
-  $(qSel('textBtn',textBoardEl)).contents()[1].nodeValue = brd.name
+  $(EbyClass('textBtn',textBoardEl)[0]).contents()[1].nodeValue = brd.name
   
   if(brd.content.length>0) 
-      qSel('.descriptionIcon', textBoardEl).classList.remove('d-none')
+  EbyClass('descriptionIcon', textBoardEl)[0].classList.remove('d-none')
   else 
-    qSel('.descriptionIcon', textBoardEl).classList.add('d-none')
+  EbyClass('descriptionIcon', textBoardEl)[0].classList.add('d-none')
 
   loadBackground(textBoardEl,brd.id)
 }
@@ -378,7 +378,7 @@ function loadBoardBoard(boardBoardEl, brd){
   brd = project.boards[brd]
 
   set_dataId(boardBoardEl, brd.id)
-  $(qSel('.textBtn',boardBoardEl)).contents()[0].nodeValue = brd.name
+  $(EbyClass('.textBtn',boardBoardEl)[0]).contents()[0].nodeValue = brd.name
 
   loadBackground(boardBoardEl, brd.id)
 }
@@ -389,7 +389,7 @@ function loadList(listEl, brd){
   if (typeof brd === 'string' || brd instanceof String)
   brd = project.boards[brd]
 
-  titleText = qSel(".title-text",listEl)
+  titleText = EbyClass(".title-text",listEl)[0]
 
   //could cause issues with main board (probably not)?
   //can only be blur while as input, so turn to div
@@ -429,7 +429,7 @@ function loadList(listEl, brd){
 }
 
 function loadAllBoardsByDataId(brdId){
-  let boardEls = qSelAll('.board')
+  let boardEls = EbyClass('board')
 
   for(let i = 0; i < boardEls.length; i++){
       if(dataId(boardEls[i])==brdId){
