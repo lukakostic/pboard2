@@ -252,11 +252,11 @@ function clearBoards(lst = null) {
 
 function fixListUI(listEl=null){
   if(listEl!=null){
-    var newPanel = listEl.getElementsByClassName('newPanel')[0]
+    var newPanel = qSel('.newPanel',listEl)
     newPanel.parentNode.appendChild(newPanel)
   }else{
     var album = fixAlbumUI()
-    var lists = album.getElementsByClassName('list')
+    var lists = qSelAll('.list', album)
     for(var i = 0; i<lists.length; i++){
       if(lists[i].id=="") fixListUI(lists[i])
     }
