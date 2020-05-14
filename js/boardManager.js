@@ -42,15 +42,21 @@ function updateSigninStatus(isSignedIn){
     
     let _url = board() //Save url because resetData resets it, to load after it downloads data
 
+    log('initial reset')
+
     resetData()
+
     loadAll(function(_url){
+
       log("starting url " + _url)
+
       set_board(_url) //go back to previous url
     }.apply(null,[_url]))
 
     autosave = setInterval(()=>{
       if(textSave){
           textSave = false
+          log('autosave')
           saveAll()
       }
     }, project.preferences['textEditorAutoSaveInterval']*1000)
