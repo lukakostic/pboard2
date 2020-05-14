@@ -370,7 +370,8 @@ function loadBackground(brdEl, id){
 }
 
 function loadBoardBoard(boardBoardEl, brd){
-  if (typeof brd === 'string' || brd instanceof String) brd = project.boards[brd]
+  //if (typeof brd === 'string' || brd instanceof String)
+  brd = project.boards[brd]
 
   set_dataId(boardBoardEl, brd.id)
   $(boardBoardEl.getElementsByClassName('textBtn')[0]).contents()[0].nodeValue = brd.name
@@ -380,6 +381,7 @@ function loadBoardBoard(boardBoardEl, brd){
 
 function loadList(listEl, brd){
   log('loadList(',listEl,brd,')')
+
   if (typeof brd === 'string' || brd instanceof String) brd = project.boards[brd]
 
   titleText = listEl.getElementsByClassName("title-text")[0]
