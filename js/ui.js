@@ -222,6 +222,7 @@ $(".textBtn").each(function() {
 }
 
 function draw(){
+  log('draw')
   if(board()!="") drawBoard()
   else drawMain()
 
@@ -233,6 +234,8 @@ function draw(){
 }
   
 function clearBoards(lst = null) {
+  log('clearBoards')
+  
   let lists = [lst]
   if(lst == null) lists = document.getElementsByClassName('list')
   
@@ -278,7 +281,7 @@ function fixAlbumUI(){
 }
 
 function drawBoard(){
-
+log('drawBoard')
   static.mainContentAlbum.classList.add('d-none')
   static.contentAlbum.classList.remove('d-none')
 
@@ -309,7 +312,7 @@ function drawBoard(){
 }
 
 function drawMain(){
-
+  log('drawMain')
   static.contentAlbum.classList.add('d-none')
   static.mainContentAlbum.classList.remove('d-none')
 
