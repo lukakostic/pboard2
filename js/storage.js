@@ -34,33 +34,59 @@ let storage = {
             file.mimeType = 'text/plain'
         
             this.fileIdByName(file.name,(fileId)=>{
-              let method = 'post'
+              
 
-              if(fileId != null) //Update file
-                  method = 'patch'
-        
+              if(fileId == null){ 
+              
 
-              var fileBlob = new Blob([file.body], {type: 'text/plain'});
-              var metadata = {
-                  'name': file.name, // Filename at Google Drive
-                  'mimeType': file.mimeType // mimeType at Google Drive
-              };
-    
-              var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
-              var form = new FormData();
-              form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
-              form.append('file', fileBlob);
-    
-              var xhr = new XMLHttpRequest();
-              xhr.open(method, 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-              xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-              xhr.responseType = 'json';
-              xhr.onload = () => {
-                  console.log(xhr.response); // Retrieve uploaded file ID.
-                  if(callback) callback(xhr.response)
-              };
-              xhr.send(form);
+                var fileBlob = new Blob([file.body], {type: 'text/plain'});
+                var metadata = {
+                    'name': file.name, // Filename at Google Drive
+                    'mimeType': file.mimeType // mimeType at Google Drive
+                };
+      
+                var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+                var form = new FormData();
+                form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+                form.append('file', fileBlob);
+      
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+                xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+                xhr.responseType = 'json';
+                xhr.onload = () => {
+                    console.log(xhr.response); // Retrieve uploaded file ID.
+                    if(callback) callback(xhr.response)
+                };
+                xhr.send(form);
 
+
+              }else{
+
+
+                var fileBlob = new Blob([file.body], {type: 'text/plain'});
+                var metadata = {
+                    'name': file.name, // Filename at Google Drive
+                    'mimeType': file.mimeType // mimeType at Google Drive
+                };
+      
+                var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+                var form = new FormData();
+                form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+                form.append('file', fileBlob);
+      
+                var xhr = new XMLHttpRequest();
+                xhr.open('PATCH', 'https://www.googleapis.com/upload/drive/v3/files/'+fileId);
+                xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+                xhr.responseType = 'json';
+                xhr.onload = () => {
+                    console.log(xhr.response); // Retrieve uploaded file ID.
+                    if(callback) callback(xhr.response)
+                };
+                xhr.send(form);
+
+
+              }
               })
 
     },
