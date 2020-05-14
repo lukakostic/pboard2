@@ -283,8 +283,9 @@ function drawBoard(){
 log('drawBoard()')
   static.mainContentAlbum.classList.add('d-none')
   static.contentAlbum.classList.remove('d-none')
-
-  clearBoards()
+  
+  clearLists()
+  //clearBoards()
 
   EbyId('boardTitle').value = project.boards[board()].name
   EbyId('boardDescription').value = brdAttr(board(),'description')
