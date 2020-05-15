@@ -54,10 +54,10 @@ function boardFromUrl(url){
 }
 
 function qSel(query,element = document){
-return element.querySelector(query);
+    return element.querySelector(query)
 }
 function qSelAll(query,element = document){
-    return element.querySelectorAll(query);
+    return element.querySelectorAll(query)
 }
 
 function findFirstBoardId(el){
