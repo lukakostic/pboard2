@@ -58,7 +58,7 @@ function filteredTagClicked(){
     
     let boardTags = EbyId('boardTags')
 
-    let btn = tagBtnTemplate(project.tags[id].name,id,boardTags,boardTagClicked)
+    tagBtnTemplate(project.tags[id].name,id,boardTags,boardTagClicked)
     
     
     saveAll()
@@ -73,7 +73,7 @@ function tagsDialogSearched(){
     let allTagIds = Object.keys(project.tags)
     for(let i = 0; i < allTagIds.length; i++)
         if(s==""||project.tags[allTagIds[i]].name.includes(s))
-            let btn = tagBtnTemplate(project.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,filteredTagClicked)
+            tagBtnTemplate(project.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,filteredTagClicked)
         
     
 
