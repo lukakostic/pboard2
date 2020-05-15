@@ -28,7 +28,7 @@ setInterval(()=>{
     if(singleInstanceHash != null){
       let c = getCookie('singleInstanceHash')
       if( c != singleInstanceHash)
-        alert('Multiple instances of pboard open, close or the save can get corrupted or data lost. ['+c+']')
+        alert('Multiple instances of pboard open, close or the save can get corrupted or data lost. ['+c+']!=['+singleInstanceHash+']')
     }
     singleInstanceHash = Math.random()
     setCookie('singleInstanceHash', singleInstanceHash)
