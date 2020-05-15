@@ -10,8 +10,8 @@ setInterval(()=>{
   //So the main board doesnt take whole width, rather just the middle 'document' area
   //Makes it easier to focus and see the boards than if they are spread thru whole width
   
-  if(window.innerWidth>1200)
-    static.mainContentAlbum.style.width = '1200px'
+  if(window.innerWidth>1300)
+    static.mainContentAlbum.style.width = '1300px'
   else
     static.mainContentAlbum.style.width = '100%'
   
