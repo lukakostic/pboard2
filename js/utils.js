@@ -53,8 +53,11 @@ function log(msg, title = '', logType = 2){
 function getCookies(){
     let cookieTxt = document.cookie
     if(cookieTxt.length>2) cookieTxt = cookieTxt.substring(2)
-    let cookieObj = JSON.parse(cookieTxt)
-    if(cookieObj == null) cookieObj = {}
+    
+    let cookieObj = null
+    try{cookieObj=JSON.parse(cookieTxt)}
+    catch(e){cookieObj={}}
+
     return cookieObj
 }
 function setCookies(cookieObj){
