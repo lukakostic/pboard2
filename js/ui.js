@@ -95,7 +95,7 @@ function executeExtensions(){
   let extensions = brdAttrOrDef(board(),'extensions',[])
   for(let i = 0; i < extensions.length; i++){
     if(extensions[i].on){
-      console.log('executing extension ' + extensions[i].id)
+      log('executing extension ' + extensions[i].id)
       eval(project.extensions[extensions[i].id].code)
     }
   }
@@ -146,13 +146,13 @@ function makeDraggable(){
   $('.draggableList').sortable({
     items: '.draggable',
     start: (event, ui)=>{
-      console.log('drag start')
+      log('drag start')
         dragItem = ui.item
         oldDragIndex = elementIndex(dragItem[0])
         dragNew = dragOld = ui.item.parent()
     },
     stop: (event, ui)=>{
-      console.log('drag stop')
+      log('drag stop')
       //With a delay so that dragging a board doesnt click its button at end
       setTimeout(()=>{
         //actually move the board
@@ -168,7 +168,7 @@ function makeDraggable(){
       },50)
     },
     change: (event, ui)=>{  
-      console.log('drag change')
+      log('drag change')
         if(ui.sender) dragNew = ui.placeholder.parent()
         fixListUI(dragNew[0])
     },
@@ -181,12 +181,12 @@ function makeDraggable(){
   $('.draggableAlbum').sortable({
     items: '.draggableList',
     start: (event, ui)=>{
-      console.log('drag list start')
+      log('drag list start')
         dragItem = ui.item
         oldDragIndex = elementIndex(dragItem[0])
     },
     stop: (event, ui)=>{
-      console.log('drag list stop')
+      log('drag list stop')
       //With a delay so that dragging a board doesnt click its button at end
       setTimeout(()=>{
         //actually move the board
@@ -202,7 +202,7 @@ function makeDraggable(){
       },50)
     },
     change: (event, ui)=>{
-      console.log('drag list change')
+      log('drag list change')
       //if(ui.sender) dragNew = ui.placeholder.parent();
         
       //fixNewListUI();

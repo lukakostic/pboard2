@@ -100,7 +100,7 @@ function removeClicked(){
     if(isBoard){
         let ind = elementIndex(idEl)-1
 
-        console.log('removed ind '+ ind)
+        log('removed ind '+ ind)
 
         project.boards[dataId(idEl.parentNode)].content.splice(ind,1)
     }else{
@@ -110,7 +110,7 @@ function removeClicked(){
         //}else{
             let ind = elementIndex(idEl)
 
-            console.log('removed ind '+ ind)
+            log('removed ind '+ ind)
 
             project.boards[board()].content.splice(ind,1)
         //}

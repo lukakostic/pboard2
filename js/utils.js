@@ -1,6 +1,10 @@
 //Debug logs, only used for debug and not actual messages.
 //console log
 log = function(){
+    for(let i = 0; i < arguments.length; i++)
+    if(arguments[i] instanceof Error)
+    alert(arguments[i])
+    
     let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.log, console);
     //return Function.prototype.bind.call(console.log, console, context);

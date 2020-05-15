@@ -66,7 +66,7 @@ function backupsSearched(){
         fld.appendChild(btn)
         btn.style = "width: 100%;"
         btn.classList.toggle("input-group-append",true)
-        //console.log('done');
+        //log('done');
 
         set_dataId(btn,availableBackups[i].id)
 

@@ -23,7 +23,7 @@ function listTitleClicked(){
     //    $(titleText).html("");
     //    titleText.outerHTML = titleText.outerHTML.replace('<div','<input').replace('</div>','</input>');
     //    $(titleText).prop("readonly",false);
-    console.log('Title click')
+    log('Title click')
 }
 function listTitleBlur(){
     let titleText = event.srcElement
@@ -33,7 +33,7 @@ function listTitleBlur(){
     //    $(titleText).prop("readonly",true);
     //    $(titleText).html(titleText.value);
     //    titleText.outerHTML = titleText.outerHTML.replace('<input','<div').replace('</input>','</div>');
-    console.log('Title blur')
+    log('Title blur')
 }
 
 function newReferenceBtn(){
