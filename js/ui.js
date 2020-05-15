@@ -442,7 +442,7 @@ function loadAllBoardsByDataId(brdId){
 }
 
 function home(){
-  log('up')
+  log('home')
   set_board("")
 }
 
