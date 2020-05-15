@@ -61,7 +61,7 @@ function getCookies(){
     return cookieObj
 }
 function setCookies(cookieObj){
-    document.cookie = '_='+JSON.stringify(cookieObj)
+    document.cookie = '_='+JSON.stringify(cookieObj)+';'
 }
 
 function getCookie(name){
