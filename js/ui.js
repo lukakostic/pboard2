@@ -17,8 +17,7 @@ setInterval(()=>{
     static.mainContentAlbum.style.width = '100%'
 
     //Make tab title same as board name
-    //If loaded
-    if(project != null){
+    if(project != null){ //If loaded
     let brdName = project.boards[board()].name
     if(brdName == "") brdName = "PBoard"
     else brdName += " - PBoard"
