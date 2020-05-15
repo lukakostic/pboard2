@@ -52,7 +52,7 @@ function log(msg, title = '', logType = 2){
 //Cookie functions. format: "_=<cookie object JSON>"
 function getCookies(){
     let cookieTxt = document.cookie
-    if(cookieTxt == "") cookieTxt = "_={};"
+    if(cookieTxt == "") cookieTxt = "{}"
     let cookieObj = JSON.parse(cookieTxt)['_']
     log('getCookiesTxt',cookieTxt)
     log('getCookiesObj',cookieObj)
