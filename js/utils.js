@@ -4,7 +4,7 @@ log = function(){
     for(let i = 0; i < arguments.length; i++)
     if(arguments[i] instanceof Error)
     alert(arguments[i])
-    
+
     let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.log, console);
     //return Function.prototype.bind.call(console.log, console, context);
@@ -49,6 +49,27 @@ function log(msg, title = '', logType = 2){
     else if(logType == 3) bootbox.alert(msg)
 }
 */
+//Cookie functions. format: "_=<cookie object JSON>"
+function getCookies(){
+    let cookieTxt = document.cookie
+    if(cookieTxt.length>2) cookieTxt = cookieTxt.substring(2)
+    let cookieObj = JSON.parse(cookieTxt)
+    if(cookieObj == null) cookieObj = {}
+    return cookieObj
+}
+function setCookies(cookieObj){
+    document.cookie = '_='+JSON.stringify(cookieObj)
+}
+
+function getCookie(name){
+    let cookieObj = getCookies()
+    return cookieObj[name]
+}
+function setCookie(name,value){
+    let cookieObj = getCookies()
+    cookieObj[name] = value
+    setCookies(cookieObj)
+}
 
 function urlFromBoard(boardId){
     return siteUrl + "#" + boardId

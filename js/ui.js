@@ -1,8 +1,10 @@
 
 let dragOld, dragNew, dragItem, oldDragIndex, newDragIndex
 
+let singleInstanceHash = null
+
+//UI calculations, singleInstance check
 let autoUI = 
-//UI calculations
 setInterval(()=>{
   //Fix this piece of shit mobile web dev crap
   document.body.style.setProperty("width","100vw")
@@ -23,8 +25,18 @@ setInterval(()=>{
     document.title = brdName
     }
 
+    //Check if only one instance of pboard is open
+    if(singleInstanceHash != null){
+      if(getCookie('singleInstanceHash') != singleInstanceHash)
+        alert('Multiple instances of pboard open, close or the save can get corrupted or data lost.')
+    }
+    singleInstanceHash = Math.random()
+    setCookie('singleInstanceHash', singleInstanceHash)
+
 },100)
 
+
+//Auto load on url change
 window.onhashchange = function(){set_board(board())}
 
 /*
