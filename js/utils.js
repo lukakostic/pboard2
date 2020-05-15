@@ -156,17 +156,16 @@ function templateFChild(id){
 
 function elementIndex(node) {
     let index = 0
-    while ( (node = node.previousElementSibling) ) {
+    while ( node = node.previousElementSibling )
         index++
-    }
+    
     return index
 }
 
 function findWithAttr(array, attr, value) {
-    for(let i = 0; i < array.length; i += 1) {
-        if(array[i][attr] === value) {
+    for(let i = 0; i < array.length; i += 1)
+        if(array[i][attr] === value)
             return i
-        }
-    }
+        
     return -1
 }
