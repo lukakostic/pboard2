@@ -7,7 +7,15 @@ setInterval(()=>{
   //Fix this piece of shit mobile web dev crap
   document.body.style.setProperty("width","100vw")
 
-  console.log(window.innerWidth)
+  //So the main board doesnt take whole width, rather just the middle 'document' area
+  //Makes it easier to focus and see the boards than if they are spread thru whole width
+  
+  if(window.innerWidth>900)
+    static.mainContentAlbum.style.width = '900px'
+  else
+    static.mainContentAlbum.style.width = '100%'
+  
+
 },100)
 
 /*
