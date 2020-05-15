@@ -54,7 +54,8 @@ function getCookies(){
     let cookieTxt = document.cookie
     if(cookieTxt == "") cookieTxt = "_={};"
     let cookieObj = JSON.parse(cookieTxt)['_']
-    log('getCookies',cookieObj)
+    log('getCookiesTxt',cookieTxt)
+    log('getCookiesObj',cookieObj)
     return cookieObj
 }
 function setCookies(cookieObj){
