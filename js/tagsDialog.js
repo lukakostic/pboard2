@@ -21,7 +21,7 @@ function showTagsDialog(){
     
     let allTagIds = brdAttrOrDef(extrasSelected,'tags',[])
     for(let i = 0; i < allTagIds.length; i++)
-        let btn = tagBtnTemplate(project.tags[allTagIds[i]].name, allTagIds[i], boardTags, boardTagClicked)
+        tagBtnTemplate(project.tags[allTagIds[i]].name, allTagIds[i], boardTags, boardTagClicked)
     
 
 

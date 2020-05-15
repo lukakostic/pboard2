@@ -27,9 +27,9 @@ function showExtensionsDialog(){
 
     
     let allExtensionIds = brdAttrOrDef(extrasSelected,'extensions',[])
-    for(let i = 0; i < allExtensionIds.length; i++){
-        let btn = boardExtensionBtnTemplate(project.extensions[allExtensionIds[i].id].name  + " : " + project.extensions[allExtensionIds[i].id].description, allExtensionIds[i].on , allExtensionIds[i].id, boardExtensions, boardExtensionClicked)
-    }
+    for(let i = 0; i < allExtensionIds.length; i++)
+        boardExtensionBtnTemplate(project.extensions[allExtensionIds[i].id].name  + " : " + project.extensions[allExtensionIds[i].id].description, allExtensionIds[i].on , allExtensionIds[i].id, boardExtensions, boardExtensionClicked)
+    
 
 
     showExtrasDialog()
@@ -93,7 +93,7 @@ function filteredExtensionClicked(){
     
     let boardExtensions = EbyId('boardExtensions')
 
-    let btn = boardExtensionBtnTemplate(project.extensions[id].name  + " : " +  project.extensions[id].description, true, id, boardExtensions,boardExtensionClicked)
+    boardExtensionBtnTemplate(project.extensions[id].name  + " : " +  project.extensions[id].description, true, id, boardExtensions,boardExtensionClicked)
     
     
     saveAll()
@@ -106,10 +106,10 @@ function extensionsDialogSearched(){
     allExtensionsFiltered.innerHTML = ''
 
     let allExtensionIds = Object.keys(project.extensions)
-    
+
     for(let i = 0; i < allExtensionIds.length; i++)
         if(s==""||project.extensions[allExtensionIds[i]].name.includes(s))
-            let btn = extensionBtnTemplate(project.extensions[allExtensionIds[i]].name + " : " + project.extensions[allExtensionIds[i]].description,allExtensionIds[i],allExtensionsFiltered,filteredExtensionClicked)
+            extensionBtnTemplate(project.extensions[allExtensionIds[i]].name + " : " + project.extensions[allExtensionIds[i]].description,allExtensionIds[i],allExtensionsFiltered,filteredExtensionClicked)
         
     
 
