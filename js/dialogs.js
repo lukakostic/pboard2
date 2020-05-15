@@ -43,7 +43,7 @@ function newReferenceBtn(){
     if(project.boards[refer] == null){ alert("ID doesn't exist :("); return }
     if(project.boards[refer].type == boardTypes.List){alert("Cant embed lists into boards."); return}
 /*
-    if(board == ""){
+    if(board() == ""){
         project.boards[refer].attributes['onMain'] = true;
         
         drawMain();

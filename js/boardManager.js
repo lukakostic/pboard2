@@ -208,7 +208,7 @@ function newList(){
 
   let brd = new Board(boardTypes.List,name,[],{references:1})
   project.boards[brd.id] = brd
-  project.boards[board].content.push(brd.id)
+  project.boards[board()].content.push(brd.id)
 
   static.contentAlbum.appendChild(el)
   set_dataId(el, brd.id)
