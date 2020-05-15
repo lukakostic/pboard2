@@ -26,8 +26,9 @@ setInterval(()=>{
 
     //Check if only one instance of pboard is open
     if(singleInstanceHash != null){
-      if(getCookie('singleInstanceHash') != singleInstanceHash)
-        alert('Multiple instances of pboard open, close or the save can get corrupted or data lost.')
+      let c = getCookie('singleInstanceHash')
+      if( c != singleInstanceHash)
+        alert('Multiple instances of pboard open, close or the save can get corrupted or data lost. ['+c+']')
     }
     singleInstanceHash = Math.random()
     setCookie('singleInstanceHash', singleInstanceHash)
