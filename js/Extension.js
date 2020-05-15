@@ -20,7 +20,7 @@ class Extension {
             let length = maxLength
 
             //generate rand chars and append
-            for (var i = 0; i < length; i++)
+            for (let i = 0; i < length; i++)
                 id += possible.charAt(Math.floor(Math.random() * possible.length))
 
                 

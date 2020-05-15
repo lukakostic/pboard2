@@ -34,7 +34,7 @@ function pushBoardHistory(boardIdOrUrl){
     if(bId != lastBoardHistory())
         boardHistory.push(bId)
 }
-
+//Go to previous link in history
 function popBoardHistory(){
     boardHistory.pop() //pop current
     return boardHistory.pop() //pop before current

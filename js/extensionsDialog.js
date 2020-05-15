@@ -87,11 +87,13 @@ function filteredExtensionClicked(){
 
     if(findWithAttr(brdAttr(extrasSelected,'extensions'),'ID',id)==-1)
         project.boards[extrasSelected].attributes['extensions'].push(new AddedExtension(true,id))
-    else{ alert('Already is added to this board'); return}
+    else
+        return alert('Already added to this board')
+
     
     let boardExtensions = EbyId('boardExtensions')
 
-    let btn = boardExtensionBtnTemplate(project.extensions[id].name  + " : " +  project.extensions[id].description, true ,id,boardExtensions,boardExtensionClicked)
+    let btn = boardExtensionBtnTemplate(project.extensions[id].name  + " : " +  project.extensions[id].description, true, id, boardExtensions,boardExtensionClicked)
     
     
     saveAll()
@@ -104,11 +106,12 @@ function extensionsDialogSearched(){
     allExtensionsFiltered.innerHTML = ''
 
     let allExtensionIds = Object.keys(project.extensions)
-    for(let i = 0; i < allExtensionIds.length; i++){
-        if(s==""||project.extensions[allExtensionIds[i]].name.includes(s)){
+    
+    for(let i = 0; i < allExtensionIds.length; i++)
+        if(s==""||project.extensions[allExtensionIds[i]].name.includes(s))
             let btn = extensionBtnTemplate(project.extensions[allExtensionIds[i]].name + " : " + project.extensions[allExtensionIds[i]].description,allExtensionIds[i],allExtensionsFiltered,filteredExtensionClicked)
-        }
-    }
+        
+    
 
     
 }

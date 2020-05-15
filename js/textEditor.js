@@ -2,8 +2,8 @@
 function showTextBoardDialog(){
     if(dragItem!=null && ( event.srcElement==dragItem[0] || event.srcElement.parentNode == dragItem[0])) return
 
-    var textBtn = event.srcElement
-    var brd = project.boards[dataId(textBtn.parentNode)]
+    let textBtn = event.srcElement
+    let brd = project.boards[dataId(textBtn.parentNode)]
 
     if(brd==null) alert('Text board modal: brd == null')
 

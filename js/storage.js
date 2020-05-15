@@ -18,7 +18,7 @@ let storage = {
           q: "name='"+name+"'"
         })
         .then((response)=>{
-          var files = response.result.files;
+          let files = response.result.files;
           if (files != null && files.length > 0)
             callback(files[0].id)
           else
@@ -39,18 +39,18 @@ let storage = {
               if(fileId == null){ 
               
 
-                var fileBlob = new Blob([file.body], {type: 'text/plain'});
-                var metadata = {
+                let fileBlob = new Blob([file.body], {type: 'text/plain'});
+                let metadata = {
                     'name': file.name, // Filename at Google Drive
                     'mimeType': file.mimeType // mimeType at Google Drive
                 };
       
-                var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
-                var form = new FormData();
+                let accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+                let form = new FormData();
                 form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
                 form.append('file', fileBlob);
       
-                var xhr = new XMLHttpRequest();
+                let xhr = new XMLHttpRequest();
                 xhr.open('POST', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
                 xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
                 xhr.responseType = 'json';
@@ -64,18 +64,18 @@ let storage = {
               }else{
 
 
-                var fileBlob = new Blob([file.body]);
+                let fileBlob = new Blob([file.body]);
                 /*
-                var metadata = {
+                let metadata = {
                     'name': file.name, // Filename at Google Drive
                     'mimeType': file.mimeType // mimeType at Google Drive
                 };
                 */
       
-                var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+                let accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
 
       
-                var xhr = new XMLHttpRequest();
+                let xhr = new XMLHttpRequest();
                 xhr.open('PATCH', 'https://www.googleapis.com/upload/drive/v3/files/'+fileId);
                 xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
                 xhr.responseType = 'json';
@@ -161,10 +161,10 @@ let storage = {
           /*
           .then(function(response) {
             appendPre('Files:');
-            var files = response.result.files;
+            let files = response.result.files;
             if (files && files.length > 0) {
-              for (var i = 0; i < files.length; i++) {
-                var file = files[i];
+              for (let i = 0; i < files.length; i++) {
+                let file = files[i];
                 appendPre(file.name + ' (' + file.id + ')');
               }
             } else {

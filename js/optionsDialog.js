@@ -22,45 +22,43 @@ function showSeeReferencesDialog(){
 
     hideOptionsDialog()
 
-    var Btn = optionsElement
+    let Btn = optionsElement
 
-    if(dataId(Btn.parentNode) == ""){ alert('No references'); return}
-    var brd = dataId(Btn.parentNode)
+    if(dataId(Btn.parentNode) == "") return alert('No references')
+    let brd = dataId(Btn.parentNode)
 
-    if(brdAttr(brd,'references') == 1){ alert('This is the only reference'); return}
+    if(brdAttr(brd,'references') == 1) return alert('This is the only reference')
 
     let listReferences = []
 
     //go thru every board get references
     let ids = Object.keys(project.boards)
 
-    for(let i = 0; i < ids.length; i++){
-        if(project.boards[ids[i]].type == boardTypes.List){
+    for(let i = 0; i < ids.length; i++)
+        if(project.boards[ids[i]].type == boardTypes.List)
             if(project.boards[ids[i]].content.includes(brd))
                 listReferences.push(ids[i])
-        }
-    }
+        
+    
 
     let boardReferences = {}
 
     //go thru each board, see if it includes any of the listReferences
-    for(let i = 0; i < ids.length; i++){
-        if(project.boards[ids[i]].type == boardTypes.Board){
-            for(let j = 0; j < listReferences.length; j++){
+    for(let i = 0; i < ids.length; i++)
+        if(project.boards[ids[i]].type == boardTypes.Board)
+            for(let j = 0; j < listReferences.length; j++)
                 if(project.boards[ids[i]].content.includes(listReferences[j]))
                     boardReferences[ids[i]] = null //just some value
-            }
-        }
-    }
+
 
 
     let btnTemplate = templateFChild('referencesDialogBtn')
     let list = EbyId('referencesDialogList')
 
     //clear previous buttons
-    while (list.firstChild) {
+    while (list.firstChild) 
         list.removeChild(list.firstChild)
-    }
+    
 
     let modal = $('#referencesDialog')
     let brds = Object.keys(boardReferences)

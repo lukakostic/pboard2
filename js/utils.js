@@ -1,31 +1,31 @@
 //Debug logs, only used for debug and not actual messages.
 //console log
 log = function(){
-    var context = "My Descriptive Logger Prefix:";
+    let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.log, console);
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //alert log
 alog = function(){
-    var context = "My Descriptive Logger Prefix:";
+    let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.log, console);
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //modal log
 mlog = function(){
-    var context = "My Descriptive Logger Prefix:";
+    let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.log, console);
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //console log warning
 logw = function(){
-    var context = "My Descriptive Logger Prefix:";
+    let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.warn, console);
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //console log warning
 loge = function(){
-    var context = "My Descriptive Logger Prefix:";
+    let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.error, console);
     //return Function.prototype.bind.call(console.log, console, context);
 }();
@@ -155,7 +155,7 @@ function templateFChild(id){
 }
 
 function elementIndex(node) {
-    var index = 0
+    let index = 0
     while ( (node = node.previousElementSibling) ) {
         index++
     }
@@ -163,7 +163,7 @@ function elementIndex(node) {
 }
 
 function findWithAttr(array, attr, value) {
-    for(var i = 0; i < array.length; i += 1) {
+    for(let i = 0; i < array.length; i += 1) {
         if(array[i][attr] === value) {
             return i
         }

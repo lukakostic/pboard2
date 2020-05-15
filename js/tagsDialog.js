@@ -20,9 +20,9 @@ function showTagsDialog(){
 
     
     let allTagIds = brdAttrOrDef(extrasSelected,'tags',[])
-    for(let i = 0; i < allTagIds.length; i++){
+    for(let i = 0; i < allTagIds.length; i++)
         let btn = tagBtnTemplate(project.tags[allTagIds[i]].name, allTagIds[i], boardTags, boardTagClicked)
-    }
+    
 
 
     showExtrasDialog()
@@ -44,7 +44,6 @@ function boardTagClicked(){
     project.boards[extrasSelected].attributes['tags'].splice(brdAttr(extrasSelected, 'tags').indexOf(id),1)
     event.srcElement.parentNode.removeChild(event.srcElement)
 
-    
     saveAll()
 }
 
@@ -55,7 +54,7 @@ function filteredTagClicked(){
 
     if(brdAttr(extrasSelected,'tags').indexOf(id)==-1)
         project.boards[extrasSelected].attributes['tags'].push(id)
-    else{alert('Already is added to board'); return}
+    else return alert('Already is added to board')
     
     let boardTags = EbyId('boardTags')
 
@@ -72,11 +71,11 @@ function tagsDialogSearched(){
     allTagsFiltered.innerHTML = ''
 
     let allTagIds = Object.keys(project.tags)
-    for(let i = 0; i < allTagIds.length; i++){
-        if(s==""||project.tags[allTagIds[i]].name.includes(s)){
+    for(let i = 0; i < allTagIds.length; i++)
+        if(s==""||project.tags[allTagIds[i]].name.includes(s))
             let btn = tagBtnTemplate(project.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,filteredTagClicked)
-        }
-    }
+        
+    
 
     
 }

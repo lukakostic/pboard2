@@ -87,14 +87,14 @@ function tagEditorRename(){
     if(selectedTagInEditor == "") return
 
     let s = EbyId('tagEditorInput').value
-    if(s==""){
-        alert('Tag cant have no name')
-        return
-    }
+    
+    if(s=="")
+        return alert('Tag cant have no name')
+
     let tgnm = Tag.findTagByName(s)
-    if(tgnm!=null&&tgnm!=selectedTagInEditor){
+    if(tgnm!=null&&tgnm!=selectedTagInEditor)
         alert('Tag with same name already exists')
-    }
+    
     project.tags[selectedTagInEditor].name = s
 
 
@@ -106,13 +106,14 @@ function tagEditorRename(){
 
 function tagEditorNew(){
     let s = EbyId('tagEditorInput').value
-    if(s==""){
-        alert('New tag cant have no name')
-        return
-    }
-    if(Tag.findTagByName(s)!=null){
+
+    if(s=="")
+        return alert('New tag cant have no name')
+        
+    
+    if(Tag.findTagByName(s)!=null)
         alert('Tag with same name already exists')
-    }
+    
     let tag = new Tag(s)
     project.tags[tag.id] = tag
     selectTagToEdit(tag.id)
@@ -134,9 +135,9 @@ function selectTagToEdit(id){
         EbyId('tagEditorSelected').innerHTML = 'Selected: ' + project.tags[id].name
         EbyId('tagEditorInput').value = project.tags[id].name
 
-        for(let i = 0; i < project.tags[selectedTagInEditor].parentTags.length; i++){
+        for(let i = 0; i < project.tags[selectedTagInEditor].parentTags.length; i++)
             makeTagEditorBtn(project.tags[project.tags[selectedTagInEditor].parentTags[i]].name,project.tags[selectedTagInEditor].parentTags[i],parents,'tagInEditorClicked();')
-        }
+        
 
     }else{
         EbyId('tagEditorSelected').innerHTML = 'Selected: none'
@@ -147,48 +148,44 @@ function selectTagToEdit(id){
 }
 
 function tagEditorCheckAll(){
-    let nodes = EbyId('allTagsFiltered').childNodes
-    
-    for(let i = 0; i < nodes.length; i++){
-     nodes[i].childNodes[1].checked = true
-    }
-}
 
-function tagEditorUncheckAll(){
     let nodes = EbyId('allTagsFiltered').childNodes
+    for(let i = 0; i < nodes.length; i++)
+        nodes[i].childNodes[1].checked = true
     
-    for(let i = 0; i < nodes.length; i++){
-     nodes[i].childNodes[1].checked = false
-    }
+}
+function tagEditorUncheckAll(){
+
+    let nodes = EbyId('allTagsFiltered').childNodes
+    for(let i = 0; i < nodes.length; i++)
+        nodes[i].childNodes[1].checked = false
+    
 }
 
 function tagEditorCheckAllParents(){
-    let nodes = EbyId('parentTags').childNodes
-    
-    for(let i = 0; i < nodes.length; i++){
-     nodes[i].childNodes[1].checked = true
-    }
-}
 
-function tagEditorUncheckAllParents(){
     let nodes = EbyId('parentTags').childNodes
+    for(let i = 0; i < nodes.length; i++)
+        nodes[i].childNodes[1].checked = true
     
-    for(let i = 0; i < nodes.length; i++){
-     nodes[i].childNodes[1].checked = false
-    }
+}
+function tagEditorUncheckAllParents(){
+
+    let nodes = EbyId('parentTags').childNodes
+    for(let i = 0; i < nodes.length; i++)
+        nodes[i].childNodes[1].checked = false
+    
 }
 
 function tagEditorRemoveCheckedFromParentsClicked(){
     let nodes = EbyId('parentTags').childNodes
     let tags = []
 
-    for(let i = 0; i < nodes.length; i++){
-        if(nodes[i].childNodes[1].checked){
-            let id = dataId(nodes[i])
-
-            tags.push(id)
-        }
-    }
+    for(let i = 0; i < nodes.length; i++)
+        if(nodes[i].childNodes[1].checked)
+            tags.push(dataId(nodes[i]))
+        
+    
 
     for(let i = 0; i < tags.length; i++){
         let ind = project.tags[selectedTagInEditor].parentTags.indexOf(tags[i])
@@ -235,25 +232,24 @@ function tagEditorAddCheckedToParentsClicked(){
         if(nodes[i].childNodes[1].checked){
             let id = dataId(nodes[i])
 
-            if(Object.keys(Tag.AllUpstreamParents(id)).includes(selectedTagInEditor)){
-                alert('Cant add ' + project.tags[id].name + ' as parent, because its a (possibly indirect) child of the selected tag.')
-                return
-            }
+            if(Object.keys(Tag.AllUpstreamParents(id)).includes(selectedTagInEditor))
+                return alert('Cant add ' + project.tags[id].name + ' as parent, because its a (possibly indirect) child of the selected tag.')
+                
 
             if(project.tags[selectedTagInEditor].parentTags.includes(id)) continue //already a parent
 
-            if(id == selectedTagInEditor){
-                alert('Cant parent tag to itself.')
-                return
-            }
+            if(id == selectedTagInEditor)
+                return alert('Cant parent tag to itself.')
+                
+            
 
             tags.push(id)
         }
     }
 
-    for(let i = 0; i < tags.length; i++){
+    for(let i = 0; i < tags.length; i++)
         project.tags[selectedTagInEditor].parentTags.push(tags[i])
-    }
+    
 
 
     selectTagToEdit(selectedTagInEditor)
@@ -275,11 +271,11 @@ function tagEditorSearched(){
     allTagsFiltered.innerHTML = ''
 
     let allTagIds = Object.keys(project.tags)
-    for(let i = 0; i < allTagIds.length; i++){
-        if(s==""||project.tags[allTagIds[i]].name.includes(s)){
+    for(let i = 0; i < allTagIds.length; i++)
+        if(s==""||project.tags[allTagIds[i]].name.includes(s))
             makeTagEditorBtn(project.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,'tagInEditorClicked();')
-        }
-    }
+        
+    
 
     
 }

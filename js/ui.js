@@ -105,9 +105,8 @@ function stopSavingIndicator(){
 
 function expandInputAll(){
   let expandoInputs = EbyClass('expandInput')
-  for (let i = 0; i < expandoInputs.length; i++) {
-   expandInput(expandoInputs[i])
- }
+  for (let i = 0; i < expandoInputs.length; i++)
+    expandInput(expandoInputs[i])
 }
 
 function expandInput(el){
@@ -252,25 +251,25 @@ function clearBoards(lst = null) {
 
 function fixListUI(listEl=null){
   if(listEl!=null){
-    var newPanel = EbyClass('newPanel',listEl)[0]
+    let newPanel = EbyClass('newPanel',listEl)[0]
     newPanel.parentNode.appendChild(newPanel)
   }else{
-    var album = fixAlbumUI()
-    var lists = EbyClass('list', album)[0]
-    for(var i = 0; i<lists.length; i++){
+    let album = fixAlbumUI()
+    let lists = EbyClass('list', album)[0]
+    for(let i = 0; i<lists.length; i++)
       if(lists[i].id=="") fixListUI(lists[i])
-    }
+    
   }
 }
 
 function fixNewListUI(){
-  var newlist = EbyId('newlist')
+  let newlist = EbyId('newlist')
   newlist.parentNode.appendChild(newlist)
 }
 
 function fixAlbumUI(){
-  var album = EbyId('contentAlbum')
-  var columnWidth = 310 //px //300 + 5*2 margin
+  let album = EbyId('contentAlbum')
+  let columnWidth = 310 //px //300 + 5*2 margin
   if(album){
     album.style.setProperty('width',((columnWidth*album.childElementCount)+10 + 8).toString() + 'px') //add some space for album pad (2 * 5px atm) + some extra just in case
     
@@ -359,9 +358,9 @@ function loadTextBoard(textBoardEl, brd){
   $(EbyClass('textBtn',textBoardEl)[0]).contents()[1].nodeValue = brd.name
   
   if(brd.content.length>0) 
-  EbyClass('descriptionIcon', textBoardEl)[0].classList.remove('d-none')
+    EbyClass('descriptionIcon', textBoardEl)[0].classList.remove('d-none')
   else 
-  EbyClass('descriptionIcon', textBoardEl)[0].classList.add('d-none')
+    EbyClass('descriptionIcon', textBoardEl)[0].classList.add('d-none')
 
   loadBackground(textBoardEl,brd.id)
 }
@@ -376,7 +375,7 @@ function loadBoardBoard(boardBoardEl, brd){
   log('loadBoardBoard(',boardBoardEl,"'"+JSON.stringify(brd)+"'",')')
 
   if (typeof brd === 'string' || brd instanceof String)
-  brd = project.boards[brd]
+    brd = project.boards[brd]
 
   set_dataId(boardBoardEl, brd.id)
   $(EbyClass('textBtn',boardBoardEl)[0]).contents()[0].nodeValue = brd.name
@@ -388,7 +387,7 @@ function loadList(listEl, brd){
   log('loadList(',listEl,"'"+JSON.stringify(brd)+"'",')')
 
   if (typeof brd === 'string' || brd instanceof String)
-  brd = project.boards[brd]
+    brd = project.boards[brd]
 
   titleText = EbyClass('title-text',listEl)[0]
 
@@ -432,14 +431,14 @@ function loadList(listEl, brd){
 function loadAllBoardsByDataId(brdId){
   let boardEls = EbyClass('board')
 
-  for(let i = 0; i < boardEls.length; i++){
+  for(let i = 0; i < boardEls.length; i++)
       if(dataId(boardEls[i])==brdId){
           if(project.boards[brdId].type == boardTypes.Text)
            loadTextBoard(boardEls[i],brdId)
           else if(project.boards[brdId].type == boardTypes.Board)
            loadBoardBoard(boardEls[i],brdId)
       }
-  }
+  
 }
 
 function home(){
