@@ -26,9 +26,9 @@ function closeTextBoardDialog(){
 }
 
 function textCloseClicked(){
-    if(textSave) saveAll() ////////[NOTICE] what if save fails?
+    if(needsSave) saveAll() ////////[NOTICE] what if save fails?
 
-    textSave = false
+    needsSave = false
 }
 
 function textBackClicked(){
@@ -46,7 +46,7 @@ function textTitleChanged(){
 
     loadAllBoardsByDataId(brdId)
 
-    textSave = true //saveAll();
+    needsSave = true //saveAll();
 }
 
 function textDescriptionChanged(){
@@ -57,5 +57,5 @@ function textDescriptionChanged(){
 
     loadAllBoardsByDataId(brdId)
 
-    textSave = true //saveAll();
+    needsSave = true //saveAll();
 }

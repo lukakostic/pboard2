@@ -6,7 +6,7 @@ class Project {
         this.tags = {}
         this.extensions = {}
         this.preferences = {
-            'textEditorAutoSaveInterval': 30,
+            'autoSaveInterval': 30,
         }
     }
 }

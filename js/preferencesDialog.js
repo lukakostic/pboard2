@@ -5,7 +5,7 @@ function showPreferencesDialog(){
     
     static.extrasTitle.innerHTML = 'Preferences'
     static.extrasContent.innerHTML = `<a style="color:white;font-size:16px;">You may need to refresh the page or reopen the board for some preferences to take effect.</a><br><button type="button" class="btn bg-inherit btn-primary" onclick="project.preferences = preferencesCurrentPref; saveAll();" style="width: 100%;">Save</button><br>`+
-    prefNumber('textEditorAutoSaveInterval','Text Editor AutoSave Interval (seconds): ');
+    prefNumber('autoSaveInterval','Text Editor AutoSave Interval (seconds): ');
     static.extrasBack.onclick = showExtrasClicked
 }
 

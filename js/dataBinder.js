@@ -1,10 +1,3 @@
-let dataSave = false
-setInterval(()=>{
-    if(dataSave){
-        dataSave = false
-        saveAll()
-    }
-},5000)
 
 function boardTitleChanged(){
     //alert("Board title changed");
@@ -12,7 +5,7 @@ function boardTitleChanged(){
 
     loadAllBoardsByDataId(board())
 
-    dataSave = true
+    needsSave = true
 }
 
 function boardDescriptionChanged(){
@@ -21,7 +14,7 @@ function boardDescriptionChanged(){
 
     loadAllBoardsByDataId(board())
 
-    dataSave = true
+    needsSave = true
 }
 
 function listTitleChanged(){
@@ -31,7 +24,7 @@ function listTitleChanged(){
     let listId = event.srcElement.parentNode.parentNode.getAttribute('data-id')
     project.boards[listId].name = $(event.srcElement).text()
 
-    dataSave = true
+    needsSave = true
 }
 
 

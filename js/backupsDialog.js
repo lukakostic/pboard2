@@ -36,14 +36,13 @@ function backups(callB=null){
         
         availableBackups = []
 
-        if(msg.type == 'error')return //either not found or error
+        if(msg.type == 'error') return //either not found or error
         let backupsFiltered = EbyId('backupsFiltered')
         if(backupsFiltered == undefined) return
 
-        for(let i = 0; i < msg.msg.entries.length; i++){
+        for(let i = 0; i < msg.msg.entries.length; i++)
             availableBackups.push(msg.msg.entries[i])
-        }
-
+        
         if(callB) callB()
     })
 
@@ -87,11 +86,10 @@ function makeBackupClicked(){
     let bkName = EbyId('newBackup').value
     
     //new Date().getTime()+" "+ 
-    alert("Not implemented") //Upload by path
-    storage.fileUpload({ path: '/pboardbackups/' , name: bkName + '.pbb', body: buildProject()},()=>{
+    storage.fileUpload({ name: bkName + '.pbb', body: buildProject()},()=>{
         
         backups(()=>{ backupsSearched() })
-        alert('Made backup'); 
+        alert('Made backup')
 
     },(msg)=>{ log(msg) })
 }
@@ -99,8 +97,8 @@ function makeBackupClicked(){
 function deleteBackupClicked(){
     let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
 
-    alert("Not implemented") //deleting by path
-    storage.fileDelete(availableBackups[ind].path_lower,()=>{
+    return alert("Not implemented") //deleting by path
+    storage.fileDelete(availableBackups[ind].name,()=>{
     //getBackups(function(){backupsSearched();})
     alert('Backup deleted')
     })
@@ -117,7 +115,7 @@ function renameBackupClicked(){
    
     if(name == "") return
 
-    storage.fileMove(availableBackups[ind].path_lower,availableBackups[ind].path_lower.substring(0, availableBackups[ind].path_lower.lastIndexOf("/"))+"/"+name ,()=>{
+    storage.fileMove(availableBackups[ind].name,availableBackups[ind].name.substring(0, availableBackups[ind].name.lastIndexOf("/"))+"/"+name ,()=>{
     //getBackups(function(){backupsSearched();});
     alert('Backup renamed')
     })
@@ -129,8 +127,7 @@ function loadBackupClicked(){
 
     let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
 
-    alert("Not implemented") //download by path
-    storage.fileDownload(availableBackups[ind].path_lower,function(contents){
+    storage.fileDownload(availableBackups[ind].name, (contents)=>{
     //getBackups(function(){backupsSearched();});
     loadFromContent(contents)
     alert('Loaded')

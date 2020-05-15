@@ -13,7 +13,7 @@ let extensionListeners = //arrays of callbacks
 }
 
 let autosave = null //interval, set after loading settings.
-let textSave = false //text changed, save
+let needsSave = false //when something changes
 
 //Entry point
 //Init drive api and listen for signIn changes
@@ -30,6 +30,7 @@ function OnStorageLoad(){
       goLogin() //error initing drive, probably not logged in
     })
   })
+
 }
 
 //after Entry point
@@ -54,12 +55,12 @@ function updateSigninStatus(isSignedIn){
     }.bind(null,_url))
 
     autosave = setInterval(()=>{
-      if(textSave){
-          textSave = false
-          log('autosave')
+      if(needsSave){
+          needsSave = false
+          log('needs save')
           saveAll()
       }
-    }, project.preferences['textEditorAutoSaveInterval']*1000)
+    }, project.preferences['autoSaveInterval']*1000)
 
   }
 }
@@ -160,7 +161,7 @@ function newText(){
   parent.appendChild(el)
   loadTextBoard(el,brd.id)
 
-  el.getElementsByClassName('textBtn')[0].click() ////////////////////////// auto open
+  EbyClass('textBtn',el)[0].click() ////////////////////////// auto open
 
   fixListUI(parent)
   saveAll()
@@ -184,7 +185,7 @@ function newBoard(){
   
   fixListUI(parent)
 
-  el.getElementsByClassName('textBtn')[0].click() // load board on add, might not want to do this.
+  EbyClass('textBtn', el)[0].click() // load board on add, might not want to do this.
 
   saveAll(()=>{
     //el.getElementsByClassName('textBtn')[0].click(); // load board on add, might not want to do this. and to be moved to before saving?
@@ -198,7 +199,7 @@ function newList(){
   let inp = event.srcElement.firstElementChild
   let name = inp.value
 
-  let titleText = el.getElementsByClassName("title-text")[0]
+  let titleText = EbyClass('title-text',el)[0]
 //  $(titleText).val(name);
   $(titleText).html(name) //we assume its div at start
   //$(titleText).prop("readonly",true);
