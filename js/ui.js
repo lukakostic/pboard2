@@ -7,13 +7,18 @@ setInterval(()=>{
   //Fix this piece of shit mobile web dev crap
   document.body.style.setProperty("width","100vw")
 
-  //So the main board doesnt take whole width, rather just the middle 'document' area
+  //Resize main board so it doesnt take whole screen width, rather just the middle 'document' area
   //Makes it easier to focus and see the boards than if they are spread thru whole width
-  
   if(window.innerWidth>1250)
     static.mainContentAlbum.style.width = '1250px'
   else
     static.mainContentAlbum.style.width = '100%'
+
+    //Make tab title same as board name
+    let brdName = project.boards[board()].name
+    if(brdName == "") brdName = "PBoard"
+    else brdName += " - PBoard"
+    document.title = brdName
   
 
 },100)
