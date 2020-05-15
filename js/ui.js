@@ -1,11 +1,20 @@
 
-let dragOld, dragNew, dragItem
-let oldDragIndex, newDragIndex
+let dragOld, dragNew, dragItem, oldDragIndex, newDragIndex
+
+let autoUI = 
+//UI calculations
+setInterval(()=>{
+  //Fix this piece of shit mobile web dev crap
+  document.body.style.setProperty("width","100vw")
+
+  console.log(window.innerWidth)
+},100)
+
 /*
 function reloadHTML(){
   
   document.body.outerHTML = static.htmlBackup.innerHTML
-  uiToFunctions()
+  uiToFunctions() //set home and up btns
 
   invokeListeners('reloadHTML')
     
@@ -33,7 +42,12 @@ function htmlLoaded(){
     extrasBack: EbyId('extrasBack'),
   }
 
-  uiToFunctions()
+  EbyId('homeBtn').onclick = home
+  EbyId('upBtn').onclick = up
+  //EbyId('convertBtn').onclick = ConvertBoard;
+  //EbyId('saveBtn').onclick = SaveAll;
+  //EbyId('loadBtn').onclick = LoadAll;
+
   static.loadingIndicator.style.display = 'none'
 }
 
@@ -64,6 +78,7 @@ function pageOpened(){
 }
 
 function executeExtensions(){
+  log('executeExtensions()')
   let extensions = brdAttrOrDef(board(),'extensions',[])
   for(let i = 0; i < extensions.length; i++){
     if(extensions[i].on){
@@ -81,20 +96,7 @@ function loadBoardBackgroundImage(){
   brdEl.style.backgroundSize = "cover"
 }
 
-function uiToFunctions(){
-    EbyId('homeBtn').onclick = home
-    EbyId('upBtn').onclick = up
-    //EbyId('convertBtn').onclick = ConvertBoard;
-    //EbyId('saveBtn').onclick = SaveAll;
-    //EbyId('loadBtn').onclick = LoadAll;
-}
 
-//UI calculations
-setInterval(()=>{
-  //Fix this piece of shit mobile web dev crap
-  document.body.style.setProperty("width","100vw")
-
-},100)
 
 function startSavingIndicator(){
   static.savingIndicator.style.display = 'block'
