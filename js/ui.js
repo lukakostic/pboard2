@@ -23,7 +23,7 @@ setInterval(()=>{
 
 },100)
 
-window.onhashchange(()=>{set_board(board())})
+window.onhashchange = function(){set_board(board())}
 
 /*
 function reloadHTML(){
