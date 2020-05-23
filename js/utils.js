@@ -1,6 +1,8 @@
 //Debug logs, only used for debug and not actual messages.
+LOG_DISABLED = false
 //console log
 log = function(){
+    if(LOG_DISABLED)return
     for(let i = 0; i < arguments.length; i++)
     if(arguments[i] instanceof Error)
     alert(arguments[i])
@@ -11,24 +13,28 @@ log = function(){
 }();
 //alert log
 alog = function(){
+    if(LOG_DISABLED)return
     return Function.prototype.bind.call(console.log, console);
     let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //modal log
 mlog = function(){
+    if(LOG_DISABLED)return
     return Function.prototype.bind.call(console.log, console);
     let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //console log warning
 logw = function(){
+    if(LOG_DISABLED)return
     return Function.prototype.bind.call(console.warn, console);
     let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //console log warning
 loge = function(){
+    if(LOG_DISABLED)return
     return Function.prototype.bind.call(console.error, console);
     let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
