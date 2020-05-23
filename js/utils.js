@@ -97,6 +97,7 @@ function setMainCookie(jsonContents){
     cookies['_'] = encodeURI(jsonContents)
     log('setMainCookie',cookies)
     document.cookie = generateCookieText(cookies)
+    alert(document.cookie)
 }
 
 function getCookie(name){
