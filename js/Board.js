@@ -1,12 +1,7 @@
 
 
 class Board {
-    
-    static Types = {
-        Text : 1,
-        Board : 2,
-        List : 3
-    }
+
     
     constructor(type, name, content,  attributes = {}, id = null) {
         this.type = type //boardType
@@ -91,4 +86,10 @@ class Board {
         }
 
     }
+}
+
+Board.Types = {
+    Text : 1,
+    Board : 2,
+    List : 3
 }
