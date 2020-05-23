@@ -5,32 +5,32 @@ log = function(){
     if(arguments[i] instanceof Error)
     alert(arguments[i])
 
-    let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.log, console);
+    let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //alert log
 alog = function(){
-    let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.log, console);
+    let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //modal log
 mlog = function(){
-    let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.log, console);
+    let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //console log warning
 logw = function(){
-    let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.warn, console);
+    let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //console log warning
 loge = function(){
-    let context = "My Descriptive Logger Prefix:";
     return Function.prototype.bind.call(console.error, console);
+    let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 

@@ -41,7 +41,7 @@ function newReferenceBtn(){
 
     if(refer==null) return
     if(project.boards[refer] == null){ alert("ID doesn't exist :("); return }
-    if(project.boards[refer].type == boardTypes.List){alert("Cant embed lists into boards."); return}
+    if(project.boards[refer].type == Board.Types.List){alert("Cant embed lists into boards."); return}
 /*
     if(board() == ""){
         project.boards[refer].attributes['onMain'] = true;

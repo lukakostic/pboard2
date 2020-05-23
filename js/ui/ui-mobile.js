@@ -357,13 +357,13 @@ function drawMain(){
   //fill boards
   for(let i = 0; i < ids.length; i++){
     if(project.boards[ids[i]].attributes['onMain'] == true){
-      if(project.boards[ids[i]].type == boardTypes.Text){
+      if(project.boards[ids[i]].type == Board.Types.Text){
 
         let el = static.textBrdTemplate.cloneNode(true);
         static.mainList.appendChild(el);
         loadTextBoard(el,project.boards[ids[i]]);
       
-      }else if(project.boards[ids[i]].type == boardTypes.Board){
+      }else if(project.boards[ids[i]].type == Board.Types.Board){
 
         let el = static.boardBrdTemplate.cloneNode(true);
         static.mainList.appendChild(el);
@@ -441,13 +441,13 @@ function loadList(listEl, brd){
   
   for(let i = 0; i < brd.content.length; i++){
     let brd2 = project.boards[brd.content[i]]
-    if(brd2.type == boardTypes.Text){
+    if(brd2.type == Board.Types.Text){
 
       let el = static.textBrdTemplate.cloneNode(true)
       listEl.appendChild(el)
       loadTextBoard(el,brd2)
     
-    }else if(brd2.type == boardTypes.Board){
+    }else if(brd2.type == Board.Types.Board){
 
       let el = static.boardBrdTemplate.cloneNode(true)
       listEl.appendChild(el)
@@ -464,9 +464,9 @@ function loadAllBoardsByDataId(brdId){
 
   for(let i = 0; i < boardEls.length; i++)
       if(dataId(boardEls[i])==brdId){
-          if(project.boards[brdId].type == boardTypes.Text)
+          if(project.boards[brdId].type == Board.Types.Text)
            loadTextBoard(boardEls[i],brdId)
-          else if(project.boards[brdId].type == boardTypes.Board)
+          else if(project.boards[brdId].type == Board.Types.Board)
            loadBoardBoard(boardEls[i],brdId)
       }
   

@@ -1,11 +1,13 @@
-let boardTypes = {
-    Text : 1,
-    Board : 2,
-    List : 3
-}
 
 
 class Board {
+    
+    static Types = {
+        Text : 1,
+        Board : 2,
+        List : 3
+    }
+    
     constructor(type, name, content,  attributes = {}, id = null) {
         this.type = type //boardType
         this.name = name //string
@@ -65,7 +67,7 @@ class Board {
     //delete board by id, and dereference its children. Children get deleted if at 0 references.
     static deleteBoardById(id){
         if(id=="") return
-        if(project.boards[id].type != boardTypes.Text){
+        if(project.boards[id].type != Board.Types.Text){ //since they cant contain other boards
             for(let i = 0; i < project.boards[id].content.length; i++){
                 project.boards[project.boards[id].content[i]].attributes['references']--
                 if(project.boards[project.boards[id].content[i]].attributes['references']<=0)
@@ -79,7 +81,7 @@ class Board {
         let ids = Object.keys(project.boards)
 
         for(let i = 0; i < ids.length; i++){
-            if(project.boards[ids[i]].type == boardTypes.Text) continue
+            if(project.boards[ids[i]].type == Board.Types.Text) continue
 
             let ind = project.boards[ids[i]].content.indexOf(id)
             while(ind!=-1){

@@ -92,7 +92,7 @@ function resetData(){
   log("resetData()")
   project = new Project("", curVer)
   //main board
-  project.boards[""] = new Board(boardTypes.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
+  project.boards[""] = new Board(Board.Types.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
   set_board("")
 }
 
@@ -153,7 +153,7 @@ function newText(){
 
   let el = static.textBrdTemplate.cloneNode(true)
 
-  let brd = new Board(boardTypes.Text,"Text","",{references:1})
+  let brd = new Board(Board.Types.Text,"Text","",{references:1})
 
   project.boards[brd.id] = brd
   project.boards[dataId(parent)].content.push(brd.id) //Add to parent list
@@ -174,7 +174,7 @@ function newBoard(){
   let el = static.boardBrdTemplate.cloneNode(true)
 
   let atr = {description:'Description',references:1}
-  let brd = new Board(boardTypes.Board,"Board",[],atr)
+  let brd = new Board(Board.Types.Board,"Board",[],atr)
 
   project.boards[brd.id] = brd
   project.boards[dataId(parent)].content.push(brd.id) //Add to parent list
@@ -206,7 +206,7 @@ function newList(){
   titleText.addEventListener('click',listTitleClicked,true)
   titleText.onblur = ()=>{listTitleBlur()}
 
-  let brd = new Board(boardTypes.List,name,[],{references:1})
+  let brd = new Board(Board.Types.List,name,[],{references:1})
   project.boards[brd.id] = brd
   project.boards[board()].content.push(brd.id)
 
