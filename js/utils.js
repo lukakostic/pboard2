@@ -1,5 +1,5 @@
 //Debug logs, only used for debug and not actual messages.
-LOG_DISABLED = false
+LOG_DISABLED = true
 //console log
 log = function(){
     if(LOG_DISABLED)return
