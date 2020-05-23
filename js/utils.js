@@ -51,40 +51,53 @@ function log(msg, title = '', logType = 2){
 */
 
 function parseCookieText(cookieTxt){
-    let len = cookieTxt.length;
-    for(;len>-1;len--){
-        console.log(len);
+    let len = cookieTxt.length
+    let cookies = {}
+    let name = "", content = "", readingName = true
+    for(let i = 0;i<len;i++){
+        if(cookieTxt[i] == '='){
+            if(readingName == false){
+                cookies[name] = content
+                name = ""
+                content = ""
+            }
+            readingName = !readingName
+            continue
+        }
+        if(readingName) name += cookieTxt[i]
+        else content += cookieTxt[i]
     }
+    return cookies
 }
 function generateCookieText(cookies){
-    let cookieTxt = "";
+    let cookieTxt = ""
     for (let [key, value] of Object.entries(cookies))
-        cookieTxt += key.toString() + value.toString() + ";";
-    return cookieTxt;
+        cookieTxt += key.toString() + '=' + value.toString() + ';'
+    return cookieTxt
 }
 
 //Cookie functions. format: "_=<cookie object JSON>"
-function getCookies(){
-    let cookieTxt = document.cookie
-    alert(cookieTxt)
-    if(cookieTxt == "") cookieTxt = "{}"
-    let cookieObj = JSON.parse(cookieTxt)['_']
-    log('getCookiesTxt',cookieTxt)
-    log('getCookiesObj',cookieObj)
+function getMainCookie(){
+    let cookies = parseCookieText(document.cookie)
+    log('getMainCookie',cookies)
+    let cookieObj = cookies['_'] //URI encoded string
+    if(cookieObj == null || cookieObj == undefined || cookieObj == "") cookieObj = {}
+    else cookieObj = JSON.parse(decodeURI(cookieObj)) //string isnt null
     return cookieObj
 }
-function setCookies(cookieObj){
-    document.cookie = '_='+JSON.stringify(cookieObj)+';'
+function setMainCookie(jsonContents){
+    let cookies = parseCookieText(document.cookie)
+    cookies['_'] = encodeURI(jsonContents)
+    document.cookie = generateCookieText(cookies)
 }
 
 function getCookie(name){
-    let cookieObj = getCookies()
-    return cookieObj[name]
+    return getMainCookie()[name]
 }
 function setCookie(name,value){
-    let cookieObj = getCookies()
+    let cookieObj = getMainCookies()
     cookieObj[name] = value
-    setCookies(cookieObj)
+    setMainCookie(JSON.stringify(cookieObj))
 }
 
 function urlFromBoard(boardId){
