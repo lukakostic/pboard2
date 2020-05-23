@@ -51,6 +51,7 @@ function log(msg, title = '', logType = 2){
 */
 
 function parseCookieText(cookieTxt){
+    log('parseCookieText raw text: ', cookieTxt)
     let len = cookieTxt.length
     let cookies = {}
     let name = "", content = "", readingName = true
@@ -70,12 +71,15 @@ function parseCookieText(cookieTxt){
     if(readingName == false){
         cookies[name] = content
     }
+    log('parseCookieText cookies: ', cookies)
     return cookies
 }
 function generateCookieText(cookies){
+    log('generateCookieText cookies: ', cookies)
     let cookieTxt = ""
     for (let [key, value] of Object.entries(cookies))
         cookieTxt += key.toString() + '=' + value.toString() + ';'
+    log('generateCookieText generated text: ', cookieTxt)
     return cookieTxt
 }
 
@@ -91,6 +95,7 @@ function getMainCookie(){
 function setMainCookie(jsonContents){
     let cookies = parseCookieText(document.cookie)
     cookies['_'] = encodeURI(jsonContents)
+    log('setMainCookie',cookies)
     document.cookie = generateCookieText(cookies)
 }
 
