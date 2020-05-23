@@ -103,7 +103,7 @@ function getCookie(name){
     return getMainCookie()[name]
 }
 function setCookie(name,value){
-    let cookieObj = getMainCookies()
+    let cookieObj = getMainCookie()
     cookieObj[name] = value
     setMainCookie(JSON.stringify(cookieObj))
 }
