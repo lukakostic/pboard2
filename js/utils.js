@@ -58,7 +58,7 @@ function parseCookieText(cookieTxt){
     for(let i = 0;i<len;i++){
         if(cookieTxt[i] == '=' || cookieTxt[i] == ';'){
             if(readingName == false){
-                cookies[name] = content
+                cookies[name.trimStart()] = content //trimmed to remove space at start
                 name = ""
                 content = ""
             }
