@@ -49,6 +49,20 @@ function log(msg, title = '', logType = 2){
     else if(logType == 3) bootbox.alert(msg)
 }
 */
+
+function parseCookieText(cookieTxt){
+    let len = cookieTxt.length;
+    for(;len>-1;len--){
+        console.log(len);
+    }
+}
+function generateCookieText(cookies){
+    let cookieTxt = "";
+    for (let [key, value] of Object.entries(cookies))
+        cookieTxt += key.toString() + value.toString() + ";";
+    return cookieTxt;
+}
+
 //Cookie functions. format: "_=<cookie object JSON>"
 function getCookies(){
     let cookieTxt = document.cookie
