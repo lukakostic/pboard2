@@ -55,13 +55,13 @@ function getMainCookie(){
     let cookieObj = Cookies.get('_') //URI encoded json unnamed object string
     if(cookieObj == null || cookieObj == undefined || cookieObj == "") cookieObj = {}
     else cookieObj = JSON.parse(decodeURI(cookieObj)) //since string isnt null
-    log('getMainCookie cookieObj',cookieObj)
+    //log('getMainCookie cookieObj',cookieObj)
     return cookieObj
 }
 function setMainCookie(cookieObj){
-    log('setMainCookie cookieObj',cookieObj)
+    //log('setMainCookie cookieObj',cookieObj)
     Cookies.set('_',encodeURI(JSON.stringify(cookieObj)))
-    log('doc.cookie after setting main',document.cookie)
+    //log('doc.cookie after setting main',document.cookie)
 }
 
 function getCookie(name){
