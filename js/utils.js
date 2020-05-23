@@ -56,7 +56,7 @@ function parseCookieText(cookieTxt){
     let cookies = {}
     let name = "", content = "", readingName = true
     for(let i = 0;i<len;i++){
-        if(cookieTxt[i] == '=' || cookieTxt == ';'){
+        if(cookieTxt[i] == '=' || cookieTxt[i] == ';'){
             if(readingName == false){
                 cookies[name] = content
                 name = ""
