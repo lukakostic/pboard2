@@ -68,7 +68,7 @@ function parseCookieText(cookieTxt){
         if(readingName) name += cookieTxt[i]
         else content += cookieTxt[i]
     }
-    if(readingName == false){
+    if(readingName == false && name != ""){ //EOF
         cookies[name] = content
     }
     log('parseCookieText cookies: ', cookies)
