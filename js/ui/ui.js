@@ -4,36 +4,8 @@ let dragOld, dragNew, dragItem, oldDragIndex, newDragIndex
 let singleInstanceHash = null
 
 //UI calculations, singleInstance check
-let autoUI = 
-setInterval(()=>{
-  //Fix this piece of shit mobile web dev crap
-  document.body.style.setProperty("width","100vw")
+let autoUI = null //set in htmlLoaded
 
-  //Resize main board so it doesnt take whole screen width, rather just the middle 'document' area
-  //Makes it easier to focus and see the boards than if they are spread thru whole width
-  if(window.innerWidth>1250)
-    static.listAlbum.style.width = '1250px'
-  else
-    static.listAlbum.style.width = '100%'
-
-    //Make tab title same as board name
-    if(project != null){ //If loaded
-    let brdName = project.boards[board()].name
-    if(brdName == "") brdName = "PBoard"
-    else brdName += " - PBoard"
-    document.title = brdName
-    }
-
-    //Check if only one instance of pboard is open
-    if(singleInstanceHash != null){
-      let c = getCookie('singleInstanceHash')
-      if( c != singleInstanceHash)
-        alert('Multiple instances of pboard open, close or the save can get corrupted or data lost. ['+c+']!=['+singleInstanceHash+']')
-    }
-    singleInstanceHash = Math.random()
-    setCookie('singleInstanceHash', singleInstanceHash)
-
-},100)
 
 
 //Auto load on url change
@@ -50,6 +22,36 @@ function reloadHTML(){
 }
 */
 function htmlLoaded(){
+  autoUI = setInterval(()=>{
+    //Fix this piece of shit mobile web dev crap
+    document.body.style.setProperty("width","100vw")
+  
+    //Resize main board so it doesnt take whole screen width, rather just the middle 'document' area
+    //Makes it easier to focus and see the boards than if they are spread thru whole width
+    if(window.innerWidth>1250)
+      static.listAlbum.style.width = '1250px'
+    else
+      static.listAlbum.style.width = '100%'
+  
+      //Make tab title same as board name
+      if(project != null){ //If loaded
+      let brdName = project.boards[board()].name
+      if(brdName == "") brdName = "PBoard"
+      else brdName += " - PBoard"
+      document.title = brdName
+      }
+  
+      //Check if only one instance of pboard is open
+      if(singleInstanceHash != null){
+        let c = getCookie('singleInstanceHash')
+        if( c != singleInstanceHash)
+          alert('Multiple instances of pboard open, close or the save can get corrupted or data lost. ['+c+']!=['+singleInstanceHash+']')
+      }
+      singleInstanceHash = Math.random()
+      setCookie('singleInstanceHash', singleInstanceHash)
+  
+  },100)
+  
   static.find()
 
   EbyId('homeBtn').onclick = home
