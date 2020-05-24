@@ -44,26 +44,25 @@ function popBoardHistory(){
 }
 
 //Static html elements
-let static = null
-function setStaticHtml(){
-    static = {
-        textBrdTemplate: templateFChild('textBoardTemplate'),
-        boardBrdTemplate: templateFChild('boardBoardTemplate'),
-        listTemplate: templateFChild('listTemplate'),
+let static = {
+    find: function(){
+        this.textBrdTemplate = templateFChild('textBoardTemplate')
+        this.boardBrdTemplate = templateFChild('boardBoardTemplate')
+        this.listTemplate = templateFChild('listTemplate')
 
-        boardAlbum: EbyId('boardAlbum'),
-        listAlbum: EbyId('listAlbum'),
-        mainList: EbyId('main-list'),
+        this.boardAlbum = EbyId('boardAlbum')
+        this.listAlbum = EbyId('listAlbum')
+        this.mainList = EbyId('main-list')
 
-        loadingIndicator: EbyId('loadingIndicator'),
-        savingIndicator: EbyId('savingIndicator'),
+        this.loadingIndicator = EbyId('loadingIndicator')
+        this.savingIndicator = EbyId('savingIndicator')
 
-        header: EbyId('header'),
-        headerMain: EbyId('headerMain'),
+        this.header = EbyId('header')
+        this.headerMain = EbyId('headerMain')
 
-        extrasDialog: EbyId('extrasDialog'),
-        extrasTitle: EbyId('extrasTitle'),
-        extrasContent: EbyId('extrasContent'),
-        extrasBack: EbyId('extrasBack'),
+        this.extrasDialog = EbyId('extrasDialog')
+        this.extrasTitle = EbyId('extrasTitle')
+        this.extrasContent = EbyId('extrasContent')
+        this.extrasBack = EbyId('extrasBack')
     }
 }

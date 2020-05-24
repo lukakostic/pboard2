@@ -50,7 +50,7 @@ function reloadHTML(){
 }
 */
 function htmlLoaded(){
-  setStaticHtml()
+  static.find()
 
   EbyId('homeBtn').onclick = home
   EbyId('upBtn').onclick = up
