@@ -1,4 +1,4 @@
-
+//Board types at bottom
 
 class Board {
 

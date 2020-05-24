@@ -1,3 +1,5 @@
+/* Main script tying everything together */
+
 let project
 
 let extensionListeners = //arrays of callbacks
@@ -80,7 +82,7 @@ function invokeListeners(listener = ""){
 
 
 function load(content){
-  project = updateProject(JSON.parse(content))
+  project = updater.updateProject(JSON.parse(content))
 }
 
 function loadFromContent(content){
@@ -91,7 +93,7 @@ function loadFromContent(content){
 
 function resetData(){
   log("resetData()")
-  project = new Project("", curVer)
+  project = new Project("", currentVersion) //currentVersion in updater.js
   //main board
   project.boards[""] = new Board(Board.Types.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
   set_board("")

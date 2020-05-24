@@ -1,3 +1,5 @@
+/* Commonly used methods without side effects. Those are in static.js */
+
 //Debug logs, only used for debug and not actual messages.
 LOG_DISABLED = true
 //console log
@@ -8,6 +10,20 @@ log = function(){
     alert(arguments[i])
 
     return Function.prototype.bind.call(console.log, console);
+    let context = "My Descriptive Logger Prefix:";
+    //return Function.prototype.bind.call(console.log, console, context);
+}();
+//console log warning
+logw = function(){
+    if(LOG_DISABLED)return function(){}
+    return Function.prototype.bind.call(console.warn, console);
+    let context = "My Descriptive Logger Prefix:";
+    //return Function.prototype.bind.call(console.log, console, context);
+}();
+//console log error
+loge = function(){
+    if(LOG_DISABLED)return function(){}
+    return Function.prototype.bind.call(console.error, console);
     let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
@@ -25,36 +41,8 @@ mlog = function(){
     let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
-//console log warning
-logw = function(){
-    if(LOG_DISABLED)return function(){}
-    return Function.prototype.bind.call(console.warn, console);
-    let context = "My Descriptive Logger Prefix:";
-    //return Function.prototype.bind.call(console.log, console, context);
-}();
-//console log warning
-loge = function(){
-    if(LOG_DISABLED)return function(){}
-    return Function.prototype.bind.call(console.error, console);
-    let context = "My Descriptive Logger Prefix:";
-    //return Function.prototype.bind.call(console.log, console, context);
-}();
 
-/*
-//logType 1 console, 2 console & alert, 3 console & bootbox
-function log(msg, title = '', logType = 2){
-    if(typeof(title) == 'number') //log(a,1)
-        logType = title
 
-    if(title!='')
-        console.log(title,msg)
-    else
-        console.log(msg)
-    msg = title + '\n' + JSON.stringify(msg, null, 2)
-    if(logType == 2) alert(msg)
-    else if(logType == 3) bootbox.alert(msg)
-}
-*/
 
 //Cookie functions. format: "_=<cookie object JSON>"
 function getMainCookie(){

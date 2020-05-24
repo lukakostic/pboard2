@@ -1,21 +1,24 @@
+/* Commonly used methods (often with side effects) and objects */
 
 //Base site url
 let siteUrl = "https://lukakostic.github.io/pboard/"
 
 
-//Full url
+//Get full url
 function url(){
     return window.location.href
 }
+//Set full url, push to history
 function set_url(value){
     pushBoardHistory(value)
     window.location.href = value
 }
 
-//Current board (from url): siteUrl#<boardId>
+//Get current board (from url): siteUrl#<boardId>
 function board(){
     return boardFromUrl(url())
 }
+//Set current board, push to history
 function set_board(value){
     log("set_board('" + value + "')")
     pushBoardHistory(value)
@@ -41,4 +44,26 @@ function popBoardHistory(){
 }
 
 //Static html elements
-let static = null // set in ui.js
+let static = null
+function setStaticHtml(){
+    static = {
+        textBrdTemplate: templateFChild('textBoardTemplate'),
+        boardBrdTemplate: templateFChild('boardBoardTemplate'),
+        listTemplate: templateFChild('listTemplate'),
+
+        boardAlbum: EbyId('boardAlbum'),
+        listAlbum: EbyId('listAlbum'),
+        mainList: EbyId('main-list'),
+
+        loadingIndicator: EbyId('loadingIndicator'),
+        savingIndicator: EbyId('savingIndicator'),
+
+        header: EbyId('header'),
+        headerMain: EbyId('headerMain'),
+
+        extrasDialog: EbyId('extrasDialog'),
+        extrasTitle: EbyId('extrasTitle'),
+        extrasContent: EbyId('extrasContent'),
+        extrasBack: EbyId('extrasBack'),
+    }
+}

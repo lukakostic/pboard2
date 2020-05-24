@@ -50,26 +50,7 @@ function reloadHTML(){
 }
 */
 function htmlLoaded(){
-  static = {
-    textBrdTemplate: templateFChild('textBoardTemplate'),
-    boardBrdTemplate: templateFChild('boardBoardTemplate'),
-    listTemplate: templateFChild('listTemplate'),
-
-    boardAlbum: EbyId('boardAlbum'),
-    listAlbum: EbyId('listAlbum'),
-    mainList: EbyId('main-list'),
-
-    loadingIndicator: EbyId('loadingIndicator'),
-    savingIndicator: EbyId('savingIndicator'),
-
-    header: EbyId('header'),
-    headerMain: EbyId('headerMain'),
-
-    extrasDialog: EbyId('extrasDialog'),
-    extrasTitle: EbyId('extrasTitle'),
-    extrasContent: EbyId('extrasContent'),
-    extrasBack: EbyId('extrasBack'),
-  }
+  setStaticHtml()
 
   EbyId('homeBtn').onclick = home
   EbyId('upBtn').onclick = up

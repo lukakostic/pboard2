@@ -5,10 +5,6 @@ let driveAPI_Creds = {
   scope: 'https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.file' //space separated
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 let storage = {
     
     fileIdByName(name, callback){
