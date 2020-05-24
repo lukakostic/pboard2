@@ -125,6 +125,8 @@ function loadAll(callback = null) {
     try{
 
       invokeListeners('pre_loadAll')
+      startLoadingIndicator()
+
       storage.fileDownload('pboard.pb' , (contents)=>{
 
 
@@ -141,7 +143,7 @@ function loadAll(callback = null) {
         } 
           
         if(callback) callback()
-
+        stopLoadingIndicator()
       })
 
   }catch(e){ log(e) }
@@ -210,7 +212,7 @@ function newList(){
   project.boards[brd.id] = brd
   project.boards[board()].content.push(brd.id)
 
-  static.contentAlbum.appendChild(el)
+  static.multiListBoardAlbum.appendChild(el)
   set_dataId(el, brd.id)
 
   

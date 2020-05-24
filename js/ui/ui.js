@@ -12,9 +12,9 @@ setInterval(()=>{
   //Resize main board so it doesnt take whole screen width, rather just the middle 'document' area
   //Makes it easier to focus and see the boards than if they are spread thru whole width
   if(window.innerWidth>1250)
-    static.mainContentAlbum.style.width = '1250px'
+    static.singleListBoardAlbum.style.width = '1250px'
   else
-    static.mainContentAlbum.style.width = '100%'
+    static.singleListBoardAlbum.style.width = '100%'
 
     //Make tab title same as board name
     if(project != null){ //If loaded
@@ -55,8 +55,8 @@ function htmlLoaded(){
     boardBrdTemplate: templateFChild('boardBoardTemplate'),
     listTemplate: templateFChild('listTemplate'),
 
-    contentAlbum: EbyId('contentAlbum'),
-    mainContentAlbum: EbyId('mainContentAlbum'),
+    multiListBoardAlbum: EbyId('multiListBoardAlbum'),
+    singleListBoardAlbum: EbyId('singleListBoardAlbum'),
     mainList: EbyId('main-list'),
 
     loadingIndicator: EbyId('loadingIndicator'),
@@ -77,7 +77,7 @@ function htmlLoaded(){
   //EbyId('saveBtn').onclick = SaveAll;
   //EbyId('loadBtn').onclick = LoadAll;
 
-  static.loadingIndicator.style.display = 'none'
+  //static.loadingIndicator.style.display = 'none'
 }
 
 function pageOpened(){
@@ -132,6 +132,13 @@ function startSavingIndicator(){
 }
 function stopSavingIndicator(){
   static.savingIndicator.style.display = 'none'
+}
+
+function startLoadingIndicator(){
+  static.loadingIndicator.style.display = 'block'
+}
+function stopLoadingIndicator(){
+  static.loadingIndicator.style.display = 'none'
 }
 
 function expandInputAll(){
@@ -299,7 +306,7 @@ function fixNewListUI(){
 }
 
 function fixAlbumUI(){
-  let album = EbyId('contentAlbum')
+  let album = EbyId('multiListBoardAlbum')
   let columnWidth = 310 //px //300 + 5*2 margin
   if(album){
     album.style.setProperty('width',((columnWidth*album.childElementCount)+10 + 8).toString() + 'px') //add some space for album pad (2 * 5px atm) + some extra just in case
@@ -311,8 +318,8 @@ function fixAlbumUI(){
 
 function drawBoard(){
 log('drawBoard()')
-  static.mainContentAlbum.classList.add('d-none')
-  static.contentAlbum.classList.remove('d-none')
+  static.singleListBoardAlbum.classList.add('d-none')
+  static.multiListBoardAlbum.classList.remove('d-none')
   
   clearLists()
   //clearBoards()
@@ -325,7 +332,7 @@ log('drawBoard()')
   for(let l = 0; l < project.boards[board()].content.length; l++){
 
     let listEl = static.listTemplate.cloneNode(true)
-    static.contentAlbum.appendChild(listEl)
+    static.multiListBoardAlbum.appendChild(listEl)
 
     
     loadList(listEl,project.boards[board()].content[l])
@@ -343,8 +350,8 @@ log('drawBoard()')
 
 function drawMain(){
   log('drawMain()')
-  static.contentAlbum.classList.add('d-none')
-  static.mainContentAlbum.classList.remove('d-none')
+  static.multiListBoardAlbum.classList.add('d-none')
+  static.singleListBoardAlbum.classList.remove('d-none')
 
   clearBoards(static.mainList)
 

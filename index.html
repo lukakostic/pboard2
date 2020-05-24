@@ -56,7 +56,9 @@
 
 <body>
 <section style="background-color: #afafaf; overflow: hidden;">
+  <!--
   <div id="loadingIndicator" style="position: absolute; top: 0px; left: 0px; width: 100vw; height: 100vh; background-color: black; color: black; z-index: 1000; overflow: hidden; display: block;"></div>
+  -->
 
   <header class="header">
     <div id="header" class="navbar bg-dark" style="padding: 1px !important;">
@@ -387,7 +389,10 @@
 
   <main id="main" role="main" class="bg-inherit" style="position:absolute; overflow-y:auto !important; overflow-x: auto !important; background-color: inherit; height: calc(100% - (5px + 45px)); width: 100%; padding-bottom: 40px; object-fit: cover;">
 
-    <img id="savingIndicator" src="./icons/saveIndicator.gif" style="position: absolute; top: 3px; left: 3px; z-index: 1000; display: none;" tabindex="-1"></img>
+    <!-- Status Indicators -->
+    
+    <img id="savingIndicator" src="./icons/saveIndicator.gif" style="position: absolute; top: 3px; left: 13px; z-index: 1000; display: none;" tabindex="-1"></img>
+    <img id="loadingIndicator" src="./icons/loadIndicator.gif" style="position: absolute; top: 3px; left: 43px; z-index: 1000; display: none;" tabindex="-1"></img>
 
     <!-- Dialogs -->
 
@@ -502,9 +507,9 @@
     </div>
 
 
-    <!-- Opened board -->
+    <!-- Multi List Board -->
 
-    <div id="contentAlbum" class="bg-inherit draggableAlbum"
+    <div id="multiListBoardAlbum" class="bg-inherit draggableAlbum"
       style="padding: 5px !important; background:rgba(0,0,0,0);">
 
 
@@ -528,9 +533,9 @@
 
 
     
-    <!-- Main board -->
+    <!-- Single List Board -->
 
-    <div id="mainContentAlbum" class="d-none bg-inherit"
+    <div id="singleListBoardAlbum" class="d-none bg-inherit"
       style="padding: 5px !important; padding-top: 50px !important; background:rgba(0,0,0,0); margin: 0 auto;">
 
 
