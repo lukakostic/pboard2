@@ -45,7 +45,7 @@ function showSeeReferencesDialog(){
 
     //go thru each board, see if it includes any of the listReferences
     for(let i = 0; i < ids.length; i++)
-        if(project.boards[ids[i]].type == Board.Types.MultiBoard)
+        if(project.boards[ids[i]].type == Board.Types.Board)
             for(let j = 0; j < listReferences.length; j++)
                 if(project.boards[ids[i]].content.includes(listReferences[j]))
                     boardReferences[ids[i]] = null //just some value

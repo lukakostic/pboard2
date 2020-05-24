@@ -12,9 +12,9 @@ setInterval(()=>{
   //Resize main board so it doesnt take whole screen width, rather just the middle 'document' area
   //Makes it easier to focus and see the boards than if they are spread thru whole width
   if(window.innerWidth>1250)
-    static.singleListBoardAlbum.style.width = '1250px'
+    static.listAlbum.style.width = '1250px'
   else
-    static.singleListBoardAlbum.style.width = '100%'
+    static.listAlbum.style.width = '100%'
 
     //Make tab title same as board name
     if(project != null){ //If loaded
@@ -55,8 +55,8 @@ function htmlLoaded(){
     boardBrdTemplate: templateFChild('boardBoardTemplate'),
     listTemplate: templateFChild('listTemplate'),
 
-    multiListBoardAlbum: EbyId('multiListBoardAlbum'),
-    singleListBoardAlbum: EbyId('singleListBoardAlbum'),
+    boardAlbum: EbyId('boardAlbum'),
+    listAlbum: EbyId('listAlbum'),
     mainList: EbyId('main-list'),
 
     loadingIndicator: EbyId('loadingIndicator'),
@@ -306,7 +306,7 @@ function fixNewListUI(){
 }
 
 function fixAlbumUI(){
-  let album = EbyId('multiListBoardAlbum')
+  let album = EbyId('boardAlbum')
   let columnWidth = 310 //px //300 + 5*2 margin
   if(album){
     album.style.setProperty('width',((columnWidth*album.childElementCount)+10 + 8).toString() + 'px') //add some space for album pad (2 * 5px atm) + some extra just in case
@@ -318,8 +318,8 @@ function fixAlbumUI(){
 
 function drawBoard(){
 log('drawBoard()')
-  static.singleListBoardAlbum.classList.add('d-none')
-  static.multiListBoardAlbum.classList.remove('d-none')
+  static.listAlbum.classList.add('d-none')
+  static.boardAlbum.classList.remove('d-none')
   
   clearLists()
   //clearBoards()
@@ -332,7 +332,7 @@ log('drawBoard()')
   for(let l = 0; l < project.boards[board()].content.length; l++){
 
     let listEl = static.listTemplate.cloneNode(true)
-    static.multiListBoardAlbum.appendChild(listEl)
+    static.boardAlbum.appendChild(listEl)
 
     
     loadList(listEl,project.boards[board()].content[l])
@@ -350,8 +350,8 @@ log('drawBoard()')
 
 function drawMain(){
   log('drawMain()')
-  static.multiListBoardAlbum.classList.add('d-none')
-  static.singleListBoardAlbum.classList.remove('d-none')
+  static.boardAlbum.classList.add('d-none')
+  static.listAlbum.classList.remove('d-none')
 
   clearBoards(static.mainList)
 
@@ -370,7 +370,7 @@ function drawMain(){
         static.mainList.appendChild(el);
         loadTextBoard(el,project.boards[ids[i]]);
       
-      }else if(project.boards[ids[i]].type == Board.Types.MultiBoard){
+      }else if(project.boards[ids[i]].type == Board.Types.Board){
 
         let el = static.boardBrdTemplate.cloneNode(true);
         static.mainList.appendChild(el);
@@ -454,7 +454,7 @@ function loadList(listEl, brd){
       listEl.appendChild(el)
       loadTextBoard(el,brd2)
     
-    }else if(brd2.type == Board.Types.MultiBoard){
+    }else if(brd2.type == Board.Types.Board){
 
       let el = static.boardBrdTemplate.cloneNode(true)
       listEl.appendChild(el)
@@ -473,7 +473,7 @@ function loadAllBoardsByDataId(brdId){
       if(dataId(boardEls[i])==brdId){
           if(project.boards[brdId].type == Board.Types.Text)
            loadTextBoard(boardEls[i],brdId)
-          else if(project.boards[brdId].type == Board.Types.MultiBoard)
+          else if(project.boards[brdId].type == Board.Types.Board)
            loadBoardBoard(boardEls[i],brdId)
       }
   

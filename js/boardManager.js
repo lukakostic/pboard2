@@ -176,7 +176,7 @@ function newBoard(){
   let el = static.boardBrdTemplate.cloneNode(true)
 
   let atr = {description:'Description',references:1}
-  let brd = new Board(Board.Types.MultiBoard,"Board",[],atr)
+  let brd = new Board(Board.Types.Board,"Board",[],atr)
 
   project.boards[brd.id] = brd
   project.boards[dataId(parent)].content.push(brd.id) //Add to parent list
@@ -212,7 +212,7 @@ function newList(){
   project.boards[brd.id] = brd
   project.boards[board()].content.push(brd.id)
 
-  static.multiListBoardAlbum.appendChild(el)
+  static.boardAlbum.appendChild(el)
   set_dataId(el, brd.id)
 
   

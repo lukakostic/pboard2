@@ -90,7 +90,6 @@ class Board {
 
 Board.Types = {
     Text : 1,
-    MultiBoard : 2,
-    List : 3,
-    SingleBoard : 4
+    Board : 2,
+    List : 3
 }
