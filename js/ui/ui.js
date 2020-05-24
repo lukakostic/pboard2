@@ -370,7 +370,7 @@ function drawMain(){
         static.mainList.appendChild(el);
         loadTextBoard(el,project.boards[ids[i]]);
       
-      }else if(project.boards[ids[i]].type == Board.Types.Board){
+      }else if(project.boards[ids[i]].type == Board.Types.MultiBoard){
 
         let el = static.boardBrdTemplate.cloneNode(true);
         static.mainList.appendChild(el);
@@ -454,7 +454,7 @@ function loadList(listEl, brd){
       listEl.appendChild(el)
       loadTextBoard(el,brd2)
     
-    }else if(brd2.type == Board.Types.Board){
+    }else if(brd2.type == Board.Types.MultiBoard){
 
       let el = static.boardBrdTemplate.cloneNode(true)
       listEl.appendChild(el)
@@ -473,7 +473,7 @@ function loadAllBoardsByDataId(brdId){
       if(dataId(boardEls[i])==brdId){
           if(project.boards[brdId].type == Board.Types.Text)
            loadTextBoard(boardEls[i],brdId)
-          else if(project.boards[brdId].type == Board.Types.Board)
+          else if(project.boards[brdId].type == Board.Types.MultiBoard)
            loadBoardBoard(boardEls[i],brdId)
       }
   

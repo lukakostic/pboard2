@@ -71,9 +71,10 @@ function goLogin(){
 
 
 function invokeListeners(listener = ""){
-  for(let i = 0; i < extensionListeners[listener].length; i++){
-    if(extensionListeners[listener]) extensionListeners[listener][i]()
-  }
+  for(let i = 0; i < extensionListeners[listener].length; i++)
+    if(extensionListeners[listener])
+      extensionListeners[listener][i]()
+  
   extensionListeners[listener] = []
 }
 
@@ -136,8 +137,7 @@ function loadAll(callback = null) {
           load(contents)
           invokeListeners('loadAll')
       
-        }
-        else{
+        }else{
           log('loaded null, resetting')
           resetData()
         } 
@@ -176,7 +176,7 @@ function newBoard(){
   let el = static.boardBrdTemplate.cloneNode(true)
 
   let atr = {description:'Description',references:1}
-  let brd = new Board(Board.Types.Board,"Board",[],atr)
+  let brd = new Board(Board.Types.MultiBoard,"Board",[],atr)
 
   project.boards[brd.id] = brd
   project.boards[dataId(parent)].content.push(brd.id) //Add to parent list
