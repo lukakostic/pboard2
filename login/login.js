@@ -1,6 +1,6 @@
 let authorizeButton, signoutButton, doRedirect = false
 // On load, called to load the auth2 library and API client library.
-function handleClientLoad() {
+function handleClientLoad_Login() {
   authorizeButton = EbyId('authorize_button')
   signoutButton = EbyId('signout_button')
 
@@ -8,9 +8,9 @@ function handleClientLoad() {
     gapi.client.init(driveAPI_Creds)
     .then(function () {
 
-      //Listen for sign in changes and call updateSigninStatus, as well as call the initial one
-      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
-      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
+      //Listen for sign in changes and call updateSigninStatus_Login, as well as call the initial one
+      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus_Login)
+      updateSigninStatus_Login(gapi.auth2.getAuthInstance().isSignedIn.get())
 
       authorizeButton.onclick = handleAuthClick
       signoutButton.onclick = handleSignoutClick
@@ -28,11 +28,11 @@ function handleSignoutClick(event) {
 }
 
 // Called when the signed in status changes, to update the UI
-function updateSigninStatus(isSignedIn) {
+function updateSigninStatus_Login(isSignedIn) {
   if (isSignedIn) {
     authorizeButton.style.display = 'none'
     signoutButton.style.display = 'block'
-    if(doRedirect) set_url(siteUrl) // Redirect to site
+    if(doRedirect) window.location.href = siteUrl // Redirect to site
   } else {
     authorizeButton.style.display = 'block'
     signoutButton.style.display = 'none'

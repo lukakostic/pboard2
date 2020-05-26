@@ -44,7 +44,7 @@ function boardTagClicked(){
     project.boards[extrasSelected].attributes['tags'].splice(brdAttr(extrasSelected, 'tags').indexOf(id),1)
     event.srcElement.parentNode.removeChild(event.srcElement)
 
-    saveAll()
+    sync.saveAll()
 }
 
 function filteredTagClicked(){
@@ -61,7 +61,7 @@ function filteredTagClicked(){
     tagBtnTemplate(project.tags[id].name,id,boardTags,boardTagClicked)
     
     
-    saveAll()
+    sync.saveAll()
 }
 
 function tagsDialogSearched(){

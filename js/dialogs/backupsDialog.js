@@ -129,8 +129,12 @@ function loadBackupClicked(){
 
     storage.fileDownload(availableBackups[ind].name, (contents)=>{
     //getBackups(function(){backupsSearched();});
-    loadFromContent(contents)
+    
+    resetData()
+    loadProject(content)
+    ui.pageOpened()
+
     alert('Loaded')
-    if(confirm('Save?')) saveAll()
+    if(confirm('Save?')) sync.saveAll()
     })
 }

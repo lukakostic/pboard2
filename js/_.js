@@ -1,26 +1,80 @@
 /* Main script tying everything together */
 
-let project
+//base site url
+let siteUrl = "https://lukakostic.github.io/pboard/",
 
-let extensionListeners = //arrays of callbacks
-{
-  newPage: [],
-  pre_newPage: [],
-  saveAll: [],
-  pre_saveAll: [],
-  loadAll: [],
-  pre_loadAll: [],
-  reloadHTML: [],
-  draw: [],
+//open Project object
+project = null,
+
+//open board id (from url)
+board = "";
+
+
+let singleInstanceHash = null;
+
+function singleInstanceCheck(){
+  //Check if only one instance of pboard is open
+  if(singleInstanceHash != null){
+    let c = getCookie('singleInstanceHash')
+    if( c != singleInstanceHash)
+      alert('Multiple instances of pboard open, close or the save can get corrupted or data lost. ['+c+']!=['+singleInstanceHash+']')
+  }
+  singleInstanceHash = Math.random()
+  setCookie('singleInstanceHash', singleInstanceHash)
 }
 
-let autosave = null //interval, set after loading settings.
-let needsSave = false //when something changes
+
+//set_board on url change
+window.onhashchange = function(){
+  set_board(boardFromUrl(url()))
+}
+
+//get full url
+function url(){
+  return window.location.href
+}
+
+//set full url, push to history
+function set_url(value){
+  boardHistory.add(value)
+  window.location.href = value
+}
+
+//set current board, push to history
+function set_board(value){
+  log("set_board('" + value + "')")
+  board = value
+  boardHistory.add(value)
+  window.location.hash = value
+  ui.pageOpened()
+}
+
+
+function goLogin(){
+  set_url(siteUrl + "login/")
+}
+
+function goHome(){
+  log('goHome')
+  set_board("")
+}
+
+function goUp(){
+  log('goUp')
+  //boardHistory.pop() //since last url is yours
+
+  let prev = boardHistory.prev()
+  if(prev == null) prev = ""
+  set_board(prev)
+  //window.history.back();
+}
+
+
 
 //Entry point
 //Init drive api and listen for signIn changes
 function OnStorageLoad(){
-  htmlLoaded()
+  ui.htmlLoaded()
 
   gapi.load('client:auth2', ()=>{
     gapi.client.init(driveAPI_Creds).then(()=>{
@@ -43,53 +97,27 @@ function updateSigninStatus(isSignedIn){
     goLogin()
   else{
     
-    let _url = board() //Save url because resetData resets it, to load after it downloads data
+    let prevUrl = board //Save url because resetData resets it, to load after it downloads data
 
     log('-initial reset')
 
     resetData()
 
-    loadAll(function(_url){
+    sync.loadAll(function(prevUrl){
 
-      log("loadAll callback: -starting url: " + _url)
+      log("loadAll callback: -starting url: " + prevUrl)
 
-      set_board(_url) //go back to previous url
-    }.bind(null,_url))
+      set_board(prevUrl) //go back to previous url
+    }.bind(null,prevUrl))
 
-    autosave = setInterval(()=>{
-      if(needsSave){
-          needsSave = false
-          log('needs save')
-          saveAll()
-      }
-    }, project.preferences['autoSaveInterval']*1000)
+    sync.start()
 
   }
 }
 
-function goLogin(){
-  set_url(siteUrl + "login/")
-}
 
 
-function invokeListeners(listener = ""){
-  for(let i = 0; i < extensionListeners[listener].length; i++)
-    if(extensionListeners[listener])
-      extensionListeners[listener][i]()
-  
-  extensionListeners[listener] = []
-}
 
-
-function load(content){
-  project = updater.updateProject(JSON.parse(content))
-}
-
-function loadFromContent(content){
-  resetData()
-  load(content)
-  pageOpened()
-}
 
 function resetData(){
   log("resetData()")
@@ -99,57 +127,18 @@ function resetData(){
   set_board("")
 }
 
-function saveAll(callback = null) {
-  try{ 
-
-    invokeListeners('pre_saveAll')
-    startSavingIndicator()
-
-    let contents = buildProject()
-    
-    log('saveAll ',contents)
-
-    storage.fileUpload({name: 'pboard.pb', body: contents},()=>{
-
-      if(callback!=null) callback()
-      stopSavingIndicator()
-      invokeListeners('saveAll')
-    
-    })
-
-  }catch(e){ log(e) }
-}
 
 function buildProject(){
-  return JSON.stringify(project)
+  return JSON.stringify(project) //building
 }
 
-function loadAll(callback = null) {
-    try{
-
-      invokeListeners('pre_loadAll')
-      startLoadingIndicator()
-
-      storage.fileDownload('pboard.pb' , (contents)=>{
-
-
-        if (contents != null && contents != '') {
-          
-          log('loading contents ',contents)
-          load(contents)
-          invokeListeners('loadAll')
-      
-        }else{
-          log('loaded null, resetting')
-          resetData()
-        } 
-          
-        if(callback) callback()
-        stopLoadingIndicator()
-      })
-
-  }catch(e){ log(e) }
+function loadProject(content){
+  project = updater.updateProject(
+    JSON.parse(content) //de-building
+  )
 }
+
+
 
 function newText(){
   
@@ -163,12 +152,12 @@ function newText(){
   project.boards[dataId(parent)].content.push(brd.id) //Add to parent list
 
   parent.appendChild(el)
-  loadTextBoard(el,brd.id)
+  ui.loadTextBoard(el,brd.id)
 
   EbyClass('textBtn',el)[0].click() ////////////////////////// auto open
 
-  fixListUI(parent)
-  saveAll()
+  ui.fixListUI(parent)
+  sync.saveAll()
 }
 
 function newBoard(){
@@ -184,14 +173,14 @@ function newBoard(){
   project.boards[dataId(parent)].content.push(brd.id) //Add to parent list
 
   parent.appendChild(el)
-  loadBoardBoard(el,brd.id)
+  ui.loadBoardBoard(el,brd.id)
 
   
-  fixListUI(parent)
+  ui.fixListUI(parent)
 
   EbyClass('textBtn', el)[0].click() // load board on add, might not want to do this.
 
-  saveAll(()=>{
+  sync.saveAll(()=>{
     //el.getElementsByClassName('textBtn')[0].click(); // load board on add, might not want to do this. and to be moved to before saving?
   })
 }
@@ -212,17 +201,17 @@ function newList(){
 
   let brd = new Board(Board.Types.List,name,[],{references:1})
   project.boards[brd.id] = brd
-  project.boards[board()].content.push(brd.id)
+  project.boards[board].content.push(brd.id)
 
   static.boardAlbum.appendChild(el)
   set_dataId(el, brd.id)
 
   
-  fixNewListUI()
-  fixAlbumUI()
+  ui.fixNewListUI()
+  ui.fixAlbumUI()
 
-  makeDraggable()
+  ui.makeDraggable() //should only make draggable new list and not all?
   $(inp).val('') //clear new list textbox
 
-  saveAll()
+  sync.saveAll()
 }

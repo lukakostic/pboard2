@@ -80,7 +80,7 @@ function tagEditorDelete(){
     selectTagToEdit("")
     tagEditorSearched()
 
-    saveAll()
+    sync.saveAll()
 }
 
 function tagEditorRename(){
@@ -101,7 +101,7 @@ function tagEditorRename(){
     selectTagToEdit(selectedTagInEditor)
     tagEditorSearched()
 
-    saveAll()
+    sync.saveAll()
 }
 
 function tagEditorNew(){
@@ -121,7 +121,7 @@ function tagEditorNew(){
 
     tagEditorSearched()
 
-    saveAll()
+    sync.saveAll()
 }
 
 function selectTagToEdit(id){
@@ -197,7 +197,7 @@ function tagEditorRemoveCheckedFromParentsClicked(){
 
     selectTagToEdit(selectedTagInEditor)
     
-    saveAll()
+    sync.saveAll()
 }
 
 function tagEditorRemoveCheckedFromParentsAllClicked(){
@@ -221,7 +221,7 @@ function tagEditorRemoveCheckedFromParentsAllClicked(){
 
     selectTagToEdit(selectedTagInEditor)
 
-    saveAll()
+    sync.saveAll()
 }
 
 function tagEditorAddCheckedToParentsClicked(){
@@ -254,7 +254,7 @@ function tagEditorAddCheckedToParentsClicked(){
 
     selectTagToEdit(selectedTagInEditor)
 
-    saveAll()
+    sync.saveAll()
 }
 
 function tagInEditorClicked(){

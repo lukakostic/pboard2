@@ -16,7 +16,7 @@ function showTextBoardDialog(){
 
     //can do without timeout, but set timeout to like 0.8 seconds if you add 'modal fade' instead of just 'modal'
     setTimeout(()=>{
-        expandInput(text[0])
+        ui.expandInput(text[0])
         EbyId('textBoardDialogTitle').select()
     },10)
 }
@@ -26,9 +26,7 @@ function closeTextBoardDialog(){
 }
 
 function textCloseClicked(){
-    if(needsSave) saveAll() ////////[NOTICE] what if save fails?
-
-    needsSave = false
+    sync.saveAll()
 }
 
 function textBackClicked(){
@@ -44,9 +42,9 @@ function textTitleChanged(){
     let brdId = EbyId('textBoardDialog').getAttribute('data-id')
     project.boards[brdId].name = event.srcElement.value
 
-    loadAllBoardsByDataId(brdId)
+    ui.loadAllBoardsByDataId(brdId)
 
-    needsSave = true //saveAll();
+    sync.save.dirty = true 
 }
 
 function textDescriptionChanged(){
@@ -55,7 +53,7 @@ function textDescriptionChanged(){
     let brdId = EbyId('textBoardDialog').getAttribute('data-id')
     project.boards[brdId].content = event.srcElement.value
 
-    loadAllBoardsByDataId(brdId)
+    ui.loadAllBoardsByDataId(brdId)
 
-    needsSave = true //saveAll();
+    sync.save.dirty = true
 }

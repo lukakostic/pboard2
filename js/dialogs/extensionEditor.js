@@ -28,7 +28,7 @@ function showExtensionEditor(){
     <form class="row text bg-inherit" style="margin: 5px;">
         <textarea wrap="hard" class="expandInput card-name bg-inherit" id="extensionEditorDescription"
         style="resize: none; padding: 2px 2px 2px 5px; text-overflow: ellipsis; background-color: black; color: white; border: 0px; width: 100%; height: 59px; font-size: 18px;"
-        oninput="expandInput(this);" placeholder="Description"></textarea>
+        oninput="ui.expandInput(this);" placeholder="Description"></textarea>
 
         <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
     </form>
@@ -36,7 +36,7 @@ function showExtensionEditor(){
     <form class="row text bg-inherit" style="margin: 5px;">
         <textarea wrap="hard" class="expandInput card-name bg-inherit" id="extensionEditorCode"
         style="resize: none; padding: 2px 2px 2px 5px; text-overflow: ellipsis; background-color: black; color: white; border: 0px; width: 100%; height: 59px; font-size: 18px;"
-        oninput="expandInput(this);" placeholder="Code"></textarea>
+        oninput="ui.expandInput(this);" placeholder="Code"></textarea>
 
         <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
     </form>
@@ -48,7 +48,7 @@ function showExtensionEditor(){
     selectExtensionToEdit("")
     extensionEditorSearched()
 
-    expandInputAll()
+    ui.expandInputAll()
 }
 
 function makeExtensionEditorBtn(text="?",id="",parent = null){
@@ -88,7 +88,7 @@ function deleteExtensionClicked(){
     if(selectedExtensionInEditor == id) selectExtensionToEdit("")
     extensionEditorSearched()
 
-    saveAll()
+    sync.saveAll()
 }
 
 function extensionEditorDelete(){
@@ -110,7 +110,7 @@ function extensionEditorDelete(){
     selectExtensionToEdit("")
     extensionEditorSearched()
 
-    saveAll()
+    sync.saveAll()
 }
 
 function extensionEditorSave(){
@@ -133,7 +133,7 @@ function extensionEditorSave(){
     selectExtensionToEdit(selectedExtensionInEditor)
     extensionEditorSearched()
 
-    saveAll()
+    sync.saveAll()
 }
 
 function extensionEditorNew(){
@@ -153,7 +153,7 @@ function extensionEditorNew(){
 
     extensionEditorSearched()
 
-    saveAll()
+    sync.saveAll()
 }
 
 function selectExtensionToEdit(id){
@@ -181,7 +181,7 @@ function selectExtensionToEdit(id){
     }
 
 
-    expandInputAll()
+    ui.expandInputAll()
 }
 
 function extensionInEditorClicked(){

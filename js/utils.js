@@ -1,4 +1,4 @@
-/* Commonly used methods without side effects. Those are in static.js */
+/* Commonly used methods, without side effects. */
 
 //Debug logs, only used for debug and not actual messages.
 LOG_DISABLED = true
@@ -107,7 +107,7 @@ function parentElementBoard(el,state=-1){
     if(state==1||state==2)
         return dataId(el.parentNode)
     else if(state == 3)
-        return board()
+        return board
 
     log('unknown board type')
 
