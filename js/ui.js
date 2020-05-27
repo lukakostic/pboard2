@@ -142,7 +142,7 @@ let ui = {
             //ui.dragItem.click()  
           {
             //ui.dragItem.find('div').click()
-            console.log(ui.dragItem.find('div')[0]) 
+            ui.dragItem.find('div')[0].click() 
           }
           else
             sync.saveAll()
