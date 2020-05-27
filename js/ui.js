@@ -139,7 +139,7 @@ let ui = {
           
           
           if(((new Date()).getTime() - ui.dragStartTime)<150 && ui.newDragIndex == ui.oldDragIndex) //was meant to click probably
-            ui.dragItem.querySelector('div').click()
+            ui.dragItem.find('div').click()
           else
             sync.saveAll()
           
