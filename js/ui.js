@@ -206,8 +206,8 @@ let ui = {
 
   draw: function(){
     log('draw()')
-    if(board!="") this.drawBoard()
-    else this.drawMain()
+    if(board!="") this.drawBoard() //[TODO]
+    else this.drawMain() //[TODO]
 
     this.loadBoardBackgroundImage()
     this.makeDraggable()
@@ -264,7 +264,7 @@ let ui = {
   },
 
   drawBoard: function(){
-  log('drawBoard()')
+    log('drawBoard()')
     static.listAlbum.classList.add('d-none')
     static.boardAlbum.classList.remove('d-none')
     
