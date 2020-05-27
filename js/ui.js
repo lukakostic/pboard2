@@ -289,7 +289,7 @@ let ui = {
 
     let bt = EbyId('boardTitle')
     console.log(bt)
-    bt.select() //autopop
+    bt.click() //autopop
 
     this.fixAlbumUI()
     this.fixNewListUI()
