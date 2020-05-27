@@ -118,7 +118,7 @@ let ui = {
       start: (event, drag)=>{
         log('drag start')
           ui.dragItem = drag.item
-          ui.oldDragIndex = elementIndex(dragItem[0])
+          ui.oldDragIndex = elementIndex(ui.dragItem[0])
           ui.dragNew = ui.dragOld = drag.item.parent()
       },
       stop: (event, drag)=>{
