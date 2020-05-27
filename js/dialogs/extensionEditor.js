@@ -21,8 +21,8 @@ function showExtensionEditor(){
     <form class="input-group-append" onsubmit="event.preventDefault(); extensionEditorNew();" style="width:100%">
         <input id="extensionEditorInput" name="sel" type="text" placeholder="Selected / New Extension" class="form-control" autocomplete="on">
         <input type="submit" class="btn btn-primary btn-spaced-1" value="New">
-        <input type="button" class="btn btn-primary btn-spaced-1" onclick="extensionEditorSave();" value="Save">
-        <input type="button" class="btn btn-primary btn-spaced-1" onclick="extensionEditorDelete();" value="Delete">
+        <input type="button" class="btn btn-primary btn-spaced-1" onclick="extensionEditorSave(event);" value="Save">
+        <input type="button" class="btn btn-primary btn-spaced-1" onclick="extensionEditorDelete(event);" value="Delete">
     </form>
     
     <form class="row text bg-inherit" style="margin: 5px;">
@@ -63,8 +63,8 @@ function makeExtensionEditorBtn(text="?",id="",parent = null){
     */
    b.innerHTML = `
    <a style="color: `+style+`">`+text+`</a>
-   <input type="button" class="btn btn-primary btn-spaced-1" onclick="extensionInEditorClicked();" value="Select">
-   <input type="button" class="btn btn-primary btn-spaced-1" onclick="deleteExtensionClicked();" value="Delete">
+   <input type="button" class="btn btn-primary btn-spaced-1" onclick="extensionInEditorClicked(event);" value="Select">
+   <input type="button" class="btn btn-primary btn-spaced-1" onclick="deleteExtensionClicked(event);" value="Delete">
 `
     if(parent!=null) parent.appendChild(b)
     return b

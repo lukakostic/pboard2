@@ -22,14 +22,14 @@ function showExtras(){
   
   static.extrasTitle.innerHTML = 'Extras'
   static.extrasContent.innerHTML = `
-  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showPreferencesDialog()">Preferences</button>
-  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showTagEditor()">Tags</button>
-  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showExtensionEditor()">Extensions</button>
-  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showBackupsDialog()">Backups</button>
+  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showPreferencesDialog(event)">Preferences</button>
+  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showTagEditor(event)">Tags</button>
+  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showExtensionEditor(event)">Extensions</button>
+  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showBackupsDialog(event)">Backups</button>
   <div style="width: 100%; height: 8px; background-color: black;"></div>
-  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="setBackgroundClicked()">Set Background Image</button>
-  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showTagsDialog()">Set Board Tags</button>
-  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showExtensionsDialog()">Set Board Extensions</button>
+  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="setBackgroundClicked(event)">Set Background Image</button>
+  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showTagsDialog(event)">Set Board Tags</button>
+  <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showExtensionsDialog(event)">Set Board Extensions</button>
   `
   static.extrasBack.onclick = closeExtrasDialog
 

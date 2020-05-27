@@ -8,15 +8,15 @@ function showTagEditor(){
     <form class="input-group-append" onsubmit="event.preventDefault(); tagEditorNew();" style="width:100%">
         <input id="tagEditorInput" name="sel" type="text" placeholder="Selected / New Tag" class="form-control">
         <input type="submit" class="btn btn-primary btn-spaced-1" value="New">
-        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorRename();" value="Rename">
-        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorDelete();" value="Delete">
+        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorRename(event);" value="Rename">
+        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorDelete(event);" value="Delete">
     </form>
     <br>
     <a style="color: white;">Parent tags</a><br>
     <form class="input-group-append" onsubmit="event.preventDefault();" style="width:100%">
-        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorRemoveCheckedFromParentsClicked();" value="Remove from parents">
-        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorCheckAllParents();" value="Check all">
-        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorUncheckAllParents();" value="Uncheck all">
+        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorRemoveCheckedFromParentsClicked(event);" value="Remove from parents">
+        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorCheckAllParents(event);" value="Check all">
+        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorUncheckAllParents(event);" value="Uncheck all">
     </form>
     <div id = "parentTags" style="min-height: 10px; width: 100%; background-color: black; text-align: left;">
     </div>
@@ -28,10 +28,10 @@ function showTagEditor(){
     </form>
     <br>
     <form class="input-group-append" onsubmit="event.preventDefault();" style="width:100%">
-        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorAddCheckedToParentsClicked();" value="Add to parents">
-        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorRemoveCheckedFromParentsAllClicked();" value="Remove from parents">
-        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorCheckAll();" value="Check all">
-        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorUncheckAll();" value="Uncheck all">
+        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorAddCheckedToParentsClicked(event);" value="Add to parents">
+        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorRemoveCheckedFromParentsAllClicked(event);" value="Remove from parents">
+        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorCheckAll(event);" value="Check all">
+        <input type="button" class="btn btn-primary btn-spaced-1" onclick="tagEditorUncheckAll(event);" value="Uncheck all">
     </form>
     <div id = "allTagsFiltered" style="min-height: 10px; width: 100%; background-color: black; text-align: left;">
     </div>
@@ -136,7 +136,7 @@ function selectTagToEdit(id){
         EbyId('tagEditorInput').value = project.tags[id].name
 
         for(let i = 0; i < project.tags[selectedTagInEditor].parentTags.length; i++)
-            makeTagEditorBtn(project.tags[project.tags[selectedTagInEditor].parentTags[i]].name,project.tags[selectedTagInEditor].parentTags[i],parents,'tagInEditorClicked();')
+            makeTagEditorBtn(project.tags[project.tags[selectedTagInEditor].parentTags[i]].name,project.tags[selectedTagInEditor].parentTags[i],parents,'tagInEditorClicked(event);')
         
 
     }else{
@@ -273,7 +273,7 @@ function tagEditorSearched(){
     let allTagIds = Object.keys(project.tags)
     for(let i = 0; i < allTagIds.length; i++)
         if(s==""||project.tags[allTagIds[i]].name.includes(s))
-            makeTagEditorBtn(project.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,'tagInEditorClicked();')
+            makeTagEditorBtn(project.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,'tagInEditorClicked(event);')
         
     
 

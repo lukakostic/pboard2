@@ -72,9 +72,9 @@ function backupsSearched(){
 
         btn.innerHTML = `
             <div style="color: white;">`+'['+availableBackups[i].client_modified+'] '+availableBackups[i].name+`</div>
-            <input type="button" class="btn btn-primary btn-spaced-1" onclick="loadBackupClicked();" value="Load">
-            <input type="button" class="btn btn-primary btn-spaced-1" onclick="renameBackupClicked();" value="Rename">
-            <input type="button" class="btn btn-primary btn-spaced-1" onclick="deleteBackupClicked();" value="Delete">
+            <input type="button" class="btn btn-primary btn-spaced-1" onclick="loadBackupClicked(event);" value="Load">
+            <input type="button" class="btn btn-primary btn-spaced-1" onclick="renameBackupClicked(event);" value="Rename">
+            <input type="button" class="btn btn-primary btn-spaced-1" onclick="deleteBackupClicked(event);" value="Delete">
         `
 
     }

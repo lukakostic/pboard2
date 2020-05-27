@@ -53,7 +53,7 @@ function boardExtensionBtnTemplate(text="Extension", checked=true,id="",parent =
   set_dataId(b,id)
   b.onclick = click
   b.innerHTML = `
-  <input type="checkbox" onclick="event.stopPropagation(); boardExtensionChecked();" `+(checked?'checked':'')+`>
+  <input type="checkbox" onclick="event.stopPropagation(); boardExtensionChecked(event);" `+(checked?'checked':'')+`>
   `+text+`
   `;
   return b

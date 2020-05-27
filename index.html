@@ -79,7 +79,7 @@
                 <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
               </form>
 
-              <button class="btn btn-spaced-1 btn-secondary" style="position: absolute; right: 2px; top: 0px; width: 40px; height: 40px;" onclick="showExtrasClicked()"><i class="fas fa-cogs"></i></button>
+              <button class="btn btn-spaced-1 btn-secondary" style="position: absolute; right: 2px; top: 0px; width: 40px; height: 40px;" onclick="showExtrasClicked(event)"><i class="fas fa-cogs"></i></button>
 
           <!--
           <div class="row justify-content-between">
@@ -151,7 +151,7 @@
           -->
           
             
-          <button class="btn btn-spaced-1 btn-secondary" style="position: absolute; right: 2px; top: 0px; width: 40px; height: 40px;" onclick="showExtrasClicked()"><i class="fas fa-cogs"></i></button>
+          <button class="btn btn-spaced-1 btn-secondary" style="position: absolute; right: 2px; top: 0px; width: 40px; height: 40px;" onclick="showExtrasClicked(event)"><i class="fas fa-cogs"></i></button>
 
           <!--
           <div class="row justify-content-between" style="margin: 5px; padding: 0px;">
@@ -239,10 +239,10 @@
       style="background-color: #444444;" data-id="">
   
         <button class="dot"
-          style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;" onclick="showOptionsDialog()"></button>
+          style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;" onclick="showOptionsDialog(event)"></button>
   
         <div class="textBtn text-white bg-inherit noborder"
-          style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;" onclick="showTextBoardDialog()"><span class="descriptionIcon fa fa-align-right d-none" style="font-size: 12px; margin-top:-2px; color:#777777;">&nbsp;</span>Text</div>
+          style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;" onclick="showTextBoardDialog(event)"><span class="descriptionIcon fa fa-align-right d-none" style="font-size: 12px; margin-top:-2px; color:#777777;">&nbsp;</span>Text</div>
   
   
       </section>
@@ -370,15 +370,15 @@
         style="margin-left: 0px; margin-right: 0px;">
         <div class="container bg-inherit text-center justify-content-center" style="height: 34px;">
 
-          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%" onclick="newText()">
+          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%" onclick="newText(event)">
             Text
           </button>
 
-          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%" onclick="newBoard()">
+          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%" onclick="newBoard(event)">
             Board
           </button>
 
-          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%" onclick="newReferenceBtn()">
+          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%" onclick="newReferenceBtn(event)">
             Reference
           </button>
 
@@ -402,7 +402,7 @@
 
     <!-- Dialogs -->
 
-    <div id="textBoardDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-id="" aria-hidden="true" onclick="textBackClicked()">
+    <div id="textBoardDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-id="" aria-hidden="true" onclick="textBackClicked(event)">
       <div class="modal-dialog" role="document" style="width: 95%; max-width: 600px; background-color: #343434;border-radius: 5px;">
         <div class="modal-content bg-inherit" style="border-radius: 5px;">
           <div class="modal-header text-center bg-inherit" style="padding: 5px;">
@@ -412,7 +412,7 @@
               value="Title" oninput="textTitleChanged()" placeholder="Title"></input>
               <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
             </form >
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"  tabindex="-1" style="padding: 4px;margin:0px!important;margin-top:-3px !important;color:white;" onclick="textCloseClicked()">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"  tabindex="-1" style="padding: 4px;margin:0px!important;margin-top:-3px !important;color:white;" onclick="textCloseClicked(event)">
               <span aria-hidden="true">&#215;</span>
             </button>
             
@@ -433,7 +433,7 @@
     </div>
     
 
-    <div id="extensionEditorDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-id="" aria-hidden="true" onclick="textBackClicked()">
+    <div id="extensionEditorDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-id="" aria-hidden="true" onclick="textBackClicked(event)">
       <div class="modal-dialog" role="document" style="width: 95%; max-width: 600px; background-color: #343434;border-radius: 5px;">
         <div class="modal-content bg-inherit" style="border-radius: 5px;">
           <div class="modal-header text-center bg-inherit" style="padding: 5px;">
@@ -478,7 +478,7 @@
     </div>
     
 
-    <div id="extrasDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" onclick="extrasBackgroundClicked()">
+    <div id="extrasDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" onclick="extrasBackgroundClicked(event)">
       <div class="modal-dialog" role="document" style="width: 95%; max-width: 800px; background-color: #343434;border-radius: 5px;">
         <div class="modal-content bg-inherit" style="border-radius: 5px;">
           <div class="modal-body" style="text-align: center;">
@@ -502,7 +502,7 @@
         <div class="modal-content bg-inherit" style="border-radius: 5px;">
           
           <template id="referencesDialogBtn">
-            <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 18px;" data-id="" onclick="referencesDialogBtn()">Remove</button>
+            <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 18px;" data-id="" onclick="referencesDialogBtn(event)">Remove</button>
           </template>
 
           <div id="referencesDialogList" class="modal-body">
@@ -567,15 +567,15 @@
 
         <div class="text-center justify-content-center" style="height: 100%;">
 
-          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newText()">
+          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newText(event)">
             Text
           </button>
 
-          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newBoard()">
+          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newBoard(event)">
             Board
           </button>
           
-          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newReferenceBtn()">
+          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newReferenceBtn(event)">
             Reference
           </button>
 
