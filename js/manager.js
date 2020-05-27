@@ -97,7 +97,7 @@ function updateSigninStatus(isSignedIn){
     goLogin()
   else{
     
-    let prevUrl = board //Save url because resetData resets it, to load after it downloads data
+    let prevUrl = boardFromUrl(url()) //Save url because resetData resets it, to load after it downloads data
 
     log('-initial reset')
 
