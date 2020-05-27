@@ -1,11 +1,13 @@
 
 function showTextBoardDialog(event){
+    /*
     console.log(event)
     console.log('drag',ui.dragItem[0], '!=',ui.dragItem!=null)
     console.log(event.srcElement==ui.dragItem[0], '||',event.srcElement.parentNode == ui.dragItem[0])
+    */
     if(event.srcElement == null) event.srcElement = event.target
     if(ui.dragItem!=null && ( event.srcElement==ui.dragItem[0] || event.srcElement.parentNode == ui.dragItem[0])) return
-    console.log('showTextBoard')
+    //console.log('showTextBoard')
     let textBtn = event.srcElement
     let brd = project.boards[dataId(textBtn.parentNode)]
 

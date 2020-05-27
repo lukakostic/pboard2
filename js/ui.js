@@ -138,17 +138,20 @@ let ui = {
           project.boards[dataId(ui.dragNew[0])].content.splice(ui.newDragIndex-1,0,dataId(ui.dragItem[0]))
           
           
+          let clickItem = null //if it needs to click below
+
           if(((new Date()).getTime() - ui.dragStartTime)<200 && ui.newDragIndex == ui.oldDragIndex) //was meant to click probably
-            //ui.dragItem.click()  
           {
-            //ui.dragItem.find('div').click()
-            console.log(ui.dragItem.find('div')[0])
-            ui.dragItem.find('div')[0].click() 
+            clickItem = ui.dragItem.find('div')
           }
           else
             sync.saveAll()
         
+          
           ui.dragItem = null
+          
+          if(clickItem!=null)clickItem.click() //needs ui.dragItem to be null
+
         },50)
       },
       change: (event, drag)=>{  
