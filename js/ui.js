@@ -3,6 +3,8 @@ let ui = {
   //dragging
   dragOld: null, dragNew: null, dragItem: null, oldDragIndex: null, newDragIndex: null,
 
+  dragStartTime: -999, //used to click if drag < 0.01s (meant to click)
+
   //UI calculations interval, singleInstance check
   autoUI: null, //set in htmlLoaded
 
@@ -122,6 +124,7 @@ let ui = {
           ui.dragItem = drag.item
           ui.oldDragIndex = elementIndex(ui.dragItem[0])
           ui.dragNew = ui.dragOld = drag.item.parent()
+          ui.dragStartTime = (new Date()).getTime()
       },
       stop: (event, drag)=>{
         log('drag stop')
@@ -134,9 +137,14 @@ let ui = {
           project.boards[dataId(ui.dragOld[0])].content.splice(ui.oldDragIndex-1,1)
           project.boards[dataId(ui.dragNew[0])].content.splice(ui.newDragIndex-1,0,dataId(ui.dragItem[0]))
           
-          ui.dragItem = null
-          sync.saveAll()
 
+          
+          if(((new Date()).getTime() - ui.dragStartTime)<20 && ui.newDragIndex == ui.oldDragIndex) //was meant to click
+            ui.dragItem.click()
+          else
+            sync.saveAll()
+          
+          ui.dragItem = null
         },50)
       },
       change: (event, drag)=>{  
@@ -155,9 +163,10 @@ let ui = {
     draggableAlbums.sortable({
       items: '.draggableList',
       start: (event, drag)=>{
-        log('drag list start')
+          log('drag list start')
           ui.dragItem = drag.item
           ui.oldDragIndex = elementIndex(ui.dragItem[0])
+          ui.dragStartTime = (new Date()).getTime()
       },
       stop: (event, drag)=>{
         log('drag list stop')
