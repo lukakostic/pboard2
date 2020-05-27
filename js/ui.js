@@ -1,7 +1,7 @@
 let ui = {
 
   //dragging
-  dragOld, dragNew, dragItem, oldDragIndex, newDragIndex,
+  dragOld: null, dragNew: null, dragItem: null, oldDragIndex: null, newDragIndex: null,
 
   //UI calculations interval, singleInstance check
   autoUI: null, //set in htmlLoaded
