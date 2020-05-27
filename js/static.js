@@ -19,5 +19,8 @@ let static = {
     this.extrasTitle = EbyId('extrasTitle')
     this.extrasContent = EbyId('extrasContent')
     this.extrasBack = EbyId('extrasBack')
+
+    this.boardTitle = EbyId('boardTitle')
+    this.boardDescription = EbyId('boardDescription')
   }
 }

@@ -276,8 +276,8 @@ let ui = {
     this.clearLists()
     //clearBoards()
 
-    EbyId('boardTitle').value = project.boards[board].name
-    EbyId('boardDescription').value = brdAttr(board,'description')
+    static.boardTitle.value = project.boards[board].name
+    static.boardDescription.value = brdAttr(board,'description')
 
 
     //fill lists & boards
@@ -291,9 +291,8 @@ let ui = {
 
     }
 
-    let bt = EbyId('boardTitle')
-    console.log(bt)
-    bt.click() //autopop
+    
+    static.boardTitle.click() //autopop
 
     this.fixAlbumUI()
     this.fixNewListUI()
