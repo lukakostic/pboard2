@@ -206,8 +206,9 @@ let ui = {
 
   draw: function(){
     log('draw()')
-    if(board!="") this.drawBoard() //[TODO]
-    else this.drawMain() //[TODO]
+    if(project.boards[board].type == Board.Types.Board) this.drawBoardAlbum()
+    else if(project.boards[board].type == Board.Types.List) this.drawListAlbum()
+    // board type text
 
     this.loadBoardBackgroundImage()
     this.makeDraggable()
@@ -263,8 +264,8 @@ let ui = {
     return null
   },
 
-  drawBoard: function(){
-    log('drawBoard()')
+  drawBoardAlbum: function(){
+    log('drawBoardAlbum()')
     static.listAlbum.classList.add('d-none')
     static.boardAlbum.classList.remove('d-none')
     
@@ -293,8 +294,8 @@ let ui = {
     this.fixNewListUI()
   },
 
-  drawMain: function(){
-    log('drawMain()')
+  drawListAlbum: function(){
+    log('drawListAlbum()')
     static.boardAlbum.classList.add('d-none')
     static.listAlbum.classList.remove('d-none')
 

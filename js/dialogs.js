@@ -46,7 +46,7 @@ function newReferenceBtn(){
   if(board == ""){
       project.boards[refer].attributes['onMain'] = true;
       
-      drawMain();
+      drawListBoard();
   }else{
 */
   let lst = event.srcElement.parentNode.parentNode.parentNode
