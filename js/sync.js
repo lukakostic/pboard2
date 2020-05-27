@@ -25,7 +25,7 @@ let sync = {
         ui.stopSavingIndicator()
         extensions.invoke('saveAll')
         
-        this.save.dirty = false
+        sync.save.dirty = false
       })
   
     }catch(e){ log(e) }
@@ -60,11 +60,11 @@ let sync = {
 
   start: function(){
     this.save.interval = setInterval(()=>{
-      if(this.save.dirty == false) return;
+      if(sync.save.dirty == false) return;
       
-      this.save.dirty = false
+      sync.save.dirty = false
       log('sync save')
-      this.saveAll()
+      sync.saveAll()
       
     }, project.preferences['autoSaveInterval']*1000)
   },
