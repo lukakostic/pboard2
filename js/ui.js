@@ -305,7 +305,7 @@ let ui = {
 
     this.clearBoards(static.mainList)
 
-    this.loadList(static.mainList,"")
+    this.loadList(static.mainList,board)
 
     
 
