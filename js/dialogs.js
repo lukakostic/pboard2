@@ -1,5 +1,5 @@
 
-function showBoardBoardDialog(id=null){
+function showBoardBoardDialog(event, id=null){
   if(ui.dragItem!=null && ( event.srcElement==ui.dragItem[0] || event.srcElement.parentNode == ui.dragItem[0]))
     return //stop drag-click
 
@@ -9,7 +9,7 @@ function showBoardBoardDialog(id=null){
   set_board(id)
 }
 
-function listTitleClicked(){
+function listTitleClicked(event){
   let titleText = event.srcElement
   $(titleText).focus()
 
@@ -25,7 +25,7 @@ function listTitleClicked(){
   //    $(titleText).prop("readonly",false);
   log('Title click')
 }
-function listTitleBlur(){
+function listTitleBlur(event){
   let titleText = event.srcElement
   //can only be blur while as input, so turn to div
   //    titleText.onclick = ()=>{listTitleClicked();};
@@ -36,7 +36,7 @@ function listTitleBlur(){
   log('Title blur')
 }
 
-function newReferenceBtn(){
+function newReferenceBtn(event){
   let refer = window.prompt("Write/Paste id of board to reference:")
 
   if(refer==null) return

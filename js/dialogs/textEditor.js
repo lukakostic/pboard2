@@ -1,5 +1,5 @@
 
-function showTextBoardDialog(){
+function showTextBoardDialog(event){
     if(ui.dragItem!=null && ( event.srcElement==ui.dragItem[0] || event.srcElement.parentNode == ui.dragItem[0])) return
 
     let textBtn = event.srcElement
@@ -25,18 +25,18 @@ function closeTextBoardDialog(){
     EbyId('textBoardDialog').click()
 }
 
-function textCloseClicked(){
+function textCloseClicked(event){
     sync.saveAll()
 }
 
-function textBackClicked(){
+function textBackClicked(event){
     if(event.target.id != 'textBoardDialog') return
 
     //alert('closing back??'); //save now?
     textCloseClicked()
 }
 
-function textTitleChanged(){
+function textTitleChanged(event){
     
     //alert("Text title changed");
     let brdId = EbyId('textBoardDialog').getAttribute('data-id')
@@ -47,7 +47,7 @@ function textTitleChanged(){
     sync.save.dirty = true 
 }
 
-function textDescriptionChanged(){
+function textDescriptionChanged(event){
 
     //alert("Text description changed");
     let brdId = EbyId('textBoardDialog').getAttribute('data-id')

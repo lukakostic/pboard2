@@ -14,8 +14,8 @@ function showExtensionsDialog(){
   </div>
   <br>
   <a style="color: white;">All extensions</a><br>
-  <form class="input-group-append" onsubmit="event.preventDefault(); extensionsDialogSearched();" style="width:100%">
-      <input id="extensionsDialogSearch" oninput="extensionsDialogSearched();" name="s" type="text" placeholder="Search Extensions" class="form-control">
+  <form class="input-group-append" onsubmit="event.preventDefault(); extensionsDialogSearched(event);" style="width:100%">
+      <input id="extensionsDialogSearch" oninput="extensionsDialogSearched(event);" name="s" type="text" placeholder="Search Extensions" class="form-control">
       <input type="submit" class="btn btn-primary" value="Search">
   </form>
   <br>
@@ -60,7 +60,7 @@ function boardExtensionBtnTemplate(text="Extension", checked=true,id="",parent =
 }
 
 
-function boardExtensionChecked(){
+function boardExtensionChecked(event){
   let id = dataId(event.srcElement.parentNode)
   let ind = findWithAttr(brdAttr(extrasSelected, 'extensions'),'id',id)
   //project.boards[extrasSelected].attributes['extensions'].splice(findWithAttr(getBrdAttr(extrasSelected, 'extensions'),'id',id),1);
@@ -71,7 +71,7 @@ function boardExtensionChecked(){
   sync.saveAll()
 }
 
-function boardExtensionClicked(){
+function boardExtensionClicked(event){
   let id = dataId(event.srcElement)
   project.boards[extrasSelected].attributes['extensions'].splice(findWithAttr(brdAttr(extrasSelected, 'extensions'),'id',id),1)
   event.srcElement.parentNode.removeChild(event.srcElement)
@@ -80,7 +80,7 @@ function boardExtensionClicked(){
   sync.saveAll()
 }
 
-function filteredExtensionClicked(){
+function filteredExtensionClicked(event){
   let id = dataId(event.srcElement)
   
   set_brdAttrIfNull(extrasSelected,'extensions',[])

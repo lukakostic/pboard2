@@ -1,5 +1,5 @@
 
-function boardTitleChanged(){
+function boardTitleChanged(event){
     log('board title changed')
     
     project.boards[board].name = event.srcElement.value
@@ -9,7 +9,7 @@ function boardTitleChanged(){
     sync.save.dirty = true
 }
 
-function boardDescriptionChanged(){
+function boardDescriptionChanged(event){
     log('board description changed')
 
     set_brdAttr(board,'description',event.srcElement.value)
@@ -19,7 +19,7 @@ function boardDescriptionChanged(){
     sync.save.dirty = true
 }
 
-function listTitleChanged(){
+function listTitleChanged(event){
     log('list title changed')
 
     let listId = event.srcElement.parentNode.parentNode.getAttribute('data-id')

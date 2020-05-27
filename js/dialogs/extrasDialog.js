@@ -4,7 +4,7 @@ function showExtrasDialog(){
   $(static.extrasDialog).modal('show')
 }
 
-function extrasBackgroundClicked(){
+function extrasBackgroundClicked(event){
   if(event.target.id != 'static.extrasDialog') return
   closeExtrasDialog()
 }

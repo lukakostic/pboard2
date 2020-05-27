@@ -22,8 +22,8 @@ function showTagEditor(){
     </div>
     <br>
     <a style="color: white;">All tags</a><br>
-    <form class="input-group-append" onsubmit="event.preventDefault(); tagEditorSearched();" style="width:100%">
-        <input id="tagEditorSearch" oninput="tagEditorSearched();" name="s" type="text" placeholder="Search Tags" class="form-control">
+    <form class="input-group-append" onsubmit="event.preventDefault(); tagEditorSearched(event);" style="width:100%">
+        <input id="tagEditorSearch" oninput="tagEditorSearched(event);" name="s" type="text" placeholder="Search Tags" class="form-control">
         <input type="submit" class="btn btn-primary" value="Search">
     </form>
     <br>
@@ -257,14 +257,14 @@ function tagEditorAddCheckedToParentsClicked(){
     sync.saveAll()
 }
 
-function tagInEditorClicked(){
+function tagInEditorClicked(event){
     let id = dataId(event.srcElement.parentNode)
     
     selectTagToEdit(id)
     tagEditorSearched()
 }
 
-function tagEditorSearched(){
+function tagEditorSearched(event){
     let s = EbyId('tagEditorSearch').value
     
     let allTagsFiltered = EbyId('allTagsFiltered')

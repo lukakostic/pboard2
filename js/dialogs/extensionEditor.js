@@ -7,8 +7,8 @@ function showExtensionEditor(){
     static.extrasContent.innerHTML = `
     <a style="color: white; margin-bottom: 10px;">All Extensions</a>
     
-    <form class="input-group-append" onsubmit="event.preventDefault(); extensionEditorSearched();" style="width:100%">
-        <input id="extensionEditorSearch" oninput="extensionEditorSearched();" name="s" type="text" placeholder="Search Extensions" class="form-control">
+    <form class="input-group-append" onsubmit="event.preventDefault(); extensionEditorSearched(event);" style="width:100%">
+        <input id="extensionEditorSearch" oninput="extensionEditorSearched(event);" name="s" type="text" placeholder="Search Extensions" class="form-control">
         <input type="submit" class="btn btn-primary" value="Search">
     </form>
     
@@ -18,7 +18,7 @@ function showExtensionEditor(){
 
     <a id="extensionEditorSelected" style="color: white; font-size: 24px;">Selected: none</a><br>
     
-    <form class="input-group-append" onsubmit="event.preventDefault(); extensionEditorNew();" style="width:100%">
+    <form class="input-group-append" onsubmit="event.preventDefault(); extensionEditorNew(event);" style="width:100%">
         <input id="extensionEditorInput" name="sel" type="text" placeholder="Selected / New Extension" class="form-control" autocomplete="on">
         <input type="submit" class="btn btn-primary btn-spaced-1" value="New">
         <input type="button" class="btn btn-primary btn-spaced-1" onclick="extensionEditorSave(event);" value="Save">
@@ -70,7 +70,7 @@ function makeExtensionEditorBtn(text="?",id="",parent = null){
     return b
 }
 
-function deleteExtensionClicked(){
+function deleteExtensionClicked(event){
     let id = dataId(event.srcElement.parentNode)
 
     delete project.extensions[id]
@@ -184,7 +184,7 @@ function selectExtensionToEdit(id){
     ui.expandInputAll()
 }
 
-function extensionInEditorClicked(){
+function extensionInEditorClicked(event){
     let id = dataId(event.srcElement.parentNode)
     
     selectExtensionToEdit(id)

@@ -140,7 +140,7 @@ function loadProject(content){
 
 
 
-function newText(){
+function newText(event){
   
   let parent = event.srcElement.parentNode.parentNode.parentNode ////////////// replace by find parent thing?
 
@@ -160,7 +160,7 @@ function newText(){
   sync.saveAll()
 }
 
-function newBoard(){
+function newBoard(event){
 
   let parent = event.srcElement.parentNode.parentNode.parentNode ////////////// replace by find parent thing?
 
@@ -185,7 +185,7 @@ function newBoard(){
   })
 }
 
-function newList(){
+function newList(event){
 
   let el = static.listTemplate.cloneNode(true)
 

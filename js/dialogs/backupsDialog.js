@@ -5,13 +5,13 @@ function showBackupsDialog(){
     static.extrasTitle.innerHTML = 'Backups'
     static.extrasContent.innerHTML = `
     <a style="color: white;">New backup</a><br>
-    <form class="input-group-append" onsubmit="event.preventDefault(); makeBackupClicked();" style="width:100%">
+    <form class="input-group-append" onsubmit="event.preventDefault(); makeBackupClicked(event);" style="width:100%">
         <input id="newBackup" name="s" type="text" placeholder="Backup name" class="form-control">
         <input type="submit" class="btn btn-primary" value="Make">
     </form>
     <br>
     <a style="color: white;">Previous backups</a><br>
-    <form class="input-group-append" onsubmit="event.preventDefault(); backupsSearched();" style="width:100%">
+    <form class="input-group-append" onsubmit="event.preventDefault(); backupsSearched(event);" style="width:100%">
         <input id="backupSearch" oninput="backupsSearched();" name="s" type="text" placeholder="Search Backups" class="form-control">
         <input type="submit" class="btn btn-primary" value="Search">
     </form>
@@ -81,7 +81,7 @@ function backupsSearched(){
 
 }
 
-function makeBackupClicked(){
+function makeBackupClicked(event){
 
     let bkName = EbyId('newBackup').value
     
@@ -94,7 +94,7 @@ function makeBackupClicked(){
     },(msg)=>{ log(msg) })
 }
 
-function deleteBackupClicked(){
+function deleteBackupClicked(event){
     let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
 
     return alert("Not implemented") //deleting by path
@@ -107,7 +107,7 @@ function deleteBackupClicked(){
 }
 
 
-function renameBackupClicked(){
+function renameBackupClicked(event){
 
     let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
    
@@ -123,7 +123,7 @@ function renameBackupClicked(){
    backupsSearched()
 }
 
-function loadBackupClicked(){
+function loadBackupClicked(event){
 
     let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
 

@@ -7,8 +7,8 @@ function showTagsDialog(){
     </div>
     <br>
     <a style="color: white;">All tags</a><br>
-    <form class="input-group-append" onsubmit="event.preventDefault(); tagsDialogSearched();" style="width:100%">
-        <input id="tagsDialogSearch" oninput="tagsDialogSearched();" name="s" type="text" placeholder="Search Tags" class="form-control">
+    <form class="input-group-append" onsubmit="event.preventDefault(); tagsDialogSearched(event);" style="width:100%">
+        <input id="tagsDialogSearch" oninput="tagsDialogSearched(event);" name="s" type="text" placeholder="Search Tags" class="form-control">
         <input type="submit" class="btn btn-primary" value="Search">
     </form>
     <br>
@@ -39,7 +39,7 @@ function tagBtnTemplate(text="Tag",id="",parent = null, click = null){
     return b
 }
 
-function boardTagClicked(){
+function boardTagClicked(event){
     let id = dataId(event.srcElement)
     project.boards[extrasSelected].attributes['tags'].splice(brdAttr(extrasSelected, 'tags').indexOf(id),1)
     event.srcElement.parentNode.removeChild(event.srcElement)
@@ -47,7 +47,7 @@ function boardTagClicked(){
     sync.saveAll()
 }
 
-function filteredTagClicked(){
+function filteredTagClicked(event){
     let id = dataId(event.srcElement)
     
     set_brdAttrIfNull(extrasSelected,'tags',[])
