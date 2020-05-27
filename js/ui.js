@@ -287,8 +287,9 @@ let ui = {
 
     }
 
-    
-    EbyId('boardTitle').select() //autopop
+    let bt = EbyId('boardTitle')
+    console.log(bt)
+    bt.select() //autopop
 
     this.fixAlbumUI()
     this.fixNewListUI()
