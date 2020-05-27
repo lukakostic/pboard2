@@ -4,7 +4,7 @@ let ui = {
   dragOld, dragNew, dragItem, oldDragIndex, newDragIndex,
 
   //UI calculations interval, singleInstance check
-  autoUI = null, //set in htmlLoaded
+  autoUI: null, //set in htmlLoaded
 
 
   htmlLoaded: function(){
