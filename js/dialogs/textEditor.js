@@ -1,6 +1,6 @@
 
 function showTextBoardDialog(){
-    if(dragItem!=null && ( event.srcElement==dragItem[0] || event.srcElement.parentNode == dragItem[0])) return
+    if(ui.dragItem!=null && ( event.srcElement==ui.dragItem[0] || event.srcElement.parentNode == ui.dragItem[0])) return
 
     let textBtn = event.srcElement
     let brd = project.boards[dataId(textBtn.parentNode)]
