@@ -137,7 +137,8 @@ let ui = {
           project.boards[dataId(ui.dragOld[0])].content.splice(ui.oldDragIndex-1,1)
           project.boards[dataId(ui.dragNew[0])].content.splice(ui.newDragIndex-1,0,dataId(ui.dragItem[0]))
           
-
+          console.log('drag time',((new Date()).getTime() - ui.dragStartTime))
+          console.log('drag indexes ', ui.newDragIndex, ui.oldDragIndex)
           
           if(((new Date()).getTime() - ui.dragStartTime)<20 && ui.newDragIndex == ui.oldDragIndex) //was meant to click
             ui.dragItem.click()
