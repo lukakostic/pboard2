@@ -142,6 +142,7 @@ function loadProject(content){
 
 function newText(event){
   
+  if(event.srcElement == null) event.srcElement = event.target
   let parent = event.srcElement.parentNode.parentNode.parentNode ////////////// replace by find parent thing?
 
   let el = static.textBrdTemplate.cloneNode(true)
@@ -162,6 +163,7 @@ function newText(event){
 
 function newBoard(event){
 
+  if(event.srcElement == null) event.srcElement = event.target
   let parent = event.srcElement.parentNode.parentNode.parentNode ////////////// replace by find parent thing?
 
   let el = static.boardBrdTemplate.cloneNode(true)
@@ -189,6 +191,7 @@ function newList(event){
 
   let el = static.listTemplate.cloneNode(true)
 
+  if(event.srcElement == null) event.srcElement = event.target
   let inp = event.srcElement.firstElementChild
   let name = inp.value
 

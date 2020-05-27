@@ -40,6 +40,7 @@ function tagBtnTemplate(text="Tag",id="",parent = null, click = null){
 }
 
 function boardTagClicked(event){
+    if(event.srcElement == null) event.srcElement = event.target
     let id = dataId(event.srcElement)
     project.boards[extrasSelected].attributes['tags'].splice(brdAttr(extrasSelected, 'tags').indexOf(id),1)
     event.srcElement.parentNode.removeChild(event.srcElement)
@@ -48,6 +49,7 @@ function boardTagClicked(event){
 }
 
 function filteredTagClicked(event){
+    if(event.srcElement == null) event.srcElement = event.target
     let id = dataId(event.srcElement)
     
     set_brdAttrIfNull(extrasSelected,'tags',[])

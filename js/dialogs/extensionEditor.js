@@ -71,6 +71,7 @@ function makeExtensionEditorBtn(text="?",id="",parent = null){
 }
 
 function deleteExtensionClicked(event){
+    if(event.srcElement == null) event.srcElement = event.target
     let id = dataId(event.srcElement.parentNode)
 
     delete project.extensions[id]
@@ -185,6 +186,7 @@ function selectExtensionToEdit(id){
 }
 
 function extensionInEditorClicked(event){
+    if(event.srcElement == null) event.srcElement = event.target
     let id = dataId(event.srcElement.parentNode)
     
     selectExtensionToEdit(id)

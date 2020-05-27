@@ -1,6 +1,6 @@
 
 function showTextBoardDialog(event){
-    console.log(event);
+    if(event.srcElement == null) event.srcElement = event.target
     if(ui.dragItem!=null && ( event.srcElement==ui.dragItem[0] || event.srcElement.parentNode == ui.dragItem[0])) return
 
     let textBtn = event.srcElement
@@ -41,6 +41,7 @@ function textTitleChanged(event){
     
     //alert("Text title changed");
     let brdId = EbyId('textBoardDialog').getAttribute('data-id')
+    if(event.srcElement == null) event.srcElement = event.target
     project.boards[brdId].name = event.srcElement.value
 
     ui.loadAllBoardsByDataId(brdId)
@@ -52,6 +53,7 @@ function textDescriptionChanged(event){
 
     //alert("Text description changed");
     let brdId = EbyId('textBoardDialog').getAttribute('data-id')
+    if(event.srcElement == null) event.srcElement = event.target
     project.boards[brdId].content = event.srcElement.value
 
     ui.loadAllBoardsByDataId(brdId)

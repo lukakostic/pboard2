@@ -3,6 +3,7 @@ let optionsElement = null
 
 
 function showOptionsDialog(event,idEl = null){
+  if(event.srcElement == null) event.srcElement = event.target
   optionsElement = event.srcElement
   if(idEl == null) idEl = event.srcElement.parentNode
 
@@ -156,5 +157,6 @@ function copyIdClicked(){
 
 
 function referencesDialogBtn(event){
+  if(event.srcElement == null) event.srcElement = event.target
   showBoardBoardDialog(event,dataId(event.srcElement))
 }

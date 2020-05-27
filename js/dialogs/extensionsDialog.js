@@ -61,6 +61,7 @@ function boardExtensionBtnTemplate(text="Extension", checked=true,id="",parent =
 
 
 function boardExtensionChecked(event){
+  if(event.srcElement == null) event.srcElement = event.target
   let id = dataId(event.srcElement.parentNode)
   let ind = findWithAttr(brdAttr(extrasSelected, 'extensions'),'id',id)
   //project.boards[extrasSelected].attributes['extensions'].splice(findWithAttr(getBrdAttr(extrasSelected, 'extensions'),'id',id),1);
@@ -72,6 +73,7 @@ function boardExtensionChecked(event){
 }
 
 function boardExtensionClicked(event){
+  if(event.srcElement == null) event.srcElement = event.target
   let id = dataId(event.srcElement)
   project.boards[extrasSelected].attributes['extensions'].splice(findWithAttr(brdAttr(extrasSelected, 'extensions'),'id',id),1)
   event.srcElement.parentNode.removeChild(event.srcElement)
@@ -81,6 +83,7 @@ function boardExtensionClicked(event){
 }
 
 function filteredExtensionClicked(event){
+  if(event.srcElement == null) event.srcElement = event.target
   let id = dataId(event.srcElement)
   
   set_brdAttrIfNull(extrasSelected,'extensions',[])

@@ -95,6 +95,7 @@ function makeBackupClicked(event){
 }
 
 function deleteBackupClicked(event){
+    if(event.srcElement == null) event.srcElement = event.target
     let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
 
     return alert("Not implemented") //deleting by path
@@ -109,6 +110,7 @@ function deleteBackupClicked(event){
 
 function renameBackupClicked(event){
 
+    if(event.srcElement == null) event.srcElement = event.target
     let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
    
     let name = prompt("New name for "+availableBackups[ind].name+"? (cant match a different backup)",availableBackups[ind].name)
@@ -125,6 +127,7 @@ function renameBackupClicked(event){
 
 function loadBackupClicked(event){
 
+    if(event.srcElement == null) event.srcElement = event.target
     let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
 
     storage.fileDownload(availableBackups[ind].name, (contents)=>{

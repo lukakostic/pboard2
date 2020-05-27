@@ -258,6 +258,7 @@ function tagEditorAddCheckedToParentsClicked(){
 }
 
 function tagInEditorClicked(event){
+    if(event.srcElement == null) event.srcElement = event.target
     let id = dataId(event.srcElement.parentNode)
     
     selectTagToEdit(id)
