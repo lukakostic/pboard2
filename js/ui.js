@@ -132,7 +132,7 @@ let ui = {
         setTimeout(()=>{
           //actually move the board
           ui.newDragIndex = elementIndex(ui.dragItem[0])
-
+          
           
           project.boards[dataId(ui.dragOld[0])].content.splice(ui.oldDragIndex-1,1)
           project.boards[dataId(ui.dragNew[0])].content.splice(ui.newDragIndex-1,0,dataId(ui.dragItem[0]))
@@ -142,7 +142,7 @@ let ui = {
             ui.dragItem.find('div').click()
           else
             sync.saveAll()
-          
+        
           ui.dragItem = null
         },50)
       },
