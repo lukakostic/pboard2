@@ -1,6 +1,7 @@
 
 function showTextBoardDialog(event){
     console.log(event)
+    console.log('drag',ui.dragItem)
     if(event.srcElement == null) event.srcElement = event.target
     if(ui.dragItem!=null && ( event.srcElement==ui.dragItem[0] || event.srcElement.parentNode == ui.dragItem[0])) return
     console.log('showTextBoard')
