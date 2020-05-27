@@ -305,6 +305,9 @@ let ui = {
 
     this.clearBoards(static.mainList)
 
+    static.boardTitle.value = project.boards[board].name
+    static.boardDescription.value = brdAttr(board,'description')
+    
     this.loadList(static.mainList,board)
 
     
