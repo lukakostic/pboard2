@@ -115,32 +115,32 @@ let ui = {
     //make boards draggable
     $('.draggableList').sortable({
       items: '.draggable',
-      start: (event, ui)=>{
+      start: (event, drag)=>{
         log('drag start')
-          this.dragItem = ui.item
-          this.oldDragIndex = this.elementIndex(dragItem[0])
-          this.dragNew = this.dragOld = ui.item.parent()
+          ui.dragItem = drag.item
+          ui.oldDragIndex = elementIndex(dragItem[0])
+          ui.dragNew = ui.dragOld = drag.item.parent()
       },
-      stop: (event, ui)=>{
+      stop: (event, drag)=>{
         log('drag stop')
         //With a delay so that dragging a board doesnt click its button at end
         setTimeout(()=>{
           //actually move the board
-          this.newDragIndex = elementIndex(this.dragItem[0])
+          ui.newDragIndex = elementIndex(ui.dragItem[0])
 
           
-          project.boards[dataId(this.dragOld[0])].content.splice(this.oldDragIndex-1,1)
-          project.boards[dataId(this.dragNew[0])].content.splice(this.newDragIndex-1,0,dataId(this.dragItem[0]))
+          project.boards[dataId(ui.dragOld[0])].content.splice(ui.oldDragIndex-1,1)
+          project.boards[dataId(ui.dragNew[0])].content.splice(ui.newDragIndex-1,0,dataId(ui.dragItem[0]))
           
-          this.dragItem = null
+          ui.dragItem = null
           sync.saveAll()
 
         },50)
       },
-      change: (event, ui)=>{  
+      change: (event, drag)=>{  
         log('drag change')
-          if(ui.sender) this.dragNew = ui.placeholder.parent()
-          fixListUI(this.dragNew[0])
+          if(drag.sender) ui.dragNew = drag.placeholder.parent()
+          ui.fixListUI(ui.dragNew[0])
       },
       connectWith: ".draggableList"
   }).disableSelection()
@@ -150,23 +150,23 @@ let ui = {
     //make lists draggable
     $('.draggableAlbum').sortable({
       items: '.draggableList',
-      start: (event, ui)=>{
+      start: (event, drag)=>{
         log('drag list start')
-          this.dragItem = this.ui.item
-          this.oldDragIndex = elementIndex(this.dragItem[0])
+          ui.dragItem = drag.item
+          ui.oldDragIndex = elementIndex(ui.dragItem[0])
       },
-      stop: (event, ui)=>{
+      stop: (event, drag)=>{
         log('drag list stop')
         //With a delay so that dragging a board doesnt click its button at end
         setTimeout(()=>{
           //actually move the board
-          this.newDragIndex = elementIndex(this.dragItem[0])
+          ui.newDragIndex = elementIndex(ui.dragItem[0])
 
           
-          project.boards[board].content.splice(this.oldDragIndex,1)
-          project.boards[board].content.splice(this.newDragIndex,0,dataId(this.dragItem[0]))
+          project.boards[board].content.splice(ui.oldDragIndex,1)
+          project.boards[board].content.splice(ui.newDragIndex,0,dataId(ui.dragItem[0]))
           
-          this.dragItem = null
+          ui.dragItem = null
           sync.saveAll()
 
         },50)
