@@ -62,9 +62,7 @@
 
 <body>
 <section style="background-color: #afafaf; overflow: hidden;">
-  <!--
-  <div id="loadingIndicator" style="position: absolute; top: 0px; left: 0px; width: 100vw; height: 100vh; background-color: black; color: black; z-index: 1000; overflow: hidden; display: block;"></div>
-  -->
+
 
   <header class="header">
     <div id="header" class="navbar bg-dark" style="padding: 1px !important;">
@@ -291,54 +289,13 @@
   </template>
 
 
-  <template id="boardTemplate2">
-    <section class="board col-md-4">
-      <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <p class="card-name">Card Title - Very Nice!</p>
-            <div class="btn-group">
-              <button type="button" class="btn align-top btn-sm btn-outline-secondary" style="margin-top: -15px;"><i
-                  class="fas fa-quote-left"></i></button>
-            </div>
-          </div>
-          <small>
-            <a class="card-text text-muted">This is what a card's description will look like.</a>
-          </small>
-        </div>
-      </div>
-    </section>
-  </template>
-
-
-  <template id="albumPostTemplate">
-    <div class="col-md-4 board">
-      <div class="card mb-4 shadow-sm">
-        <img src="./icons/thumb.png" width="100%" height="225" background="#55595c" color="#eceeef" class="card-img-top"
-          text="Thumbnail">
-        <div class="card-body">
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-            additional
-            content. This content is a little bit longer.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-            </div>
-            <small class="text-muted">9 mins</small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
-
-
   <template id="listTemplate">
 
     <div class="list draggableList"
       style="background-color: #555555;"
       data-id="">
-
+      
+      <!-- List title -->
       <div class="title row justify-content-between bg-inherit" style="margin: 0px; width:100%;">
 
         <div type="text" class="title-text card-name bg-inherit noborder editable"
@@ -366,6 +323,7 @@
       -->
 
 
+      <!-- New Text,Board,Reference buttons at list bottom template -->
       <div class="newPanel row order-last bg-inherit"
         style="margin-left: 0px; margin-right: 0px;">
         <div class="container bg-inherit text-center justify-content-center" style="height: 34px;">
@@ -376,6 +334,10 @@
 
           <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%" onclick="newBoard(event)">
             Board
+          </button>
+
+          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%;" onclick="newList(event)">
+            List
           </button>
 
           <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%" onclick="newReferenceBtn(event)">
@@ -530,7 +492,7 @@
           style="width: 100%; height: 31px; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white; border: 0px;"
           placeholder="Add a new list..." onfocusout="this.value = ''"></input>
 
-        <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
+        <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" /></input>
 
       </form>
 
@@ -561,7 +523,8 @@
         <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
       </form>
       -->
-
+      
+      <!-- New Text,Board,Reference buttons at list bottom template -->
       <section class="newPanel board" id="newBoardMain"
       style="background-color: #555555;">
 
@@ -573,6 +536,10 @@
 
           <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newBoard(event)">
             Board
+          </button>
+
+          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newList(event)">
+            List
           </button>
           
           <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newReferenceBtn(event)">
@@ -594,16 +561,7 @@
 
   </main>
 
-<!--
-  <footer class="text-muted bg-dark">
 
-    <p class="float-right">
-      <a href="#">Back to top</a>
-    </p>
-    <p>Made by <a href="https://github.com/lukakostic"> Luka Kostic</a></p>
-
-  </footer>
--->
 </section>
 </body>
 
