@@ -113,7 +113,9 @@ let ui = {
   makeDraggable: function(){
 
     //make boards draggable
-    $('.draggableList').sortable({
+    let draggableLists = $('.draggableList')
+    if(draggableLists.length !== 0)
+    draggableLists.sortable({
       items: '.draggable',
       start: (event, drag)=>{
         log('drag start')
@@ -148,7 +150,9 @@ let ui = {
 
 
     //make lists draggable
-    $('.draggableAlbum').sortable({
+    let draggableAlbums = $('.draggableAlbum')
+    if(draggableAlbums.length !== 0)
+    draggableAlbums.sortable({
       items: '.draggableList',
       start: (event, drag)=>{
         log('drag list start')
