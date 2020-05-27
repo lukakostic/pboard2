@@ -138,7 +138,7 @@ let ui = {
           project.boards[dataId(ui.dragNew[0])].content.splice(ui.newDragIndex-1,0,dataId(ui.dragItem[0]))
           
           
-          if(((new Date()).getTime() - ui.dragStartTime)<150 && ui.newDragIndex == ui.oldDragIndex) //was meant to click probably
+          if(((new Date()).getTime() - ui.dragStartTime)<200 && ui.newDragIndex == ui.oldDragIndex) //was meant to click probably
             ui.dragItem.find('div').click()
           else
             sync.saveAll()
