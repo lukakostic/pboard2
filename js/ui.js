@@ -406,7 +406,7 @@ let ui = {
 
 
     titleText.addEventListener('click',listTitleClicked,true)
-    titleText.onblur = ()=>{ listTitleBlur() }
+    titleText.onblur = (event)=>{ listTitleBlur(event) }
 
   //  $(titleText).val(brd.name);
     $(titleText).html(brd.name) //we assume its div at start

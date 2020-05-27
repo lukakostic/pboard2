@@ -200,7 +200,7 @@ function newList(event){
   $(titleText).html(name) //we assume its div at start
   //$(titleText).prop("readonly",true);
   titleText.addEventListener('click',listTitleClicked,true)
-  titleText.onblur = ()=>{listTitleBlur()}
+  titleText.onblur = (event)=>{listTitleBlur(event)}
 
   let brd = new Board(Board.Types.List,name,[],{references:1})
   project.boards[brd.id] = brd
