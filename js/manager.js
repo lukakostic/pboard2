@@ -1,16 +1,16 @@
 /* Main script tying everything together */
 
 //base site url
-let siteUrl = "https://lukakostic.github.io/pboard/",
+let siteUrl = "https://lukakostic.github.io/pboard/"
 
 //open Project object
-project = null,
+let project = null
 
 //open board id (from url)
-board = "";
+let board = ""
 
 
-let singleInstanceHash = null;
+let singleInstanceHash = null
 
 function singleInstanceCheck(){
   //Check if only one instance of pboard is open
