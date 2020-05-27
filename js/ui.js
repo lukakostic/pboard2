@@ -292,7 +292,7 @@ let ui = {
     }
 
     
-    static.boardTitle.select() //autopop
+    $(static.boardTitle).select() //autopop
 
     this.fixAlbumUI()
     this.fixNewListUI()
