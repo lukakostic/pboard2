@@ -1,9 +1,9 @@
 /* Commonly used methods, without side effects. */
 
 //Debug logs, only used for debug and not actual messages.
-LOG_DISABLED = false
-LOGW_DISABLED = false
-LOGE_DISABLED = false
+let LOG_DISABLED = false
+let LOGW_DISABLED = false
+let LOGE_DISABLED = false
 
 //console log
 log = function(){
