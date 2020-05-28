@@ -50,9 +50,9 @@ let sync = {
       
       log('saveAll ',contents)
 
+
       sync.saveCachedContent(contents)
 
-      lastSyncTime = (new Date()).getTime()
       storage.fileUpload({name: sync.fileName, body: contents},()=>{
   
         if(callback!=null) callback()
