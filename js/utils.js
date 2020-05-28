@@ -1,9 +1,9 @@
 /* Commonly used methods, without side effects. */
 
 //Debug logs, only used for debug and not actual messages.
-LOG_DISABLED = true
-LOGW_DISABLED = true
-LOGE_DISABLED = true
+LOG_DISABLED = false
+LOGW_DISABLED = false
+LOGE_DISABLED = false
 
 //console log
 log = function(){
@@ -70,14 +70,13 @@ function setMainCookie(cookieObj){
     //log('doc.cookie after setting main',document.cookie)
 }
 
-function stringChecksum(str){
-
-}
 
 function getCookie(name){
+    log('getCookie[',name,']')
     return getMainCookie()[name]
 }
 function setCookie(name,value){
+    log('setCookie[',name,']:',value)
     let cookieObj = getMainCookie()
     cookieObj[name] = value
     setMainCookie(cookieObj)
