@@ -46,18 +46,20 @@ let sync = {
 
   saveAll: (callback = null)=>{
     try{
-      if(sync.syncedOnline == false){
-        return alert('Not once synced with online. Wait or refresh.')
-      }
 
       extensions.invoke('pre_saveAll')
-      ui.startSavingIndicator()
+      
       
       sync.setSyncTime()
       let contents = buildProject()
       
       log('saveAll ',contents)
+      
+      if(sync.syncedOnline == false){
+        return console.warn('Wont save: Not once synced with online. Wait or refresh.')
+      }
 
+      ui.startSavingIndicator()
 
       sync.saveCachedContent(contents)
 
