@@ -4,6 +4,7 @@ let sync = {
   fileId: null, //Use this fileId instead of looking for fileId by file name. Speeds up saving and loading since it doesnt need to find fileId
   
   lastSyncTime: null, //if older than cloud one, load the cloud version
+  syncedOnline: false, //synced from online (non cache) at least once
 
   save: {
     dirty: false, //when something changes and needs saving
@@ -45,7 +46,10 @@ let sync = {
 
   saveAll: (callback = null)=>{
     try{
-  
+      if(sync.syncedOnline == false){
+        return alert('Not once synced with online. Wait or refresh.')
+      }
+
       extensions.invoke('pre_saveAll')
       ui.startSavingIndicator()
       
@@ -77,7 +81,7 @@ let sync = {
   
         storage.fileDownload(sync.fileName , (contents)=>{
   
-  
+          sync.syncedOnline = true
           if (contents != null && contents != '') {
             
             log('loading contents ',contents)
