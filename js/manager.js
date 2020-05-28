@@ -97,7 +97,7 @@ function updateSigninStatus(isSignedIn){
     goLogin()
   else{
     
-    let prevUrl = boardFromUrl(url()) //Save url because resetData resets it, to load after it downloads data
+    set_board(boardFromUrl(url()))
 
     logw('initial reset or load')
 
@@ -107,12 +107,7 @@ function updateSigninStatus(isSignedIn){
     else set_board(prevUrl)
     
 
-    sync.loadAll(function(prevUrl){
-
-      logw("loadAll initial callback: -starting url: " + prevUrl)
-
-      set_board(prevUrl) //go back to previous url
-    }.bind(null,prevUrl))
+    sync.loadAll()
 
     sync.start()
 
@@ -123,12 +118,12 @@ function updateSigninStatus(isSignedIn){
 
 
 
-function resetData(){
+function resetData(resetUrl = true){
   logw("resetData()")
   project = new Project("", currentVersion) //currentVersion in updater.js
   //main board
   project.boards[""] = new Board(Board.Types.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
-  set_board("")
+  if(resetUrl) set_board("")
 }
 
 
