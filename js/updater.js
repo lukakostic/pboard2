@@ -11,7 +11,8 @@ let updater = {
     },
 
     updateSaveFile: function(saveFile){
-        console.log('updating ', saveFile)
+        log('updating ', saveFile)
+
         if(saveFile['project'] != undefined && saveFile.project['version'] == currentVersion)
             return saveFile
         
