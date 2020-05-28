@@ -104,6 +104,8 @@ function updateSigninStatus(isSignedIn){
     
     if(sync.loadCachedContent() == false)
       resetData()
+    else set_board(prevUrl)
+    
 
     sync.loadAll(function(prevUrl){
 
