@@ -30,6 +30,7 @@ let sync = {
   loadCachedContent: ()=>{
     let contents = window.localStorage.getItem('cached')
     if(contents == null || contents == undefined) return false
+    logw('loading from cache')
     loadProject(contents)
     extensions.invoke('loadCached')
     return true
