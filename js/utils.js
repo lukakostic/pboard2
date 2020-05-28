@@ -72,11 +72,11 @@ function setMainCookie(cookieObj){
 
 
 function getCookie(name){
-    log('getCookie[',name,']')
+    //log('getCookie[',name,']')
     return getMainCookie()[name]
 }
 function setCookie(name,value){
-    log('setCookie[',name,']:',value)
+    //log('setCookie[',name,']:',value)
     let cookieObj = getMainCookie()
     cookieObj[name] = value
     setMainCookie(cookieObj)

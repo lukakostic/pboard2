@@ -28,7 +28,7 @@ let sync = {
 
   //loads project from cookies, if it exists, else returns false
   loadCachedContent: ()=>{
-    let contents = getCookie('cached')
+    let contents = window.localStorage.getItem('cached')
     if(contents == null || contents == undefined) return false
     loadProject(contents)
     extensions.invoke('loadCached')
@@ -36,7 +36,8 @@ let sync = {
   },
 
   saveCachedContent: (contents)=>{
-    setCookie('cached', contents)
+    window.localStorage.setItem('cached',contents)
+    //setCookie('cached', contents)
   },
 
   saveAll: (callback = null)=>{
