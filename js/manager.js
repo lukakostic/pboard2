@@ -153,6 +153,8 @@ function loadProject(content,checkTime = true){
   sync.lastSyncTime = saveFile.syncTime
   project = saveFile.project
   
+  ui.draw()
+
   return true
 }
 
