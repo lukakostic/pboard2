@@ -12,7 +12,7 @@ let updater = {
 
     updateSaveFile: function(saveFile){
         console.log('updating ', saveFile)
-        if(saveFile['version'] == currentVersion)
+        if(saveFile['project']['version'] == currentVersion)
             return saveFile
         
         if(saveFile['version'] == 1){
