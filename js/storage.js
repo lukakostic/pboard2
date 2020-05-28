@@ -92,7 +92,7 @@ let storage = {
     fileDownload(name, callback){
       this.fileIdByName(name,(fileId)=>{
         if(fileId != null){
-
+          logw('get fileId is :',fileId)
           gapi.client.drive.files.get({
             'fileId': fileId,
             'alt': 'media'
@@ -106,6 +106,7 @@ let storage = {
           })
   
         }else{
+            logw('get fileId is NULL')
             callback(null)
         }
 

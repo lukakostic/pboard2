@@ -1,7 +1,7 @@
 /* Commonly used methods, without side effects. */
 
 //Debug logs, only used for debug and not actual messages.
-LOG_DISABLED = false //disable console logs
+LOG_DISABLED = false //disable normal console logs
 //console log
 log = function(){
     if(LOG_DISABLED)return function(){}
@@ -15,14 +15,14 @@ log = function(){
 }();
 //console log warning
 logw = function(){
-    if(LOG_DISABLED)return function(){}
+    //if(LOG_DISABLED)return function(){}
     return Function.prototype.bind.call(console.warn, console);
     let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //console log error
 loge = function(){
-    if(LOG_DISABLED)return function(){}
+    //if(LOG_DISABLED)return function(){}
     return Function.prototype.bind.call(console.error, console);
     let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
