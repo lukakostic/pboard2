@@ -59,9 +59,9 @@ let sync = {
       
       log('saveAll ',contents)
       
-      if(sync.syncedOnline == false){
+      if(sync.syncedOnline == false)
         return console.warn('Wont save: Not once synced with online. Wait or refresh.')
-      }
+      
 
       ui.startSavingIndicator()
 
