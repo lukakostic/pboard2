@@ -1,7 +1,7 @@
 /* Commonly used methods, without side effects. */
 
 //Debug logs, only used for debug and not actual messages.
-LOG_DISABLED = false
+LOG_DISABLED = false //disable console logs
 //console log
 log = function(){
     if(LOG_DISABLED)return function(){}
@@ -29,14 +29,14 @@ loge = function(){
 }();
 //alert log
 alog = function(){
-    if(LOG_DISABLED)return function(){}
+    //if(LOG_DISABLED)return function(){}
     return Function.prototype.bind.call(console.log, console);
     let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //modal log
 mlog = function(){
-    if(LOG_DISABLED)return function(){}
+    //if(LOG_DISABLED)return function(){}
     return Function.prototype.bind.call(console.log, console);
     let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
