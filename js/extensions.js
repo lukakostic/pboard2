@@ -9,9 +9,13 @@ let extensions = {
     loadAll: [],
     pre_loadAll: [],
     draw: [],
+    buildProject: [],
+    loadProject: [],
+    loadCached: [],
   },
   
   invoke: function (listener = ""){
+    log('Invoking listener:',listener)
     for(let i = 0; i < this.listeners[listener].length; i++)
       if(this.listeners[listener])
         this.listeners[listener][i]()

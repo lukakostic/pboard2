@@ -129,13 +129,28 @@ function resetData(){
 
 
 function buildProject(){
-  return JSON.stringify(project) //building
+  extensions.invoke('buildProject')
+  let saveFile = {
+    syncTime: (new Date()).getTime(),  
+    project: project,
+  }
+  return JSON.stringify(saveFile)
 }
 
-function loadProject(content){
-  project = updater.updateProject(
-    JSON.parse(content) //de-building
-  )
+function loadProject(content,checkTime = true){
+  extensions.invoke('loadProject')
+  let saveFile = JSON.parse(content)
+  
+  if(checkTime && sync.lastSyncTime != null && saveFile.saveTime.lastSyncTime >= saveFile.syncTime)
+    return false
+  
+  sync.flashLoadingIndicator()
+
+  sync.lastSyncTime = saveFile.syncTime
+  saveFile = updater.updateSaveFile(saveFile)
+  project = saveFile.project
+  
+  return true
 }
 
 

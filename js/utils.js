@@ -42,7 +42,16 @@ mlog = function(){
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 
-
+function hash(str){
+	var hash = 0
+	if (str.length == 0) return hash
+	for (let i = 0; i < str.length; i++) {
+		char = str.charCodeAt(i)
+		hash = ((hash<<5)-hash)+char
+		hash = hash & hash // Convert to 32bit integer
+	}
+	return hash
+}
 
 //Cookie functions. format: "_=<cookie object JSON>"
 function getMainCookie(){
@@ -56,6 +65,10 @@ function setMainCookie(cookieObj){
     //log('setMainCookie cookieObj',cookieObj)
     Cookies.set('_',encodeURI(JSON.stringify(cookieObj)))
     //log('doc.cookie after setting main',document.cookie)
+}
+
+function stringChecksum(str){
+
 }
 
 function getCookie(name){

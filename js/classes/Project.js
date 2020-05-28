@@ -7,6 +7,7 @@ class Project {
         this.extensions = {}
         this.preferences = {
             'autoSaveInterval': 30,
+            'autoLoadInterval': 5,
         }
     }
 }

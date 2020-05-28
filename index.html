@@ -1,9 +1,15 @@
 <!doctype html>
 <html lang="en">
 
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PBoard</title>
+  <link rel="icon" type="image/png" href="./favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="./favicon.png"/>
+
 
   <script src="./external/jquery-3.3.1.min.js"></script>
   <script src="./external/popper.min.js"></script>
@@ -54,14 +60,10 @@
   onreadystatechange="if(this.readyState==='complete')this.onload()">
   </script>
   
-
-  <title>PBoard</title>
-  <link rel="icon" type="image/png" href="./favicon.png"/>
-  <link rel="shortcut icon" type="image/png" href="./favicon.png"/>
 </head>
 
-<body>
-<section style="background-color: #afafaf; overflow: hidden;">
+
+<body><section style="background-color: #afafaf; overflow: hidden;">
 
 
   <header class="header">
@@ -154,48 +156,6 @@
   </template>
 
 
-  <template id="textFullBoardTemplate">
-    <section class="textFull-board board col-md-4"
-      style="background-color: #444444;">
-
-      <header class="card shadow-sm text-white"
-        style="border-radius: 0px; padding: 0px; padding-bottom: 0px; padding-top: 0px;  background-color: inherit;">
-        <div class="row justify-content-between" style="margin: 0px">
-
-          <input type="text" class="card-name"
-            style="width: calc(100% - 15px); padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white; border: 0px;  background-color: inherit;"
-            value="Title"></input>
-
-          <!--
-                    <button type="button" class="btn btn-sm" style="margin-left:auto; color: white;"><i
-                        class="fas fa-circle"></i></button>
-                    -->
-          <button type="button" class="dot" style="margin-left:auto;"></button>
-        </div>
-      </header>
-
-      <!--
-                <div class="card mb-4 shadow-sm" style="border-radius: 0px; margin-bottom: 0px !important;">
-                  <div class="card-body" style="padding: 4px">
-      
-                    <a class="card-text text-muted">This is what a card's description will look like.</a>
-      
-                  </div>
-                </div>
-      -->
-
-      <form class="row text bg-dark" style="margin: 0px; width:100%;">
-        <textarea name="message" rows="4" cols="40" wrap="hard" class="expandInput card-name bg-dark"
-          style="resize: none; padding-left: 5px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; text-overflow: ellipsis; color:white; border: 0px;"
-          oninput="ui.expandInput(this);textBoardChanged();">Text</textarea>
-
-        <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
-      </form>
-
-    </section>
-  </template>
-
-
   <template id="listTemplate">
 
     <div class="list draggableList"
@@ -217,16 +177,9 @@
 
       </div>
 
-      <!-- Content -->
 
       <!--
-      <form class="text row bg-dark" style="margin: 0px; width:100%;">
-        <textarea name="message" rows="4" cols="40"  wrap="hard" class="card-name bg-dark"
-        style="resize: none; padding-left: 5px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; text-overflow: ellipsis; color:white; border: 0px;"
-        onkeypress="ui.expandInput(this)" oninput="ui.expandInput(this)" onchange="ui.expandInput(this)">Some Text Some Text Some Text Some Text Some Text Some Text Some Text</textarea>
-        
-        <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
-      </form>
+      Boards go here
       -->
 
 
@@ -382,6 +335,7 @@
     </div>
 
 
+
     <!-- Multi List Board -->
 
     <div id="boardAlbum" class="bg-inherit draggableAlbum"
@@ -469,7 +423,6 @@
   </main>
 
 
-</section>
-</body>
+</section></body>
 
 </html>

@@ -1,4 +1,4 @@
-let currentVersion = 2
+let currentVersion = 3
 
 let updater = {
     copyNewProperties: function(from, to){
@@ -10,17 +10,31 @@ let updater = {
         return to
     },
 
-    updateProject: function(proj){
-        if(proj.version == currentVersion)
-            return proj
+    updateSaveFile: function(saveFile){
+        if(saveFile['version'] == currentVersion)
+            return saveFile
         
-        if(proj.version == 1){
-            delete proj.preferences['manualSaveLoad']
-            let pref = this.copyNewProperties(new Project().preferences,proj.preferences)
-            proj.preferences = pref
-            proj.version = 2
-            return updateProject(proj)
+        if(saveFile['version'] == 1){
+            delete saveFile.preferences['manualSaveLoad']
+            let pref = this.copyNewProperties(new Project().preferences,saveFile.preferences)
+            saveFile.preferences = pref
+            saveFile.version = 2
+            return updateSaveFile(saveFile)
         }
+        //saveFile.version>=3
+        if(saveFile['version'] == 2){
+            let pref = this.copyNewProperties(new Project().preferences,saveFile.preferences)
+            saveFile.preferences = pref
+            saveFile.version = 3
+
+            newSaveFile = {
+                syncTime: 0,
+                project: saveFile,
+            }
+            
+            return updateSaveFile(newSaveFile)
+        }
+        //if(saveFile.project.version == 3){}
         return null
     }
 }
