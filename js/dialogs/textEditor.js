@@ -1,3 +1,6 @@
+let textBoardAtStart = null //used for saving
+let textBoardGettingEdited = null //ID //for saving too tho can be used for other
+
 function showTextBoardDialog(event){
     /*
     console.log(event)
@@ -8,7 +11,12 @@ function showTextBoardDialog(event){
     if(ui.dragItem!=null && ( event.srcElement==ui.dragItem[0] || event.srcElement.parentNode == ui.dragItem[0])) return
     //console.log('showTextBoard')
     let textBtn = event.srcElement
-    let brd = project.boards[dataId(textBtn.parentNode)]
+
+    let brdId = dataId(textBtn.parentNode)
+    let brd = project.boards[brdId]
+
+    textBoardAtStart = JSON.stringify(brd)
+    textBoardGettingEdited = brdId
 
     if(brd==null) alert('Text board modal: brd == null')
 
@@ -31,7 +39,9 @@ function closeTextBoardDialog(){
 }
 
 function textCloseClicked(event){
-    //sync.saveAll() //needed?
+    //save if text board changed. In case others fail to register change i guess
+    if(JSON.stringify(project.boards[textBoardGettingEdited]) != textBoardAtStart)
+        sync.saveAll()
 }
 
 function textBackClicked(event){
