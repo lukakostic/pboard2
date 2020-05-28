@@ -143,7 +143,7 @@ function loadProject(content,checkTime = true){
   extensions.invoke('loadProject')
   let saveFile = updater.updateSaveFile(JSON.parse(content))
   
-  if(checkTime && sync.lastSyncTime != null && saveFile.saveTime.lastSyncTime >= saveFile.syncTime)
+  if(checkTime && sync.lastSyncTime != null && sync.lastSyncTime >= saveFile.syncTime)
     return false
   
   sync.flashLoadingIndicator()
