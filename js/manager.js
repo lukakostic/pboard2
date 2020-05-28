@@ -99,15 +99,15 @@ function updateSigninStatus(isSignedIn){
     
     let prevUrl = boardFromUrl(url()) //Save url because resetData resets it, to load after it downloads data
 
-    log('-initial reset')
+    logw('initial reset or load')
 
-
+    
     if(sync.loadCachedContent() == false)
       resetData()
 
     sync.loadAll(function(prevUrl){
 
-      log("loadAll callback: -starting url: " + prevUrl)
+      logw("loadAll initial callback: -starting url: " + prevUrl)
 
       set_board(prevUrl) //go back to previous url
     }.bind(null,prevUrl))
