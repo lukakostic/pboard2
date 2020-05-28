@@ -13,7 +13,6 @@ let static = {
     this.savingIndicator = EbyId('savingIndicator')
 
     this.header = EbyId('header')
-    this.headerMain = EbyId('headerMain')
 
     this.extrasDialog = EbyId('extrasDialog')
     this.extrasTitle = EbyId('extrasTitle')

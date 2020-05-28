@@ -47,14 +47,6 @@ let ui = {
 
     extensions.invoke('pre_newPage')
 
-    
-    if(board == ""){
-      static.header.style.display = 'none'
-      static.headerMain.style.display = 'block'
-    }else{
-      static.header.style.display = 'block'
-      static.headerMain.style.display = 'none'
-    }
 
     //clearBoards()
     //clearLists()
