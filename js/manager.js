@@ -122,7 +122,7 @@ function updateSigninStatus(isSignedIn){
 
 
 function resetData(){
-  log("resetData()")
+  logw("resetData()")
   project = new Project("", currentVersion) //currentVersion in updater.js
   //main board
   project.boards[""] = new Board(Board.Types.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
