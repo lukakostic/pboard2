@@ -97,7 +97,7 @@ function updateSigninStatus(isSignedIn){
     goLogin()
   else{
     
-    set_board(boardFromUrl(url()))
+    board = boardFromUrl(url())
 
     logw('initial reset or load')
     
