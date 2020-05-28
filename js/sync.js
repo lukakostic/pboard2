@@ -7,6 +7,9 @@ let sync = {
   lastSyncTime: null, //if older than cloud one, load the cloud version
   syncedOnline: false, //synced from online (non cache) at least once
 
+  syncSkips: 0, //if not in focus, see the load interval
+  syncSkipsTimes: 5, //how many times to skip if not in focus
+
   save: {
     dirty: false, //when something changes and needs saving
     interval: null,
@@ -117,7 +120,15 @@ let sync = {
 
     sync.load.interval = setInterval(()=>{
       //let checksum = hash(buildProject())
-      sync.loadAll()
+      //dont do if not in focus, save bandwith
+      if(document.hasFocus()){
+        sync.syncSkips = sync.syncSkips-1
+      }else sync.syncSkips = 0
+
+      if(sync.syncSkips<=0){
+        sync.syncSkips = sync.syncSkipsTimes
+        sync.loadAll()
+      }
     }, project.preferences['autoLoadInterval']*1000)
   },
 
