@@ -9,7 +9,7 @@ let project = null
 //open board id (from url)
 let board = ""
 
-
+/*
 let singleInstanceHash = null
 
 function singleInstanceCheck(){
@@ -22,7 +22,7 @@ function singleInstanceCheck(){
   singleInstanceHash = Math.random()
   setCookie('singleInstanceHash', singleInstanceHash)
 }
-
+*/
 
 //set_board on url change
 window.onhashchange = function(){

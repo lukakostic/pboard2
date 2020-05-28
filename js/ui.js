@@ -29,7 +29,7 @@ let ui = {
         document.title = brdName
       }
 
-      singleInstanceCheck()
+      //singleInstanceCheck()////////////
     },100)
     
     static.find()
