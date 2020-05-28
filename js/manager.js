@@ -100,14 +100,13 @@ function updateSigninStatus(isSignedIn){
     set_board(boardFromUrl(url()))
 
     logw('initial reset or load')
-
     
-    if(sync.loadCachedContent() == false)
+    if(sync.loadCachedContent() == false) //load from cache or reset
       resetData()
-    else ui.pageOpened()
+    else ui.pageOpened() //draw cache opened
     
 
-    sync.loadAll()
+    sync.loadAll() //sync with cloud
 
     sync.start()
 
