@@ -85,7 +85,7 @@ let sync = {
             resetData()
           } 
             
-          if(callback) callback()
+          if(callback) callback(contents)
           //ui.stopLoadingIndicator()
         })
   
