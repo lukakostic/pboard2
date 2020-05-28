@@ -1,4 +1,3 @@
-
 function showTextBoardDialog(event){
     /*
     console.log(event)
@@ -32,7 +31,7 @@ function closeTextBoardDialog(){
 }
 
 function textCloseClicked(event){
-    sync.saveAll()
+    //sync.saveAll() //needed?
 }
 
 function textBackClicked(event){
