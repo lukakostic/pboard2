@@ -1,6 +1,7 @@
 let sync = {
 
   fileName: 'pboard.pb',
+  //fileId not yet used
   fileId: null, //Use this fileId instead of looking for fileId by file name. Speeds up saving and loading since it doesnt need to find fileId
   
   lastSyncTime: null, //if older than cloud one, load the cloud version
