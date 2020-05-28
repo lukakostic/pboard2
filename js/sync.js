@@ -81,7 +81,7 @@ let sync = {
             extensions.invoke('loadAll')
         
           }else{
-            log('loaded null, resetting')
+            logw('loaded null, resetting')
             resetData()
           } 
             
