@@ -1,7 +1,7 @@
 /* Commonly used methods, without side effects. */
 
 //Debug logs, only used for debug and not actual messages.
-LOG_DISABLED = true
+LOG_DISABLED = false
 //console log
 log = function(){
     if(LOG_DISABLED)return function(){}
