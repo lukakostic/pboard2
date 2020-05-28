@@ -101,9 +101,9 @@ function updateSigninStatus(isSignedIn){
 
     log('-initial reset')
 
-    resetData()
 
-    sync.loadCachedContent()
+    if(sync.loadCachedContent() == false)
+      resetData()
 
     sync.loadAll(function(prevUrl){
 
