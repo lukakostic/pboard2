@@ -103,6 +103,8 @@ function updateSigninStatus(isSignedIn){
 
     resetData()
 
+    sync.loadCachedContent()
+
     sync.loadAll(function(prevUrl){
 
       log("loadAll callback: -starting url: " + prevUrl)
