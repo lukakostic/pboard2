@@ -133,7 +133,7 @@ function resetData(){
 function buildProject(){
   extensions.invoke('buildProject')
   let saveFile = {
-    syncTime: (new Date()).getTime(),  
+    syncTime: sync.lastSyncTime,  
     project: project,
   }
   return JSON.stringify(saveFile)
