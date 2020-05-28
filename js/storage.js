@@ -32,7 +32,7 @@ let storage = {
             this.fileIdByName(file.name,(fileId)=>{
               
 
-              if(fileId == null){ 
+              if(fileId == null){ //doesnt exist yet. Save it.
               
 
                 let fileBlob = new Blob([file.body], {type: 'text/plain'});
@@ -57,7 +57,7 @@ let storage = {
                 xhr.send(form);
 
 
-              }else{
+              }else{ //Already exists, update it.
 
 
                 let fileBlob = new Blob([file.body]);
