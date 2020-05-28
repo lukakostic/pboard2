@@ -19,7 +19,7 @@ let updater = {
             let pref = this.copyNewProperties(new Project().preferences,saveFile.preferences)
             saveFile.preferences = pref
             saveFile.version = 2
-            return updateSaveFile(saveFile)
+            return this.updateSaveFile(saveFile)
         }
         //saveFile.version>=3
         if(saveFile['version'] == 2){
@@ -32,7 +32,7 @@ let updater = {
                 project: saveFile,
             }
             
-            return updateSaveFile(newSaveFile)
+            return this.updateSaveFile(newSaveFile)
         }
         //if(saveFile.project.version == 3){}
         return null

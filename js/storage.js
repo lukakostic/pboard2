@@ -20,7 +20,7 @@ let storage = {
           else
             callback(null)
         })
-        .catch((err)=>{ log(err,'fileIdByName err '); callback(null) })
+        .catch((err)=>{ loge(err,'fileIdByName err '); callback(null) })
     },
 
 
@@ -123,7 +123,7 @@ let storage = {
           .then((response)=>{
             log(response,t='fileDelete log')
           })
-          .catch((err)=>{ log(err,'fileDelete err '); callback(null) })
+          .catch((err)=>{ loge(err,'fileDelete err '); callback(null) })
         }
       })
   },
@@ -137,7 +137,7 @@ let storage = {
           if(callback) callback(response)
       })
       .catch(function (error) {
-          log(error)
+          loge(error)
           if(callback) callback(error)
       })
     },

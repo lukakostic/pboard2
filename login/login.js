@@ -15,7 +15,7 @@ function handleClientLoad_Login() {
       authorizeButton.onclick = handleAuthClick
       signoutButton.onclick = handleSignoutClick
       
-    }, (error)=>{ log(error) })
+    }, (error)=>{ loge(error) })
   })
 }
 
