@@ -11,6 +11,7 @@ let updater = {
     },
 
     updateSaveFile: function(saveFile){
+        console.log('updating ', saveFile)
         if(saveFile['version'] == currentVersion)
             return saveFile
         
