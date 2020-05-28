@@ -101,7 +101,7 @@ let storage = {
             callback(response.body) //result: false, body: ''
           })
           .catch((fail)=>{
-            log('fail',fail) 
+            loge('fail',fail) 
             callback(null)
           })
   
@@ -154,7 +154,7 @@ let storage = {
             'fields': "nextPageToken, files(id, name)"
           })
           .then((response)=>{ log(response) })
-          .catch((error)=>{ log(error) })
+          .catch((error)=>{ loge(error) })
           /*
           .then(function(response) {
             appendPre('Files:');
