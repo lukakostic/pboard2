@@ -2,7 +2,7 @@
 
 //Debug logs, only used for debug and not actual messages.
 let LOG_DISABLED = true
-let LOGW_DISABLED = true
+let LOGW_DISABLED = false
 let LOGE_DISABLED = false
 
 //console log
