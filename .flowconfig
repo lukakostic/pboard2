@@ -1,0 +1,15 @@
+[ignore]
+<PROJECT_ROOT>/.*
+!<PROJECT_ROOT>/src-js/.*
+
+[include]
+<PROJECT_ROOT>/src-js/
+
+[libs]
+
+[lints]
+
+[options]
+all=true
+
+[strict]
