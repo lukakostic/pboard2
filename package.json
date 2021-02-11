@@ -4,7 +4,7 @@
   "description": "Concept management and categorization tool",
   "main": "index.js",
   "scripts": {
-    "build": "flow-remove-types src-js/ -d ./",
+    "build": "flow-remove-types src/ -d build/",
     "prepublish": "npm run build"
   },
   "repository": {

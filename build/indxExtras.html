@@ -1,0 +1,260 @@
+<!-- section>body>
+  <footer class="text-muted bg-dark">
+
+    <p class="float-right">
+      <a href="#">Back to top</a>
+    </p>
+    <p>Made by <a href="https://github.com/lukakostic"> Luka Kostic</a></p>
+
+  </footer>
+-->
+
+
+<template id="albumPostTemplate">
+  <div class="col-md-4 board">
+    <div class="card mb-4 shadow-sm">
+      <img src="./icons/thumb.png" width="100%" height="225" background="#55595c" color="#eceeef" class="card-img-top"
+        text="Thumbnail">
+      <div class="card-body">
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+          additional
+          content. This content is a little bit longer.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+          </div>
+          <small class="text-muted">9 mins</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+
+
+<template id="boardTemplate2">
+  <section class="board col-md-4">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="card-name">Card Title - Very Nice!</p>
+          <div class="btn-group">
+            <button type="button" class="btn align-top btn-sm btn-outline-secondary" style="margin-top: -15px;"><i
+                class="fas fa-quote-left"></i></button>
+          </div>
+        </div>
+        <small>
+          <a class="card-text text-muted">This is what a card's description will look like.</a>
+        </small>
+      </div>
+    </div>
+  </section>
+</template>
+
+
+  <!--body>section>
+  <div id="loadingIndicator" style="position: absolute; top: 0px; left: 0px; width: 100vw; height: 100vh; background-color: black; color: black; z-index: 1000; overflow: hidden; display: block;"></div>
+  -->
+
+
+
+
+
+  <!--body>section-->
+
+  <header class="header">
+    <div id="header" class="navbar bg-dark" style="padding: 1px !important;">
+      <div class="collapse bg-dark" id="navbarHeader" style="width: 100%; transition: none; padding: 0px !important;">
+        <div class="container-fluid" style="width: 100%; padding: 0px !important;">
+          
+            <form class="row text bg-inherit" style="margin: 0px; width: calc(100% - 44px);">
+                <textarea wrap="hard" class="expandInput card-name bg-inherit"  id="boardDescription"
+                  style="resize: none;  padding: 0.5rem !important; text-overflow: ellipsis; color:white; border: 0px; width: 100%;"
+                  oninput="ui.expandInput(this);boardDescriptionChanged();" placeholder="Board Description">Board Description</textarea>
+        
+                <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
+              </form>
+
+              <button class="btn btn-spaced-1 btn-secondary" style="position: absolute; right: 2px; top: 0px; width: 40px; height: 40px;" onclick="showExtrasClicked(event)"><i class="fas fa-cogs"></i></button>
+
+          <!--
+          <div class="row justify-content-between">
+          
+            <div class="col-sm-9">
+              
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">Add some information about the album below, the author, or any other background
+                context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off
+                to some social networking sites or contact information.</p>
+              
+            </div>
+
+            <div class="col-sm-2 py-4 align-self-end">
+              <div class="text-center list-unstyled">
+                <li><a href="#" id="Opt1" class="text-white">1</a></li>
+                <li><a href="#" id="Opt2" class="text-white">2</a></li>
+                <li><a href="#" id="Opt3" class="text-white">3</a></li>
+              </div>
+            </div>
+          
+          </div>
+          -->
+
+        </div>
+      </div>
+      <div class="container d-flex justify-content-start"
+        style="max-width:100%; padding: 1px !important; margin-top: -7px; margin-bottom: -7px;">
+
+        <button id="homeBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-home"></i></button>
+        <button id="upBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-arrow-left"></i></button>
+
+        <div class="navbar-brand" style="margin-right: 0px; max-width: 50%">
+          <input id="boardTitle" type="text" class="btn btn-spaced-1 col-sm-5"
+            style="overflow: hidden; text-overflow: ellipsis; max-width: 100%; text-align: left; color: white; font-weight: bold; font-size: 90%;"
+            placeholder="Title" aria-label="Title" aria-describedby="basic-addon2" oninput="boardTitleChanged(event)">
+        </div>
+        <!--
+        <button id="saveBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-save"></i></button>
+        <button id="loadBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-folder-open"></i></button>
+
+        <button id="convertBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i
+            class="fas fa-exchange-alt"></i></button>
+        -->
+        <button class="btn btn-spaced-1 btn-secondary bg-dark ml-auto" type="button" data-toggle="collapse" data-target="#navbarHeader"
+          aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation"
+           onclick="setTimeout(()=>{ui.expandInput(document.getElementById('boardDescription'));},1);">
+           <i class="fas fa-bars"></i>
+        </button>
+
+
+      </div>
+    </div>
+
+    <div id="headerMain" class="navbar bg-dark" style="padding: 1px !important;">
+      <div class="collapse bg-dark" id="navbarHeaderMain" style="width: 100%; transition: none; padding: 0px !important;">
+        <div class="container-fluid" style="width: 100%; padding: 0px !important;">
+
+          <div class="row text bg-inherit" style="margin: 0px; width: calc(100% - 44px);">
+            <span wrap="hard" class="expandInput2 card-name bg-inherit"
+              style="resize: none;  padding: 0.5rem !important; text-overflow: ellipsis; color:white; border: 0px; width: 100%;"
+              >Board Description</span>
+          </div>
+
+          <!--
+          <div class="row text bg-inherit" style="margin: 0px; width: calc(100% - 40px);">
+            TEXT
+          </div>
+          -->
+          
+            
+          <button class="btn btn-spaced-1 btn-secondary" style="position: absolute; right: 2px; top: 0px; width: 40px; height: 40px;" onclick="showExtrasClicked(event)"><i class="fas fa-cogs"></i></button>
+
+          <!--
+          <div class="row justify-content-between" style="margin: 5px; padding: 0px;">
+          
+            <div class="col-sm-9">
+              
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">Add some information about the album below, the author, or any other background
+                context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off
+                to some social networking sites or contact information.</p>
+              
+            </div>
+
+            <div class="col-sm-2 py-4 align-self-end">
+              <div class="text-center list-unstyled">
+                <li><a href="#" id="Opt1" class="text-white">1</a></li>
+                <li><a href="#" id="Opt2" class="text-white">2</a></li>
+                <li><a href="#" id="Opt3" class="text-white">3</a></li>
+              </div>
+            </div>
+          
+          Test
+          </div>
+          -->
+
+        </div>
+      </div>
+      <div class="container d-flex justify-content-start"
+        style="max-width:100%; padding: 1px !important; margin-top: -7px; margin-bottom: -7px;">
+
+        <button id="homeBtn2" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-home"></i></button>
+        <button id="upBtn2" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-arrow-left"></i></button>
+
+        <div class="navbar-brand" style="margin-right: 0px; max-width: 10%; height: 51px; padding-top: 5px; padding-bottom: 5px;">
+        </div>
+        <!--
+        <button id="saveBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-save"></i></button>
+        <button id="loadBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-folder-open"></i></button>
+
+        <button id="convertBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i
+            class="fas fa-exchange-alt"></i></button>
+        -->
+        <button class="btn btn-spaced-1 btn-secondary bg-dark ml-auto" type="button" data-toggle="collapse" data-target="#navbarHeaderMain"
+          aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation"
+           onclick="">
+           <i class="fas fa-bars"></i>
+        </button>
+
+
+      </div>
+    </div>
+  </header>
+
+
+        
+      <!-- in #listTemplate , below .title and above #newPanel
+      <form class="text row bg-dark" style="margin: 0px; width:100%;">
+        <textarea name="message" rows="4" cols="40"  wrap="hard" class="card-name bg-dark"
+        style="resize: none; padding-left: 5px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; text-overflow: ellipsis; color:white; border: 0px;"
+        onkeypress="ui.expandInput(this)" oninput="ui.expandInput(this)" onchange="ui.expandInput(this)">Some Text Some Text Some Text Some Text Some Text Some Text Some Text</textarea>
+        
+        <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
+      </form>
+      -->
+
+
+
+      
+  <template id="textFullBoardTemplate">
+    <section class="textFull-board board col-md-4"
+      style="background-color: #444444;">
+
+      <header class="card shadow-sm text-white"
+        style="border-radius: 0px; padding: 0px; padding-bottom: 0px; padding-top: 0px;  background-color: inherit;">
+        <div class="row justify-content-between" style="margin: 0px">
+
+          <input type="text" class="card-name"
+            style="width: calc(100% - 15px); padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white; border: 0px;  background-color: inherit;"
+            value="Title"></input>
+
+          <!--
+                    <button type="button" class="btn btn-sm" style="margin-left:auto; color: white;"><i
+                        class="fas fa-circle"></i></button>
+                    -->
+          <button type="button" class="dot" style="margin-left:auto;"></button>
+        </div>
+      </header>
+
+      <!--
+                <div class="card mb-4 shadow-sm" style="border-radius: 0px; margin-bottom: 0px !important;">
+                  <div class="card-body" style="padding: 4px">
+      
+                    <a class="card-text text-muted">This is what a card's description will look like.</a>
+      
+                  </div>
+                </div>
+      -->
+
+      <form class="row text bg-dark" style="margin: 0px; width:100%;">
+        <textarea name="message" rows="4" cols="40" wrap="hard" class="expandInput card-name bg-dark"
+          style="resize: none; padding-left: 5px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; text-overflow: ellipsis; color:white; border: 0px;"
+          oninput="ui.expandInput(this);textBoardChanged();">Text</textarea>
+
+        <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
+      </form>
+
+    </section>
+  </template>
