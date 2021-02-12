@@ -145,6 +145,8 @@ function buildPBoard(){
 
 function loadPBoard(content,checkTime = true){
   // $FlowIgnore[extra-arg]
+  log('content:')
+  // $FlowIgnore[extra-arg]
   logw(content)
 
   extensions.invoke('loadPBoard')
