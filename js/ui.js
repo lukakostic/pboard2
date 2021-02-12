@@ -39,8 +39,8 @@ let ui = {
     EbyId('homeBtn').onclick = goHome
     EbyId('upBtn').onclick = goUp
     //EbyId('convertBtn').onclick = ConvertBoard
-    EbyId('saveBtn').onclick = SaveAll
-    EbyId('loadBtn').onclick = LoadAll
+    EbyId('saveBtn').onclick = sync.SaveAll
+    EbyId('loadBtn').onclick = sync.LoadAll
 
   },
 
