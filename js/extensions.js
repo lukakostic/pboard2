@@ -32,6 +32,7 @@ let extensions = {
     let exts = brdAttrOrDef(board,'extensions',[])
     for(let i = 0; i < exts.length; i++){
       if(exts[i].on){
+        // $FlowIgnore[extra-arg]
         log('executing extension ' + exts[i].id)
         eval(pb.extensions[exts[i].id].code)
       }

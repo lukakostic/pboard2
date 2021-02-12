@@ -5,12 +5,13 @@
 //base site url
 let siteUrl = "https://lukakostic.github.io/pboard/"
 
-//open PBoard object
+//currently open PBoard object
 let pb = null
 
-//open board id (from url)
+//currently open board id (from url)
 let board = ""
 
+//Enforce single instance of pboard across tabs?
 /*
 let singleInstanceHash = null
 
@@ -51,76 +52,6 @@ function set_board(value){
   window.location.hash = value
   ui.pageOpened()
 }
-
-
-function goLogin(){
-  set_url(siteUrl + "login/")
-}
-
-function goHome(){
-  // $FlowIgnore[extra-arg]
-  log('goHome')
-  set_board("")
-}
-
-function goUp(){
-  // $FlowIgnore[extra-arg]
-  log('goUp')
-  //boardHistory.pop() //since last url is yours
-
-  let prev = boardHistory.prev()
-  if(prev == null) prev = ""
-  set_board(prev)
-  //window.history.back();
-}
-
-
-
-//Entry point
-//Init drive api and listen for signIn changes
-function OnStorageLoad(){
-  ui.htmlLoaded()
-
-  gapi.load('client:auth2', ()=>{
-    gapi.client.init(driveAPI_Creds).then(()=>{
-      //Listen for sign in changes and call updateSigninStatus, as well as call the initial one
-      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
-      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
-    }, (error)=>{
-      // $FlowIgnore[extra-arg]
-      alog(error)
-      goLogin() //error initing drive, probably not logged in
-    })
-  })
-
-}
-
-//after Entry point
-//Logged in (or not). Lets load everything up!
-function updateSigninStatus(isSignedIn){
-
-  if(isSignedIn == false)
-    goLogin()
-  else{
-    
-    board = boardFromUrl(url())
-
-    // $FlowIgnore[extra-arg]
-    logw('initial reset or load')
-    
-    if(sync.loadCachedContent() == false) //load from cache or reset
-      resetData()
-    else ui.pageOpened() //draw cache opened
-    
-
-    sync.loadAll() //sync with cloud
-
-    sync.start(false) ///////////////DONT AUTO SAVE/LOAD
-
-  }
-}
-
-
 
 
 
@@ -167,81 +98,47 @@ function loadPBoard(content,checkTime = true){
 
 
 
-function newText(event){
-  
-  if(event.srcElement == null) event.srcElement = event.target
-  let parent = event.srcElement.parentNode.parentNode.parentNode ////////////// replace by find parent thing?
 
-  let el = html.textBrdTemplate.cloneNode(true)
+//Entry point
+//Init drive api and listen for signIn changes
+function OnStorageLoad(){
+  ui.htmlLoaded()
 
-  let brd = new Board(BoardType.Text,"Text","",{references:1})
-
-  pb.boards[brd.id] = brd
-  pb.boards[dataId(parent)].content.push(brd.id) //Add to parent list
-
-  parent.appendChild(el)
-  ui.loadTextBoard(el,brd.id)
-
-  EbyClass('textBtn',el)[0].click() ////////////////////////// auto open
-
-  ui.fixListUI(parent)
-  sync.saveAll()
-}
-
-function newBoard(event){
-
-  if(event.srcElement == null) event.srcElement = event.target
-  let parent = event.srcElement.parentNode.parentNode.parentNode ////////////// replace by find parent thing?
-
-  let el = html.boardBrdTemplate.cloneNode(true)
-
-  let atr = {description:'Description',references:1}
-  let brd = new Board(BoardType.Board,"Board",[],atr)
-
-  pb.boards[brd.id] = brd
-  pb.boards[dataId(parent)].content.push(brd.id) //Add to parent list
-
-  parent.appendChild(el)
-  ui.loadBoardBoard(el,brd.id)
-
-  
-  ui.fixListUI(parent)
-
-  EbyClass('textBtn', el)[0].click() // load board on add, might not want to do this.
-
-  sync.saveAll(()=>{
-    //el.getElementsByClassName('textBtn')[0].click(); // load board on add, might not want to do this. and to be moved to before saving?
+  gapi.load('client:auth2', ()=>{
+    gapi.client.init(driveAPI_Creds).then(()=>{
+      //Listen for sign in changes and call updateSigninStatus, as well as call the initial one
+      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
+      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
+    }, (error)=>{
+      // $FlowIgnore[extra-arg]
+      alog(error)
+      goLogin() //error initing drive, probably not logged in
+    })
   })
+
 }
 
-function newList(event){
+//after Entry point
+//Logged in (or not). Lets load everything up!
+function updateSigninStatus(isSignedIn){
 
-  let el = html.listTemplate.cloneNode(true)
+  if(isSignedIn == false)
+    goLogin()
+  else{
+    
+    board = boardFromUrl(url())
 
-  if(event.srcElement == null) event.srcElement = event.target
-  let inp = event.srcElement.firstElementChild
-  let name = inp.value
+    // $FlowIgnore[extra-arg]
+    logw('initial reset or load')
+    
+    if(sync.loadCachedContent() == false) //load from cache or reset
+      resetData()
+    else ui.pageOpened() //draw cache opened
+    
 
-  let titleText = EbyClass('title-text',el)[0]
-//  $(titleText).val(name);
-  $(titleText).html(name) //we assume its div at start
-  //$(titleText).prop("readonly",true);
-  titleText.addEventListener('click',listTitleClicked,true)         ///////?????
-  titleText.onblur = (event)=>{listTitleBlur(event)}         ////////??????
+    sync.loadAll() //sync with cloud
 
-  let brd = new Board(BoardType.List,name,[],{references:1})
-  pb.boards[brd.id] = brd
-  pb.boards[board].content.push(brd.id)
+    sync.start(false) ///////////////DONT AUTO SAVE/LOAD
 
-  html.boardAlbum.appendChild(el)
-  set_dataId(el, brd.id)
-
-  
-  ui.fixNewListUI()
-  ui.fixAlbumUI()
-
-  ui.makeDraggable() //should only make draggable new list and not all?
-  $(inp).val('') //clear new list textbox
-
-  sync.saveAll()
+  }
 }
