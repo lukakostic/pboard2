@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="../_external/jquery-3.3.1.min.js"></script>
+  <script src="../_external/popper.min.js"></script>
+  <script src="../_external/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="../_external/bootstrap.min.css">
+  <link rel="stylesheet" href="../index.css">
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/manager.js"></script>
+  <!-- entry point -->
+  <script src="./login.js"></script>
+
+  <script async defer src="https://apis.google.com/js/api.js"
+  onload="this.onload=function(){};handleClientLoad_Login()"
+  onreadystatechange="if(this.readyState==='complete')this.onload()">
+  </script>
+
+  <title>PBoard Login</title>
+  <link rel="icon" type="image/png" href="../favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+</head>
+
+
+<body class="">
+<main role="main">
+
+  <div class="modal-dialog" style="max-width: 90% !important; width: 700px !important;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">PBoard</h4>
+        </div>
+        <div class="modal-body">
+          <a>Concept management and categorization tool</a>
+          </br>
+          </br>
+          <a>Hosted on github, uses your google drive for storage ('pboard.pb' json file)</a>
+          </br>
+          </br>
+          
+          <button id="authorize_button" style="display: none;" class="btn btn-primary">Authorize with Google Drive</button>
+          <button id="signout_button" style="display: none;" class="btn btn-primary">Sign Out</button>
+
+        </div>
+
+        <!--
+        <form id="form" class="modal-footer" onsubmit="event.preventDefault(); loadFromDropbox();">
+          <input id="token" name="d" type="text" placeholder="Dropbox access token" class="form-control" autocomplete="on">
+          <input type="submit" class="btn btn-primary" value="Open">
+        </form>
+        -->
+
+
+      </div>
+    </div>
+  
+<!--
+  <form action="/pboarddev">
+      <div class="container-fluid">
+        <div class="input-group mb-3 jumbotron bg-dark">
+          <input id="token" name="d" type="text" placeholder="Dropbox access token" class="form-control bg-dark text-white" autocomplete="on">
+          <div class="input-group-append">
+            <button id="loginBtn" class="btn btn-outline-secondary" type="submit">Open boards</button>
+          </div>
+        </div>
+      </div>
+    </form>
+-->
+
+
+</main>
+</body>
+
+
+
+
+<footer class="text-muted bg-dark">
+
+      <p class="float-right">
+      </p>
+      <p>Made by <a href="https://github.com/lukakostic"> Luka Kostic</a></p>
+
+  </footer>
+
+</html>
