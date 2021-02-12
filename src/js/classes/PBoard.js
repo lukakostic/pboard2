@@ -1,3 +1,5 @@
+//@flow
+
 class PBoard {
     name :string
     version :number

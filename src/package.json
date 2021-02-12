@@ -6,7 +6,7 @@
   "scripts": {
     "fullBuild": "(npm run unbuild ) & (npm run sergey ) & (npm run flow )",
     "build": "(npm run sergey ) & (npm run flow )",
-    "flow": "flow-remove-types ./ -d ../docs/",
+    "flow": "flow-remove-types --pretty ./ -d ../docs/",
     "sergey": "sergey --root=./ --output=../docs/ --exclude=.flowconfig",
     "unbuild": "RD /S /Q ..\\docs & MKDIR ..\\docs",
     "prepublish": "npm run build"

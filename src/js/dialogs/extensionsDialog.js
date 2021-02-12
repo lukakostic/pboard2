@@ -1,3 +1,5 @@
+//@flow
+
 class AddedExtension{
   constructor(isOn = true, extId = ""){
     this.on = isOn

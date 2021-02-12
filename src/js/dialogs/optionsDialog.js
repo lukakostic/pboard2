@@ -1,3 +1,5 @@
+//@flow
+
 
 let optionsElement = null
 

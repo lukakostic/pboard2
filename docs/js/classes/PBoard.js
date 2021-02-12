@@ -1,11 +1,13 @@
+//
+
 class PBoard {
-    name :string
-    version :number
-    boards : {[string]:Board|PBoard}
-    extensions :{[string]:Extension}
-    tags :{[string]:Tag}
-    attributes :{[string]:any}
-    preferences :{[string]:any}
+    name
+    version
+    boards
+    extensions
+    tags
+    attributes
+    preferences
 
     constructor(name = "", version = -1, attributes = {}){
         this.name = name
@@ -21,8 +23,7 @@ class PBoard {
     }
 }
 
-type BoardTypeT = {[string]:number}
-const BoardType :BoardTypeT = {
+const BoardType = {
     Text : 1,
     Board : 2,
     List : 3
@@ -30,12 +31,12 @@ const BoardType :BoardTypeT = {
 
 
 class Board {
-    id :string
-    type :BoardTypeT
-    name :string
-    content :any //!
-    tags :Object
-    attributes :Object
+    id
+    type
+    name
+    content //!
+    tags
+    attributes
     
     constructor(type, name, content,  attributes = {}, id = null) {
         if (id === null) id = Board.makeId(8)

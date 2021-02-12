@@ -1,4 +1,6 @@
-let boardHistory :any = [] //board IDs
+//
+
+let boardHistory = [] //board IDs
 
 //get last
 boardHistory.last = function(){

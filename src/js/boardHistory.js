@@ -1,3 +1,5 @@
+//@flow
+
 let boardHistory :any = [] //board IDs
 
 //get last

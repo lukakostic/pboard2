@@ -1,3 +1,5 @@
+//@flow
+
 //Static html elements
 let html = {
   find: function(){

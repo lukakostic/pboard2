@@ -1,3 +1,5 @@
+//
+
 let css = {
   styleElement: EbyId('style'),
 
@@ -29,37 +31,37 @@ let css = {
   //1 argument: return _css[cssRule]
   //2 arguments: set _css[cssRule] = attribute
   //3 arguments: set _css[cssRule][attribute] = value
-  css: (cssRule,attribute,value)=>{
-    if(cssRule === undefined) return _css
+  css: function(cssRule,attribute,value){
+    if(cssRule === undefined) return this._css
     cssRule = cssRule.replace(' ','') //remove spaces
-    if(attribute === undefined) return _css[cssRule]
+    if(attribute === undefined) return this._css[cssRule]
     if(value === undefined){
-      built_css._dirty_ = true
-      built_css[cssRule]._dirty_ = true
-      _css[cssRule] = attribute //attribute is object
+      this.built_css._dirty_ = true
+      this.built_css[cssRule]._dirty_ = true
+      this._css[cssRule] = attribute //attribute is object
     }else{
       attribute = attribute.replace(' ','')
       value = value.replace(' ','')
-      built_css._dirty_ = true
-      built_css[cssRule]._dirty_ = true
-      _css[cssRule][attribute] = value //attribute is string
+      this.built_css._dirty_ = true
+      this.built_css[cssRule]._dirty_ = true
+      this._css[cssRule][attribute] = value //attribute is string
     }
   },
 
-  build: ()=>{
+  build: function(){
     //if no css has been modified
-    if(built_css['_dirty_'] == false) return built_css._built_
+    if(this.built_css['_dirty_'] == false) return this.built_css._built_
 
   },
 
   //Populate css block by parsing css
-  fromCssString: (cssStr)=>{
+  fromCssString: function(cssStr){
     
     //Not implemented.
   },
 
   //apply values from this.css
-  apply: ()=>{
+  apply: function(){
 
   }
 }

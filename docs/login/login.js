@@ -1,3 +1,5 @@
+//
+
 let authorizeButton, signoutButton, doRedirect = false
 // On load, called to load the auth2 library and API client library.
 function handleClientLoad_Login() {
@@ -15,7 +17,7 @@ function handleClientLoad_Login() {
       authorizeButton.onclick = handleAuthClick
       signoutButton.onclick = handleSignoutClick
       
-    }, (error)=>{ loge(error) })
+    }, (error)=>{/*$FlowIgnore[extra-arg]*/ loge(error) })
   })
 }
 

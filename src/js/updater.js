@@ -1,3 +1,5 @@
+//@flow
+
 let currentVersion = 3
 
 let updater = {

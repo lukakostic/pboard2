@@ -1,3 +1,5 @@
+//@flow
+
 let sync = {
 
   fileName: 'pboard.pb',

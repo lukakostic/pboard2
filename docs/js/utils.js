@@ -1,3 +1,5 @@
+//
+
 /* Commonly used methods, without side effects. */
 
 //Debug logs, only used for debug and not actual messages.

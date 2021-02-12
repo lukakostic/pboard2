@@ -1,3 +1,5 @@
+//@flow
+
 function showTagsDialog(){
     
     html.extrasTitle.innerHTML = 'Board Tags'

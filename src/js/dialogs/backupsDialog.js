@@ -1,3 +1,5 @@
+//@flow
+
 let availableBackups = []
 
 function showBackupsDialog(){

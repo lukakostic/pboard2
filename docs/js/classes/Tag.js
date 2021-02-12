@@ -1,9 +1,11 @@
-class Tag {
-    id :string
-    name :string
-    parentTags :Array<Tag>
+//
 
-    constructor(name = "",id :string|null =null){
+class Tag {
+    id
+    name
+    parentTags
+
+    constructor(name = "",id =null){
         if (id === null) id = Board.makeId(16)
         this.id = id
 

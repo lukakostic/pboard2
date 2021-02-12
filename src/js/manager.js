@@ -1,3 +1,5 @@
+//@flow
+
 /* Main script tying everything together */
 
 //base site url

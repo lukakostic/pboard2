@@ -1,3 +1,5 @@
+//@flow
+
 class Extension {
     id :string
     name :string

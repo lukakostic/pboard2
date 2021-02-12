@@ -1,3 +1,5 @@
+//@flow
+
 
 function showBoardBoardDialog(event, id=null){
   if(event.srcElement == null) event.srcElement = event.target
