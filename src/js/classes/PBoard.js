@@ -1,6 +1,7 @@
 //@flow
 
 class PBoard {
+    /*::
     name :string
     version :number
     boards : {[string]:Board|PBoard}
@@ -8,7 +9,7 @@ class PBoard {
     tags :{[string]:Tag}
     attributes :{[string]:any}
     preferences :{[string]:any}
-
+    */
     constructor(name = "", version = -1, attributes = {}){
         this.name = name
         this.version = version
@@ -32,13 +33,15 @@ const BoardType :BoardTypeT = {
 
 
 class Board {
+    /*::
     id :string
     type :BoardTypeT
     name :string
     content :any //!
     tags :Object
     attributes :Object
-    
+    */
+
     constructor(type, name, content,  attributes = {}, id = null) {
         if (id === null) id = Board.makeId(8)
         

@@ -1,9 +1,11 @@
 //@flow
 
 class Tag {
+    /*::
     id :string
     name :string
     parentTags :Array<Tag>
+    */
 
     constructor(name = "",id :string|null =null){
         if (id === null) id = Board.makeId(16)

@@ -9,6 +9,7 @@
     "flow": "flow-remove-types --pretty ./ -d ../docs/",
     "sergey": "sergey --root=./ --output=../docs/ --exclude=.flowconfig",
     "unbuild": "RD /S /Q ..\\docs & MKDIR ..\\docs",
+    "flowServer": "taskkill /F /IM flow.exe & flow",
     "prepublish": "npm run build"
   },
   "repository": {

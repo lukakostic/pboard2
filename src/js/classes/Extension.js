@@ -1,11 +1,12 @@
 //@flow
 
 class Extension {
+    /*:: 
     id :string
     name :string
     description :string
     code :string
-
+    */
     constructor(name = "", description = "", code = "", id :string|null = null){
         if (id === null) id = Extension.makeId(16)
 

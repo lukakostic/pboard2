@@ -1,9 +1,11 @@
 //
 
 class Tag {
+    /*::
     id
     name
     parentTags
+    */
 
     constructor(name = "",id =null){
         if (id === null) id = Board.makeId(16)

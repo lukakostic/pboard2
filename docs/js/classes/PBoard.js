@@ -1,6 +1,7 @@
 //
 
 class PBoard {
+    /*::
     name
     version
     boards
@@ -8,7 +9,7 @@ class PBoard {
     tags
     attributes
     preferences
-
+    */
     constructor(name = "", version = -1, attributes = {}){
         this.name = name
         this.version = version
@@ -31,13 +32,15 @@ const BoardType = {
 
 
 class Board {
+    /*::
     id
     type
     name
     content //!
     tags
     attributes
-    
+    */
+
     constructor(type, name, content,  attributes = {}, id = null) {
         if (id === null) id = Board.makeId(8)
         

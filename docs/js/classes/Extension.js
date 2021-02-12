@@ -1,11 +1,12 @@
 //
 
 class Extension {
+    /*:: 
     id
     name
     description
     code
-
+    */
     constructor(name = "", description = "", code = "", id = null){
         if (id === null) id = Extension.makeId(16)
 
