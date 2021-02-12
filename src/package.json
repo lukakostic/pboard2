@@ -4,11 +4,10 @@
   "description": "Concept management and categorization tool",
   "main": "index.js",
   "scripts": {
-    "fullBuild": "(npm run unbuild ) & (npm run sergey ) & (npm run flow )",
-    "build": "(npm run sergey ) & (npm run flow )",
-    "flow": "flow-remove-types --pretty ./ -d ../docs/",
-    "sergey": "sergey --root=./ --output=../docs/ --exclude=.flowconfig",
-    "unbuild": "RD /S /Q ..\\docs & MKDIR ..\\docs",
+    "build": "(npm run sergey ) & (npm run sergeyCopy ) & (npm run flow )",
+    "flow": "flow-remove-types --pretty ./ -d ../",
+    "sergey": "sergey --root=./ --output=../sergeyOut/ --exclude=.flowconfig ",
+    "sergeyCopy": "(Xcopy /Y /E /I ..\\sergeyOut ..\\ ) & (RD /S /Q ..\\sergeyOut )",
     "flowServer": "taskkill /F /IM flow.exe & flow",
     "prepublish": "npm run build"
   },
