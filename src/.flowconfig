@@ -2,7 +2,7 @@
 .*/node_modules
 
 [declarations]
-.*/_external/.*
+.*/external/.*
 
 [include]
 
