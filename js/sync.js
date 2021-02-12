@@ -35,7 +35,9 @@ let sync = {
     saveCachedContent: (contents) => {
         window.localStorage.setItem('cached', contents);
     },
-    saveAll: function (callback = null) {
+    saveAll: function (callback = null, really = false) {
+        if (really = false)
+            return;
         try {
             extensions.invoke('pre_saveAll');
             sync.setSyncTime();

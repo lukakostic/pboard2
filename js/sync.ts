@@ -52,7 +52,9 @@ let sync = {
     //setCookie('cached', contents)
   },
 
-  saveAll: function(callback = null){
+  saveAll: function(callback = null, really=false){ ////Added the really? option
+    if(really = false) return; //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     try{
 
       extensions.invoke('pre_saveAll')

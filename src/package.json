@@ -4,13 +4,12 @@
   "description": "Concept management and categorization tool",
   "main": "index.js",
   "scripts": {
-    "build": "(npm run sergey ) & (npm run sergeyCopy ) & (npm run typescript ) & (npm run clearTypescript )",
+    "build": "(npm run sergey ) & (npm run sergeyCopy ) & (npm run typescript )",
     "flow": "flow-remove-types --pretty ./ -d ../",
     "sergey": "sergey --root=./ --output=../sergeyOut/ --exclude=.flowconfig ",
     "sergeyCopy": "(Xcopy /Y /E /I ..\\sergeyOut ..\\ ) & (RD /S /Q ..\\sergeyOut )",
     "flowServer": "taskkill /F /IM flow.exe & flow",
     "typescript": "tsc",
-    "clearTypescript": "",
     "prepublish": "npm run build"
   },
   "repository": {

@@ -21,7 +21,7 @@ let ui = {
         html.find();
         EbyId('homeBtn').onclick = goHome;
         EbyId('upBtn').onclick = goUp;
-        EbyId('saveBtn').onclick = () => { sync.saveAll(); };
+        EbyId('saveBtn').onclick = () => { sync.saveAll(null, true); };
         EbyId('loadBtn').onclick = () => { sync.loadAll(); };
     },
     pageOpened: function () {

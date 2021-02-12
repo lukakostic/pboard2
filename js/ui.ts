@@ -39,7 +39,7 @@ let ui = {
     EbyId('homeBtn').onclick = goHome
     EbyId('upBtn').onclick = goUp
     //EbyId('convertBtn').onclick = ConvertBoard
-    EbyId('saveBtn').onclick = ()=>{sync.saveAll()}
+    EbyId('saveBtn').onclick = ()=>{sync.saveAll(null,true)}
     EbyId('loadBtn').onclick = ()=>{sync.loadAll()}
 
   },
