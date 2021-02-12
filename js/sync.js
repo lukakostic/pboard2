@@ -36,7 +36,7 @@ let sync = {
         window.localStorage.setItem('cached', contents);
     },
     saveAll: function (callback = null, really = false) {
-        if (really = false)
+        if (really == false)
             return;
         try {
             extensions.invoke('pre_saveAll');
