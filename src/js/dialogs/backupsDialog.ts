@@ -85,7 +85,7 @@ function backupsSearched(){
 
 function makeBackupClicked(event){
 
-    let bkName = (<HTMLInputElement>EbyId('newBackup')).value
+    let bkName = (<HTMLInputElement> EbyId('newBackup')).value
     
     //new Date().getTime()+" "+ 
     storage.fileUpload({ name: bkName + '.pbb', body: buildPBoard()},()=>{
