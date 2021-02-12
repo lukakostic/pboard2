@@ -115,7 +115,10 @@ let sync = {
 
   
 
-  start: function(){
+  start: function(doAutoLoadSave = true){
+
+    if(doAutoLoadSave == false || pb.preferences['autoLoadInterval'].toString()=="0") return
+
     this.save.interval = setInterval(()=>{
       if(sync.save.dirty == false) return;
       

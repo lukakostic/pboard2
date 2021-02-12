@@ -115,7 +115,7 @@ function updateSigninStatus(isSignedIn){
 
     sync.loadAll() //sync with cloud
 
-    sync.start()
+    sync.start(false) ///////////////DONT AUTO SAVE/LOAD
 
   }
 }
