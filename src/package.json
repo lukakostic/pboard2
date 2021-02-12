@@ -4,11 +4,12 @@
   "description": "Concept management and categorization tool",
   "main": "index.js",
   "scripts": {
-    "build": "(npm run sergey ) & (npm run sergeyCopy ) & (npm run flow )",
+    "build": "(npm run sergey ) & (npm run sergeyCopy ) & (npm run typescript )",
     "flow": "flow-remove-types --pretty ./ -d ../",
     "sergey": "sergey --root=./ --output=../sergeyOut/ --exclude=.flowconfig ",
     "sergeyCopy": "(Xcopy /Y /E /I ..\\sergeyOut ..\\ ) & (RD /S /Q ..\\sergeyOut )",
     "flowServer": "taskkill /F /IM flow.exe & flow",
+    "typescript": "tsc",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -22,8 +23,9 @@
   },
   "homepage": "https://github.com/lukakostic/pboard#readme",
   "devDependencies": {
-    "flow-bin": "^0.144.0",
-    "flow-remove-types": "^2.144.0",
     "sergey": "0.0.13"
+  },
+  "dependencies": {
+    "@types/jquery": "^3.5.5"
   }
 }
