@@ -144,6 +144,9 @@ function buildPBoard(){
 }
 
 function loadPBoard(content,checkTime = true){
+  // $FlowIgnore[extra-arg]
+  logw(content)
+
   extensions.invoke('loadPBoard')
   let saveFile = updater.updateSaveFile(JSON.parse(content))
   
