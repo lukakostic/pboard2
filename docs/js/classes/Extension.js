@@ -1,5 +1,10 @@
 class Extension {
-    constructor(name = "", description = "", code = "", id = null){
+    id :string
+    name :string
+    description :string
+    code :string
+
+    constructor(name = "", description = "", code = "", id :string|null = null){
         if (id === null) id = Extension.makeId(16)
 
         this.id = id
@@ -8,7 +13,7 @@ class Extension {
         this.code = code
     }
     
-    static makeId(maxLength) {
+    static makeId(maxLength :number) :string {
         let id = ""
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
 
@@ -32,7 +37,7 @@ class Extension {
         return id;
     }
     
-    static findExtensionByName(name){
+    static findExtensionByName(name :string) :string|null {
         let k = Object.keys(pb.extensions)
         for(let j = 0; j < k.length; j++){
             if(pb.extensions[k[j]].name == name) return k[j]

@@ -6,48 +6,49 @@ let LOGW_DISABLED = true
 let LOGE_DISABLED = false
 
 //console log
-log = function(){
+let log = function(){
     if(LOG_DISABLED)return function(){}
     for(let i = 0; i < arguments.length; i++)
     if(arguments[i] instanceof Error)
     alert(arguments[i])
 
     return Function.prototype.bind.call(console.log, console);
-    let context = "My Descriptive Logger Prefix:";
+    //let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //console log warning
-logw = function(){
+let logw = function(){
     if(LOGW_DISABLED)return function(){}
     return Function.prototype.bind.call(console.warn, console);
-    let context = "My Descriptive Logger Prefix:";
+    //let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //console log error
-loge = function(){
+let loge = function(){
     if(LOGE_DISABLED)return function(){}
     return Function.prototype.bind.call(console.error, console);
-    let context = "My Descriptive Logger Prefix:";
+    //let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //alert log
-alog = function(){
+let alog = function(){
     //if(LOG_DISABLED)return function(){}
     return Function.prototype.bind.call(console.log, console);
-    let context = "My Descriptive Logger Prefix:";
+    //let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 //modal log
-mlog = function(){
+let mlog = function(){
     //if(LOG_DISABLED)return function(){}
     return Function.prototype.bind.call(console.log, console);
-    let context = "My Descriptive Logger Prefix:";
+    //let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
 
 function hash(str){
-	var hash = 0
-	if (str.length == 0) return hash
+	let hash = 0
+	let char = ""
+    if (str.length == 0) return hash
 	for (let i = 0; i < str.length; i++) {
 		char = str.charCodeAt(i)
 		hash = ((hash<<5)-hash)+char
@@ -124,6 +125,7 @@ function parentElementBoard(el,state=-1){
     else if(state == 3)
         return board
 
+    // $FlowIgnore[extra-arg]
     log('unknown board type')
 
     return null
@@ -159,7 +161,7 @@ function brdAttr(id,attr){
 //Get attribute of board by id, or if it doesnt exist return val
 function brdAttrOrDef(id,attr,val){
     if(attr in pb.boards[id].attributes)
-        return brdAttr(id,attr,val)
+        return brdAttr(id,attr)
     return val
 }
 
@@ -185,7 +187,11 @@ function EbyClass(className, element = document){
 }
 
 function templateFChild(id){
-    return EbyId(id).content.firstElementChild
+    let el = EbyId(id)
+    if(el instanceof HTMLTemplateElement)
+        return el.content.firstElementChild
+    else
+        return null
 }
 
 function elementIndex(node) {

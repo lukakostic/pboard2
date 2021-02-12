@@ -1,7 +1,7 @@
 function showTagsDialog(){
     
-    static.extrasTitle.innerHTML = 'Board Tags'
-    static.extrasContent.innerHTML = `
+    html.extrasTitle.innerHTML = 'Board Tags'
+    html.extrasContent.innerHTML = `
     <a style="color: white;">Board tags</a><br>
     <div id = "boardTags" style="width: 100%; background-color: black; text-align: left;">
     </div>
@@ -15,7 +15,7 @@ function showTagsDialog(){
     <div id = "allTagsFiltered" style="width: 100%; background-color: black; text-align: left;">
     </div>
     `
-    static.extrasBack.onclick = showExtrasClicked
+    html.extrasBack.onclick = showExtrasClicked
     let boardTags = EbyId('boardTags')
 
     

@@ -3,8 +3,8 @@ let selectedExtensionInEditor = ""
 
 function showExtensionEditor(){
     
-    static.extrasTitle.innerHTML = 'Extension Editor'
-    static.extrasContent.innerHTML = `
+    html.extrasTitle.innerHTML = 'Extension Editor'
+    html.extrasContent.innerHTML = `
     <a style="color: white; margin-bottom: 10px;">All Extensions</a>
     
     <form class="input-group-append" onsubmit="event.preventDefault(); extensionEditorSearched(event);" style="width:100%">
@@ -42,7 +42,7 @@ function showExtensionEditor(){
     </form>
 
     `
-    static.extrasBack.onclick = showExtrasClicked
+    html.extrasBack.onclick = showExtrasClicked
     
     showExtrasDialog()
     selectExtensionToEdit("")

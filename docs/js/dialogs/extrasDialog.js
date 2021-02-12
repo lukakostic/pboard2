@@ -1,16 +1,16 @@
 let extrasSelected = null
 
 function showExtrasDialog(){
-  $(static.extrasDialog).modal('show')
+  $(html.extrasDialog).modal('show')
 }
 
 function extrasBackgroundClicked(event){
-  if(event.target.id != 'static.extrasDialog') return
+  if(event.target.id != 'html.extrasDialog') return
   closeExtrasDialog()
 }
 
 function closeExtrasDialog(){
-  $(static.extrasDialog).modal('hide')
+  $(html.extrasDialog).modal('hide')
 }
 
 function showExtrasClicked(){
@@ -20,8 +20,8 @@ function showExtrasClicked(){
 
 function showExtras(){
   
-  static.extrasTitle.innerHTML = 'Extras'
-  static.extrasContent.innerHTML = `
+  html.extrasTitle.innerHTML = 'Extras'
+  html.extrasContent.innerHTML = `
   <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showPreferencesDialog(event)">Preferences</button>
   <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showTagEditor(event)">Tags</button>
   <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showExtensionEditor(event)">Extensions</button>
@@ -31,7 +31,7 @@ function showExtras(){
   <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showTagsDialog(event)">Set Board Tags</button>
   <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 16px;" onclick="showExtensionsDialog(event)">Set Board Extensions</button>
   `
-  static.extrasBack.onclick = closeExtrasDialog
+  html.extrasBack.onclick = closeExtrasDialog
 
   showExtrasDialog()
 }

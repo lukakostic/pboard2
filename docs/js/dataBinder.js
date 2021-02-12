@@ -1,5 +1,6 @@
 
 function boardTitleChanged(event){
+    // $FlowIgnore[extra-arg]
     log('board title changed')
     
     if(event.srcElement == null) event.srcElement = event.target
@@ -11,6 +12,7 @@ function boardTitleChanged(event){
 }
 
 function boardDescriptionChanged(event){
+    // $FlowIgnore[extra-arg]
     log('board description changed')
 
     if(event.srcElement == null) event.srcElement = event.target
@@ -22,6 +24,7 @@ function boardDescriptionChanged(event){
 }
 
 function listTitleChanged(event){
+    // $FlowIgnore[extra-arg]
     log('list title changed')
 
     if(event.srcElement == null) event.srcElement = event.target

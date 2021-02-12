@@ -20,7 +20,7 @@ let storage = {
           else
             callback(null)
         })
-        .catch((err)=>{ loge(err,'fileIdByName err '); callback(null) })
+        .catch((err)=>{/*$FlowIgnore[extra-arg]*/ loge(err,'fileIdByName err '); callback(null) })
     },
 
 
@@ -92,6 +92,7 @@ let storage = {
     fileDownload(name, callback){
       this.fileIdByName(name,(fileId)=>{
         if(fileId != null){
+          // $FlowIgnore[extra-arg]
           logw('get fileId is :',fileId)
           gapi.client.drive.files.get({
             'fileId': fileId,
@@ -101,11 +102,13 @@ let storage = {
             callback(response.body) //result: false, body: ''
           })
           .catch((fail)=>{
+            // $FlowIgnore[extra-arg]
             loge('fail',fail) 
             callback(null)
           })
   
         }else{
+            // $FlowIgnore[extra-arg]
             logw('get fileId is NULL')
             callback(null)
         }
@@ -122,9 +125,10 @@ let storage = {
           'fileId': fileId
           })
           .then((response)=>{
+            // $FlowIgnore[extra-arg]
             log(response,t='fileDelete log')
           })
-          .catch((err)=>{ loge(err,'fileDelete err '); callback(null) })
+          .catch((err)=>{ /*$FlowIgnore[extra-arg]*/loge(err,'fileDelete err '); if(callback!==null)callback(null) })
         }
       })
   },
@@ -132,12 +136,14 @@ let storage = {
     /////////////////////////////////////////////////////// !!!
     fileMove(from,to, callback=null) {
       alert("NOT IMPLEMENTED")
-      this.dropbox.filesMove(obj)
+      this.dropbox.filesMove(obj) /////////////?????????
       .then(function (response) {
+        // $FlowIgnore[extra-arg]
           log(response)
           if(callback) callback(response)
       })
       .catch(function (error) {
+        // $FlowIgnore[extra-arg]
           loge(error)
           if(callback) callback(error)
       })
@@ -153,8 +159,8 @@ let storage = {
             'pageSize': 10,
             'fields': "nextPageToken, files(id, name)"
           })
-          .then((response)=>{ log(response) })
-          .catch((error)=>{ loge(error) })
+          .then((response)=>{/*$FlowIgnore[extra-arg]*/ log(response) })
+          .catch((error)=>{ /*$FlowIgnore[extra-arg]*/ loge(error) })
           /*
           .then(function(response) {
             appendPre('Files:');

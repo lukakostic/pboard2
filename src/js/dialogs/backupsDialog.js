@@ -2,8 +2,8 @@ let availableBackups = []
 
 function showBackupsDialog(){
     
-    static.extrasTitle.innerHTML = 'Backups'
-    static.extrasContent.innerHTML = `
+    html.extrasTitle.innerHTML = 'Backups'
+    html.extrasContent.innerHTML = `
     <a style="color: white;">New backup</a><br>
     <form class="input-group-append" onsubmit="event.preventDefault(); makeBackupClicked(event);" style="width:100%">
         <input id="newBackup" name="s" type="text" placeholder="Backup name" class="form-control">
@@ -19,7 +19,7 @@ function showBackupsDialog(){
     <div id = "backupsFiltered" style="width: 100%; background-color: black; color: white; text-align: left;">
     </div>
     `
-    static.extrasBack.onclick = showExtrasClicked
+    html.extrasBack.onclick = showExtrasClicked
 
 
     showExtrasDialog()

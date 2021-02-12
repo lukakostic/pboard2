@@ -42,6 +42,7 @@ function set_url(value){
 
 //set current board, push to history
 function set_board(value){
+  // $FlowIgnore[extra-arg]
   log("set_board('" + value + "')")
   board = value
   boardHistory.add(value)
@@ -55,11 +56,13 @@ function goLogin(){
 }
 
 function goHome(){
+  // $FlowIgnore[extra-arg]
   log('goHome')
   set_board("")
 }
 
 function goUp(){
+  // $FlowIgnore[extra-arg]
   log('goUp')
   //boardHistory.pop() //since last url is yours
 
@@ -82,6 +85,7 @@ function OnStorageLoad(){
       gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
       updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
     }, (error)=>{
+      // $FlowIgnore[extra-arg]
       alog(error)
       goLogin() //error initing drive, probably not logged in
     })
@@ -99,6 +103,7 @@ function updateSigninStatus(isSignedIn){
     
     board = boardFromUrl(url())
 
+    // $FlowIgnore[extra-arg]
     logw('initial reset or load')
     
     if(sync.loadCachedContent() == false) //load from cache or reset
@@ -118,10 +123,11 @@ function updateSigninStatus(isSignedIn){
 
 
 function resetData(){
+  // $FlowIgnore[extra-arg]
   logw("resetData()")
   pb = new PBoard("", currentVersion) //currentVersion in updater.js
   //main board
-  pb.boards[""] = new Board(BoardTypes.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
+  pb.boards[""] = new Board(BoardType.List,"",[],{references:99999999999,main:true},"") //////////////////////////////////////// change to ListBoard ?
   set_board("")
 }
 
@@ -159,9 +165,9 @@ function newText(event){
   if(event.srcElement == null) event.srcElement = event.target
   let parent = event.srcElement.parentNode.parentNode.parentNode ////////////// replace by find parent thing?
 
-  let el = static.textBrdTemplate.cloneNode(true)
+  let el = html.textBrdTemplate.cloneNode(true)
 
-  let brd = new Board(BoardTypes.Text,"Text","",{references:1})
+  let brd = new Board(BoardType.Text,"Text","",{references:1})
 
   pb.boards[brd.id] = brd
   pb.boards[dataId(parent)].content.push(brd.id) //Add to parent list
@@ -180,10 +186,10 @@ function newBoard(event){
   if(event.srcElement == null) event.srcElement = event.target
   let parent = event.srcElement.parentNode.parentNode.parentNode ////////////// replace by find parent thing?
 
-  let el = static.boardBrdTemplate.cloneNode(true)
+  let el = html.boardBrdTemplate.cloneNode(true)
 
   let atr = {description:'Description',references:1}
-  let brd = new Board(BoardTypes.Board,"Board",[],atr)
+  let brd = new Board(BoardType.Board,"Board",[],atr)
 
   pb.boards[brd.id] = brd
   pb.boards[dataId(parent)].content.push(brd.id) //Add to parent list
@@ -203,7 +209,7 @@ function newBoard(event){
 
 function newList(event){
 
-  let el = static.listTemplate.cloneNode(true)
+  let el = html.listTemplate.cloneNode(true)
 
   if(event.srcElement == null) event.srcElement = event.target
   let inp = event.srcElement.firstElementChild
@@ -213,14 +219,14 @@ function newList(event){
 //  $(titleText).val(name);
   $(titleText).html(name) //we assume its div at start
   //$(titleText).prop("readonly",true);
-  titleText.addEventListener('click',listTitleClicked,true)
-  titleText.onblur = (event)=>{listTitleBlur(event)}
+  titleText.addEventListener('click',listTitleClicked,true)         ///////?????
+  titleText.onblur = (event)=>{listTitleBlur(event)}         ////////??????
 
-  let brd = new Board(BoardTypes.List,name,[],{references:1})
+  let brd = new Board(BoardType.List,name,[],{references:1})
   pb.boards[brd.id] = brd
   pb.boards[board].content.push(brd.id)
 
-  static.boardAlbum.appendChild(el)
+  html.boardAlbum.appendChild(el)
   set_dataId(el, brd.id)
 
   

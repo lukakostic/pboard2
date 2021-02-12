@@ -15,6 +15,7 @@ let extensions = {
   },
   
   invoke: function (listener = ""){
+    // $FlowIgnore[extra-arg]
     log('Invoking listener:',listener)
     for(let i = 0; i < this.listeners[listener].length; i++)
       if(this.listeners[listener])
@@ -24,6 +25,7 @@ let extensions = {
   },
 
   execute: function(){
+    // $FlowIgnore[extra-arg]
     log('extensions.execute()')
     let exts = brdAttrOrDef(board,'extensions',[])
     for(let i = 0; i < exts.length; i++){

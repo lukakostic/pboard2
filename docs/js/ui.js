@@ -17,9 +17,9 @@ let ui = {
       //Resize main board so it doesnt take whole screen width, rather just the middle 'document' area
       //Makes it easier to focus and see the boards than if they are spread thru whole width
       if(window.innerWidth>1250)
-        static.listAlbum.style.width = '1250px'
+        html.listAlbum.style.width = '1250px'
       else
-        static.listAlbum.style.width = '100%'
+        html.listAlbum.style.width = '100%'
     
       //Make tab title same as board name
       if(pb != null){ //If loaded
@@ -32,7 +32,7 @@ let ui = {
       //singleInstanceCheck()////////////
     },100)
     
-    static.find()
+    html.find()
 
     EbyId('homeBtn').onclick = goHome
     EbyId('upBtn').onclick = goUp
@@ -43,6 +43,7 @@ let ui = {
   },
 
   pageOpened: function(){
+    // $FlowIgnore[extra-arg]
     log("pageOpened()")
 
     extensions.invoke('pre_newPage')
@@ -69,17 +70,17 @@ let ui = {
 
 
   startSavingIndicator: function(){
-    static.savingIndicator.style.display = 'block'
+    html.savingIndicator.style.display = 'block'
   },
   stopSavingIndicator: function(){
-    static.savingIndicator.style.display = 'none'
+    html.savingIndicator.style.display = 'none'
   },
 
   startLoadingIndicator: function(){
-    static.loadingIndicator.style.display = 'block'
+    html.loadingIndicator.style.display = 'block'
   },
   stopLoadingIndicator: function(){
-    static.loadingIndicator.style.display = 'none'
+    html.loadingIndicator.style.display = 'none'
   },
 
   expandInputAll: function(){
@@ -95,6 +96,7 @@ let ui = {
   },
 
   clearLists: function(){
+    // $FlowIgnore[extra-arg]
     log('clearLists()')
     let lists = EbyClass('list')
       
@@ -112,6 +114,7 @@ let ui = {
     draggableLists.sortable({
       items: '.draggable',
       start: (event, drag)=>{
+        // $FlowIgnore[extra-arg]
         log('drag start')
           ui.dragItem = drag.item
           ui.oldDragIndex = elementIndex(ui.dragItem[0])
@@ -119,6 +122,7 @@ let ui = {
           ui.dragStartTime = (new Date()).getTime()
       },
       stop: (event, drag)=>{
+        // $FlowIgnore[extra-arg]
         log('drag stop')
         //With a delay so that dragging a board doesnt click its button at end
         setTimeout(()=>{
@@ -146,7 +150,8 @@ let ui = {
 
         },50)
       },
-      change: (event, drag)=>{  
+      change: (event, drag)=>{
+        // $FlowIgnore[extra-arg]
         log('drag change')
           if(drag.sender) ui.dragNew = drag.placeholder.parent()
           ui.fixListUI(ui.dragNew[0])
@@ -162,12 +167,14 @@ let ui = {
     draggableAlbums.sortable({
       items: '.draggableList',
       start: (event, drag)=>{
+        // $FlowIgnore[extra-arg]
           log('drag list start')
           ui.dragItem = drag.item
           ui.oldDragIndex = elementIndex(ui.dragItem[0])
           ui.dragStartTime = (new Date()).getTime()
       },
       stop: (event, drag)=>{
+        // $FlowIgnore[extra-arg]
         log('drag list stop')
         //With a delay so that dragging a board doesnt click its button at end
         setTimeout(()=>{
@@ -184,6 +191,7 @@ let ui = {
         },50)
       },
       change: (event, ui)=>{
+        // $FlowIgnore[extra-arg]
         log('drag list change')
         //if(ui.sender) dragNew = ui.placeholder.parent();
           
@@ -217,9 +225,10 @@ let ui = {
   },
 
   draw: function(){
+    // $FlowIgnore[extra-arg]
     log('draw()')
-    if(pb.boards[board].type == BoardTypes.Board) this.drawBoardAlbum()
-    else if(pb.boards[board].type == BoardTypes.List) this.drawListAlbum()
+    if(pb.boards[board].type == BoardType.Board) this.drawBoardAlbum()
+    else if(pb.boards[board].type == BoardType.List) this.drawListAlbum()
     // board type text
 
     this.loadBoardBackgroundImage()
@@ -230,11 +239,13 @@ let ui = {
   },
     
   clearBoards: function(lst = null) {
+    // $FlowIgnore[extra-arg]
     log('clearBoards(',lst,')')
 
     let lists = [lst]
     if(lst == null) lists = qSelAll('.list:not([id])')
 
+    // $FlowIgnore[extra-arg]
     logw('lists', lists)
     
     for(let j = 0; j < lists.length; j++){
@@ -246,18 +257,6 @@ let ui = {
     }
   },
 
-  fixListUI: function(listEl=null){
-    if(listEl!=null){
-      let newPanel = EbyClass('newPanel',listEl)[0]
-      newPanel.parentNode.appendChild(newPanel)
-    }else{
-      let album = fixAlbumUI()
-      let lists = EbyClass('list', album)[0]
-      for(let i = 0; i<lists.length; i++)
-        if(lists[i].id=="") this.fixListUI(lists[i])
-      
-    }
-  },
 
   //move newlist to bottom again
   fixNewListUI: function(){
@@ -276,23 +275,37 @@ let ui = {
     return null
   },
 
+  fixListUI: function(listEl=null){
+    if(listEl!=null){
+      let newPanel = EbyClass('newPanel',listEl)[0]
+      newPanel.parentNode.appendChild(newPanel)
+    }else{
+      let album = this.fixAlbumUI()
+      let lists = EbyClass('list', album)[0]
+      for(let i = 0; i<lists.length; i++)
+        if(lists[i].id=="") this.fixListUI(lists[i])
+      
+    }
+  },
+
   drawBoardAlbum: function(){
+    // $FlowIgnore[extra-arg]
     log('drawBoardAlbum()')
-    static.listAlbum.classList.add('d-none')
-    static.boardAlbum.classList.remove('d-none')
+    html.listAlbum.classList.add('d-none')
+    html.boardAlbum.classList.remove('d-none')
     
     this.clearLists()
     //clearBoards()
 
-    static.boardTitle.value = pb.boards[board].name
-    static.boardDescription.value = brdAttr(board,'description')
+    html.boardTitle.value = pb.boards[board].name
+    html.boardDescription.value = brdAttr(board,'description')
 
 
     //fill lists & boards
     for(let l = 0; l < pb.boards[board].content.length; l++){
 
-      let listEl = static.listTemplate.cloneNode(true)
-      static.boardAlbum.appendChild(listEl)
+      let listEl = html.listTemplate.cloneNode(true)
+      html.boardAlbum.appendChild(listEl)
 
       
       this.loadList(listEl,pb.boards[board].content[l])
@@ -300,23 +313,24 @@ let ui = {
     }
 
     
-    $(static.boardTitle).select() //autopop
+    $(html.boardTitle).select() //autopop
 
     this.fixAlbumUI()
     this.fixNewListUI()
   },
 
   drawListAlbum: function(){
+    // $FlowIgnore[extra-arg]
     log('drawListAlbum()')
-    static.boardAlbum.classList.add('d-none')
-    static.listAlbum.classList.remove('d-none')
+    html.boardAlbum.classList.add('d-none')
+    html.listAlbum.classList.remove('d-none')
 
-    this.clearBoards(static.mainList)
+    this.clearBoards(html.mainList)
 
-    static.boardTitle.value = pb.boards[board].name
-    static.boardDescription.value = brdAttr(board,'description')
+    html.boardTitle.value = pb.boards[board].name
+    html.boardDescription.value = brdAttr(board,'description')
     
-    this.loadList(static.mainList,board)
+    this.loadList(html.mainList,board)
 
     
 
@@ -325,16 +339,16 @@ let ui = {
     //fill boards
     for(let i = 0; i < ids.length; i++){
       if(pb.boards[ids[i]].attributes['onMain'] == true){
-        if(pb.boards[ids[i]].type == BoardTypes.Text){
+        if(pb.boards[ids[i]].type == BoardType.Text){
 
-          let el = static.textBrdTemplate.cloneNode(true);
-          static.mainList.appendChild(el);
+          let el = html.textBrdTemplate.cloneNode(true);
+          html.mainList.appendChild(el);
           loadTextBoard(el,pb.boards[ids[i]]);
         
-        }else if(pb.boards[ids[i]].type == BoardTypes.Board){
+        }else if(pb.boards[ids[i]].type == BoardType.Board){
 
-          let el = static.boardBrdTemplate.cloneNode(true);
-          static.mainList.appendChild(el);
+          let el = html.boardBrdTemplate.cloneNode(true);
+          html.mainList.appendChild(el);
           loadBoardBoard(el,pb.boards[ids[i]]);
 
         }
@@ -342,11 +356,12 @@ let ui = {
       }
     }
     */
-    this.fixListUI(static.mainList)
+    this.fixListUI(html.mainList)
   },
 
 
   loadTextBoard: function(textBoardEl, brd){
+    // $FlowIgnore[extra-arg]
     log('loadTextBoard(',textBoardEl,"'"+JSON.stringify(brd)+"'",')')
 
     if (typeof brd === 'string' || brd instanceof String)
@@ -371,6 +386,7 @@ let ui = {
   },
 
   loadBoardBoard: function(boardBoardEl, brd){
+    // $FlowIgnore[extra-arg]
     log('loadBoardBoard(',boardBoardEl,"'"+JSON.stringify(brd)+"'",')')
 
     if (typeof brd === 'string' || brd instanceof String)
@@ -383,12 +399,13 @@ let ui = {
   },
 
   loadList: function(listEl, brd){
+    // $FlowIgnore[extra-arg]
     log('loadList(',listEl,"'"+JSON.stringify(brd)+"'",')')
 
     if (typeof brd === 'string' || brd instanceof String)
       brd = pb.boards[brd]
 
-    titleText = EbyClass('title-text',listEl)[0]
+    titleText = EbyClass('title-text',listEl)[0] ////////////??????
 
     //could cause issues with main board (probably not)?
     //can only be blur while as input, so turn to div
@@ -397,8 +414,8 @@ let ui = {
     //  titleText.onblur = null;
 
 
-    titleText.addEventListener('click',listTitleClicked,true)
-    titleText.onblur = (event)=>{ listTitleBlur(event) }
+    titleText.addEventListener('click',listTitleClicked,true) //////////////???????
+    titleText.onblur = (event)=>{ listTitleBlur(event) } /////////////???????
 
   //  $(titleText).val(brd.name);
     $(titleText).html(brd.name) //we assume its div at start
@@ -409,15 +426,15 @@ let ui = {
     
     for(let i = 0; i < brd.content.length; i++){
       let brd2 = pb.boards[brd.content[i]]
-      if(brd2.type == BoardTypes.Text){
+      if(brd2.type == BoardType.Text){
 
-        let el = static.textBrdTemplate.cloneNode(true)
+        let el = html.textBrdTemplate.cloneNode(true)
         listEl.appendChild(el)
         this.loadTextBoard(el,brd2)
       
-      }else if(brd2.type == BoardTypes.Board){
+      }else if(brd2.type == BoardType.Board){
 
-        let el = static.boardBrdTemplate.cloneNode(true)
+        let el = html.boardBrdTemplate.cloneNode(true)
         listEl.appendChild(el)
         this.loadBoardBoard(el,brd2)
 
@@ -432,9 +449,9 @@ let ui = {
 
     for(let i = 0; i < boardEls.length; i++)
       if(dataId(boardEls[i])==brdId){
-        if(pb.boards[brdId].type == BoardTypes.Text)
+        if(pb.boards[brdId].type == BoardType.Text)
           this.loadTextBoard(boardEls[i],brdId)
-        else if(pb.boards[brdId].type == BoardTypes.Board)
+        else if(pb.boards[brdId].type == BoardType.Board)
           this.loadBoardBoard(boardEls[i],brdId)
       }
     

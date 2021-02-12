@@ -56,7 +56,7 @@ let css = {
   fromCssString: (cssStr)=>{
     
     //Not implemented.
-  }
+  },
 
   //apply values from this.css
   apply: ()=>{

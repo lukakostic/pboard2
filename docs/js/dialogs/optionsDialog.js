@@ -36,7 +36,7 @@ function showSeeReferencesDialog(){
   let ids = Object.keys(pb.boards)
 
   for(let i = 0; i < ids.length; i++)
-    if(pb.boards[ids[i]].type == BoardTypes.List)
+    if(pb.boards[ids[i]].type == BoardType.List)
       if(pb.boards[ids[i]].content.includes(brd))
         listReferences.push(ids[i])
       
@@ -46,7 +46,7 @@ function showSeeReferencesDialog(){
 
   //go thru each board, see if it includes any of the listReferences
   for(let i = 0; i < ids.length; i++)
-    if(pb.boards[ids[i]].type == BoardTypes.Board)
+    if(pb.boards[ids[i]].type == BoardType.Board)
       for(let j = 0; j < listReferences.length; j++)
         if(pb.boards[ids[i]].content.includes(listReferences[j]))
           boardReferences[ids[i]] = null //just some value

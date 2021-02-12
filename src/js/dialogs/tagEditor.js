@@ -2,8 +2,8 @@ let selectedTagInEditor = ""
 
 function showTagEditor(){
     
-    static.extrasTitle.innerHTML = 'Tag Editor'
-    static.extrasContent.innerHTML = `
+    html.extrasTitle.innerHTML = 'Tag Editor'
+    html.extrasContent.innerHTML = `
     <a id="tagEditorSelected" style="color: white; font-size: 24px;">Selected: none</a><br>
     <form class="input-group-append" onsubmit="event.preventDefault(); tagEditorNew();" style="width:100%">
         <input id="tagEditorInput" name="sel" type="text" placeholder="Selected / New Tag" class="form-control">
@@ -36,7 +36,7 @@ function showTagEditor(){
     <div id = "allTagsFiltered" style="min-height: 10px; width: 100%; background-color: black; text-align: left;">
     </div>
     `
-    static.extrasBack.onclick = showExtrasClicked
+    html.extrasBack.onclick = showExtrasClicked
     
     showExtrasDialog()
     selectTagToEdit("")

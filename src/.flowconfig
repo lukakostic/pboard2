@@ -1,0 +1,17 @@
+[ignore]
+.*/node_modules
+
+[declarations]
+.*/_external/.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+all=true
+
+[strict]
+

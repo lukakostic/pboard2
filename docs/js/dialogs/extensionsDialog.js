@@ -7,8 +7,8 @@ class AddedExtension{
 
 function showExtensionsDialog(){
   
-  static.extrasTitle.innerHTML = 'Board Extensions'
-  static.extrasContent.innerHTML = `
+  html.extrasTitle.innerHTML = 'Board Extensions'
+  html.extrasContent.innerHTML = `
   <a style="color: white;">Board extensions</a><br>
   <div id = "boardExtensions" style="width: 100%; background-color: black; text-align: left;">
   </div>
@@ -22,7 +22,7 @@ function showExtensionsDialog(){
   <div id = "allExtensionsFiltered" style="width: 100%; background-color: black; text-align: left;">
   </div>
   `
-  static.extrasBack.onclick = showExtrasClicked
+  html.extrasBack.onclick = showExtrasClicked
   let boardExtensions = EbyId('boardExtensions')
 
   

@@ -20,8 +20,8 @@ let sync = {
   },
   
 
-  setSyncTime: ()=>{
-    sync.lastSyncTime = (new Date()).getTime()
+  setSyncTime: function(){
+    this.lastSyncTime = (new Date()).getTime()
   },
 
   flashLoadingIndicator: ()=>{
@@ -32,12 +32,14 @@ let sync = {
   },
 
   //loads pb from cookies, if it exists, else returns false
-  loadCachedContent: ()=>{
+  loadCachedContent: function(){
     let contents = window.localStorage.getItem('cached')
     if(contents == null || contents == undefined) return false
     
     if(loadPBoard(contents))
+    // $FlowIgnore[extra-arg]
      logw('loading from cache')
+     // $FlowIgnore[extra-arg]
     else logw('not loading from cache')
     extensions.invoke('loadCached')
     return true
@@ -48,7 +50,7 @@ let sync = {
     //setCookie('cached', contents)
   },
 
-  saveAll: (callback = null)=>{
+  saveAll: function(callback = null){
     try{
 
       extensions.invoke('pre_saveAll')
@@ -57,6 +59,7 @@ let sync = {
       sync.setSyncTime()
       let contents = buildPBoard()
       
+      // $FlowIgnore[extra-arg]
       log('saveAll ',contents)
       
       if(sync.syncedOnline == false)
@@ -76,10 +79,10 @@ let sync = {
         sync.save.dirty = false
       })
   
-    }catch(e){ alog(e) }
+    }catch(e){/*$FlowIgnore[extra-arg]*/ alog(e) }
   },
 
-  loadAll: (callback = null)=>{
+  loadAll: function(callback = null){
       try{
   
         extensions.invoke('pre_loadAll')
@@ -90,11 +93,13 @@ let sync = {
           sync.syncedOnline = true
           if (contents != null && contents != '') {
             
+            // $FlowIgnore[extra-arg]
             log('loading contents ',contents)
             loadPBoard(contents)
             extensions.invoke('loadAll')
         
           }else{
+            // $FlowIgnore[extra-arg]
             logw('loaded null, resetting')
             resetData()
           } 
@@ -103,22 +108,23 @@ let sync = {
           //ui.stopLoadingIndicator()
         })
   
-    }catch(e){ alog(e) }
+    }catch(e){/*$FlowIgnore[extra-arg]*/ alog(e) }
   },
 
   
 
-  start: ()=>{
-    sync.save.interval = setInterval(()=>{
+  start: function(){
+    this.save.interval = setInterval(()=>{
       if(sync.save.dirty == false) return;
       
       sync.save.dirty = false
+      // $FlowIgnore[extra-arg]
       log('sync save')
       sync.saveAll()
       
     }, pb.preferences['autoSaveInterval']*1000)
 
-    sync.load.interval = setInterval(()=>{
+    this.load.interval = setInterval(()=>{
       //let checksum = hash(buildPBoard())
       //dont do if not in focus, save bandwith
       if(document.hasFocus()){

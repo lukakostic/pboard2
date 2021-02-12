@@ -11,6 +11,7 @@ let updater = {
     },
 
     updateSaveFile: function(saveFile){
+        // $FlowIgnore[extra-arg]
         log('updating ', saveFile)
 
         if(saveFile['pb'] != undefined && saveFile.pb['version'] == currentVersion)
@@ -29,7 +30,7 @@ let updater = {
             saveFile.preferences = pref
             saveFile.version = 3
 
-            newSaveFile = {
+            let newSaveFile = {
                 syncTime: 0,
                 pb: saveFile,
             }

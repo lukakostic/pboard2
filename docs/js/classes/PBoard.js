@@ -1,4 +1,12 @@
 class PBoard {
+    name :string
+    version :number
+    boards : {[string]:Board|PBoard}
+    extensions :{[string]:Extension}
+    tags :{[string]:Tag}
+    attributes :{[string]:any}
+    preferences :{[string]:any}
+
     constructor(name = "", version = -1, attributes = {}){
         this.name = name
         this.version = version
@@ -13,8 +21,8 @@ class PBoard {
     }
 }
 
-
-const BoardTypes = {
+type BoardTypeT = {[string]:number}
+const BoardType :BoardTypeT = {
     Text : 1,
     Board : 2,
     List : 3
@@ -22,13 +30,18 @@ const BoardTypes = {
 
 
 class Board {
-
+    id :string
+    type :BoardTypeT
+    name :string
+    content :any //!
+    tags :Object
+    attributes :Object
     
     constructor(type, name, content,  attributes = {}, id = null) {
         if (id === null) id = Board.makeId(8)
         
         this.id = id //string
-        this.type = type //BoardTypes
+        this.type = type //BoardType
         this.name = name //string
         this.content = content //text or array of ids [string]
         this.tags = {}
@@ -79,7 +92,7 @@ class Board {
     //delete board by id, and dereference its children. Children get deleted if at 0 references.
     static deleteBoardById(id){
         if(id=="") return
-        if(pb.boards[id].type != BoardTypes.Text){ //since they cant contain other boards
+        if(pb.boards[id].type != BoardType.Text){ //since they cant contain other boards
             for(let i = 0; i < pb.boards[id].content.length; i++){
                 pb.boards[pb.boards[id].content[i]].attributes['references']--
                 if(pb.boards[pb.boards[id].content[i]].attributes['references']<=0)
@@ -93,7 +106,7 @@ class Board {
         let ids = Object.keys(pb.boards)
 
         for(let i = 0; i < ids.length; i++){
-            if(pb.boards[ids[i]].type == BoardTypes.Text) continue
+            if(pb.boards[ids[i]].type == BoardType.Text) continue
 
             let ind = pb.boards[ids[i]].content.indexOf(id)
             while(ind!=-1){

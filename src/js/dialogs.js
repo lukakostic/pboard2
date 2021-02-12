@@ -44,7 +44,7 @@ function newReferenceBtn(event){
 
   if(refer==null) return
   if(pb.boards[refer] == null){ alert("ID doesn't exist :("); return }
-  if(pb.boards[refer].type == BoardTypes.List){alert("Cant embed lists into boards."); return}
+  if(pb.boards[refer].type == BoardType.List){alert("Cant embed lists into boards."); return}
 /*
   if(board == ""){
       pb.boards[refer].attributes['onMain'] = true;
