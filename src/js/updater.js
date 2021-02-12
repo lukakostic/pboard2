@@ -1,6 +1,6 @@
 //@flow
 
-let currentVersion = 3
+let currentVersion = 3.1
 
 let updater = {
     copyNewProperties: function(from, to){
@@ -39,7 +39,12 @@ let updater = {
             
             return this.updateSaveFile(newSaveFile)
         }
-        //if(saveFile.pb.version == 3){}
+        if(saveFile.project['version'] == 3){
+            Object.defineProperty(saveFile, 'pb', Object.getOwnPropertyDescriptor(saveFile, 'project'));
+            delete saveFile['project'];
+            
+            return this.updateSaveFile(saveFile)
+        }
         return null
     }
 }
