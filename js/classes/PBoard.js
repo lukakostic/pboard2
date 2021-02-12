@@ -27,7 +27,8 @@ class PBoard {
 const BoardType = {
     Text : 1,
     Board : 2,
-    List : 3
+    List : 3,
+    Project: 4
 }
 
 

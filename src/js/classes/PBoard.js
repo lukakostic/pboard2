@@ -28,7 +28,8 @@ type BoardTypeT = {[string]:number}
 const BoardType :BoardTypeT = {
     Text : 1,
     Board : 2,
-    List : 3
+    List : 3,
+    Project: 4
 }
 
 

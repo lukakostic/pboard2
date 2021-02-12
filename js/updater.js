@@ -39,10 +39,10 @@ let updater = {
             
             return this.updateSaveFile(newSaveFile)
         }
-        if(saveFile.project['version'] == 3){
+        if(saveFile['project'] != null && saveFile.project['version'] == 3){
             Object.defineProperty(saveFile, 'pb', Object.getOwnPropertyDescriptor(saveFile, 'project'));
             delete saveFile['project'];
-            
+            saveFile.pb.version = 3.1
             return this.updateSaveFile(saveFile)
         }
         return null
