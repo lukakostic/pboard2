@@ -3,7 +3,7 @@
 /* Main script tying everything together */
 
 //base site url
-let siteUrl = "https://lukakostic.github.io/pboard/"
+let siteUrl = "https://lukakostic.github.io/pb/"
 
 //currently open PBoard object
 let pb = null
