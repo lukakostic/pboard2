@@ -1,6 +1,3 @@
-export {} //So no error of redeclaring gapi
-declare let gapi: any; //3rd party in external
-
 let authorizeButton = null;
 let signoutButton = null;
 let doRedirect = false;
