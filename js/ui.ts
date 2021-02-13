@@ -45,7 +45,7 @@ let ui = {
   },
 
   pageOpened: function(){
-    // $FlowIgnore[extra-arg]
+    
     log("pageOpened()")
 
     extensions.invoke('pre_newPage')
@@ -98,7 +98,7 @@ let ui = {
   },
 
   clearLists: function(){
-    // $FlowIgnore[extra-arg]
+    
     log('clearLists()')
     let lists = EbyClass('list')
       
@@ -108,15 +108,18 @@ let ui = {
     
   },
 
+
+
   makeDraggable: function(){
+    
 
     //make boards draggable
     let draggableLists = $('.draggableList')
     if(draggableLists.length !== 0)
-    draggableLists.sortable({
+    (<JQuery<HTMLElement>&{sortable:any}> draggableLists).sortable({
       items: '.draggable',
       start: (event, drag)=>{
-        // $FlowIgnore[extra-arg]
+        
         log('drag start')
           ui.dragItem = drag.item
           ui.oldDragIndex = elementIndex(ui.dragItem[0])
@@ -124,7 +127,7 @@ let ui = {
           ui.dragStartTime = (new Date()).getTime()
       },
       stop: (event, drag)=>{
-        // $FlowIgnore[extra-arg]
+        
         log('drag stop')
         //With a delay so that dragging a board doesnt click its button at end
         setTimeout(()=>{
@@ -153,7 +156,7 @@ let ui = {
         },50)
       },
       change: (event, drag)=>{
-        // $FlowIgnore[extra-arg]
+        
         log('drag change')
           if(drag.sender) ui.dragNew = drag.placeholder.parent()
           ui.fixListUI(ui.dragNew[0])
@@ -166,17 +169,17 @@ let ui = {
     //make lists draggable
     let draggableAlbums = $('.draggableAlbum')
     if(draggableAlbums.length !== 0)
-    draggableAlbums.sortable({
+    (<JQuery<HTMLElement>&{sortable:any}> draggableAlbums).sortable({
       items: '.draggableList',
       start: (event, drag)=>{
-        // $FlowIgnore[extra-arg]
+        
           log('drag list start')
           ui.dragItem = drag.item
           ui.oldDragIndex = elementIndex(ui.dragItem[0])
           ui.dragStartTime = (new Date()).getTime()
       },
       stop: (event, drag)=>{
-        // $FlowIgnore[extra-arg]
+        
         log('drag list stop')
         //With a delay so that dragging a board doesnt click its button at end
         setTimeout(()=>{
@@ -193,7 +196,7 @@ let ui = {
         },50)
       },
       change: (event, ui)=>{
-        // $FlowIgnore[extra-arg]
+        
         log('drag list change')
         //if(ui.sender) dragNew = ui.placeholder.parent();
           
@@ -227,7 +230,7 @@ let ui = {
   },
 
   draw: function(){
-    // $FlowIgnore[extra-arg]
+    
     log('draw()')
     if(pb.boards[board].type == BoardType.Board) this.drawBoardAlbum()
     else if(pb.boards[board].type == BoardType.List) this.drawListAlbum()
@@ -241,13 +244,13 @@ let ui = {
   },
     
   clearBoards: function(lst = null) {
-    // $FlowIgnore[extra-arg]
+    
     log('clearBoards(',lst,')')
 
     let lists = [lst]
     if(lst == null) lists = qSelAll('.list:not([id])')
 
-    // $FlowIgnore[extra-arg]
+    
     logw('lists', lists)
     
     for(let j = 0; j < lists.length; j++){
@@ -291,7 +294,7 @@ let ui = {
   },
 
   drawBoardAlbum: function(){
-    // $FlowIgnore[extra-arg]
+    
     log('drawBoardAlbum()')
     html.listAlbum.classList.add('d-none')
     html.boardAlbum.classList.remove('d-none')
@@ -322,7 +325,7 @@ let ui = {
   },
 
   drawListAlbum: function(){
-    // $FlowIgnore[extra-arg]
+    
     log('drawListAlbum()')
     html.boardAlbum.classList.add('d-none')
     html.listAlbum.classList.remove('d-none')
@@ -363,7 +366,7 @@ let ui = {
 
 
   loadTextBoard: function(textBoardEl, brd){
-    // $FlowIgnore[extra-arg]
+    
     log('loadTextBoard(',textBoardEl,"'"+JSON.stringify(brd)+"'",')')
 
     if (typeof brd === 'string' || brd instanceof String)
@@ -388,7 +391,7 @@ let ui = {
   },
 
   loadBoardBoard: function(boardBoardEl, brd){
-    // $FlowIgnore[extra-arg]
+    
     log('loadBoardBoard(',boardBoardEl,"'"+JSON.stringify(brd)+"'",')')
 
     if (typeof brd === 'string' || brd instanceof String)
@@ -401,7 +404,7 @@ let ui = {
   },
 
   loadList: function(listEl, brd){
-    // $FlowIgnore[extra-arg]
+    
     log('loadList(',listEl,"'"+JSON.stringify(brd)+"'",')')
 
     if (typeof brd === 'string' || brd instanceof String)

@@ -20,7 +20,7 @@ function handleClientLoad_Login() {
       authorizeButton.onclick = handleAuthClick
       signoutButton.onclick = handleSignoutClick
       
-    }, (error)=>{/*$FlowIgnore[extra-arg]*/ loge(error) })
+    }, (error)=>{ loge(error) })
   })
 }
 

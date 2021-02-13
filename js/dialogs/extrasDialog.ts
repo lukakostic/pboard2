@@ -3,21 +3,21 @@
 let extrasSelected = null
 
 function showExtrasDialog(){
-  $(html.extrasDialog).modal('show')
+  (<JQuery<any> &{modal:any}> $(html.extrasDialog)).modal('show');
 }
 
 function extrasBackgroundClicked(event){
-  if(event.target.id != 'html.extrasDialog') return
-  closeExtrasDialog()
+  if(event.target.id != 'html.extrasDialog') return;
+  closeExtrasDialog();
 }
 
 function closeExtrasDialog(){
-  $(html.extrasDialog).modal('hide')
+  (<JQuery<any> &{modal:any}> $(html.extrasDialog)).modal('hide');
 }
 
 function showExtrasClicked(){
-  extrasSelected = board
-  showExtras()
+  extrasSelected = board;
+  showExtras();
 }
 
 function showExtras(){

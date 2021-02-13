@@ -93,7 +93,7 @@ function makeBackupClicked(event){
         backups(()=>{ backupsSearched() })
         alert('Made backup')
 
-    },(msg)=>{ log(msg) })
+    },(msg)=>{ log(msg); })
 }
 
 function deleteBackupClicked(event){

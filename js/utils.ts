@@ -138,7 +138,6 @@ function parentElementBoard(el,state=-1){
     else if(state == 3)
         return board;
 
-    // $FlowIgnore[extra-arg]
     log('unknown board type');
 
     return null;

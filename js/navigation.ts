@@ -6,13 +6,13 @@ function goLogin(){
 }
 
 function goHome(){
-  // $FlowIgnore[extra-arg]
+  
   log('goHome')
   set_board("")
 }
 
 function goUp(){
-  // $FlowIgnore[extra-arg]
+  
   log('goUp')
   //boardHistory.pop() //since last url is yours
 

@@ -39,9 +39,9 @@ let sync = {
     if(contents == null || contents == undefined) return false
     
     if(loadPBoard(contents))
-    // $FlowIgnore[extra-arg]
+    
      logw('loading from cache')
-     // $FlowIgnore[extra-arg]
+     
     else logw('not loading from cache')
     extensions.invoke('loadCached')
     return true
@@ -63,7 +63,7 @@ let sync = {
       sync.setSyncTime()
       let contents = buildPBoard()
       
-      // $FlowIgnore[extra-arg]
+      
       log('saveAll ',contents)
       
       if(sync.syncedOnline == false)
@@ -83,7 +83,7 @@ let sync = {
         sync.save.dirty = false
       })
   
-    }catch(e){/*$FlowIgnore[extra-arg]*/ alog(e) }
+    }catch(e){ alog(e) }
   },
 
   loadAll: function(callback = null){
@@ -97,13 +97,13 @@ let sync = {
           sync.syncedOnline = true
           if (contents != null && contents != '') {
             
-            // $FlowIgnore[extra-arg]
+            
             log('loading contents ',contents)
             loadPBoard(contents)
             extensions.invoke('loadAll')
         
           }else{
-            // $FlowIgnore[extra-arg]
+            
             logw('loaded null, resetting')
             resetData()
           } 
@@ -112,7 +112,7 @@ let sync = {
           //ui.stopLoadingIndicator()
         })
   
-    }catch(e){/*$FlowIgnore[extra-arg]*/ alog(e) }
+    }catch(e){ alog(e) }
   },
 
   
@@ -125,7 +125,7 @@ let sync = {
       if(sync.save.dirty == false) return;
       
       sync.save.dirty = false
-      // $FlowIgnore[extra-arg]
+      
       log('sync save')
       sync.saveAll()
       

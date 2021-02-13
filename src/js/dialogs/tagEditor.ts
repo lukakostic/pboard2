@@ -232,7 +232,7 @@ function tagEditorAddCheckedToParentsClicked(){
         if((<HTMLInputElement> nodes[i].childNodes[1]).checked){
             let id = dataId(nodes[i]);
 
-            if(Object.keys(Tag.AllUpstreamParents(id)).includes(selectedTagInEditor))
+            if(Object.keys(Tag.AllUpstreamParents(id)).indexOf(selectedTagInEditor) != -1)
                 return alert('Cant add ' + pb.tags[id].name + ' as parent, because its a (possibly indirect) child of the selected tag.')
                 
 

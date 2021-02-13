@@ -45,7 +45,7 @@ function set_url(value){
 
 //set current board, push to history
 function set_board(value){
-  // $FlowIgnore[extra-arg]
+  
   log("set_board('" + value + "')")
   board = value
   boardHistory.add(value)
@@ -56,7 +56,7 @@ function set_board(value){
 
 
 function resetData(){
-  // $FlowIgnore[extra-arg]
+  
   logw("resetData()")
   pb = new PBoard("", currentVersion) //currentVersion in updater.js
   //main board
@@ -75,9 +75,9 @@ function buildPBoard(){
 }
 
 function loadPBoard(content,checkTime = true){
-  // $FlowIgnore[extra-arg]
+  
   log('content:')
-  // $FlowIgnore[extra-arg]
+  
   logw(content)
 
   extensions.invoke('loadPBoard')
@@ -110,7 +110,7 @@ function OnStorageLoad(){
       gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
       updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
     }, (error)=>{
-      // $FlowIgnore[extra-arg]
+      
       alog(error)
       goLogin() //error initing drive, probably not logged in
     })
@@ -128,7 +128,7 @@ function updateSigninStatus(isSignedIn){
     
     board = boardFromUrl(url())
 
-    // $FlowIgnore[extra-arg]
+    
     logw('initial reset or load')
     
     if(sync.loadCachedContent() == false) //load from cache or reset

@@ -9,9 +9,9 @@ function showOptionsDialog(event,idEl = null){
   optionsElement = event.srcElement
   if(idEl == null) idEl = event.srcElement.parentNode
 
-  let modal = $('#optionsDialog')
+  let modal = $('#optionsDialog');
   //modal[0].setAttribute('data-id',idEl.getAttribute('data-id'));
-  modal.modal('show')
+  (<JQuery<any> &{modal:any}> modal).modal('show');
 }
 
 function showBoardExtrasDialog(){
@@ -80,15 +80,15 @@ function showSeeReferencesDialog(){
       $(el).text('List(s) on Board ' + brds[i])
   }
 
-  set_dataId(modal[0], brd)
-  modal.modal('show')
+  set_dataId(modal[0], brd);
+  (<JQuery<any> &{modal:any}> modal).modal('show');
 
 
 }
 
 function hideOptionsDialog(){
-  let modal = $('#optionsDialog')
-  modal.modal('hide')
+  let modal = $('#optionsDialog');
+  (<JQuery<any> &{modal:any}> modal).modal('hide');
 }
 
 function removeClicked(){
