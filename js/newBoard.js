@@ -23,7 +23,8 @@ function newBoard(event) {
     pb.boards[dataId(parent)].content.push(brd.id);
     parent.appendChild(el);
     ui.loadBoardBoard(el, brd.id);
-    ui.fixListUI(parent)(EbyClass('textBtn', el)[0]).click();
+    ui.fixListUI(parent);
+    EbyClass('textBtn', el)[0].click();
     sync.saveAll(() => {
     });
 }

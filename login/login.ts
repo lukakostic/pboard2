@@ -1,4 +1,9 @@
+export {} //So no error of redeclaring gapi
+declare let gapi: any; //3rd party in external
+
 let authorizeButton, signoutButton, doRedirect = false
+
+
 // On load, called to load the auth2 library and API client library.
 function handleClientLoad_Login() {
   authorizeButton = EbyId('authorize_button')

@@ -88,7 +88,7 @@ let storage = {
                     'fileId': fileId
                 })
                     .then((response) => {
-                    log(response, t = 'fileDelete log');
+                    log(response, 'fileDelete log');
                 })
                     .catch((err) => { loge(err, 'fileDelete err '); if (callback !== null)
                     callback(null); });

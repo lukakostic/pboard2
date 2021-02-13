@@ -22,10 +22,9 @@ class Extension {
     }
     static findExtensionByName(name) {
         let k = Object.keys(pb.extensions);
-        for (let j = 0; j < k.length; j++) {
+        for (let j = 0; j < k.length; j++)
             if (pb.extensions[k[j]].name == name)
                 return k[j];
-        }
         return null;
     }
 }

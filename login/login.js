@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 let authorizeButton, signoutButton, doRedirect = false;
 function handleClientLoad_Login() {
     authorizeButton = EbyId('authorize_button');

@@ -2,26 +2,26 @@
 
 //Static html elements
 let html = {
-  textBrdTemplate :HTMLTemplateElement,
-  boardBrdTemplate :HTMLTemplateElement,
-  listTemplate :HTMLTemplateElement,
+  textBrdTemplate :HTMLTemplateElement = null,
+  boardBrdTemplate :HTMLTemplateElement = null,
+  listTemplate :HTMLTemplateElement = null,
 
-  boardAlbum :HTMLElement,
-  listAlbum :HTMLElement,
-  mainList :HTMLElement,
+  boardAlbum :HTMLElement = null,
+  listAlbum :HTMLElement = null,
+  mainList :HTMLElement = null,
 
-  loadingIndicator :HTMLElement,
-  savingIndicator :HTMLElement,
+  loadingIndicator :HTMLElement = null,
+  savingIndicator :HTMLElement = null,
 
-  header :HTMLElement,
+  header :HTMLElement = null,
 
-  extrasDialog :HTMLElement,
-  extrasTitle :HTMLElement,
-  extrasContent :HTMLElement,
-  extrasBack :HTMLElement,
+  extrasDialog :HTMLElement = null,
+  extrasTitle :HTMLElement = null,
+  extrasContent :HTMLElement = null,
+  extrasBack :HTMLElement = null,
 
-  boardTitle :HTMLElement,
-  boardDescription :HTMLElement,
+  boardTitle :HTMLElement = null,
+  boardDescription :HTMLElement = null,
 
 
   find: function(){

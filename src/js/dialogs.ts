@@ -42,11 +42,11 @@ function listTitleBlur(event){
 }
 
 function newReferenceBtn(event){
-  let refer = window.prompt("Write/Paste id of board to reference:")
+  let refer = window.prompt("Write/Paste id of board to reference:");
 
-  if(refer==null) return
-  if(pb.boards[refer] == null){ alert("ID doesn't exist :("); return }
-  if(pb.boards[refer].type == BoardType.List){alert("Cant embed lists into boards."); return}
+  if(refer==null) return;
+  if(pb.boards[refer] == null){ alert("ID doesn't exist :("); return; }
+  if(pb.boards[refer].type == BoardType.List){alert("Cant embed lists into boards."); return;}
 /*
   if(board == ""){
       pb.boards[refer].attributes['onMain'] = true;
@@ -54,21 +54,21 @@ function newReferenceBtn(event){
       drawListBoard();
   }else{
 */
-  if(event.srcElement == null) event.srcElement = event.target
-  let lst = event.srcElement.parentNode.parentNode.parentNode
-  let lstId = dataId(lst)
+  if(event.srcElement == null) event.srcElement = event.target;
+  let lst = event.srcElement.parentNode.parentNode.parentNode;
+  let lstId = dataId(lst);
 
-  pb.boards[lstId].content.push(refer)
+  pb.boards[lstId].content.push(refer);
 
-  clearBoards(lst)
-  ui.loadList(lst,lstId)
+  ui.clearBoards(lst);
+  ui.loadList(lst,lstId);
   //}
 
   
-  pb.boards[refer].attributes['references']++
+  pb.boards[refer].attributes['references']++;
 
 
-  hideOptionsDialog()
+  hideOptionsDialog();
 
-  sync.saveAll()
+  sync.saveAll();
 }

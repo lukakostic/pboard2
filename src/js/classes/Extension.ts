@@ -1,36 +1,36 @@
 class Extension {
-    id :string
-    name :string
-    description :string
-    code :string
+    id :string;
+    name :string;
+    description :string;
+    code :string;
     
     constructor(name = "", description = "", code = "", id :string|null = null){
-        if (id === null) id = Extension.makeId(16)
+        if (id === null) id = Extension.makeId(16);
 
-        this.id = id
-        this.name = name
-        this.description = description
-        this.code = code
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.code = code;
     }
     
     static makeId(maxLength :number) :string {
-        let id = ""
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+        let id = "";
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 
         //find unique id
         while(true){
 
-            id = ""
+            id = "";
                 
             //let length = Math.floor(Math.random() * maxLength) + 1;
-            let length = maxLength
+            let length = maxLength;
 
             //generate rand chars and append
             for (let i = 0; i < length; i++)
-                id += possible.charAt(Math.floor(Math.random() * possible.length))
+                id += possible.charAt(Math.floor(Math.random() * possible.length));
 
                 
-            if(pb.extensions[id] == null) break
+            if(pb.extensions[id] == null) break;
 
         }
 
@@ -38,11 +38,10 @@ class Extension {
     }
     
     static findExtensionByName(name :string) :string|null {
-        let k = Object.keys(pb.extensions)
-        for(let j = 0; j < k.length; j++){
-            if(pb.extensions[k[j]].name == name) return k[j]
-        }
-        return null
+        let k = Object.keys(pb.extensions);
+        for(let j = 0; j < k.length; j++)
+            if(pb.extensions[k[j]].name == name) return k[j];
+        return null;
     }
 
 }

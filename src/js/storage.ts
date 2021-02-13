@@ -1,4 +1,4 @@
-
+declare let gapi: any; //3rd party in external
 
 let driveAPI_Creds = {
   apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
@@ -128,7 +128,7 @@ let storage = {
           })
           .then((response)=>{
             // $FlowIgnore[extra-arg]
-            log(response,t='fileDelete log')
+            log(response,'fileDelete log')
           })
           .catch((err)=>{ /*$FlowIgnore[extra-arg]*/loge(err,'fileDelete err '); if(callback!==null)callback(null) })
         }

@@ -25,18 +25,6 @@ let alog = function () {
 let mlog = function () {
     return Function.prototype.bind.call(console.log, console);
 }();
-function hash(str) {
-    let hash = 0;
-    let char = 0;
-    if (str.length == 0)
-        return hash;
-    for (let i = 0; i < str.length; i++) {
-        char = str.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
-    }
-    return hash;
-}
 function getMainCookie() {
     let cookieObj = Cookies.get('_');
     if (cookieObj == null || cookieObj == undefined || cookieObj == "")
@@ -55,6 +43,18 @@ function setCookie(name, value) {
     let cookieObj = getMainCookie();
     cookieObj[name] = value;
     setMainCookie(cookieObj);
+}
+function hash(str) {
+    let hash = 0;
+    let char = 0;
+    if (str.length == 0)
+        return hash;
+    for (let i = 0; i < str.length; i++) {
+        char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+    }
+    return hash;
 }
 function urlFromBoard(boardId) {
     return siteUrl + "#" + boardId;
@@ -82,8 +82,7 @@ function parentElementBoard(el, state = -1) {
         if (id == null) {
             if (el.parentNode == null)
                 return null;
-            else
-                return parentElementBoard(el.parentNode);
+            return parentElementBoard(el.parentNode);
         }
         else if (id == "") {
             alert('empty attribute');
@@ -143,8 +142,7 @@ function templateFChild(id) {
     let el = EbyId(id);
     if (el instanceof HTMLTemplateElement)
         return el.content.firstElementChild;
-    else
-        return null;
+    return null;
 }
 function elementIndex(node) {
     let index = 0;

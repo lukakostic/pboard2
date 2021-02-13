@@ -41,7 +41,7 @@ function newReferenceBtn(event) {
     let lst = event.srcElement.parentNode.parentNode.parentNode;
     let lstId = dataId(lst);
     pb.boards[lstId].content.push(refer);
-    clearBoards(lst);
+    ui.clearBoards(lst);
     ui.loadList(lst, lstId);
     pb.boards[refer].attributes['references']++;
     hideOptionsDialog();

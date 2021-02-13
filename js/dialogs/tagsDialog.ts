@@ -69,15 +69,15 @@ function filteredTagClicked(event){
 }
 
 function tagsDialogSearched(){
-    let s = (<HTMLInputElement> EbyId('tagsDialogSearch')).value
+    let s = (<HTMLInputElement> EbyId('tagsDialogSearch')).value;
     
-    let allTagsFiltered = EbyId('allTagsFiltered')
-    allTagsFiltered.innerHTML = ''
+    let allTagsFiltered = EbyId('allTagsFiltered');
+    allTagsFiltered.innerHTML = '';
 
-    let allTagIds = Object.keys(pb.tags)
+    let allTagIds = Object.keys(pb.tags);
     for(let i = 0; i < allTagIds.length; i++)
         if(s==""||pb.tags[allTagIds[i]].name.includes(s))
-            tagBtnTemplate(pb.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,filteredTagClicked)
+            tagBtnTemplate(pb.tags[allTagIds[i]].name,allTagIds[i],allTagsFiltered,filteredTagClicked);
         
     
 

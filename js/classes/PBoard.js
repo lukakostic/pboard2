@@ -8,7 +8,7 @@ class PBoard {
         this.attributes = attributes;
         this.preferences = {
             'autoSaveInterval': 30,
-            'autoLoadInterval': 5,
+            'autoLoadInterval': 5
         };
     }
 }
