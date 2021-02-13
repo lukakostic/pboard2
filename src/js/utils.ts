@@ -201,8 +201,8 @@ function EbyClass(className, element = document){
 
 function templateFChild(id){
     let el = EbyId(id);
-    if(el instanceof HTMLTemplateElement)
-        return el.content.firstElementChild;
+    if(el["content"] != undefined) //is template
+        return (<HTMLTemplateElement> el).content.firstElementChild;
     return null;
 }
 
