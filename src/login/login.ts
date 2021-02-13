@@ -1,35 +1,37 @@
 export {} //So no error of redeclaring gapi
 declare let gapi: any; //3rd party in external
 
-let authorizeButton, signoutButton, doRedirect = false
+let authorizeButton = null;
+let signoutButton = null;
+let doRedirect = false;
 
 
 // On load, called to load the auth2 library and API client library.
 function handleClientLoad_Login() {
-  authorizeButton = EbyId('authorize_button')
-  signoutButton = EbyId('signout_button')
+  authorizeButton = EbyId('authorize_button');
+  signoutButton = EbyId('signout_button');
 
-  gapi.load('client:auth2', ()=>{
+  gapi.load('client:auth2', function(){
     gapi.client.init(driveAPI_Creds)
     .then(function () {
 
       //Listen for sign in changes and call updateSigninStatus_Login, as well as call the initial one
-      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus_Login)
-      updateSigninStatus_Login(gapi.auth2.getAuthInstance().isSignedIn.get())
+      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus_Login);
+      updateSigninStatus_Login(gapi.auth2.getAuthInstance().isSignedIn.get());
 
-      authorizeButton.onclick = handleAuthClick
-      signoutButton.onclick = handleSignoutClick
+      authorizeButton.onclick = handleAuthClick;
+      signoutButton.onclick = handleSignoutClick;
       
     }, (error)=>{ loge(error) })
   })
 }
 
 function handleAuthClick(event) {
-  gapi.auth2.getAuthInstance().signIn()
-  doRedirect = true
+  gapi.auth2.getAuthInstance().signIn();
+  doRedirect = true;
 }
 function handleSignoutClick(event) {
-  gapi.auth2.getAuthInstance().signOut()
+  gapi.auth2.getAuthInstance().signOut();
 }
 
 // Called when the signed in status changes, to update the UI
