@@ -16,10 +16,12 @@ let drags :{
 
 
 //UI calculations interval, singleInstance check
-let autoUI :number/*interval id*/|null = null; //set in htmlLoaded
+let autoUI :number/*interval id*/ = -1; //set in htmlLoaded
 
 
+//Called only once
 function htmlLoaded() :void{
+  if(autoUI == -1)
   autoUI = setInterval(()=>{
     //Fix this piece of shit mobile web dev crap
     document.body.style.setProperty("width","100vw");
@@ -42,7 +44,7 @@ function htmlLoaded() :void{
     //singleInstanceCheck()////////////
   },100);
   
-  html.find();
+  html.find(); //find static html elements
 
   EbyId('homeBtn').onclick = goHome;
   EbyId('upBtn').onclick = goUp;

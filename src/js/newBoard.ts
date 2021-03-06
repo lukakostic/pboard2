@@ -5,7 +5,7 @@ function newText(event) :void{
   if(event.srcElement == null) event.srcElement = event.target;
   let parent = event.srcElement.parentNode.parentNode.parentNode; ////////////// replace by find parent thing?
 
-  let el = html.textBrdTemplate.cloneNode(true);
+  let el = <HTMLElement> html.textBrdTemplate.cloneNode(true);
 
   let brd = new Board(BoardType.Text,"Text","",{references:1});
 
@@ -27,7 +27,7 @@ function newBoard(event) :void{
   if(event.srcElement == null) event.srcElement = event.target;
   let parent = event.srcElement.parentNode.parentNode.parentNode; ////////////// replace by find parent thing?
 
-  let el = html.boardBrdTemplate.cloneNode(true);
+  let el = <HTMLElement> html.boardBrdTemplate.cloneNode(true);
 
   let atr = {description:'Description',references:1};
   let brd = new Board(BoardType.Board,"Board",[],atr);
@@ -51,7 +51,7 @@ function newBoard(event) :void{
 
 function newList(event) :void{
 
-  let el = html.listTemplate.cloneNode(true)
+  let el = <HTMLElement> html.listTemplate.cloneNode(true);
 
   if(event.srcElement == null) event.srcElement = event.target
   let inp = event.srcElement.firstElementChild

@@ -1,27 +1,50 @@
 
 
 //Static html elements
-let html = {
-  textBrdTemplate :HTMLTemplateElement = null,
-  boardBrdTemplate :HTMLTemplateElement = null,
-  listTemplate :HTMLTemplateElement = null,
+let html :{
+  textBrdTemplate :HTMLTemplateElement;
+  boardBrdTemplate :HTMLTemplateElement;
+  listTemplate :HTMLTemplateElement;
 
-  boardAlbum :HTMLElement = null,
-  listAlbum :HTMLElement = null,
-  mainList :HTMLElement = null,
+  boardAlbum :HTMLElement;
+  listAlbum :HTMLElement;
+  mainList :HTMLElement;
 
-  loadingIndicator :HTMLElement = null,
-  savingIndicator :HTMLElement = null,
+  loadingIndicator :HTMLElement;
+  savingIndicator :HTMLElement;
 
-  header :HTMLElement = null,
+  header :HTMLElement;
 
-  extrasDialog :HTMLElement = null,
-  extrasTitle :HTMLElement = null,
-  extrasContent :HTMLElement = null,
-  extrasBack :HTMLElement = null,
+  extrasDialog :HTMLElement;
+  extrasTitle :HTMLElement;
+  extrasContent :HTMLElement;
+  extrasBack :HTMLElement;
 
-  boardTitle :HTMLElement = null,
-  boardDescription :HTMLElement = null,
+  boardTitle :HTMLInputElement;
+  boardDescription :HTMLInputElement;
+
+  find :Function;
+} = {
+  textBrdTemplate: null,
+  boardBrdTemplate: null,
+  listTemplate: null,
+
+  boardAlbum: null,
+  listAlbum: null,
+  mainList: null,
+
+  loadingIndicator: null,
+  savingIndicator: null,
+
+  header: null,
+
+  extrasDialog: null,
+  extrasTitle: null,
+  extrasContent: null,
+  extrasBack: null,
+
+  boardTitle: null,
+  boardDescription: null,
 
 
   find: function(){
