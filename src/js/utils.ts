@@ -82,8 +82,8 @@ function setCookie(name,value){
 
 
 ///////////////////////////////////////////////////////////////////////////////////// Cookies }
-
-function hash(str){
+//return number hash of string
+function hash(str :string) :number{
 	let hash = 0;
 	let char = 0;
     if (str.length == 0) return hash;
@@ -95,17 +95,19 @@ function hash(str){
 	return hash;
 }
 
-function urlFromBoard(boardId){
+function urlFromBoard(boardId :string) :string{
     return siteUrl + "#" + boardId;
 }
-function boardFromUrl(url){
+function boardFromUrl(url :string) :string{
     return url.replace(siteUrl,'').replace('#','');
 }
 
-function qSel(query,element = document){
+//select 1 element by query
+function qSel(query :string,element :Element|Document = document){
     return element.querySelector(query);
 }
-function qSelAll(query,element = document){
+//select all elements by query
+function qSelAll(query :string,element :Element|Document = document){
     return element.querySelectorAll(query);
 }
 
@@ -144,10 +146,10 @@ function parentElementBoard(el,state=-1){
 }
 
 //Get/Set Board id (data-id) from html element
-function dataId(el){
+function dataId(el) :string{
     return el.getAttribute('data-id');
 }
-function set_dataId(el,id){
+function set_dataId(el,id :string) :void{
     el.setAttribute('data-id',id);
 }
 
@@ -179,7 +181,7 @@ function brdAttrOrDef(id,attr,val){
 
 
 //Delete attribute of board by id
-function delBrdAttr(id,attr){
+function delBrdAttr(id :string, attr :string) :void{
     delete pb.boards[id].attributes[attr];
 }
 
@@ -192,21 +194,21 @@ function nulledGetAttribute(el,attr){
     return atr;
 }
 
-function EbyId(id){
+function EbyId(id :string) :HTMLElement|null{
     return document.getElementById(id);
 }
-function EbyClass(className, element = document){
+function EbyClass(className :string, element :HTMLElement|Document = document) :HTMLCollectionOf<Element>|null{
     return element.getElementsByClassName(className);
 }
 
-function templateFChild(id){
+function templateFChild(id :string) :Element|null{
     let el = EbyId(id);
     if(el["content"] != undefined) //is template
         return (<HTMLTemplateElement> el).content.firstElementChild;
     return null;
 }
 
-function elementIndex(node) {
+function elementIndex(node :Element) :number{
     let index = 0;
     while(node = node.previousElementSibling)
         index++;

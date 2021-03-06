@@ -72,7 +72,7 @@
             <form class="row text bg-inherit" style="margin: 0px; width: calc(100% - 44px);">
                 <textarea wrap="hard" class="expandInput card-name bg-inherit"  id="boardDescription"
                   style="resize: none;  padding: 0.5rem !important; text-overflow: ellipsis; color:white; border: 0px; width: 100%;"
-                  oninput="ui.expandInput(this);boardDescriptionChanged();" placeholder="Board Description">Board Description</textarea>
+                  oninput="expandInput(this);boardDescriptionChanged();" placeholder="Board Description">Board Description</textarea>
         
                 <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
               </form>
@@ -124,7 +124,7 @@
         -->
         <button class="btn btn-spaced-1 btn-secondary bg-dark ml-auto" type="button" data-toggle="collapse" data-target="#navbarHeader"
           aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation"
-           onclick="setTimeout(()=>{ui.expandInput(document.getElementById('boardDescription'));},1);">
+           onclick="setTimeout(()=>{expandInput(document.getElementById('boardDescription'));},1);">
            <i class="fas fa-bars"></i>
         </button>
 
@@ -209,7 +209,7 @@
       <form class="text row bg-dark" style="margin: 0px; width:100%;">
         <textarea name="message" rows="4" cols="40"  wrap="hard" class="card-name bg-dark"
         style="resize: none; padding-left: 5px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; text-overflow: ellipsis; color:white; border: 0px;"
-        onkeypress="ui.expandInput(this)" oninput="ui.expandInput(this)" onchange="ui.expandInput(this)">Some Text Some Text Some Text Some Text Some Text Some Text Some Text</textarea>
+        onkeypress="expandInput(this)" oninput="expandInput(this)" onchange="expandInput(this)">Some Text Some Text Some Text Some Text Some Text Some Text Some Text</textarea>
         
         <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
       </form>
@@ -251,7 +251,7 @@
       <form class="row text bg-dark" style="margin: 0px; width:100%;">
         <textarea name="message" rows="4" cols="40" wrap="hard" class="expandInput card-name bg-dark"
           style="resize: none; padding-left: 5px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; text-overflow: ellipsis; color:white; border: 0px;"
-          oninput="ui.expandInput(this);textBoardChanged();">Text</textarea>
+          oninput="expandInput(this);textBoardChanged();">Text</textarea>
 
         <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
       </form>

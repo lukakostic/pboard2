@@ -1,23 +1,23 @@
 
 
 
-function goLogin(){
-  set_url(siteUrl + "login/")
+function goLogin() :void{
+  set_url(siteUrl + "login/");
 }
 
-function goHome(){
+function goHome() :void{
   
-  log('goHome')
-  set_board("")
+  log('goHome');
+  set_board("");
 }
 
-function goUp(){
+function goUp() :void{
   
-  log('goUp')
+  log('goUp');
   //boardHistory.pop() //since last url is yours
 
-  let prev = boardHistory.prev()
-  if(prev == null) prev = ""
-  set_board(prev)
+  let prev = boardHistory.prev();
+  if(prev == null) prev = "";
+  set_board(prev);
   //window.history.back();
 }

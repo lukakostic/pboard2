@@ -1,24 +1,24 @@
 
 
-
-function showBoardBoardDialog(event, id=null){
-  if(event.srcElement == null) event.srcElement = event.target
-  if(ui.dragItem!=null && ( event.srcElement==ui.dragItem[0] || event.srcElement.parentNode == ui.dragItem[0]))
-    return //stop drag-click
+function showBoardBoardDialog(event, id=null) :void{
+  if(event.srcElement == null) event.srcElement = event.target;
+  if(drags.dragItem!=null && ( event.srcElement==drags.dragItem[0] || event.srcElement.parentNode == drags.dragItem[0])) // Dont open if being dragged
+    return; //stop drag-click
 
   if(id == null)
-    id = dataId(event.srcElement.parentNode)
+    id = dataId(event.srcElement.parentNode);
   
-  set_board(id)
+  set_board(id);
 }
 
-function listTitleClicked(event){
-  if(event.srcElement == null) event.srcElement = event.target
-  let titleText = event.srcElement
-  $(titleText).focus()
+
+function listTitleClicked(event) :void{
+  if(event.srcElement == null) event.srcElement = event.target;
+  let titleText = event.srcElement;
+  $(titleText).focus();
 
   try{
-    document.execCommand('selectAll',false,null)
+    document.execCommand('selectAll',false,null);
   }catch(e){}
 
   //can only be clicked while as div, so turn to input
@@ -27,21 +27,24 @@ function listTitleClicked(event){
   //    $(titleText).html("");
   //    titleText.outerHTML = titleText.outerHTML.replace('<div','<input').replace('</div>','</input>');
   //    $(titleText).prop("readonly",false);
-  log('Title click')
+  log('Title click');
 }
-function listTitleBlur(event){
-  if(event.srcElement == null) event.srcElement = event.target
-  let titleText = event.srcElement
+
+
+function listTitleBlur(event) :void{
+  if(event.srcElement == null) event.srcElement = event.target;
+  let titleText = event.srcElement;
   //can only be blur while as input, so turn to div
   //    titleText.onclick = ()=>{listTitleClicked();};
   //    titleText.onblur = null;
   //    $(titleText).prop("readonly",true);
   //    $(titleText).html(titleText.value);
   //    titleText.outerHTML = titleText.outerHTML.replace('<input','<div').replace('</input>','</div>');
-  log('Title blur')
+  log('Title blur');
 }
 
-function newReferenceBtn(event){
+
+function newReferenceBtn(event) :void{
   let refer = window.prompt("Write/Paste id of board to reference:");
 
   if(refer==null) return;
@@ -60,8 +63,8 @@ function newReferenceBtn(event){
 
   pb.boards[lstId].content.push(refer);
 
-  ui.clearBoards(lst);
-  ui.loadList(lst,lstId);
+  clearBoards(lst);
+  loadList(lst,lstId);
   //}
 
   

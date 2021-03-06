@@ -135,7 +135,8 @@ let storage = {
       })
   },
 
-    /////////////////////////////////////////////////////// !!!
+    /////////////////////////////////////////////////////// !!! /*TODO NOT IMPLEMENTED */
+    /*
     fileMove(from,to, callback=null) {
       alert("NOT IMPLEMENTED")
       this.dropbox.filesMove(obj) /////////////?????????
@@ -150,10 +151,11 @@ let storage = {
           if(callback) callback(error)
       })
     },
+    */
 
 
-
-    ////////////////////////////////////////////!!!!!!!!
+    ////////////////////////////////////////////!!!!!!!! /*TODO NOT IMPLEMENTED */
+    /*
     filesList(path = '') {
         alert("Not implemented")
 
@@ -177,6 +179,7 @@ let storage = {
             }
           });
           */
+    /* //Remove this comment too !!!!!!!
     },
-
+    */
 }

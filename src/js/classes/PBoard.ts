@@ -1,13 +1,13 @@
 class PBoard {
     name :string;
     version :number;
-    boards : {[index:string]:Board|PBoard};
+    boards : {[index:string]:Board};
     extensions :{[index:string]:Extension};
     tags :{[index:string]:Tag};
     attributes :{[index:string]:any};
     preferences :{[index:string]:any};
     
-    constructor(name = "", version = -1, attributes = {}){
+    constructor(name :string = "", version :number = -1, attributes :any = {}){
         this.name = name;
         this.version = version;
         this.boards = {};
@@ -27,7 +27,7 @@ const BoardType :BoardTypeT = {
     Text : 1,
     Board : 2,
     List : 3,
-    Project: 4
+    PBoard: 4 //whole new local board
 }
 
 
@@ -35,12 +35,12 @@ class Board {
     id :string;
     type :BTypeT;
     name :string;
-    content :any; //!
+    content :any; //! can be PBoard too
     tags :Object;
     attributes :Object; //object (isBoard,onMain, etc.)
     
 
-    constructor(type : BTypeT, name, content,  attributes = {}, id = null) {
+    constructor(type :BTypeT, name :string, content :any,  attributes :any = {}, id :string|null = null) {
         if (id === null) id = Board.makeId(8)
         
         this.id = id;
@@ -52,11 +52,11 @@ class Board {
     }
 
 
-    static clone(brd){
+    static clone(brd :Board) :Board{
         return new Board(brd.type, brd.name, brd.content, brd.attributes);
     }
 
-    static idFromUrl(url) {
+    static idFromUrl(url :string) :string{
         let boardId = "";
         
         //get id from url
@@ -68,7 +68,7 @@ class Board {
         return boardId;
     }
 
-    static makeId(maxLength) {
+    static makeId(maxLength :number) :string{
         let id = "";
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 
@@ -93,7 +93,7 @@ class Board {
     }
 
     //delete board by id, and dereference its children. Children get deleted if at 0 references.
-    static deleteBoardById(id){
+    static deleteBoardById(id :string) :void{
         if(id=="") return;
         if(pb.boards[id].type != BoardType.Text){ //since they cant contain other boards
             for(let i = 0; i < pb.boards[id].content.length; i++){

@@ -66,7 +66,7 @@ function backupsSearched(){
 
         let btn = document.createElement('div')
         fld.appendChild(btn)
-        btn.style = "width: 100%;"
+        btn.style.cssText = "width: 100%;"
         btn.classList.toggle("input-group-append",true)
         //log('done');
 
@@ -88,12 +88,13 @@ function makeBackupClicked(event){
     let bkName = (<HTMLInputElement> EbyId('newBackup')).value
     
     //new Date().getTime()+" "+ 
-    storage.fileUpload({ name: bkName + '.pbb', body: buildPBoard()},()=>{
-        
+    storage.fileUpload({ name: bkName + '.pbb', body: buildPBoard()},
+    (response)=>{
+        log(response);
         backups(()=>{ backupsSearched() })
         alert('Made backup')
 
-    },(msg)=>{ log(msg); })
+    });
 }
 
 function deleteBackupClicked(event){
@@ -137,7 +138,7 @@ function loadBackupClicked(event){
     
     resetData()
     loadPBoard(content)
-    ui.pageOpened()
+    pageOpened()
 
     alert('Loaded')
     if(confirm('Save?')) sync.saveAll()

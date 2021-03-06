@@ -30,7 +30,7 @@ function showExtensionEditor(){
     <form class="row text bg-inherit" style="margin: 5px;">
         <textarea wrap="hard" class="expandInput card-name bg-inherit" id="extensionEditorDescription"
         style="resize: none; padding: 2px 2px 2px 5px; text-overflow: ellipsis; background-color: black; color: white; border: 0px; width: 100%; height: 59px; font-size: 18px;"
-        oninput="ui.expandInput(this);" placeholder="Description"></textarea>
+        oninput="expandInput(this);" placeholder="Description"></textarea>
 
         <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
     </form>
@@ -38,7 +38,7 @@ function showExtensionEditor(){
     <form class="row text bg-inherit" style="margin: 5px;">
         <textarea wrap="hard" class="expandInput card-name bg-inherit" id="extensionEditorCode"
         style="resize: none; padding: 2px 2px 2px 5px; text-overflow: ellipsis; background-color: black; color: white; border: 0px; width: 100%; height: 59px; font-size: 18px;"
-        oninput="ui.expandInput(this);" placeholder="Code"></textarea>
+        oninput="expandInput(this);" placeholder="Code"></textarea>
 
         <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
     </form>
@@ -50,14 +50,14 @@ function showExtensionEditor(){
     selectExtensionToEdit("")
     extensionEditorSearched()
 
-    ui.expandInputAll()
+    expandInputAll()
 }
 
 function makeExtensionEditorBtn(text="?",id="",parent = null){
     let b = document.createElement('div')
     set_dataId(b,id)
     let style = "color: white; border: 0px; background-color: #"+((selectedExtensionInEditor==id)?"8F8F8F":"4444")+";"
-    b.style = style
+    b.style.cssText = style
     /*
     b.innerHTML = `
     <input type="checkbox" style="`+style+`">
@@ -184,7 +184,7 @@ function selectExtensionToEdit(id){
     }
 
 
-    ui.expandInputAll()
+    expandInputAll()
 }
 
 function extensionInEditorClicked(event){

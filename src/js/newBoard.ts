@@ -1,6 +1,6 @@
 
 
-function newText(event){
+function newText(event) :void{
   
   if(event.srcElement == null) event.srcElement = event.target;
   let parent = event.srcElement.parentNode.parentNode.parentNode; ////////////// replace by find parent thing?
@@ -13,16 +13,16 @@ function newText(event){
   pb.boards[dataId(parent)].content.push(brd.id); //Add to parent list
 
   parent.appendChild(el);
-  ui.loadTextBoard(el,brd.id);
+  loadTextBoard(el,brd.id);
 
   (<HTMLInputElement> EbyClass('textBtn',el)[0]).click(); ////////////////////////// auto open
 
-  ui.fixListUI(parent);
+  fixListUI(parent);
   sync.saveAll();
 }
 
 
-function newBoard(event){
+function newBoard(event) :void{
 
   if(event.srcElement == null) event.srcElement = event.target;
   let parent = event.srcElement.parentNode.parentNode.parentNode; ////////////// replace by find parent thing?
@@ -36,10 +36,10 @@ function newBoard(event){
   pb.boards[dataId(parent)].content.push(brd.id); //Add to parent list
 
   parent.appendChild(el);
-  ui.loadBoardBoard(el,brd.id);
+  loadBoardBoard(el,brd.id);
 
   
-  ui.fixListUI(parent);
+  fixListUI(parent);
 
   (<HTMLLIElement> EbyClass('textBtn', el)[0]).click(); // load board on add, might not want to do this.
 
@@ -49,7 +49,7 @@ function newBoard(event){
 }
 
 
-function newList(event){
+function newList(event) :void{
 
   let el = html.listTemplate.cloneNode(true)
 
@@ -72,10 +72,10 @@ function newList(event){
   set_dataId(el, brd.id)
 
   
-  ui.fixNewListUI()
-  ui.fixAlbumUI()
+  fixNewListUI()
+  fixAlbumUI()
 
-  ui.makeDraggable() //should only make draggable new list and not all?
+  makeDraggable() //should only make draggable new list and not all?
   $(inp).val('') //clear new list textbox
 
   sync.saveAll()

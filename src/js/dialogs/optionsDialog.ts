@@ -125,8 +125,8 @@ function removeClicked(){
     Board.deleteBoardById(id)
 
   hideOptionsDialog()
-  ui.clearLists()
-  ui.draw()
+  clearLists()
+  draw()
 
   sync.saveAll()
 }
@@ -144,8 +144,8 @@ function deleteClicked(){
 
 
   hideOptionsDialog()
-  ui.clearLists()
-  ui.draw()
+  clearLists()
+  draw()
 
   sync.saveAll()
 }

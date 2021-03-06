@@ -49,7 +49,7 @@ function makeTagEditorBtn(text="Tag",id="",parent = null, onclick = null){
     let b = document.createElement('span')
     set_dataId(b,id)
     let style = "color: white; border: 0px; background-color: #"+((selectedTagInEditor==id)?"8F8F8F":"4444")+";"
-    b.style = style
+    b.style.cssText = style
     b.innerHTML = `
     <input type="checkbox" style="`+style+`">
     <button onclick="`+onclick+`" style="`+style+`">`+text+`</button>`
@@ -236,7 +236,7 @@ function tagEditorAddCheckedToParentsClicked(){
                 return alert('Cant add ' + pb.tags[id].name + ' as parent, because its a (possibly indirect) child of the selected tag.')
                 
 
-            if(pb.tags[selectedTagInEditor].parentTags.includes(id)) continue //already a parent
+            if(pb.tags[selectedTagInEditor].parentTags.indexOf(id) != -1) continue; //already a parent
 
             if(id == selectedTagInEditor)
                 return alert('Cant parent tag to itself.')

@@ -34,7 +34,7 @@ function showTagsDialog(){
 function tagBtnTemplate(text="Tag",id="",parent = null, click = null){
     let b = document.createElement('button')
     if(parent!=null)parent.appendChild(b)
-    b.style = "color: white; border: 0px; background-color: #4444;"
+    b.style.cssText = "color: white; border: 0px; background-color: #4444;"
     set_dataId(b,id)
     b.onclick = click
     b.innerHTML = text

@@ -46,8 +46,8 @@ function setBackgroundClicked(){
   if(backgroundURL!="") set_brdAttr(extrasSelected,'background', backgroundURL)
   if(backgroundURL=="") delBrdAttr(extrasSelected,'background')
 
-  ui.loadBoardBackgroundImage()
-  ui.loadAllBoardsByDataId(extrasSelected)
+  loadBoardBackgroundImage()
+  loadAllBoardsByDataId(extrasSelected)
 
   sync.saveAll()
 }

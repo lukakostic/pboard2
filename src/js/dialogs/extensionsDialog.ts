@@ -44,7 +44,7 @@ function showExtensionsDialog(){
 function extensionBtnTemplate(text="Extension",id="",parent = null, click = null){
   let b = document.createElement('button')
   if(parent!=null) parent.appendChild(b)
-  b.style = "text-align: left; margin: 2px; color: white; border: 0px; background-color: #4444;  width: 100%;"
+  b.style.cssText = "text-align: left; margin: 2px; color: white; border: 0px; background-color: #4444;  width: 100%;"
   set_dataId(b,id)
   b.onclick = click
   b.innerHTML = text
@@ -54,7 +54,7 @@ function extensionBtnTemplate(text="Extension",id="",parent = null, click = null
 function boardExtensionBtnTemplate(text="Extension", checked=true,id="",parent = null, click = null){
   let b = document.createElement('button')
   if(parent!=null) parent.appendChild(b)
-  b.style = "text-align: left; margin: 2px; color: white; border: 0px; background-color: #4444;  width: 100%;"
+  b.style.cssText = "text-align: left; margin: 2px; color: white; border: 0px; background-color: #4444;  width: 100%;"
   set_dataId(b,id)
   b.onclick = click
   b.innerHTML = `

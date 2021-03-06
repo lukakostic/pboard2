@@ -6,11 +6,11 @@ let textBoardGettingEdited = null //ID //for saving too tho can be used for othe
 function showTextBoardDialog(event){
     /*
     console.log(event)
-    console.log('drag',ui.dragItem[0], '!=',ui.dragItem!=null)
-    console.log(event.srcElement==ui.dragItem[0], '||',event.srcElement.parentNode == ui.dragItem[0])
+    console.log('drag',dragItem[0], '!=',dragItem!=null)
+    console.log(event.srcElement==dragItem[0], '||',event.srcElement.parentNode == dragItem[0])
     */
     if(event.srcElement == null) event.srcElement = event.target
-    if(ui.dragItem!=null && ( event.srcElement==ui.dragItem[0] || event.srcElement.parentNode == ui.dragItem[0])) return
+    if(drags.dragItem!=null && ( event.srcElement==drags.dragItem[0] || event.srcElement.parentNode == drags.dragItem[0])) return; //If still dragging, prevent
     //console.log('showTextBoard')
     let textBtn = event.srcElement
 
@@ -31,7 +31,7 @@ function showTextBoardDialog(event){
 
     //can do without timeout, but set timeout to like 0.8 seconds if you add 'modal fade' instead of just 'modal'
     setTimeout(()=>{
-        ui.expandInput(text[0]);
+        expandInput(text[0]);
         (<HTMLInputElement> EbyId('textBoardDialogTitle')).select();
     },10)
 }
@@ -60,7 +60,7 @@ function textTitleChanged(event){
     if(event.srcElement == null) event.srcElement = event.target
     pb.boards[brdId].name = event.srcElement.value
 
-    ui.loadAllBoardsByDataId(brdId)
+    loadAllBoardsByDataId(brdId)
 
     sync.save.dirty = true 
 }
@@ -72,7 +72,7 @@ function textDescriptionChanged(event){
     if(event.srcElement == null) event.srcElement = event.target
     pb.boards[brdId].content = event.srcElement.value
 
-    ui.loadAllBoardsByDataId(brdId)
+    loadAllBoardsByDataId(brdId)
 
     sync.save.dirty = true
 }

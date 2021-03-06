@@ -8,7 +8,7 @@ function handleClientLoad_Login() {
   authorizeButton = EbyId('authorize_button');
   signoutButton = EbyId('signout_button');
 
-  gapi.load('client:auth2', function(){
+  gapi.load('client:auth2', function():void{
     gapi.client.init(driveAPI_Creds)
     .then(function () {
 
@@ -23,16 +23,16 @@ function handleClientLoad_Login() {
   })
 }
 
-function handleAuthClick(event) {
+function handleAuthClick(event) :void{
   gapi.auth2.getAuthInstance().signIn();
   doRedirect = true;
 }
-function handleSignoutClick(event) {
+function handleSignoutClick(event) :void{
   gapi.auth2.getAuthInstance().signOut();
 }
 
 // Called when the signed in status changes, to update the UI
-function updateSigninStatus_Login(isSignedIn) {
+function updateSigninStatus_Login(isSignedIn) :void{
   if (isSignedIn) {
     authorizeButton.style.display = 'none'
     signoutButton.style.display = 'block'

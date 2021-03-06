@@ -1,12 +1,32 @@
 
-
-let sync = {
+let sync :{
+  fileName: string;
+  fileId :string|null;
+  lastSyncTime :number;
+  syncedOnline :boolean;
+  syncSkips :number;
+  syncSkipsTimes :number;
+  save :{
+    dirty :boolean,
+    interval :Function /* invokeRepeating */
+  };
+  load :{
+    interval :Function /* invokeRepeating */
+  };
+  setSyncTime :Function;
+  flashLoadingIndicator :Function;
+  loadCachedContent :Function;
+  saveCachedContent :Function;
+  saveAll :Function;
+  loadAll :Function;
+  start :Function;
+} = {
 
   fileName: 'pboard.pb',
   //fileId not yet used
   fileId: null, //Use this fileId instead of looking for fileId by file name. Speeds up saving and loading since it doesnt need to find fileId
   
-  lastSyncTime: null, //if older than cloud one, load the cloud version
+  lastSyncTime: -1, //if older than cloud one, load the cloud version
   syncedOnline: false, //synced from online (non cache) at least once
 
   syncSkips: 0, //if not in focus, see the load interval
@@ -22,29 +42,28 @@ let sync = {
   },
   
 
-  setSyncTime: function(){
-    this.lastSyncTime = (new Date()).getTime()
+  setSyncTime: function() :void{
+    this.lastSyncTime = (new Date()).getTime();
   },
 
-  flashLoadingIndicator: ()=>{
-    ui.startLoadingIndicator()
+  flashLoadingIndicator: function() :void{
+    startLoadingIndicator();
     setTimeout(()=>{
-      ui.stopLoadingIndicator()
-    },2000)
+      stopLoadingIndicator();
+    },2000);
   },
 
   //loads pb from cookies, if it exists, else returns false
-  loadCachedContent: function(){
-    let contents = window.localStorage.getItem('cached')
-    if(contents == null || contents == undefined) return false
+  loadCachedContent: function() :boolean{
+    let contents :string|null = window.localStorage.getItem('cached');
+    if(contents == null || contents == undefined) return false;
     
     if(loadPBoard(contents))
-    
-     logw('loading from cache')
-     
-    else logw('not loading from cache')
-    extensions.invoke('loadCached')
-    return true
+     logw('loading from cache');
+    else
+      logw('not loading from cache');
+    extensions.invoke('loadCached');
+    return true;
   },
 
   saveCachedContent: (contents)=>{
@@ -70,14 +89,14 @@ let sync = {
         return console.warn('Wont save: Not once synced with online. Wait or refresh.')
       
 
-      ui.startSavingIndicator()
+      startSavingIndicator()
 
       sync.saveCachedContent(contents)
 
       storage.fileUpload({name: sync.fileName, body: contents},()=>{
   
         if(callback!=null) callback()
-        ui.stopSavingIndicator()
+        stopSavingIndicator()
         extensions.invoke('saveAll')
         
         sync.save.dirty = false
@@ -90,7 +109,7 @@ let sync = {
       try{
   
         extensions.invoke('pre_loadAll')
-        //ui.startLoadingIndicator()
+        //startLoadingIndicator()
   
         storage.fileDownload(sync.fileName , (contents)=>{
   
@@ -109,7 +128,7 @@ let sync = {
           } 
             
           if(callback) callback(contents)
-          //ui.stopLoadingIndicator()
+          //stopLoadingIndicator()
         })
   
     }catch(e){ alog(e) }
