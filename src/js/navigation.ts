@@ -1,18 +1,14 @@
 
-
-
 function goLogin() :void{
   set_url(siteUrl + "login/");
 }
 
-function goHome() :void{
-  
+function goHome() :void{  
   log('goHome');
   set_board("");
 }
 
 function goUp() :void{
-  
   log('goUp');
   //boardHistory.pop() //since last url is yours
 

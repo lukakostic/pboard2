@@ -45,14 +45,13 @@ function set_url(value :string) :void{
 }
 
 //set current board, push to history
-function set_board(value /*id*/:string) :void{
-  log("set_board('" + value + "')");
-  board = value;
-  boardHistory.add(value);
-  window.location.hash = value;
+function set_board(id :string) :void{
+  log("set_board('" + id + "')");
+  board = id;
+  boardHistory.add(id);
+  window.location.hash = id;
   pageOpened();
 }
-
 
 
 function resetData() :void{
@@ -65,24 +64,20 @@ function resetData() :void{
 
 function buildPBoard() :string{
   extensions.invoke('buildPBoard');
-  let saveFile :{
-    syncTime :number;
-    pb: PBoard;
-  } = {
-    syncTime: sync.lastSyncTime,  
-    pb: pb
+  let saveFile = {
+    syncTime: <number> sync.lastSyncTime,  
+    pb: <PBoard> pb
   };
   return JSON.stringify(saveFile);
 }
 
 function loadPBoard(content :string, checkTime :boolean = true) :boolean/*successfly loaded?*/ {
-  
   log('content:');
   
   logw(content);
 
   extensions.invoke('loadPBoard');
-  let saveFile = updater.updateSaveFile(JSON.parse(content));
+  let saveFile = updateSaveFile(JSON.parse(content));
   
   if(checkTime && sync.lastSyncTime != null && sync.lastSyncTime >= saveFile.syncTime)
     return false;
@@ -95,52 +90,4 @@ function loadPBoard(content :string, checkTime :boolean = true) :boolean/*succes
   draw();
 
   return true;
-}
-
-
-
-
-//Entry point
-//Init drive api and listen for signIn changes
-function OnStorageLoad() :void{
-  htmlLoaded();
-
-  gapi.load('client:auth2', ()=>{
-    gapi.client.init(driveAPI_Creds).then(()=>{
-      //Listen for sign in changes and call updateSigninStatus, as well as call the initial one
-      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-    }, (error)=>{
-      
-      alog(error);
-      goLogin(); //error initing drive, probably not logged in
-    });
-  });
-
-}
-
-//after Entry point
-//Logged in (or not). Lets load everything up!
-function updateSigninStatus(isSignedIn :boolean) :void{
-
-  if(isSignedIn == false)
-    goLogin();
-  else{
-    
-    board = boardFromUrl(url());
-
-    
-    logw('initial reset or load');
-    
-    if(sync.loadCachedContent() == false) //load from cache or reset
-      resetData();
-    else
-      pageOpened(); //draw cache opened
-    
-
-    sync.loadAll(); //sync with cloud
-
-    sync.start(false); ///////////////DONT AUTO SAVE/LOAD
-
-  }
 }

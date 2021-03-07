@@ -1,26 +1,5 @@
 
-let sync :{
-  fileName: string;
-  fileId :string|null;
-  lastSyncTime :number;
-  syncedOnline :boolean;
-  syncSkips :number;
-  syncSkipsTimes :number;
-  save :{
-    dirty :boolean,
-    interval :Function /* invokeRepeating */
-  };
-  load :{
-    interval :Function /* invokeRepeating */
-  };
-  setSyncTime :Function;
-  flashLoadingIndicator :Function;
-  loadCachedContent :Function;
-  saveCachedContent :Function;
-  saveAll :Function;
-  loadAll :Function;
-  start :Function;
-} = {
+let sync = {
 
   fileName: 'pboard.pb',
   //fileId not yet used
@@ -42,11 +21,11 @@ let sync :{
   },
   
 
-  setSyncTime: function() :void{
+  setSyncTime() :void{
     this.lastSyncTime = (new Date()).getTime();
   },
 
-  flashLoadingIndicator: function() :void{
+  flashLoadingIndicator() :void{
     startLoadingIndicator();
     setTimeout(()=>{
       stopLoadingIndicator();
@@ -54,7 +33,7 @@ let sync :{
   },
 
   //loads pb from cookies, if it exists, else returns false
-  loadCachedContent: function() :boolean{
+  loadCachedContent() :boolean{
     let contents :string|null = window.localStorage.getItem('cached');
     if(contents == null || contents == undefined) return false;
     
@@ -66,46 +45,46 @@ let sync :{
     return true;
   },
 
-  saveCachedContent: (contents)=>{
-    window.localStorage.setItem('cached',contents)
+  saveCachedContent(contents) :void{
+    window.localStorage.setItem('cached',contents);
     //setCookie('cached', contents)
   },
 
-  saveAll: function(callback = null, really=false){ ////Added the really? option
+  saveAll(callback = null, really=false) :void{ ////Added the really? option
     if(really == false) return; //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     try{
 
-      extensions.invoke('pre_saveAll')
+      extensions.invoke('pre_saveAll');
       
       
-      sync.setSyncTime()
-      let contents = buildPBoard()
+      sync.setSyncTime();
+      let contents = buildPBoard();
       
       
-      log('saveAll ',contents)
+      log('saveAll ',contents);
       
       if(sync.syncedOnline == false)
-        return console.warn('Wont save: Not once synced with online. Wait or refresh.')
+        return console.warn('Wont save: Not once synced with online. Wait or refresh.');
       
 
-      startSavingIndicator()
+      startSavingIndicator();
 
-      sync.saveCachedContent(contents)
+      sync.saveCachedContent(contents);
 
       storage.fileUpload({name: sync.fileName, body: contents},()=>{
   
-        if(callback!=null) callback()
-        stopSavingIndicator()
-        extensions.invoke('saveAll')
+        if(callback!=null) callback();
+        stopSavingIndicator();
+        extensions.invoke('saveAll');
         
-        sync.save.dirty = false
+        sync.save.dirty = false;
       })
   
-    }catch(e){ alog(e) }
+    }catch(e){ alog(e); }
   },
 
-  loadAll: function(callback = null){
+  loadAll(callback = null) :void{
       try{
   
         extensions.invoke('pre_loadAll')
@@ -136,32 +115,32 @@ let sync :{
 
   
 
-  start: function(doAutoLoadSave = true){
+  start(doAutoLoadSave = true) :void{
 
-    if(doAutoLoadSave == false || pb.preferences['autoLoadInterval'].toString()=="0") return
+    if(doAutoLoadSave == false || pb.preferences['autoLoadInterval'].toString()=="0") return;
 
     this.save.interval = setInterval(()=>{
       if(sync.save.dirty == false) return;
       
-      sync.save.dirty = false
+      sync.save.dirty = false;
       
-      log('sync save')
-      sync.saveAll()
+      log('sync save');
+      sync.saveAll();
       
-    }, pb.preferences['autoSaveInterval']*1000)
+    }, pb.preferences['autoSaveInterval']*1000);
 
     this.load.interval = setInterval(()=>{
       //let checksum = hash(buildPBoard())
       //dont do if not in focus, save bandwith
       if(document.hasFocus()){
-        sync.syncSkips = sync.syncSkips-1
-      }else sync.syncSkips = 0
+        sync.syncSkips = sync.syncSkips-1;
+      }else sync.syncSkips = 0;
 
       if(sync.syncSkips<=0){
-        sync.syncSkips = sync.syncSkipsTimes
-        sync.loadAll()
+        sync.syncSkips = sync.syncSkipsTimes;
+        sync.loadAll();
       }
-    }, pb.preferences['autoLoadInterval']*1000)
-  },
+    }, pb.preferences['autoLoadInterval']*1000);
+  }
 
 }

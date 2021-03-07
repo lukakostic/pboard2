@@ -1,14 +1,14 @@
 
 
-let preferencesCurrentPref
+let preferencesCurrentPref;
 
 function showPreferencesDialog(){
-  preferencesCurrentPref = Object.create(pb.preferences) //pass clone so no changes
+  preferencesCurrentPref = Object.create(pb.preferences); //pass clone so no changes
   
-  html.extrasTitle.innerHTML = 'Preferences'
+  html.extrasTitle.innerHTML = 'Preferences';
   html.extrasContent.innerHTML = `<a style="color:white;font-size:16px;">You may need to refresh the page or reopen the board for some preferences to take effect.</a><br><button type="button" class="btn bg-inherit btn-primary" onclick="pb.preferences = preferencesCurrentPref; sync.saveAll();" style="width: 100%;">Save</button><br>`+
   prefNumber('autoSaveInterval','Text Editor AutoSave Interval (seconds): ');
-  html.extrasBack.onclick = showExtrasClicked
+  html.extrasBack.onclick = showExtrasClicked;
 }
 
 function prefNumber(field = "", text = "", type = "Number(("){
@@ -19,5 +19,5 @@ return `
 
 <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
 </form>
-`
+`;
 }

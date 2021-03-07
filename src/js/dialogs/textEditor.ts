@@ -1,7 +1,7 @@
 
 
-let textBoardAtStart = null //json of the board when selected, used for saving
-let textBoardGettingEdited = null //ID //for saving too tho can be used for other
+let textBoardAtStart = null; //json of the board when selected, used for saving
+let textBoardGettingEdited = null; //ID //for saving too tho can be used for other
 
 function showTextBoardDialog(event){
     /*

@@ -1,6 +1,6 @@
 
 
-let availableBackups = []
+let availableBackups = [];
 
 function showBackupsDialog(){
     

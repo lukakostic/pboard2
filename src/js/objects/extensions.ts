@@ -16,25 +16,22 @@ let extensions = {
     loadCached: [],
   },
   
-  invoke: function (listener = ""){
-    
-    log('Invoking listener:',listener)
+  invoke(listener = ""){
+    log('Invoking listener:',listener);
     for(let i = 0; i < this.listeners[listener].length; i++)
       if(this.listeners[listener])
-        this.listeners[listener][i]()
+        this.listeners[listener][i]();
     
-    this.listeners[listener] = []
+    this.listeners[listener] = [];
   },
 
-  execute: function(){
-    
-    log('extensions.execute()')
-    let exts = brdAttrOrDef(board,'extensions',[])
+  execute(){
+    log('extensions.execute()');
+    let exts = brdAttrOrDef(board,'extensions',[]);
     for(let i = 0; i < exts.length; i++){
       if(exts[i].on){
-        
-        log('executing extension ' + exts[i].id)
-        eval(pb.extensions[exts[i].id].code)
+        log('executing extension ' + exts[i].id);
+        eval(pb.extensions[exts[i].id].code);
       }
     }
   }

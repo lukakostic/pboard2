@@ -1,7 +1,5 @@
 
-
-
-let selectedExtensionInEditor = ""
+let selectedExtensionInEditor = "";
 
 function showExtensionEditor(){
     

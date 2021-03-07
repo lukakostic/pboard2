@@ -1,22 +1,12 @@
 
-//dragging
-let drags :{
-  dragOld: null | any;
-  dragNew: null | any;
-  dragItem: null | any;
-  oldDragIndex: null | number;
-  newDragIndex: null | number;
-  dragStartTime: number; //used to click if drag < 0.01s (meant to click)
-} = {
-  dragOld: null, dragNew: null, dragItem: null, oldDragIndex: null, newDragIndex: null,
-  dragStartTime: -999, //used to click if drag < 0.01s (meant to click)
-};
-
-
-
-
 //UI calculations interval, singleInstance check
-let autoUI :number/*interval id*/ = -1; //set in htmlLoaded
+let autoUI = -1; /*interval id, -1 = unset*/ //set in htmlLoaded
+
+//dragging
+let drags = {
+  dragOld: null, dragNew: null, dragItem: null, oldDragIndex: null, newDragIndex: null,
+  dragStartTime: -999 //used to click if drag < 0.01s (meant to click)
+};
 
 
 //Called only once
@@ -51,15 +41,33 @@ function htmlLoaded() :void{
   //EbyId('convertBtn').onclick = ConvertBoard;
   EbyId('saveBtn').onclick = ()=>{sync.saveAll(null,true)};
   EbyId('loadBtn').onclick = ()=>{sync.loadAll()};
+  EbyId('saveDownloadBtn').onclick = ()=>{
+    function saveBlobFile (name :string, type :string, data) {
+      if (data !== null && navigator.msSaveBlob)
+          return navigator.msSaveBlob(new Blob([data], { type: type }), name);
+      let a = $("<a style='display: none;'/>");
+      let url = window.URL.createObjectURL(new Blob([data], {type: type}));
+      a.attr("href", url);
+      a.attr("download", name);
+      $("body").append(a);
+      a[0].click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    }
+
+    let text = buildPBoard();
+    let dateTag = (new Date()).toISOString().replace('T',' ').substring(2,16);
+    let filename = "PBoard "+dateTag+".txt";
+    saveBlobFile(filename,"data:attachment/text",text);
+    
+  };
 
 }
 
 function pageOpened() :void{
-  
   log("pageOpened()");
 
   extensions.invoke('pre_newPage');
-
 
   //clearBoards();
   //clearLists();
@@ -82,29 +90,24 @@ function clearBoards(lst = null) :void{
   logw('lists', lists);
   
   for(let j = 0; j < lists.length; j++){
-
     let boards = qSelAll('.board:not([id])',lists[j]);//lists[j].childNodes
     for (let i = boards.length-1; i > -1; i--)
       $(boards[i]).remove();
-
   }
 }
 
 function clearLists() :void{
-  
   log('clearLists()');
   let lists = EbyClass('list');
     
   for(let j = lists.length-1; j > -1; j--)
     if (lists[j].id == "")
-      $(lists[j]).remove();
-  
+      $(lists[j]).remove(); 
 }
 
 
 
 function draw() :void{
-  
   log('draw()')
   if(pb.boards[board].type == BoardType.Board) drawBoardAlbum()
   else if(pb.boards[board].type == BoardType.List) drawListAlbum()
@@ -119,7 +122,6 @@ function draw() :void{
 
 
 function drawBoardAlbum() :void{
-  
   log('drawBoardAlbum()')
   html.listAlbum.classList.add('d-none')
   html.boardAlbum.classList.remove('d-none')
@@ -130,18 +132,13 @@ function drawBoardAlbum() :void{
   html.boardTitle.value = pb.boards[board].name
   html.boardDescription.value = brdAttr(board,'description')
 
-
   //fill lists & boards
   for(let l = 0; l < pb.boards[board].content.length; l++){
-
     let listEl = html.listTemplate.cloneNode(true)
     html.boardAlbum.appendChild(listEl)
-
     
     loadList(listEl,pb.boards[board].content[l])
-
   }
-
   
   $(html.boardTitle).select() //autopop
 
@@ -150,7 +147,6 @@ function drawBoardAlbum() :void{
 }
 
 function drawListAlbum() :void{
-  
   log('drawListAlbum()')
   html.boardAlbum.classList.add('d-none')
   html.listAlbum.classList.remove('d-none')
@@ -161,8 +157,6 @@ function drawListAlbum() :void{
   html.boardDescription.value = brdAttr(board,'description')
   
   loadList(html.mainList,board)
-
-  
 
   /*
   let ids = Object.keys(pb.boards);
@@ -188,12 +182,9 @@ function drawListAlbum() :void{
   */
   fixListUI(html.mainList);
 }
-  
-
 
 
 function loadTextBoard(textBoardEl, brd) :void{
-  
   log('loadTextBoard(',textBoardEl,"'"+JSON.stringify(brd)+"'",')');
 
   if (typeof brd === 'string' || brd instanceof String)
@@ -218,7 +209,6 @@ function loadBackground(brdEl, id) :void{
 }
 
 function loadBoardBoard(boardBoardEl, brd) :void{
-  
   log('loadBoardBoard(',boardBoardEl,"'"+JSON.stringify(brd)+"'",')')
 
   if (typeof brd === 'string' || brd instanceof String)
@@ -231,7 +221,6 @@ function loadBoardBoard(boardBoardEl, brd) :void{
 }
 
 function loadList(listEl, brd) :void{
-  
   log('loadList(',listEl,"'"+JSON.stringify(brd)+"'",')')
 
   if (typeof brd === 'string' || brd instanceof String)
@@ -254,8 +243,7 @@ function loadList(listEl, brd) :void{
 //  $(titleText).prop("readonly",true);
   set_dataId(listEl, brd.id)
 
-  
-  
+
   for(let i = 0; i < brd.content.length; i++){
     let brd2 = pb.boards[brd.content[i]]
     if(brd2.type == BoardType.Text){
@@ -272,8 +260,7 @@ function loadList(listEl, brd) :void{
 
     }
   }
-  fixListUI(listEl)
-
+  fixListUI(listEl);
 }
 
 
@@ -296,5 +283,4 @@ function loadAllBoardsByDataId(brdId) :void{
         loadBoardBoard(boardEls[i],brdId);
     }
   }
-
 }

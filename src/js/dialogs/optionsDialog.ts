@@ -1,7 +1,7 @@
 
 
 
-let optionsElement = null
+let optionsElement = null;
 
 
 function showOptionsDialog(event,idEl = null){

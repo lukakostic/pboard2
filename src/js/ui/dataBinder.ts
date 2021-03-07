@@ -1,6 +1,4 @@
 
-
-
 function boardTitleChanged(event){
     log('board title changed')
     

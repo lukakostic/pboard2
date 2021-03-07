@@ -16,14 +16,14 @@ function fixAlbumUI() :HTMLElement|null{
 }
 
 function fixListUI(listEl=null) :void{
-  log(listEl, "LIST ELEMENT fixListUI: ");
+  
   //Keep newPanel at end by reparenting again
-  if(listEl!=null){
+  if(listEl!=null){ //fix passed list
     let newPanel = EbyClass('newPanel',listEl)[0];
     newPanel.parentNode.appendChild(newPanel);
-  }else{
+  }else{ //fix every list
     let album = this.fixAlbumUI();
-    let lists = EbyClass('list', album)[0];    ////////////////////????? Why [0] ?
+    let lists = EbyClass('list', album);
     for(let i = 0; i<lists.length; i++){
       if(lists[i].id=="") this.fixListUI(lists[i]);
     }

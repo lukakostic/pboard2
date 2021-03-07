@@ -1,6 +1,6 @@
 
 
-let extrasSelected = null
+let extrasSelected = null;
 
 function showExtrasDialog(){
   (<JQuery<any> &{modal:any}> $(html.extrasDialog)).modal('show');

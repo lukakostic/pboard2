@@ -1,6 +1,6 @@
 
 
-let selectedTagInEditor = ""
+let selectedTagInEditor = "";
 
 function showTagEditor(){
     
