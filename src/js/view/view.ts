@@ -1,4 +1,11 @@
 let view :View = null; //current main, top level view
+function setView(v :View) :void{
+   view = v;
+}
+function clearView() :void{
+   view = null;
+   html.main.innerHTML = "";
+}
 
 interface View{ /* A (board kind) element display. Album, List, Tile. */
    id :string;
@@ -27,6 +34,7 @@ function generateView(_id :string, _parentEl :HTMLElement|Element = null) :Album
    }
    return null;
 }
+
 
 /* Generic class for element holder View. Not meant to be instantiated, just inherited/extended. */
 abstract class HolderView implements View{
@@ -106,6 +114,8 @@ class AlbumView extends HolderView{ /*Has List adder thing at end*/
          this.adder = <HTMLInputElement> EbyName('album-adder',this.htmlEl);
          this.adder.onkeypress = this.adder_onkeypress;////////
       }
+
+      this.htmlEl.setAttribute('data-id',this.id);
       this.holderElement.innerHTML = ""; //Clear children.
    }
 
@@ -166,6 +176,8 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
          this.adderReference = EbyName('list-adderReference',this.htmlEl);
          this.adderReference.onclick = this.adderReference_onclick;////////
       }
+
+      this.htmlEl.setAttribute('data-id',this.id);
       this.holderElement.innerHTML = ""; //Clear children.
    }
 
@@ -240,7 +252,6 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
       if(this.htmlEl == null){
          this.htmlEl = <HTMLElement> html.tileTemplate.cloneNode(true);
          this.parentEl.appendChild(this.htmlEl);
-         this.htmlEl.setAttribute('data-id',this.id);
 
          this.optionsBtn = EbyName('tile-optionsBtn',this.htmlEl);
          this.optionsBtn.onclick = this.optionsBtn_onclick;////////
@@ -248,13 +259,15 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
          this.text.onclick = this.text_onclick;////////
          this.textIcon = EbyName('tile-textIcon',this.htmlEl);
       }
+
+      this.htmlEl.setAttribute('data-id',this.id);
    }
 
    render() :void{ /* Render elements held */
       this.buildSelf();
       
-      //$(this.text).contents()[1].nodeValue = pb.boards[this.id].name;
-      this.text.innerText = pb.boards[this.id].name; //Title   //////////////TODO how do i set text without fucking up icon?
+      $(this.text).contents()[1].nodeValue = pb.boards[this.id].name;
+      //this.text.innerText = pb.boards[this.id].name; //Title   //////////////TODO how do i set text without fucking up icon?
       //this.text.innerText = pb.boards[this.id].content; //Text
       
       
@@ -265,6 +278,8 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
       else 
          this.textIcon.classList.add('d-none');
    }
+
+   /////////////////TODO add methods to call renderById on all tiles / lists etc. So i can implement data binding for changing data (tile title, list title, etc. Multiple instances of same tile..)
    renderById(_id :string) :void{
       if(this.id == _id)
          return this.render();
