@@ -1,4 +1,4 @@
-
+let EXTENSIONS_DISABLED = true; ////////////TODO load from preferences
 
 let extensions = {
   //arrays of callbacks that get called when event invoked
@@ -16,7 +16,9 @@ let extensions = {
     loadCached: [],
   },
   
-  invoke(listener = ""){
+  invoke(listener :string = "") :void{
+    if(EXTENSIONS_DISABLED) return;
+
     log('Invoking listener:',listener);
     for(let i = 0; i < this.listeners[listener].length; i++)
       if(this.listeners[listener])
@@ -25,7 +27,9 @@ let extensions = {
     this.listeners[listener] = [];
   },
 
-  execute(){
+  execute() :void{
+    if(EXTENSIONS_DISABLED) return;
+
     log('extensions.execute()');
     let exts = brdAttrOrDef(board,'extensions',[]);
     for(let i = 0; i < exts.length; i++){

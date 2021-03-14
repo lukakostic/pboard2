@@ -1,0 +1,118 @@
+html, body {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+  overflow: visible !important;
+}
+
+.header {
+  padding-bottom: 5px;
+}
+
+.btn-spaced-1 {
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+}
+
+.btn-spaced-2 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.btn-spaced-3 {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
+footer {
+  height: 36px;
+  padding: 7px;
+  position:absolute;
+  bottom:0;
+  width:100%;
+}
+
+footer p {
+  margin-bottom: .25rem;
+}
+
+.container-fluid {
+  padding-left: 3.1rem;
+  padding-right: 3.1rem;
+}
+
+.dot {
+  width: 13px !important;
+  height: 13px !important;
+  border-radius: 50%;
+  padding: 0px;
+  border: 0px;
+  margin: 0px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color:  rgba(255,255,255,.4) !important;
+}
+
+.bg-inherit {
+  background-color: inherit;
+}
+
+.noborder {
+  border: 0px;
+}
+
+.board {
+  display: inline-block;
+  margin: 3px !important;
+  width: 294px !important; /*list width (300px)  - margin*2 (3*2 px) */
+  height: 52px !important;
+  padding: 0px !important;
+  overflow: hidden !important;
+  border-radius: 3px !important;
+  border-top-right-radius: 6px !important;
+  box-shadow: 0px 2px 3px -2px #000;
+}
+
+.list {
+  display: inline-block !important;
+  vertical-align: top !important;
+  margin: 5px !important;
+  width: 300px !important;
+  padding: 0px !important;
+  /* margin-bottom: 10000px !important; */ 
+  overflow: hidden !important;
+  border-radius: 4px !important;
+  border-top-right-radius: 6px !important;
+  box-shadow: 0px 2px 3px -2px #000;
+}
+
+.textBtn {
+  text-align: center;
+  padding: 4px;
+  text-shadow: 1px 1px black;
+  background-image: inherit;
+  background-repeat: inherit;
+  background-size: inherit;
+}
+
+.main-list {
+  margin: 0px !important;
+  padding: 0px !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.d-none {
+  display: none !important;
+}
+
+.d-init {
+  display: initial !important;
+}
+
+.v-hidden {
+  visibility: hidden !important;
+}
+
+.v-init {
+  visibility: initial !important;
+}

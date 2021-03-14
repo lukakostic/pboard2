@@ -4,7 +4,7 @@
 
 //Debug logs, only used for debug and not actual messages.
 let LOG_DISABLED = true;
-let LOGW_DISABLED = false;
+let LOGW_DISABLED = true;
 let LOGE_DISABLED = false;
 
 //console log
@@ -82,18 +82,8 @@ function setCookie(name,value){
 
 
 ///////////////////////////////////////////////////////////////////////////////////// Cookies }
-//return number hash of string
-function hash(str :string) :number{
-	let hash = 0;
-	let char = 0;
-    if (str.length == 0) return hash;
-	for (let i = 0; i < str.length; i++) {
-		char = str.charCodeAt(i);
-		hash = ((hash<<5)-hash)+char;
-		hash = hash & hash; // Convert to 32bit integer
-	}
-	return hash;
-}
+
+///////////////////////////////////////////////////////////////////////////////////// PBoard stuff {
 
 function urlFromBoard(boardId :string) :string{
     return siteUrl + "#" + boardId;
@@ -102,16 +92,7 @@ function boardFromUrl(url :string) :string{
     return url.replace(siteUrl,'').replace('#','');
 }
 
-//select 1 element by query
-function qSel(query :string,element :Element|Document = document){
-    return element.querySelector(query);
-}
-//select all elements by query
-function qSelAll(query :string,element :Element|Document = document){
-    return element.querySelectorAll(query);
-}
-
-function findFirstBoardId(el){
+function findFirstBoardId(el) :string|null{
     let id = nulledGetAttribute(el,'data-id');
     if(id!=null) return id;
     if(el.parentNode == null) return null;
@@ -119,7 +100,7 @@ function findFirstBoardId(el){
 }
 
 // if text/board get list element (state=1/2), if list return Board (state=3), else float up till first
-function parentElementBoard(el,state=-1){
+function parentElementBoard(el,state=-1) :string|null{
 
     if(state==-1){
         let id = nulledGetAttribute(el,'data-id');
@@ -145,16 +126,26 @@ function parentElementBoard(el,state=-1){
     return null;
 }
 
+///////////////////////////////////////////////////////////////////////////////////// PBoard stuff }
+
+///////////////////////////////////////////////////////////////////////////////////// Html stuff {
+
+
 //Get/Set Board id (data-id) from html element
 function dataId(el) :string{
     return el.getAttribute('data-id');
 }
-function set_dataId(el,id :string) :void{
+function set_dataId(el, id :string) :void{
     el.setAttribute('data-id',id);
 }
 
+//Set attribute of board by id
+function set_brdAttr(id :string, attr:string|number, val :any) :void{
+    pb.boards[id].attributes[attr] = val;
+}
+
 //Set attribute of board by id, if it already doesnt have it
-function set_brdAttrIfNull(id,attr,val){
+function set_brdAttrIfNull(id :string, attr :string|number, val :any) :boolean{
     if((attr in pb.boards[id].attributes) == false){
         set_brdAttr(id,attr,val);
         return true;
@@ -162,18 +153,13 @@ function set_brdAttrIfNull(id,attr,val){
     return false;
 }
 
-//Set attribute of board by id
-function set_brdAttr(id,attr,val){
-    pb.boards[id].attributes[attr] = val;
-}
-
 //Get attribute of board by id
-function brdAttr(id,attr){
+function brdAttr(id :string, attr :string|number) :any{
     return pb.boards[id].attributes[attr];
 }
 
 //Get attribute of board by id, or if it doesnt exist return val
-function brdAttrOrDef(id,attr,val){
+function brdAttrOrDef(id :string, attr :string|number, val :any) :any{
     if(attr in pb.boards[id].attributes)
         return brdAttr(id,attr);
     return val;
@@ -181,17 +167,37 @@ function brdAttrOrDef(id,attr,val){
 
 
 //Delete attribute of board by id
-function delBrdAttr(id :string, attr :string) :void{
+function delBrdAttr(id :string, attr :string|number) :void{
     delete pb.boards[id].attributes[attr];
 }
 
 
+//return number hash of string
+function hash(str :string) :number{
+	let hash = 0;
+	let char = 0;
+    if (str.length == 0) return hash;
+	for (let i = 0; i < str.length; i++) {
+		char = str.charCodeAt(i);
+		hash = ((hash<<5)-hash)+char;
+		hash = hash & hash; // Convert to 32bit integer
+	}
+	return hash;
+}
 
-function nulledGetAttribute(el,attr){
-    let atr = null;
+//select 1 element by query
+function qSel(query :string,element :Element|Document = document){
+    return element.querySelector(query);
+}
+//select all elements by query
+function qSelAll(query :string,element :Element|Document = document){
+    return element.querySelectorAll(query);
+}
+
+function nulledGetAttribute(el, attr :string) :string|null{
     if(el.hasAttribute(attr))
-        atr = el.getAttribute(attr);
-    return atr;
+        return el.getAttribute(attr);
+    return null;
 }
 
 function EbyId(id :string) :HTMLElement|null{
@@ -221,3 +227,6 @@ function findWithAttr(array, attr, value) {
             return i;
     return -1;
 }
+
+
+///////////////////////////////////////////////////////////////////////////////////// Html stuff }

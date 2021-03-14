@@ -1,17 +1,19 @@
 
-
+/* ///////////////TODO implement with Views instead.
 function newText(event) :void{
-  
+
   if(event.srcElement == null) event.srcElement = event.target;
+  
+
   let parent = event.srcElement.parentNode.parentNode.parentNode; ////////////// replace by find parent thing?
 
-  let el = <HTMLElement> html.textBrdTemplate.cloneNode(true);
 
   let brd = new Board(BoardType.Text,"Text","",{references:1});
 
   pb.boards[brd.id] = brd;
   pb.boards[dataId(parent)].content.push(brd.id); //Add to parent list
 
+  let el = <HTMLElement> html.textBrdTemplate.cloneNode(true);
   parent.appendChild(el);
   loadTextBoard(el,brd.id);
 
@@ -25,9 +27,11 @@ function newText(event) :void{
 function newBoard(event) :void{
 
   if(event.srcElement == null) event.srcElement = event.target;
-  let parent = event.srcElement.parentNode.parentNode.parentNode; ////////////// replace by find parent thing?
 
   let el = <HTMLElement> html.boardBrdTemplate.cloneNode(true);
+
+  let parent = event.srcElement.parentNode.parentNode.parentNode; ////////////// replace by find parent thing?
+
 
   let atr = {description:'Description',references:1};
   let brd = new Board(BoardType.Board,"Board",[],atr);
@@ -50,10 +54,11 @@ function newBoard(event) :void{
 
 
 function newList(event) :void{
+  
+  if(event.srcElement == null) event.srcElement = event.target;
 
   let el = <HTMLElement> html.listTemplate.cloneNode(true);
 
-  if(event.srcElement == null) event.srcElement = event.target;
   let inp = event.srcElement.firstElementChild;
   let name = inp.value;
 
@@ -83,3 +88,4 @@ function newList(event) :void{
 
 
 //Needs newProject
+*/

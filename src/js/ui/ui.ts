@@ -1,40 +1,23 @@
 
 //UI calculations interval, singleInstance check
-let autoUI = -1; /*interval id, -1 = unset*/ //set in htmlLoaded
-
-//dragging
-let drags = {
-  dragOld: null, dragNew: null, dragItem: null, oldDragIndex: null, newDragIndex: null,
-  dragStartTime: -999 //used to click if drag < 0.01s (meant to click)
-};
+let autoUI :number = -1; /*interval id, -1 = unset*/ //set in htmlLoaded
 
 
 //Called only once
 function htmlLoaded() :void{
-  if(autoUI == -1)
-  autoUI = setInterval(()=>{
-    //Fix this piece of shit mobile web dev crap
-    document.body.style.setProperty("width","100vw");
-  
-    //Resize main board so it doesnt take whole screen width, rather just the middle 'document' area
-    //Makes it easier to focus and see the boards than if they are spread thru whole width
-    if(window.innerWidth>1250)
-      html.listAlbum.style.width = '1250px';
-    else
-      html.listAlbum.style.width = '100%';
-  
-    //Make tab title same as board name
-    if(pb != null){ //If loaded
-      let brdName = pb.boards[board].name;
-      if(brdName == "") brdName = "PBoard";
-      else brdName += " - PBoard";
-      document.title = brdName;
-    }
-
-    //singleInstanceCheck()////////////
-  },100);
-  
   html.find(); //find static html elements
+
+  if(autoUI == -1)
+    autoUI = setInterval(autoUI_function,100);
+  
+
+  //newlist, used for adding lists in multi board
+  /* //////////////////////////////////////TODO this should be handled by AlbumView
+  EbyId('newlist').onsubmit = (event)=>{
+    event.preventDefault();
+    newList(event);
+  };
+  */
 
   EbyId('homeBtn').onclick = goHome;
   EbyId('upBtn').onclick = goUp;
@@ -108,16 +91,19 @@ function clearLists() :void{
 
 
 function draw() :void{
-  log('draw()')
-  if(pb.boards[board].type == BoardType.Board) drawBoardAlbum()
-  else if(pb.boards[board].type == BoardType.List) drawListAlbum()
+  log('draw()');
+
+  ///////////////////////////////////////TODO change to view?
+  if(pb.boards[board].type == BoardType.Board) drawBoardAlbum();
+  else if(pb.boards[board].type == BoardType.List) drawListAlbum(); //////////TODO add PBoard?
   // board type text
 
-  loadBoardBackgroundImage()
-  makeDraggable()
+  loadBoardBackgroundImage();
+  makeDraggable();
 
-  setTimeout(()=>{expandInputAll()},200)
-  setTimeout(()=>{expandInputAll()},1000)
+  ////////////////TODO wtf is this shit, needs change
+  setTimeout(()=>{expandInputAll()},200);
+  setTimeout(()=>{expandInputAll()},1000);
 }
 
 
@@ -142,8 +128,8 @@ function drawBoardAlbum() :void{
   
   $(html.boardTitle).select() //autopop
 
-  fixAlbumUI()
-  fixNewListUI()
+  fixAlbumUI();
+  fixNewListUI();
 }
 
 function drawListAlbum() :void{

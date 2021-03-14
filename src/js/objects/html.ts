@@ -30,6 +30,7 @@ let html :{
   listTemplate: null,
 
   boardAlbum: null,
+
   listAlbum: null,
   mainList: null,
 
@@ -48,12 +49,13 @@ let html :{
 
 
   find(){
-    this.textBrdTemplate = templateFChild('textBoardTemplate');
-    this.boardBrdTemplate = templateFChild('boardBoardTemplate');
-    this.listTemplate = templateFChild('listTemplate');
+    this.textBrdTemplate = templateFChild('text-template');
+    this.boardBrdTemplate = templateFChild('board-template');
+    this.listTemplate = templateFChild('list-template');
 
-    this.boardAlbum = EbyId('boardAlbum');
-    this.listAlbum = EbyId('listAlbum');
+    this.boardAlbum = EbyId('multi-list-board');
+
+    this.listAlbum = EbyId('single-list-board');
     this.mainList = EbyId('main-list');
 
     this.loadingIndicator = EbyId('loadingIndicator');

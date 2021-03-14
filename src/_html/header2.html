@@ -1,0 +1,46 @@
+<header class="header">
+  <div id="header" class="navbar bg-dark" style="padding: 1px !important;">
+    
+    <div id="navbarHeader" class="collapse bg-dark" style="width: 100%; transition: none; padding: 0px !important;">
+      <div class="container-fluid" style="width: 100%; padding: 0px !important;">
+        
+          <form class="row text bg-inherit" style="margin: 0px; width: calc(100% - 44px);">
+              <textarea id="boardDescription" oninput="expandInput(this);boardDescriptionChanged(event);" placeholder="Board Description" wrap="hard" class="expandInput card-name bg-inherit" style="resize: none;  padding: 0.5rem !important; text-overflow: ellipsis; color:white; border: 0px; width: 100%;">
+              Board Description</textarea>
+      
+              <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
+            </form>
+
+            <button onclick="showExtrasClicked(event)" class="btn btn-spaced-1 btn-secondary" style="position: absolute; right: 2px; top: 0px; width: 40px; height: 40px;">
+              <i class="fas fa-cogs"></i>
+            </button>
+
+      </div>
+    </div>
+
+    <div class="container d-flex justify-content-start" style="max-width:100%; padding: 1px !important; margin-top: -7px; margin-bottom: -7px;">
+
+      <button id="homeBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-home"></i></button>
+      <button id="upBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-arrow-left"></i></button>
+
+      <div class="navbar-brand" style="margin-right: 0px; max-width: 50%">
+        <input id="boardTitle" oninput="boardTitleChanged(event)" type="text" class="btn btn-spaced-1 col-sm-5" placeholder="Title" aria-label="Title" aria-describedby="basic-addon2" 
+          style="overflow: hidden; text-overflow: ellipsis; max-width: 100%; text-align: left; color: white; font-weight: bold; font-size: 90%;">
+      </div>
+      
+      <button id="saveBtn" class="btn btn-spaced-2 btn-secondary bg-dark"><i class="fas fa-save"></i></button>
+      <button id="saveDownloadBtn" class="btn btn-spaced-2 btn-secondary bg-dark"><i class="fas fa-download"></i></button>
+      <button id="loadBtn" class="btn btn-spaced-2 btn-secondary bg-dark"><i class="fas fa-folder-open"></i></button>
+      <!--
+      <button id="convertBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i
+          class="fas fa-exchange-alt"></i></button>
+      -->
+      <button onclick="setTimeout(()=>{expandInput(document.getElementById('boardDescription'));},1);" class="btn btn-spaced-1 btn-secondary bg-dark ml-auto" type="button" data-toggle="collapse" data-target="#navbarHeader"
+        aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+         <i class="fas fa-bars"></i>
+      </button>
+
+    </div>
+
+  </div>
+</header>

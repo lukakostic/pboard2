@@ -1,0 +1,44 @@
+<header id="header">
+
+  <!-- Folded/Hidden content -->
+  <div id="navbarHeader" class="fWidth bg-inh collapse" style="transition: none;">
+    <div class="container-fluid fWidth d-flex" style="padding: 0px !important;">
+
+      <form class="row text bg-inherit" style="margin: 0px; flex: 1;">
+        <textarea id="boardDescription" oninput="expandInput(this);boardDescriptionChanged(event);"
+        placeholder="Board Description" wrap="hard" class="expandInput card-name bg-inherit"
+        style="resize: none;  margin: 3px; text-overflow: ellipsis; border: 0px; width: 100%;"></textarea>
+
+        <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
+      </form>
+
+      <button onclick="showExtrasClicked(event)" class="b"><i class="fas fa-cogs"></i></button>
+
+    </div>
+  </div>
+
+  <!-- Visible unfolded -->
+  <div class="bg-inh d-flex fWdith" style="padding: 1px !important;">
+
+    <!-- Header expand button -->
+    <button onclick="setTimeout(()=>{expandInput(document.getElementById('boardDescription'));},1);" type="button" class="b collapsed"
+    data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <button id="homeBtn" class="b"><i class="fas fa-home"></i></button>
+    <button id="upBtn" class="b"><i class="fas fa-arrow-left"></i></button>
+
+    <button id="saveBtn" class="b"><i class="fas fa-save"></i></button>
+    <button id="saveDownloadBtn" class="b"><i class="fas fa-download"></i></button>
+    <button id="loadBtn" class="b"><i class="fas fa-folder-open"></i></button>
+
+    <!-- Board Title -->
+    <input id="boardTitle" oninput="boardTitleChanged(event)" type="text" placeholder="Title" 
+    style="flex: 1; overflow: hidden; text-overflow: ellipsis; font-weight: bold;">
+  
+    
+
+  </div>
+
+</header>

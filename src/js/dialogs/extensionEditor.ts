@@ -1,5 +1,5 @@
 
-let selectedExtensionInEditor = "";
+let selectedExtensionInEditor :string = "";
 
 function showExtensionEditor(){
     

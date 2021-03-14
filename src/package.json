@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "(npm run sergey ) & (npm run sergeyCopy ) & (npm run typescript ) & (npm run deleteTS )",
-    "sergey": "sergey --root=./ --output=../sergeyOut/ --exclude=.flowconfig ",
+    "sergey": "sergey --root=./ --output=../sergeyOut/ --exclude=.flowconfig --imports=./_html/",
     "sergeyCopy": "(Xcopy /Y /E /I ..\\sergeyOut ..\\..\\pb ) & (RD /S /Q ..\\sergeyOut )",
     "typescript": "tsc",
     "deleteTS": "del /S ..\\..\\pb\\*.ts",

@@ -34,6 +34,7 @@ let sync = {
 
   //loads pb from cookies, if it exists, else returns false
   loadCachedContent() :boolean{
+    return false; ////////////////////////TODO add option to disable cache? allow? idk.
     let contents :string|null = window.localStorage.getItem('cached');
     if(contents == null || contents == undefined) return false;
     

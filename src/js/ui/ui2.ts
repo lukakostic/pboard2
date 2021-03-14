@@ -1,36 +1,14 @@
-//move newlist to bottom again
-function fixNewListUI() :void{
-  let newlist = EbyId('newlist');
-  newlist.parentNode.appendChild(newlist);
-}
 
-function fixAlbumUI() :HTMLElement|null{
-  let album = EbyId('boardAlbum');
-  let columnWidth = 310; //px //300 + 5*2 margin
-  if(album){
-    album.style.setProperty('width',((columnWidth*album.childElementCount)+10 + 8).toString() + 'px'); //add some space for album pad (2 * 5px atm) + some extra just in case
-    
-    return album;
-  }
-  return null;
-}
-
-function fixListUI(listEl=null) :void{
-  
-  //Keep newPanel at end by reparenting again
-  if(listEl!=null){ //fix passed list
-    let newPanel = EbyClass('newPanel',listEl)[0];
-    newPanel.parentNode.appendChild(newPanel);
-  }else{ //fix every list
-    let album = this.fixAlbumUI();
-    let lists = EbyClass('list', album);
-    for(let i = 0; i<lists.length; i++){
-      if(lists[i].id=="") this.fixListUI(lists[i]);
-    }
-  }
-}
-
-
+//dragging
+let drags :{
+  dragOld: JQuery<HTMLElement>; dragNew: JQuery<HTMLElement>; dragItem: JQuery<HTMLElement>;
+  oldDragIndex: number; newDragIndex: number;
+  dragStartTime: number;
+} = {
+  dragOld: null, dragNew: null, dragItem: null,
+  oldDragIndex: -1, newDragIndex: -1,
+  dragStartTime: -999 //used to click if drag < 0.01s (meant to click)
+};
 
 function startSavingIndicator() :void{
   html.savingIndicator.style.display = 'block';
@@ -49,7 +27,7 @@ function stopLoadingIndicator() :void{
 function expandInputAll() :void{
   let expandoInputs = EbyClass('expandInput');
   for (let i = 0; i < expandoInputs.length; i++)
-    this.expandInput(expandoInputs[i]);
+    expandInput(expandoInputs[i]);
 }
 
 function expandInput(el) :void{
@@ -69,10 +47,10 @@ function makeDraggable() :void{
     start: (event, drag)=>{
       
       log('drag start')
-        drags.dragItem = drag.item
-        drags.oldDragIndex = elementIndex(drags.dragItem[0])
-        drags.dragNew = drags.dragOld = drag.item.parent()
-        drags.dragStartTime = (new Date()).getTime()
+        drags.dragItem = drag.item;
+        drags.oldDragIndex = elementIndex(drags.dragItem[0]);
+        drags.dragNew = drags.dragOld = drag.item.parent();
+        drags.dragStartTime = (new Date()).getTime();
     },
     stop: (event, drag)=>{
       

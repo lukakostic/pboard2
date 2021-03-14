@@ -1,0 +1,178 @@
+<!-- Templates for new boards -->
+
+<!-- List Holder (album): -->
+
+<template id="view-template">
+   <!-- List View -->
+  <div data-id="" class="album d-flex bg-inh draggableAlbum">
+
+    <!-- Contents go here -->
+    <div>
+    </div>
+
+  
+    <form id="newList" class="list" style="vertical-align: top;"> <!--onsbumit added thru code--> 
+
+      <input onfocusout="this.value = ''" type="text" class="bgDark cWhite fWidth" placeholder="Add a new list..."
+      style="height: 31px; padding: 2px 2px 0px 5px;  font-weight: bolder; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></input>
+
+      <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" /></input>
+
+    </form>
+
+  </div>
+</template>
+
+ 
+
+
+<template id="tileHolderView-template">
+
+    <div id="listAlbum" class="d-none bg-inherit" style="padding: 5px !important; padding-top: 50px !important; background:rgba(0,0,0,0); margin: 0 auto;">
+
+      <!-- Lists Go Here -->
+
+      <div id="main-list" data-id="" class="main-list draggableList bg-inherit" style="background:rgba(0,0,0,0);">
+      
+        <div id="filler" class="title-text" value="" style="display: none;"></div> <!--Filler, to compensate for no title-->
+
+        <!-- Content -->
+
+        <!--
+        <form class="text row bg-dark" style="margin: 0px; width:100%;">
+          <textarea name="message" rows="4" cols="40"  wrap="hard" class="card-name bg-dark"
+          style="resize: none; padding-left: 5px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; text-overflow: ellipsis; color:white; border: 0px;"
+          onkeypress="expandInput(this)" oninput="expandInput(this)" onchange="expandInput(this)">Some Text Some Text Some Text Some Text Some Text Some Text Some Text</textarea>
+          
+          <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
+        </form>
+        -->
+        
+        <!-- New Text,Board,Reference buttons at list bottom template -->
+        <section id="newBoardMain" class="newPanel board" style="background-color: #555555;">
+
+          <div class="text-center justify-content-center" style="height: 100%;">
+
+            <button onclick="newText(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
+              Text
+            </button>
+
+            <button onclick="newBoard(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
+              Board
+            </button>
+
+            <button onclick="newList(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
+              List
+            </button>
+            
+            <button onclick="newReferenceBtn(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
+              Reference
+            </button>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+  </template>
+
+
+<!-- Tile Holder (list): -->
+
+<template id="list-template">
+  <div data-id="" class="list draggableList">
+    
+    <!-- List title -->
+    <div class="title row justify-content-between bg-inherit" style="margin: 0px; width:100%;">
+
+      <div oninput="listTitleChanged(event)" contenteditable="true" type="text" class="title-text card-name bg-inherit noborder editable" style="width: calc(100% - 16px); height: 27px !important; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white;">
+        <input oninput="listTitleChanged(event)" contenteditable="true" type="text" class="title-text card-name bg-inherit noborder editable" style="width: calc(100% - 16px); height: 27px !important; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white;"></input>
+      </div>
+
+      <button onclick="showOptionsDialog(event,this.parentNode.parentNode)" type="button" class="dot" style="display:block; position:relative; margin-left:auto; margin-top: 0px;"></button>
+
+    </div>
+
+
+    <!-- Tiles go here -->
+    
+    <div>
+    </div>
+
+
+    <!-- New Text,Board,Reference buttons at list bottom template -->
+    <div class="newTile row order-last bg-inherit" style="margin-left: 0px; margin-right: 0px;">
+      <div class="container bg-inherit text-center justify-content-center" style="height: 34px;">
+
+        <button onclick="newText(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
+          Text
+        </button>
+
+        <button onclick="newBoard(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
+          Board
+        </button>
+
+        <button onclick="newList(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%;">
+          List
+        </button>
+
+        <button onclick="newReferenceBtn(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
+          Reference
+        </button>
+
+      </div>
+    </div>
+
+
+  </div>
+</template>
+
+<!-- Tiles / ContentHolders: -->
+
+<template id="tile-template">
+  <section data-id="" class="tile draggable">
+
+    <button" onclick="showOptionsDialog(event)" class="dot" style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;"></button>
+
+    <div onclick="tileClicked(event)" class="textBtn text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
+      <span class="descriptionIcon fa fa-align-right d-none" style="font-size: 12px; margin-top:-2px; color:#777777;">&nbsp;</span>
+      Text
+    </div>
+
+  </section>
+</template>
+
+<!-- Below are not in use: -->
+
+<template id="board-template">
+  <section data-type="" data-id="" class="tile board draggable board" style="background-color: #343434;">
+
+    <button onclick="showOptionsDialog(event)" class="dot" style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;"></button>
+
+    <div onclick="showBoardBoardDialog(event)" class="textBtn text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
+    Board</div>
+
+
+    <!-- Needs image here -->
+
+  </section>
+</template>
+
+
+<template id="text-template">
+  <section data-type="" data-id="" class="tile text draggable board" style="background-color: #444444;">
+
+    <button" onclick="showOptionsDialog(event)" class="dot" style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;"></button>
+
+    <div onclick="showTextBoardDialog(event)" class="textBtn text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
+      <span class="descriptionIcon fa fa-align-right d-none" style="font-size: 12px; margin-top:-2px; color:#777777;">&nbsp;</span>
+      Text
+    </div>
+
+  </section>
+</template>
+
+
+<!-- End Of Templates -->

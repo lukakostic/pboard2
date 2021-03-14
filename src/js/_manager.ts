@@ -56,9 +56,9 @@ function set_board(id :string) :void{
 
 function resetData() :void{
   logw("resetData()");
-  pb = new PBoard("", currentVersion); //currentVersion in updater.js
+  pb = new PBoard("", currentVersion);
   //main board
-  pb.boards[""] = new Board(BoardType.List,"",[],{references:99999999999,main:true},""); //////////////////////////////////////// change to ListBoard ?
+  pb.boards[""] = new Board(BoardType.List,"",[],{references:99999999999,main:true},""); /////////////////TODO change to PBoard ?
   set_board("");
 }
 
