@@ -1,4 +1,8 @@
-function autoUI_function(){
+let AUTOUI_DISABLE = true; ///////////////TODO dont
+
+function autoUI_function() :void{
+  if(AUTOUI_DISABLE) return;
+
    //Fix this piece of shit mobile web dev crap
    document.body.style.setProperty("width","100vw");
  
@@ -19,6 +23,20 @@ function autoUI_function(){
 
    //singleInstanceCheck()////////////
  }
+
+ 
+function expandInputAll() :void{
+  let expandoInputs = EbyClass('expandInput');
+  for (let i = 0; i < expandoInputs.length; i++)
+    expandInput(expandoInputs[i]);
+}
+
+//Set height based on text in textbox
+function expandInput(el) :void{
+  el.style.height = '1px';
+  el.style.height = (1+el.scrollHeight)+'px';
+  el.parentNode.style.height = el.style.height;
+}
 
  //move newlist to bottom again
 function fixNewListUI() :void{

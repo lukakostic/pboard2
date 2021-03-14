@@ -1,5 +1,5 @@
 
-/* ///////////////TODO implement with Views instead.
+ ///////////////TODO implement with Views instead.
 function newText(event) :void{
 
   if(event.srcElement == null) event.srcElement = event.target;
@@ -17,7 +17,7 @@ function newText(event) :void{
   parent.appendChild(el);
   loadTextBoard(el,brd.id);
 
-  (<HTMLInputElement> EbyClass('textBtn',el)[0]).click(); ////////////////////////// auto open
+  (<HTMLInputElement> EbyName('text',el)).click(); ////////////////////////// auto open
 
   fixListUI(parent);
   sync.saveAll();
@@ -45,10 +45,10 @@ function newBoard(event) :void{
   
   fixListUI(parent);
 
-  (<HTMLLIElement> EbyClass('textBtn', el)[0]).click(); // load board on add, might not want to do this.
+  (<HTMLInputElement> EbyName('text', el)).click(); // load board on add, might not want to do this.
 
   sync.saveAll(()=>{
-    //el.getElementsByClassName('textBtn')[0].click(); // load board on add, might not want to do this. and to be moved to before saving?
+    //(<HTMLInputElement> EbyName('text', el)).click(); // load board on add, might not want to do this. and to be moved to before saving?
   });
 }
 
@@ -88,4 +88,3 @@ function newList(event) :void{
 
 
 //Needs newProject
-*/

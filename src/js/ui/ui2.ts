@@ -24,17 +24,6 @@ function stopLoadingIndicator() :void{
   html.loadingIndicator.style.display = 'none';
 }
 
-function expandInputAll() :void{
-  let expandoInputs = EbyClass('expandInput');
-  for (let i = 0; i < expandoInputs.length; i++)
-    expandInput(expandoInputs[i]);
-}
-
-function expandInput(el) :void{
-  el.style.height = '1px';
-  el.style.height = (1+el.scrollHeight)+'px';
-  el.parentNode.style.height = el.style.height;
-}
 
 function makeDraggable() :void{
     
@@ -130,27 +119,4 @@ function makeDraggable() :void{
     }
 }).disableSelection()
 
-/*
-$(".textBtn").each(function() {
-
-  this.addEventListener("mousedown", function(t) {
-    $(this.parentNode).trigger("mousedown",t);
-    $(this.parentNode).trigger("onmousedown",t);
-  },true);
-  this.addEventListener("mouseup", function(t) {
-    $(this.parentNode).trigger("mouseup",t);
-    $(this.parentNode).trigger("onmouseup",t);
-  },true);
-  
-  this.addEventListener("onmousedown", function(t) {
-    $(this.parentNode).trigger("mousedown",t);
-    $(this.parentNode).trigger("onmousedown",t);
-  },true);
-  this.addEventListener("onmouseup", function(t) {
-    $(this.parentNode).trigger("mouseup",t);
-    $(this.parentNode).trigger("onmouseup",t);
-  },true);
-
-});
-*/
 }

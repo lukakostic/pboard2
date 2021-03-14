@@ -17,6 +17,12 @@ function htmlLoaded() :void{
     event.preventDefault();
     newList(event);
   };
+  input.onkeypress = (event)=>{
+    if(event.key === 'Enter'){
+      event.preventDefault();
+      alert(input.value);
+    }
+  };
   */
 
   EbyId('homeBtn').onclick = goHome;
@@ -133,16 +139,16 @@ function drawBoardAlbum() :void{
 }
 
 function drawListAlbum() :void{
-  log('drawListAlbum()')
-  html.boardAlbum.classList.add('d-none')
-  html.listAlbum.classList.remove('d-none')
+  log('drawListAlbum()');
+  html.boardAlbum.classList.add('d-none');
+  html.listAlbum.classList.remove('d-none');
 
-  clearBoards(html.mainList)
+  clearBoards(html.mainList);
 
-  html.boardTitle.value = pb.boards[board].name
-  html.boardDescription.value = brdAttr(board,'description')
+  html.boardTitle.value = pb.boards[board].name;
+  html.boardDescription.value = brdAttr(board,'description');
   
-  loadList(html.mainList,board)
+  loadList(html.mainList,board);
 
   /*
   let ids = Object.keys(pb.boards);
@@ -170,23 +176,7 @@ function drawListAlbum() :void{
 }
 
 
-function loadTextBoard(textBoardEl, brd) :void{
-  log('loadTextBoard(',textBoardEl,"'"+JSON.stringify(brd)+"'",')');
 
-  if (typeof brd === 'string' || brd instanceof String)
-  brd = pb.boards[(<string> brd)];
-
-  set_dataId(textBoardEl, brd.id)
-
-  $(EbyClass('textBtn',textBoardEl)[0]).contents()[1].nodeValue = brd.name
-  
-  if(brd.content.length>0) 
-    EbyClass('descriptionIcon', textBoardEl)[0].classList.remove('d-none')
-  else 
-    EbyClass('descriptionIcon', textBoardEl)[0].classList.add('d-none')
-
-  loadBackground(textBoardEl,brd.id)
-}
 
 function loadBackground(brdEl, id) :void{
   brdEl.style.backgroundImage = "url('"+brdAttr(id,'background')+"')";
@@ -194,25 +184,25 @@ function loadBackground(brdEl, id) :void{
   brdEl.style.backgroundSize = "cover";
 }
 
-function loadBoardBoard(boardBoardEl, brd) :void{
+function loadBoardBoard(boardBoardEl, brd) :void{ ///////////////////////TODO replace by View
   log('loadBoardBoard(',boardBoardEl,"'"+JSON.stringify(brd)+"'",')')
 
   if (typeof brd === 'string' || brd instanceof String)
     brd = pb.boards[(<string> brd)]
 
   set_dataId(boardBoardEl, brd.id)
-  $(EbyClass('textBtn',boardBoardEl)[0]).contents()[0].nodeValue = brd.name
+  $(EbyName('tile-text',boardBoardEl)).contents()[0].nodeValue = brd.name
 
   loadBackground(boardBoardEl, brd.id)
 }
 
-function loadList(listEl, brd) :void{
-  log('loadList(',listEl,"'"+JSON.stringify(brd)+"'",')')
+function loadList(listEl, brd) :void{ //////////////////////////////TODO replace by View
+  log('loadList(',listEl,"'"+JSON.stringify(brd)+"'",')');
 
   if (typeof brd === 'string' || brd instanceof String)
-    brd = pb.boards[(<string> brd)]
+    brd = pb.boards[(<string> brd)];
 
-  let titleText = <HTMLInputElement>(EbyClass('title-text',listEl)[0]); ////////////??????
+  let titleText = <HTMLInputElement>EbyName('list-title',listEl); ////////////??????
 
   //could cause issues with main board (probably not)?
   //can only be blur while as input, so turn to div
@@ -221,22 +211,22 @@ function loadList(listEl, brd) :void{
   //  titleText.onblur = null;
 
 
-  titleText.addEventListener('click',listTitleClicked,true) //////////////???????
-  titleText.onblur = (event)=>{ listTitleBlur(event) } /////////////???????
+  titleText.addEventListener('click',listTitleClicked,true); //////////////???????
+  titleText.onblur = (event)=>{ listTitleBlur(event) }; /////////////???????
 
 //  $(titleText).val(brd.name);
-  $(titleText).html(brd.name) //we assume its div at start
+  $(titleText).html(brd.name); //we assume its div at start
 //  $(titleText).prop("readonly",true);
-  set_dataId(listEl, brd.id)
+  set_dataId(listEl, brd.id);
 
 
   for(let i = 0; i < brd.content.length; i++){
-    let brd2 = pb.boards[brd.content[i]]
+    let brd2 = pb.boards[brd.content[i]];
     if(brd2.type == BoardType.Text){
 
-      let el = html.textBrdTemplate.cloneNode(true)
-      listEl.appendChild(el)
-      loadTextBoard(el,brd2)
+      let el = html.textBrdTemplate.cloneNode(true);
+      listEl.appendChild(el);
+      loadTextBoard(el,brd2);
     
     }else if(brd2.type == BoardType.Board){
 
@@ -250,7 +240,7 @@ function loadList(listEl, brd) :void{
 }
 
 
-function loadBoardBackgroundImage() :void{
+function loadBoardBackgroundImage() :void{ /////////////////////TODO replace by View?
   let brdEl = EbyId('main');
   
   brdEl.style.backgroundImage = "url('"+brdAttr(board,'background')+"')";
@@ -258,8 +248,8 @@ function loadBoardBackgroundImage() :void{
   brdEl.style.backgroundSize = "cover";
 }
 
-function loadAllBoardsByDataId(brdId) :void{
-  let boardEls = EbyClass('board');
+function loadAllBoardsByDataId(brdId) :void{ ///////////////////////////TODO replace by View
+  let boardEls = EbyNameAll('tile');
 
   for(let i = 0; i < boardEls.length; i++){
     if(dataId(boardEls[i])==brdId){

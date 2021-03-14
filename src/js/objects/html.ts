@@ -2,13 +2,16 @@
 
 //Static html elements
 let html :{
-  textBrdTemplate :HTMLTemplateElement;
-  boardBrdTemplate :HTMLTemplateElement;
-  listTemplate :HTMLTemplateElement;
+  //textBrdTemplate :HTMLTemplateElement;
+  //boardBrdTemplate :HTMLTemplateElement;
+  //listTemplate :HTMLTemplateElement;
 
-  boardAlbum :HTMLElement;
-  listAlbum :HTMLElement;
-  mainList :HTMLElement;
+  //boardAlbum :HTMLElement;
+  //listAlbum :HTMLElement;
+  //mainList :HTMLElement;
+
+  list2Template:HTMLTemplateElement; /* rename to listTemplate after removing references to old one */
+  tileTemplate :HTMLTemplateElement;
 
   loadingIndicator :HTMLElement;
   savingIndicator :HTMLElement;
@@ -25,14 +28,17 @@ let html :{
 
   find :Function;
 } = {
-  textBrdTemplate: null,
-  boardBrdTemplate: null,
-  listTemplate: null,
+  //textBrdTemplate: null,
+  //boardBrdTemplate: null,
+  //listTemplate: null,
 
-  boardAlbum: null,
+  //boardAlbum: null,
 
-  listAlbum: null,
-  mainList: null,
+  //listAlbum: null,
+  //mainList: null,
+
+  list2Template: null, /* rename to listTemplate after removing references to old one */
+  tileTemplate: null,
 
   loadingIndicator: null,
   savingIndicator: null,
@@ -49,6 +55,7 @@ let html :{
 
 
   find(){
+    /*
     this.textBrdTemplate = templateFChild('text-template');
     this.boardBrdTemplate = templateFChild('board-template');
     this.listTemplate = templateFChild('list-template');
@@ -57,6 +64,9 @@ let html :{
 
     this.listAlbum = EbyId('single-list-board');
     this.mainList = EbyId('main-list');
+    */
+
+    this.tileTemplate = templateFChild('tile-template');
 
     this.loadingIndicator = EbyId('loadingIndicator');
     this.savingIndicator = EbyId('savingIndicator');

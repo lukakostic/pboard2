@@ -3,7 +3,7 @@
 let textBoardAtStart = null; //json of the board when selected, used for saving
 let textBoardGettingEdited = null; //ID //for saving too tho can be used for other
 
-function showTextBoardDialog(event){
+function showTextBoardDialog(event){ ///////////TODO replace even for View. Why does this function need to grapple with HTML for tile, thats Views job
     /*
     console.log(event)
     console.log('drag',dragItem[0], '!=',dragItem!=null)
