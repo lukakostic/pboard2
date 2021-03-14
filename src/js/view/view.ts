@@ -98,12 +98,12 @@ class AlbumView extends HolderView{ /*Has List adder thing at end*/
    
    buildSelf() :void{
       if(this.htmlEl == null){
-         this.htmlEl = <HTMLElement> html..cloneNode(true);
+         this.htmlEl = <HTMLElement> html.albumTemplate.cloneNode(true);
          this.parentEl.appendChild(this.htmlEl);
 
          this.holderElement = EbyName('album-holder',this.htmlEl);
 
-         this.adder = EbyName('album-adder',this.htmlEl);
+         this.adder = <HTMLInputElement> EbyName('album-adder',this.htmlEl);
          this.adder.onkeypress = this.adder_onkeypress;////////
       }
       this.holderElement.innerHTML = ""; //Clear children.
@@ -152,7 +152,7 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
          this.holderElement = EbyName('list-holder',this.htmlEl);
 
          this.header = EbyName('list-header',this.htmlEl);
-         this.title = EbyName('list-title',this.htmlEl);
+         this.title = <HTMLInputElement> EbyName('list-title',this.htmlEl);
          this.title.onkeypress = this.title_onkeypress; ////////////TODO Will this work?
          this.optionsBtn = EbyName('list-optionsBtn',this.htmlEl);
          this.optionsBtn.onclick = this.optionsBtn_onclick;////////
@@ -260,7 +260,7 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
       
       loadBackground(this.htmlEl,this.id);
 
-      if(pb.boards[this.id].content.length>0) 
+      if(pb.boards[this.id].type == BoardType.Text && pb.boards[this.id].content.length>0) 
          this.textIcon.classList.remove('d-none');
       else 
          this.textIcon.classList.add('d-none');

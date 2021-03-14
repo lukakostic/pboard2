@@ -38,20 +38,30 @@ function expandInput(el) :void{
   el.parentNode.style.height = el.style.height;
 }
 
+
+
+
+
+
+//////////////////////////////////
+function fixNewListUI(){}
+function fixAlbumUI(){}
+function fixListUI(){}
+/*
  //move newlist to bottom again
-function fixNewListUI() :void{
+function fixNewListUI() :void{ ////////////// TODO move to View
    let newlist = EbyId('newlist');
    newlist.parentNode.appendChild(newlist);
  }
  
- function fixAlbumUI() :void{
+ function fixAlbumUI() :void{ ////////////// TODO move to View
    let columnWidth = 310; //px //300 + 5*2 margin
    
    html.boardAlbum.style.setProperty('width',((columnWidth*html.boardAlbum.childElementCount)+10 + 8).toString() + 'px'); //add some space for album pad (2 * 5px atm) + some extra just in case
      
  }
  
- function fixListUI(listEl=null) :void{
+ function fixListUI(listEl=null) :void{ ////////////// TODO move to View
    
    //Keep newPanel at end by reparenting again
    if(listEl!=null){ //fix passed list
@@ -65,3 +75,4 @@ function fixNewListUI() :void{
      }
    }
  }
+ */

@@ -1,5 +1,10 @@
 
  ///////////////TODO implement with Views instead.
+ function newText(){}
+ function newBoard(){}
+ function newList(){}
+
+ /*
 function newText(event) :void{
 
   if(event.srcElement == null) event.srcElement = event.target;
@@ -88,3 +93,4 @@ function newList(event) :void{
 
 
 //Needs newProject
+*/

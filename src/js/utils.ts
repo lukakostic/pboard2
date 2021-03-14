@@ -203,19 +203,19 @@ function nulledGetAttribute(el, attr :string) :string|null{
 function EbyId(id :string) :HTMLElement|null{
     return document.getElementById(id);
 }
+
 /* //You should only use classes for automatic css and visual stuff, not for JS functionality
 function EbyClass(className :string, element :HTMLElement|Document = document) :HTMLCollectionOf<Element>|null{
     return element.getElementsByClassName(className);
 }
 */
-/*
-function EbyName(name :string, element :Element){
+
+function EbyName(name :string, element :HTMLElement) :HTMLElement|null{
     return element.querySelector('[data-name="'+name+'"]');
 }
 function EbyNameAll(name :string, element :HTMLElement|Document = document){
     return element.querySelectorAll('[data-name="'+name+'"]');
 }
-*/
 
 function templateFChild(id :string) :Element|null{
     let el = EbyId(id);

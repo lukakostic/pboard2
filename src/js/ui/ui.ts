@@ -5,7 +5,7 @@ let autoUI :number = -1; /*interval id, -1 = unset*/ //set in htmlLoaded
 
 //Called only once
 function htmlLoaded() :void{
-  html.find(); //find static html elements
+  //html.find(); //find static html elements
 
   if(autoUI == -1)
     autoUI = setInterval(autoUI_function,100);
@@ -68,7 +68,10 @@ function pageOpened() :void{
 }
 
 
-
+////////////////////////////////////////////////// TODO move to View
+function clearBoards(no,nope,nopp,never) :void{}
+function clearLists(no,nope,nopp,never) :void{}
+/*
 function clearBoards(lst = null) :void{
   log('clearBoards(',lst,')');
 
@@ -93,32 +96,38 @@ function clearLists() :void{
     if (lists[j].id == "")
       $(lists[j]).remove(); 
 }
-
+*/
 
 
 function draw() :void{
   log('draw()');
 
+  return; ////////////////TODO Just while testing View
+  
   ///////////////////////////////////////TODO change to view?
   if(pb.boards[board].type == BoardType.Board) drawBoardAlbum();
   else if(pb.boards[board].type == BoardType.List) drawListAlbum(); //////////TODO add PBoard?
   // board type text
 
+
   loadBoardBackgroundImage();
-  makeDraggable();
+  makeDraggable(); /////////////TODO move to view
 
   ////////////////TODO wtf is this shit, needs change
   setTimeout(()=>{expandInputAll()},200);
   setTimeout(()=>{expandInputAll()},1000);
 }
 
-
+////////////////////// TODO move to view
+function drawBoardAlbum(no,nope,nopp,never){}
+function drawListAlbum(no,nope,nopp,never){}
+/*
 function drawBoardAlbum() :void{
   log('drawBoardAlbum()')
   html.listAlbum.classList.add('d-none')
   html.boardAlbum.classList.remove('d-none')
   
-  clearLists()
+  clearLists();
   //clearBoards()
 
   html.boardTitle.value = pb.boards[board].name
@@ -172,9 +181,10 @@ function drawListAlbum() :void{
     }
   }
   */
+/*
   fixListUI(html.mainList);
 }
-
+*/
 
 
 
@@ -184,19 +194,10 @@ function loadBackground(brdEl, id) :void{
   brdEl.style.backgroundSize = "cover";
 }
 
-function loadBoardBoard(boardBoardEl, brd) :void{ ///////////////////////TODO replace by View
-  log('loadBoardBoard(',boardBoardEl,"'"+JSON.stringify(brd)+"'",')')
-
-  if (typeof brd === 'string' || brd instanceof String)
-    brd = pb.boards[(<string> brd)]
-
-  set_dataId(boardBoardEl, brd.id)
-  $(EbyName('tile-text',boardBoardEl)).contents()[0].nodeValue = brd.name
-
-  loadBackground(boardBoardEl, brd.id)
-}
-
-function loadList(listEl, brd) :void{ //////////////////////////////TODO replace by View
+function loadList(){}
+ //////////////////////////////TODO replace by View
+ /*
+function loadList(listEl, brd) :void{
   log('loadList(',listEl,"'"+JSON.stringify(brd)+"'",')');
 
   if (typeof brd === 'string' || brd instanceof String)
@@ -238,17 +239,20 @@ function loadList(listEl, brd) :void{ //////////////////////////////TODO replace
   }
   fixListUI(listEl);
 }
-
+*/
 
 function loadBoardBackgroundImage() :void{ /////////////////////TODO replace by View?
-  let brdEl = EbyId('main');
+  let brdEl = html.main;
   
   brdEl.style.backgroundImage = "url('"+brdAttr(board,'background')+"')";
   brdEl.style.backgroundRepeat = "no-repeat";
   brdEl.style.backgroundSize = "cover";
 }
 
-function loadAllBoardsByDataId(brdId) :void{ ///////////////////////////TODO replace by View
+function loadAllBoardsByDataId(){}
+ ///////////////////////////TODO replace by View
+ /*
+function loadAllBoardsByDataId(brdId) :void{
   let boardEls = EbyNameAll('tile');
 
   for(let i = 0; i < boardEls.length; i++){
@@ -260,3 +264,4 @@ function loadAllBoardsByDataId(brdId) :void{ ///////////////////////////TODO rep
     }
   }
 }
+*/

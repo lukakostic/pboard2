@@ -26,7 +26,7 @@ function stopLoadingIndicator() :void{
 
 
 function makeDraggable() :void{
-    
+    return; ///////////////////////////TODO while texting View. Implement in View?
 
   //make boards draggable
   let draggableLists = $('.draggableList')
