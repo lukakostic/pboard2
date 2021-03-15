@@ -11,7 +11,7 @@ let board :string = "";
 
 let currentVersion :number = 3.1;
 
-console.log(currentVersion," : ", 'view changes');  ///Version log and minor version
+console.log(currentVersion," : ", 'changed list visuals');  ///Version log and minor version
 
 //Enforce single instance of pboard across tabs?
 /*

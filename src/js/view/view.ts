@@ -108,6 +108,9 @@ class AlbumView extends HolderView{ /*Has List adder thing at end*/
    }
    
    buildSelf() :void{
+      if(this.htmlEl != null && this.htmlEl.parentElement == null)
+         this.htmlEl = null;
+
       if(this.htmlEl == null){
          this.htmlEl = <HTMLElement> html.albumTemplate.cloneNode(true);
          this.parentEl.appendChild(this.htmlEl);
@@ -159,6 +162,9 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
    }
    
    buildSelf() :void{
+      if(this.htmlEl != null && this.htmlEl.parentElement == null)
+         this.htmlEl = null;
+
       if(this.htmlEl == null){
          this.htmlEl = <HTMLElement> html.list2Template.cloneNode(true);
          this.parentEl.appendChild(this.htmlEl);
@@ -214,18 +220,21 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
       //showOptionsDialog(event,this.parentNode.parentNode)
    }
    adderText_onclick(event) :void{
-      //newText(event)
+      newText(this.id,null);
+      ////////////////TODO auto open text
    }
    adderBoard_onclick(event) :void{
-      //newBoard(event)
+      newBoard(this.id,null);
+      ////////////////TODO auto open board
    }
    adderList_onclick(event) :void{
       let name = window.prompt("List name?: ");
       if(name == "" || name == null)return;
+      
       newList(this.id, name);
    }
    adderReference_onclick(event) :void{
-      //newReferenceBtn(event)
+      newReference(this.id,null);
    }
 }
 
@@ -257,6 +266,9 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
 
 
    buildSelf() :void{
+      if(this.htmlEl != null && this.htmlEl.parentElement == null)
+         this.htmlEl = null;
+
       if(this.htmlEl == null){
          this.htmlEl = <HTMLElement> html.tileTemplate.cloneNode(true);
          this.parentEl.appendChild(this.htmlEl);
@@ -274,7 +286,8 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
    render() :void{ /* Render elements held */
       this.buildSelf();
       
-      $(this.text).contents()[1].nodeValue = pb.boards[this.id].name;
+      this.text.childNodes[2].nodeValue = pb.boards[this.id].name; /////////////// HIGHLY DEPENDENT ON HTML, even newlines affect. Test in browser if it fails.
+      //$(this.text).contents()[1].nodeValue = pb.boards[this.id].name;
       //this.text.innerText = pb.boards[this.id].name; //Title   //////////////TODO how do i set text without fucking up icon?
       //this.text.innerText = pb.boards[this.id].content; //Text
       

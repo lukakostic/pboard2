@@ -1,18 +1,65 @@
 
  ///////////////TODO implement with Views instead.
- function newText(){}
- function newBoard(){}
 
- function newList(parentId :string, name:string) :void{
 
-  let brd = new Board(BoardType.List,name,[],{references:1});
+ function newText(parentId :string, name:string|null = null) :void{
+  if(name==null) name="Text";
+  let brd = new Board(BoardType.Text,name,"",{references:1});
   pb.boards[brd.id] = brd;
   pb.boards[parentId].content.push(brd.id);
+
 
   mainView.render();
   
   sync.saveAll();
 }
+
+function newBoard(parentId :string, name:string|null = null) :void{
+  if(name==null) name="Board";
+  let atr = {description:'',references:1};
+  let brd = new Board(BoardType.Board,name,[],atr);
+
+  pb.boards[brd.id] = brd;
+  pb.boards[parentId].content.push(brd.id); //Add to parent list
+  
+
+  mainView.render();
+
+  sync.saveAll();
+}
+
+function newList(parentId :string, name:string|null = null) :void{
+  if(name==null) name="List";
+  let brd = new Board(BoardType.List,name,[],{references:1});
+  pb.boards[brd.id] = brd;
+  pb.boards[parentId].content.push(brd.id);
+
+
+  mainView.render();
+
+  sync.saveAll();
+}
+
+
+function newReference(parentId :string, id :string|null = null) :void{
+  if(id == null){
+    id = window.prompt("Write/Paste id of board to reference:");
+
+    if(id==null) return;
+    if(pb.boards[id] == null){ alert("ID doesn't exist :("); return; }
+    //if(pb.boards[id].type == BoardType.List){alert("Cant embed lists into boards."); return;}
+  }
+
+  pb.boards[parentId].content.push(id);
+
+  pb.boards[id].attributes['references']++;
+
+
+  mainView.render();
+
+  sync.saveAll();
+}
+
 
  /*
 function newText(event) :void{

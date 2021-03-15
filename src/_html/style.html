@@ -16,6 +16,9 @@
   }
 
   .tile{
+    max-width: 400px;
+    height: 300px;
+    flex: 0 0 auto; /*dont shrink or expand*/
     background-color: #444444;
   }
   
@@ -32,6 +35,16 @@
     overflow: hidden;
     text-overflow: ellipsis;
     color: white;
+  }
+  [data-name="list-title"]{
+    width: calc(100% - 16px);
+    height: 27px;
+    padding: 2px 2px 0px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bolder;
+    color:white;
   }
 
   
