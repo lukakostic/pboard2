@@ -11,10 +11,10 @@ function setMainView(v :View) :void{
    mainView = v;
    if(pb.boards[mainView.id].type == BoardType.List){
       viewMode = ViewMode.List;
-      mainView.htmlEl.id = "ViewModeList";
+      html.main.setAttribute('data-view',"ViewModeList");
    }else{
       viewMode = ViewMode.Board;
-      mainView.htmlEl.id = "ViewModeBoard";
+      html.main.setAttribute('data-view',"ViewModeBoard");
    }
 }
 function clearMainView() :void{
@@ -256,7 +256,10 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
       openBoard(id); //auto open
    }
    adderBoard_onclick(event) :void{
-      let id = newBoard(this.id,null);
+      let name = window.prompt("Board name?: ");
+      if(name == "" || name == null)return;
+      
+      let id = newBoard(this.id,name);
       openBoard(id); //auto open
    }
    adderList_onclick(event) :void{
@@ -352,7 +355,7 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
 
 
 function openBoard(id :string) :void{
-   console.log("board of id: " + id + " clicked");
+   //console.log("board of id: " + id + " clicked");
 
    //// For textual open textDialog by id (you just pass id to open it! )
    if(pb.boards[id].type == BoardType.Text){

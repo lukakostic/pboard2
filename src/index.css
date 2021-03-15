@@ -13,7 +13,7 @@
 }
 
 .bgCol{
-  background-color: #3f3f3f;
+  background-color: #f8f8f8;
 }
 
 body {
@@ -25,32 +25,34 @@ body {
   background-color: #0F0F0F;
   position: fixed;
   width: 100%;
+  z-index: 100;
 }
 
 
 .b { /*basic button*/
+  display: inline-block; /* idk */
+  align-self: flex-start; /*keep from resizing in flex*/
+
   font-size: 14px;
   border: 1px solid transparent;
   padding: 2px 6px;
   margin: 0px;
-  display: inline-block; /* idk */
   text-align: center;
   vertical-align: middle;
   border-radius: 2px;
-  align-self: flex-start; /*keep from resizing in flex*/
 }
 
 .dot{
-  background-color: white;
-  border: 0px;
-  height: 15px;
-  width: 15px;
-  padding: 0;
-
   display: inline-block;
   position: absolute;
   right: 0px;
   top: 0px;
+
+  height: 15px;
+  width: 15px;
+  background-color: rgba(255,255,255, 0.2);
+  border: 0px;
+  padding: 0;
 
   border-radius: 99px;
 }

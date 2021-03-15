@@ -2,6 +2,10 @@
 
 //base site url
 let siteUrl :string = "https://lukakostic.github.io/pb/";
+if(url().includes("file:///")){ //If local.
+  window.location.hash = ""; //so we can get base url
+  siteUrl = url();
+}
 
 //currently open PBoard object
 let pb :PBoard = null;
@@ -11,7 +15,7 @@ let board :string = "";
 
 let currentVersion :number = 3.1;
 
-console.log(currentVersion," : ", 'ViewMode');  ///Version log and minor version
+console.log(currentVersion," : ", 'Dialogs');  ///Version log and minor version
 
 //Enforce single instance of pboard across tabs?
 /*
