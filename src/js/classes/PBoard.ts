@@ -29,7 +29,12 @@ const BoardType :BoardTypeT = {
     List : 3,
     PBoard: 4 //whole new local board
 }
-
+function BoardTypeName(val :number) :string|null{
+    for(let k in BoardType)
+        if(BoardType[k] == val)
+            return k;
+    return null;
+}
 
 class Board {
     id :string;

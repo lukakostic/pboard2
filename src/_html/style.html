@@ -4,30 +4,33 @@
     padding-top: 50px; /* set based on headerHeight */
   }
 
-  #main div{
+  #main>*{
     width: 100%;
   }
-  .listHolder .list{
+  #ViewModeBoard .list{
     width: 300px;
+    margin: 0px 3px 0px 3px;
   }
   .list {
-    background-color: #555555;
+    /* background-color: #555555; */
     flex: 0 0 auto; /*dont shrink or expand*/
   }
-
+  #ViewModeBoard .tile{ /* mainView if List gets mainList id, so draw gridlike */
+    height: 100px;
+    max-width: 300px;
+  }
+  #ViewModeList .tile{ /* mainView if List gets mainList id, so draw gridlike */
+    height: 100px;
+    width: 100px;
+    max-width: 100px;
+    max-height: 100px;
+  }
   .tile{
-    max-width: 400px;
-    height: 300px;
+    margin: 5px 0px 5px 0px;
     flex: 0 0 auto; /*dont shrink or expand*/
     background-color: #444444;
   }
   
-  .dot{
-    display:block;
-    position:relative;
-    margin-left:auto;
-    margin-bottom: -12px;
-  }
 
   [data-name="tile-text"]{
     width: 100%;
@@ -35,9 +38,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     color: white;
+    padding: 5px;
   }
+
   [data-name="list-title"]{
-    width: calc(100% - 16px);
     height: 27px;
     padding: 2px 2px 0px 5px;
     white-space: nowrap;
@@ -47,6 +51,9 @@
     color:white;
   }
 
+  [data-name="list-adder"]{
+    height: 34px;
+  }
   
   [data-name="tile-textIcon"]{
     font-size: 12px;
@@ -64,5 +71,16 @@
     text-overflow: ellipsis;
   }
 
+
+  
+  [data-type="Text"]{
+    background-color:#5f5f58;
+  }
+  [data-type="Board"]{
+    background-color:#444444;
+  }
+  [data-type="List"]{
+    background-color:#5e6669;
+  }
   
 </style>

@@ -4,75 +4,21 @@
 
 <template id="album-template">
    <!-- List View -->
-  <div data-name="album" class="album listHolder d-flex bg-inh draggableAlbum">
+  <div data-name="album" class="album d-flex bg-inh draggableAlbum">
 
     <!-- Contents go here -->
-    <div data-name="album-holder" class="listHolder">
+    <div data-name="album-holder" class="d-flex">
 
     </div>
 
 
-    <input data-name="album-adder" type="text" onfocusout="this.value = ''"
-    class="list bgDark cWhite fWidth" placeholder="Add a new list..."></input>
+    <input data-name="album-adder" type="text" onblur="this.value = ''"
+    class="list bgDark cWhite fWidth" style="height: 30px;" placeholder="Add a new list..."></input>
 
   </div>
 </template>
 
  
-
-<!-- Unused, unfinished. -->
-<template id="tileHolderView-template">
-
-    <div id="listAlbum" class="d-none bg-inherit" style="padding: 5px !important; padding-top: 50px !important; background:rgba(0,0,0,0); margin: 0 auto;">
-
-      <!-- Lists Go Here -->
-
-      <div id="main-list" data-id="" class="main-list draggableList bg-inherit" style="background:rgba(0,0,0,0);">
-      
-        <div id="filler" class="title-text" value="" style="display: none;"></div> <!--Filler, to compensate for no title-->
-
-        <!-- Content -->
-
-        <!--
-        <form class="text row bg-dark" style="margin: 0px; width:100%;">
-          <textarea name="message" rows="4" cols="40"  wrap="hard" class="card-name bg-dark"
-          style="resize: none; padding-left: 5px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; text-overflow: ellipsis; color:white; border: 0px;"
-          onkeypress="expandInput(this)" oninput="expandInput(this)" onchange="expandInput(this)">Some Text Some Text Some Text Some Text Some Text Some Text Some Text</textarea>
-          
-          <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
-        </form>
-        -->
-        
-        <!-- New Text,Board,Reference buttons at list bottom template -->
-        <section id="newBoardMain" class="newPanel board" style="background-color: #555555;">
-
-          <div class="text-center justify-content-center" style="height: 100%;">
-
-            <button onclick="newText(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
-              Text
-            </button>
-
-            <button onclick="newBoard(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
-              Board
-            </button>
-
-            <button onclick="newList(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
-              List
-            </button>
-            
-            <button onclick="newReferenceBtn(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
-              Reference
-            </button>
-
-          </div>
-
-        </section>
-
-      </div>
-
-    </div>
-  </template>
-
 
 
 
@@ -82,8 +28,8 @@
   <div data-name="list" class="list draggableList">
     
     <!-- List title -->
-    <div data-name="list-header" class="fWidth bg-inh">
-      <input data-name="list-title" type="text" class="bg-inh"></input>
+    <div data-name="list-header" class="d-flex fWidth bg-inh" style="position: /*Needed because .dot is absolute*/ relative;">
+      <input data-name="list-title" type="text" class="bg-inh fWidth"></input>
 
       <button data-name="list-optionsBtn" type="button" class="dot"></button>
     </div>
@@ -96,7 +42,7 @@
 
 
     <!-- New Text,Board,Reference buttons at list bottom template -->
-    <div data-name="list-adder" class="d-flex bg-inh" style="height: 34px; margin-left: 0px; margin-right: 0px;">
+    <div data-name="list-adder" class="d-flex bg-inh">
       <button data-name="list-adder-text" type="button" class="b">
         Text
       </button>
@@ -116,12 +62,11 @@
 </template>
 
 
-<!-- Onclick events and stuff should be added thru js. not in html. Html is just visual. -->
 
 <!-- Tiles / ContentHolders: -->
 
 <template id="tile-template">
-  <section data-name="tile" class="tile draggable">
+  <section data-name="tile" class="tile draggable" style="position: /*Needed because .dot is absolute*/ relative;">
 
     <button data-name="tile-optionsBtn" class="dot"></button>
 
@@ -130,47 +75,8 @@
       Text
     </div>
 
-  </section>
-</template>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Below are not in use: -->
-
-<template id="board-template">
-  <section data-type="" data-id="" class="tile board draggable board" style="background-color: #343434;">
-
-    <button onclick="showOptionsDialog(event)" class="dot" style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;"></button>
-
-    <div onclick="showBoardBoardDialog(event)" class="text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
-    Board</div>
-
-
+    
     <!-- Needs image here -->
-
-  </section>
-</template>
-
-
-<template id="text-template">
-  <section data-type="" data-id="" class="tile text draggable board" style="background-color: #444444;">
-
-    <button" onclick="showOptionsDialog(event)" class="dot" style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;"></button>
-
-    <div onclick="showTextBoardDialog(event)" class="text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
-      <span class="descriptionIcon fa fa-align-right d-none" style="font-size: 12px; margin-top:-2px; color:#777777;">&nbsp;</span>
-      Text
-    </div>
 
   </section>
 </template>

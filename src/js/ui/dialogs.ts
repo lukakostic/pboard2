@@ -1,5 +1,8 @@
 
 
+/////////////TODO just call boardClicked(id) ? This function is only used in optionsDialog at end..
+function showBoardBoardDialog(){}
+/*
 function showBoardBoardDialog(event, id=null) :void{
   if(event.srcElement == null) event.srcElement = event.target;
   if(drags.dragItem!=null && ( event.srcElement==drags.dragItem[0] || event.srcElement.parentNode == drags.dragItem[0])) // Dont open if being dragged
@@ -10,7 +13,7 @@ function showBoardBoardDialog(event, id=null) :void{
   
   set_board(id);
 }
-
+*/
 
 function listTitleClicked(event) :void{
   if(event.srcElement == null) event.srcElement = event.target;

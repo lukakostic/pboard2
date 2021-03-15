@@ -40,7 +40,20 @@ body {
   align-self: flex-start; /*keep from resizing in flex*/
 }
 
+.dot{
+  background-color: white;
+  border: 0px;
+  height: 15px;
+  width: 15px;
+  padding: 0;
 
+  display: inline-block;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+
+  border-radius: 99px;
+}
 
 .statusIndicator {
   position: fixed;

@@ -11,7 +11,7 @@ let board :string = "";
 
 let currentVersion :number = 3.1;
 
-console.log(currentVersion," : ", 'changed list visuals');  ///Version log and minor version
+console.log(currentVersion," : ", 'ViewMode');  ///Version log and minor version
 
 //Enforce single instance of pboard across tabs?
 /*
@@ -88,7 +88,7 @@ function loadPBoard(content :string, checkTime :boolean = true) :boolean/*succes
   sync.lastSyncTime = saveFile.syncTime;
   pb = saveFile.pb;
   
-  draw();
+  pageOpened();
 
   return true;
 }

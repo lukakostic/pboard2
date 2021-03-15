@@ -1,10 +1,26 @@
+type ViewModeT = number;
+const ViewMode :{[index:string]:ViewModeT} = {
+   List :0,
+   Board :1
+}
+
 let mainView :View = null; //current main, top level view
+let viewMode :ViewModeT = ViewMode.List;
+
 function setMainView(v :View) :void{
    mainView = v;
+   if(pb.boards[mainView.id].type == BoardType.List){
+      viewMode = ViewMode.List;
+      mainView.htmlEl.id = "ViewModeList";
+   }else{
+      viewMode = ViewMode.Board;
+      mainView.htmlEl.id = "ViewModeBoard";
+   }
 }
 function clearMainView() :void{
    mainView = null;
    html.main.innerHTML = "";
+   viewMode = ViewMode.List;
 }
 
 interface View{ /* A (board kind) element display. Album, List, Tile. */
@@ -23,14 +39,21 @@ interface View{ /* A (board kind) element display. Album, List, Tile. */
 /* generate required type based on board type */
 function generateView(_id :string, _parentEl :HTMLElement|Element) :AlbumView|ListView|TileView|null{
    let type = pb.boards[_id].type;
-   if(type == BoardType.Text || type == BoardType.Board){
-      return new TileView(_id, _parentEl);
-   }
-   if(type == BoardType.List){
-      return new ListView(_id, _parentEl);
-   }
-   if(type == BoardType.PBoard){
+   if(_parentEl == html.main){
+      if(type == BoardType.List)
+         return new ListView(_id, _parentEl);
+      if(type == BoardType.Text)
+         throw "Trying to open text fullscreen";
+      
+      //Pboard, Board
       return new AlbumView(_id, _parentEl);
+   }else if(viewMode == ViewMode.Board){
+      /////////////////////TODO maybe i should remove the second check, it looks cool to have lists in lists..
+      if(type == BoardType.List && _parentEl == (<HolderView>mainView).holderElement)
+         return new ListView(_id, _parentEl);
+      return new TileView(_id, _parentEl);
+   }else if(viewMode == ViewMode.List){
+      return new TileView(_id, _parentEl);
    }
    return null;
 }
@@ -60,15 +83,15 @@ abstract class HolderView implements View{
 
    generateElements() :void{
       
-      if(pb.boards[this.id].type != BoardType.List && pb.boards[this.id].type != BoardType.PBoard)
-         throw 'HolderView used for non holder type of board (PBoard | List)';
+      if(pb.boards[this.id].type == BoardType.Text)
+         throw 'HolderView used for text';
 
-      this.elements.length = pb.boards[this.id].content.length;
-      for(let i = 0; i < pb.boards[this.id].content.length; i++){
-         let brdId = pb.boards[this.id].content[i];
-         
-         if(this.elements[i] == undefined)
-            this.elements[i] = generateView(pb.boards[this.id].content[i],this.holderElement);
+      let len = pb.boards[this.id].content.length;
+      this.elements.length = len;
+      for(let i = 0; i < len; i++){
+
+         if(this.elements[i] == undefined || this.elements[i] == null)
+            this.elements[i] = generateView(pb.boards[this.id].content[i], this.holderElement);
          else
             this.elements[i].id = pb.boards[this.id].content[i];
          
@@ -139,10 +162,9 @@ class AlbumView extends HolderView{ /*Has List adder thing at end*/
    }
 
    adder_onkeypress(event) :void{
-      if(event.key === 'Enter'){
-         newList(this.id, this.adder.value);
-         this.adder.value = "";
-      }
+      if(event.key !== 'Enter') return;
+      newList(this.id, this.adder.value);
+      this.adder.value = "";
    }
 }
 
@@ -173,7 +195,8 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
 
          this.header = EbyName('list-header',this.htmlEl);
          this.title = <HTMLInputElement> EbyName('list-title',this.htmlEl);
-         this.title.onkeypress = this.title_onkeypress.bind(this); ////////////TODO Will this work?
+         this.title.onkeypress = this.title_onkeypress.bind(this);////////
+         this.title.onblur = this.title_onblur.bind(this);////////
          this.optionsBtn = EbyName('list-optionsBtn',this.htmlEl);
          this.optionsBtn.onclick = this.optionsBtn_onclick.bind(this);////////
          this.adder = EbyName('list-adder',this.htmlEl);
@@ -196,10 +219,15 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
    render() :void{ /* Render elements held */
       this.buildSelf();
       
-      //////////////TODO Set title text
-      //////////// What if ListView used in board mode? do i set the global text and disable description?
+      if(mainView == this){
+         this.header.classList.add('hidden'); ////////TODO make it so you can edit from header
+      }
+
+      this.title.value = pb.boards[this.id].name;
 
       /*
+      What if ListView used in board mode? do i set the global text and disable description?
+
       when listView is in fullscreen mode, disable header (title and options), and reroute Title textbox and Options button to do same as listView title input and options button.
 
       Description box is disabled.
@@ -211,27 +239,32 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
    }
 
    title_onkeypress(event) :void{
-      alert(this.id);
-      alert(this.title.outerHTML);
-      //Save event.srcElement.value i guess,
-      //Or actually save title.value , we want to avoid html wrangling. You dont need to know the html structure.
+      if(event.key !== 'Enter') return;
+      pb.boards[this.id].name = this.title.value;
+
+      pageOpened();
+      sync.saveAll();
+   }
+   title_onblur(event) :void{
+      this.title.value = pb.boards[this.id].name;
    }
    optionsBtn_onclick(event) :void{
       //showOptionsDialog(event,this.parentNode.parentNode)
    }
    adderText_onclick(event) :void{
-      newText(this.id,null);
-      ////////////////TODO auto open text
+      let id = newText(this.id,null);
+      openBoard(id); //auto open
    }
    adderBoard_onclick(event) :void{
-      newBoard(this.id,null);
-      ////////////////TODO auto open board
+      let id = newBoard(this.id,null);
+      openBoard(id); //auto open
    }
    adderList_onclick(event) :void{
       let name = window.prompt("List name?: ");
       if(name == "" || name == null)return;
       
-      newList(this.id, name);
+      let id = newList(this.id, name);
+      openBoard(id); //auto open
    }
    adderReference_onclick(event) :void{
       newReference(this.id,null);
@@ -246,7 +279,6 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
    
    //view specific properties:
 
-   tileType :BTypeT;
    //all tile-_____ properties from html:
    optionsBtn : HTMLElement;
    text : HTMLElement;
@@ -254,11 +286,11 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
 
    constructor(_id :string = "", _parentEl :HTMLElement|Element){
       this.id = _id;
+      
       this.parentEl = _parentEl;
       this.htmlEl = null;
 
-      this.tileType = pb.boards[_id].type;
-
+ 
       this.optionsBtn = null;
       this.text = null;
       this.textIcon = null;
@@ -291,6 +323,8 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
       //this.text.innerText = pb.boards[this.id].name; //Title   //////////////TODO how do i set text without fucking up icon?
       //this.text.innerText = pb.boards[this.id].content; //Text
       
+      //To display text, check type.
+      this.htmlEl.setAttribute('data-type', BoardTypeName(pb.boards[this.id].type));
       
       loadBackground(this.htmlEl,this.id);
 
@@ -311,7 +345,22 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
       //showOptionsDialog(event)
    }
    text_onclick(event) :void{
-      //open tile
-      //tileClicked(event)
+      //open tile. Since tile can be any type we better call special function:
+      openBoard(this.id);
    }
+}
+
+
+function openBoard(id :string) :void{
+   console.log("board of id: " + id + " clicked");
+
+   //// For textual open textDialog by id (you just pass id to open it! )
+   if(pb.boards[id].type == BoardType.Text){
+      alert("Text!");
+      return;
+   }
+   /// For board open it full window
+   /// For list open it full window
+   /// PBoard open it full window
+   set_board(id);
 }

@@ -60,7 +60,10 @@ function pageOpened() :void{
 
   //clearBoards();
   //clearLists();
-  draw();
+  
+  html.main.innerHTML = ""; /////// Clear all
+  setMainView(generateView(board,html.main));
+  mainView.render();
 
   extensions.invoke('newPage');
 
@@ -98,16 +101,13 @@ function clearLists() :void{
 }
 */
 
-
+/*
 function draw() :void{
   log('draw()');
 
-  if(pb.boards[board].type == BoardType.Board)
-    setMainView(new AlbumView("",html.main));
-  else if(pb.boards[board].type == BoardType.List) //////////TODO add PBoard?
-    setMainView(new ListView("",html.main));
+  setMainView(generateView("",html.main));
   
-  mainView.render();
+  pageOpened();
 
   return; ////////////////TODO Just while testing View
   
@@ -124,7 +124,7 @@ function draw() :void{
   setTimeout(()=>{expandInputAll()},200);
   setTimeout(()=>{expandInputAll()},1000);
 }
-
+*/
 ////////////////////// TODO move to view
 function drawBoardAlbum(no,nope,nopp,never){}
 function drawListAlbum(no,nope,nopp,never){}

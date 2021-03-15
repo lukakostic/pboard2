@@ -88,8 +88,8 @@ function setCookie(name,value){
 function urlFromBoard(boardId :string) :string{
     return siteUrl + "#" + boardId;
 }
-function boardFromUrl(url :string) :string{
-    return url.replace(siteUrl,'').replace('#','');
+function boardFromUrl(_url :string) :string{
+    return _url.replace(siteUrl,'').replace('#','');
 }
 /*
 function findFirstBoardId(el) :string|null{

@@ -158,6 +158,7 @@ function copyIdClicked(){
 }
 
 
+/////////////TODO just call boardClicked(id) ?
 function referencesDialogBtn(event){
   if(event.srcElement == null) event.srcElement = event.target
   showBoardBoardDialog(event,dataId(event.srcElement))
