@@ -102,11 +102,18 @@ function clearLists() :void{
 function draw() :void{
   log('draw()');
 
+  if(pb.boards[board].type == BoardType.Board)
+    setMainView(new AlbumView("",html.main));
+  else if(pb.boards[board].type == BoardType.List) //////////TODO add PBoard?
+    setMainView(new ListView("",html.main));
+  
+  mainView.render();
+
   return; ////////////////TODO Just while testing View
   
   ///////////////////////////////////////TODO change to view?
-  if(pb.boards[board].type == BoardType.Board) drawBoardAlbum();
-  else if(pb.boards[board].type == BoardType.List) drawListAlbum(); //////////TODO add PBoard?
+  //if(pb.boards[board].type == BoardType.Board) drawBoardAlbum();
+  //else if(pb.boards[board].type == BoardType.List) drawListAlbum(); //////////TODO add PBoard?
   // board type text
 
 

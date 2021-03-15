@@ -2,7 +2,17 @@
  ///////////////TODO implement with Views instead.
  function newText(){}
  function newBoard(){}
- function newList(){}
+
+ function newList(parentId :string, name:string) :void{
+
+  let brd = new Board(BoardType.List,name,[],{references:1});
+  pb.boards[brd.id] = brd;
+  pb.boards[parentId].content.push(brd.id);
+
+  mainView.render();
+  
+  sync.saveAll();
+}
 
  /*
 function newText(event) :void{

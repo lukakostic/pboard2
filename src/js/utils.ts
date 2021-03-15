@@ -91,15 +91,17 @@ function urlFromBoard(boardId :string) :string{
 function boardFromUrl(url :string) :string{
     return url.replace(siteUrl,'').replace('#','');
 }
-
+/*
 function findFirstBoardId(el) :string|null{
     let id = nulledGetAttribute(el,'data-id');
     if(id!=null) return id;
     if(el.parentNode == null) return null;
     return findFirstBoardId(el.parentNode);
 }
+*/
 
 // if text/board get list element (state=1/2), if list return Board (state=3), else float up till first
+/*
 function parentElementBoard(el,state=-1) :string|null{
 
     if(state==-1){
@@ -125,51 +127,22 @@ function parentElementBoard(el,state=-1) :string|null{
 
     return null;
 }
-
+*/
 ///////////////////////////////////////////////////////////////////////////////////// PBoard stuff }
 
 ///////////////////////////////////////////////////////////////////////////////////// Html stuff {
 
 
 //Get/Set Board id (data-id) from html element
+/*
 function dataId(el) :string{
     return el.getAttribute('data-id');
 }
 function set_dataId(el, id :string) :void{
     el.setAttribute('data-id',id);
 }
+*/
 
-//Set attribute of board by id
-function set_brdAttr(id :string, attr:string|number, val :any) :void{
-    pb.boards[id].attributes[attr] = val;
-}
-
-//Set attribute of board by id, if it already doesnt have it
-function set_brdAttrIfNull(id :string, attr :string|number, val :any) :boolean{
-    if((attr in pb.boards[id].attributes) == false){
-        set_brdAttr(id,attr,val);
-        return true;
-    }
-    return false;
-}
-
-//Get attribute of board by id
-function brdAttr(id :string, attr :string|number) :any{
-    return pb.boards[id].attributes[attr];
-}
-
-//Get attribute of board by id, or if it doesnt exist return val
-function brdAttrOrDef(id :string, attr :string|number, val :any) :any{
-    if(attr in pb.boards[id].attributes)
-        return brdAttr(id,attr);
-    return val;
-}
-
-
-//Delete attribute of board by id
-function delBrdAttr(id :string, attr :string|number) :void{
-    delete pb.boards[id].attributes[attr];
-}
 
 
 //return number hash of string

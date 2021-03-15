@@ -11,6 +11,7 @@ let board :string = "";
 
 let currentVersion :number = 3.1;
 
+console.log(currentVersion," : ", 'view changes');  ///Version log and minor version
 
 //Enforce single instance of pboard across tabs?
 /*
@@ -90,4 +91,38 @@ function loadPBoard(content :string, checkTime :boolean = true) :boolean/*succes
   draw();
 
   return true;
+}
+
+
+
+//Set attribute of board by id
+function set_brdAttr(id :string, attr:string|number, val :any) :void{
+  pb.boards[id].attributes[attr] = val;
+}
+
+//Set attribute of board by id, if it already doesnt have it
+function set_brdAttrIfNull(id :string, attr :string|number, val :any) :boolean{
+  if((attr in pb.boards[id].attributes) == false){
+      set_brdAttr(id,attr,val);
+      return true;
+  }
+  return false;
+}
+
+//Get attribute of board by id
+function brdAttr(id :string, attr :string|number) :any{
+  return pb.boards[id].attributes[attr];
+}
+
+//Get attribute of board by id, or if it doesnt exist return val
+function brdAttrOrDef(id :string, attr :string|number, val :any) :any{
+  if(attr in pb.boards[id].attributes)
+      return brdAttr(id,attr);
+  return val;
+}
+
+
+//Delete attribute of board by id
+function delBrdAttr(id :string, attr :string|number) :void{
+  delete pb.boards[id].attributes[attr];
 }

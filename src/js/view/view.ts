@@ -1,9 +1,9 @@
-let view :View = null; //current main, top level view
-function setView(v :View) :void{
-   view = v;
+let mainView :View = null; //current main, top level view
+function setMainView(v :View) :void{
+   mainView = v;
 }
-function clearView() :void{
-   view = null;
+function clearMainView() :void{
+   mainView = null;
    html.main.innerHTML = "";
 }
 
@@ -21,7 +21,7 @@ interface View{ /* A (board kind) element display. Album, List, Tile. */
 
 }
 /* generate required type based on board type */
-function generateView(_id :string, _parentEl :HTMLElement|Element = null) :AlbumView|ListView|TileView|null{
+function generateView(_id :string, _parentEl :HTMLElement|Element) :AlbumView|ListView|TileView|null{
    let type = pb.boards[_id].type;
    if(type == BoardType.Text || type == BoardType.Board){
       return new TileView(_id, _parentEl);
@@ -45,19 +45,22 @@ abstract class HolderView implements View{
    holderElement : HTMLElement; /* Element that holds other elements */
    elements : Array<View>; //holds every base type of element (view)
 
-   constructor(_id :string = "", _parentEl :HTMLElement|Element = null){
+   constructor(_id :string = "", _parentEl :HTMLElement|Element){
       this.id = _id;
       this.parentEl = _parentEl;
       this.htmlEl = null;
 
       this.holderElement = null;
       this.elements = [];
+
+      if(this.parentEl == html.main)
+         setMainView(this);
    }
 
 
    generateElements() :void{
       
-      if(pb.boards[this.id].type != BoardType.List || pb.boards[this.id].type != BoardType.PBoard)
+      if(pb.boards[this.id].type != BoardType.List && pb.boards[this.id].type != BoardType.PBoard)
          throw 'HolderView used for non holder type of board (PBoard | List)';
 
       this.elements.length = pb.boards[this.id].content.length;
@@ -65,7 +68,7 @@ abstract class HolderView implements View{
          let brdId = pb.boards[this.id].content[i];
          
          if(this.elements[i] == undefined)
-            this.elements[i] = generateView(pb.boards[this.id].content[i]);
+            this.elements[i] = generateView(pb.boards[this.id].content[i],this.holderElement);
          else
             this.elements[i].id = pb.boards[this.id].content[i];
          
@@ -100,7 +103,7 @@ abstract class HolderView implements View{
 class AlbumView extends HolderView{ /*Has List adder thing at end*/
    adder: HTMLInputElement;
 
-   constructor(_id :string = "", _parentEl :HTMLElement|Element = null){
+   constructor(_id :string = "", _parentEl :HTMLElement|Element){
       super(_id,_parentEl);
    }
    
@@ -112,11 +115,13 @@ class AlbumView extends HolderView{ /*Has List adder thing at end*/
          this.holderElement = EbyName('album-holder',this.htmlEl);
 
          this.adder = <HTMLInputElement> EbyName('album-adder',this.htmlEl);
-         this.adder.onkeypress = this.adder_onkeypress;////////
+         this.adder.onkeypress = this.adder_onkeypress.bind(this);////////
       }
 
       this.htmlEl.setAttribute('data-id',this.id);
       this.holderElement.innerHTML = ""; //Clear children.
+
+      super.buildSelf(); //Build children
    }
 
    render() :void{ /* Render elements held */
@@ -132,8 +137,8 @@ class AlbumView extends HolderView{ /*Has List adder thing at end*/
 
    adder_onkeypress(event) :void{
       if(event.key === 'Enter'){
-         event.preventDefault();
-         alert(this.adder.value);
+         newList(this.id, this.adder.value);
+         this.adder.value = "";
       }
    }
 }
@@ -149,12 +154,11 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
    adderList :HTMLElement;
    adderReference :HTMLElement;
 
-   constructor(_id :string = "", _parentEl :HTMLElement|Element = null){
+   constructor(_id :string = "", _parentEl :HTMLElement|Element){
       super(_id,_parentEl);
    }
    
    buildSelf() :void{
-      super.buildSelf();
       if(this.htmlEl == null){
          this.htmlEl = <HTMLElement> html.list2Template.cloneNode(true);
          this.parentEl.appendChild(this.htmlEl);
@@ -163,22 +167,24 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
 
          this.header = EbyName('list-header',this.htmlEl);
          this.title = <HTMLInputElement> EbyName('list-title',this.htmlEl);
-         this.title.onkeypress = this.title_onkeypress; ////////////TODO Will this work?
+         this.title.onkeypress = this.title_onkeypress.bind(this); ////////////TODO Will this work?
          this.optionsBtn = EbyName('list-optionsBtn',this.htmlEl);
-         this.optionsBtn.onclick = this.optionsBtn_onclick;////////
+         this.optionsBtn.onclick = this.optionsBtn_onclick.bind(this);////////
          this.adder = EbyName('list-adder',this.htmlEl);
-         this.adderText = EbyName('list-adderText',this.htmlEl);
-         this.adderText.onclick = this.adderText_onclick;////////
-         this.adderBoard = EbyName('list-adderBoard',this.htmlEl);
-         this.adderBoard.onclick = this.adderBoard_onclick;////////
-         this.adderList = EbyName('list-adderList',this.htmlEl);
-         this.adderList.onclick = this.adderList_onclick;////////
-         this.adderReference = EbyName('list-adderReference',this.htmlEl);
-         this.adderReference.onclick = this.adderReference_onclick;////////
+         this.adderText = EbyName('list-adder-text',this.htmlEl);
+         this.adderText.onclick = this.adderText_onclick.bind(this);////////
+         this.adderBoard = EbyName('list-adder-board',this.htmlEl);
+         this.adderBoard.onclick = this.adderBoard_onclick.bind(this);////////
+         this.adderList = EbyName('list-adder-list',this.htmlEl);
+         this.adderList.onclick = this.adderList_onclick.bind(this);////////
+         this.adderReference = EbyName('list-adder-reference',this.htmlEl);
+         this.adderReference.onclick = this.adderReference_onclick.bind(this);////////
       }
 
       this.htmlEl.setAttribute('data-id',this.id);
       this.holderElement.innerHTML = ""; //Clear children.
+      
+      super.buildSelf(); //build children
    }
 
    render() :void{ /* Render elements held */
@@ -214,7 +220,9 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
       //newBoard(event)
    }
    adderList_onclick(event) :void{
-      //newList(event)
+      let name = window.prompt("List name?: ");
+      if(name == "" || name == null)return;
+      newList(this.id, name);
    }
    adderReference_onclick(event) :void{
       //newReferenceBtn(event)
@@ -235,7 +243,7 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
    text : HTMLElement;
    textIcon : HTMLElement;
 
-   constructor(_id :string = "", _parentEl :HTMLElement|Element = null){
+   constructor(_id :string = "", _parentEl :HTMLElement|Element){
       this.id = _id;
       this.parentEl = _parentEl;
       this.htmlEl = null;
@@ -254,9 +262,9 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
          this.parentEl.appendChild(this.htmlEl);
 
          this.optionsBtn = EbyName('tile-optionsBtn',this.htmlEl);
-         this.optionsBtn.onclick = this.optionsBtn_onclick;////////
+         this.optionsBtn.onclick = this.optionsBtn_onclick.bind(this);////////
          this.text = EbyName('tile-text',this.htmlEl);
-         this.text.onclick = this.text_onclick;////////
+         this.text.onclick = this.text_onclick.bind(this);////////
          this.textIcon = EbyName('tile-textIcon',this.htmlEl);
       }
 
