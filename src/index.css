@@ -5,7 +5,8 @@
 .hidden {visibility: hidden; width:0px; height:0px; position:absolute;}
 
 .bgDark{
-  background-color: #0e0e0e;
+  background-color: #efefef;
+  color: black;
 }
 
 .cWhite{
