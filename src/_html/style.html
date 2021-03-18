@@ -59,20 +59,23 @@
     flex: 0 0 auto; /*dont shrink or expand*/
   }
   .tile{
+    box-sizing: border-box;
     flex: 0 0 auto; /*dont shrink or expand*/
-    background-color: #444444;
+    background-color: #bfbfbf;
     border-radius: 4px;
+    border: 2px solid black;
   }
   
 
   [data-name="tile-text"]{
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
     max-height: inherit; /* So tile can limit max line count */
     overflow: hidden;
     text-overflow: ellipsis;
 
-    color: white;
+    color: black;
     padding: 5px;
     border-radius: inherit;
   }
@@ -87,6 +90,7 @@
     font-weight: bolder;
     color:black;
     border: 0px;
+    border-radius: 5px;
   }
 
   [data-name="list-adder"]{
@@ -105,12 +109,13 @@
     text-overflow: ellipsis;
 
     border-radius: 5px;
+    border: 2px solid black;
   }
   
   [data-name="tile-textIcon"]{
     font-size: 12px;
     margin-top:-2px;
-    color:#777777;
+    color:dimgray;
   }
 
   
@@ -118,13 +123,13 @@
   /* Color differently based on board type: */
   
   [data-type="Text"]{
-    background-color:#5f5f58;
+    background-color:#c5c5a3;
   }
   [data-type="Board"]{
-    background-color:#444444;
+    background-color:#aeaeae;
   }
   [data-type="List"]{
-    background-color:#5e6669;
+    background-color:#b8d3db;
   }
   
 </style>

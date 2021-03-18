@@ -2,7 +2,9 @@
 .d-flex{ display: flex; }
 .d-none{ display: none; }
 .bg-inh { background-color: inherit; }
-.hidden {visibility: hidden; width:0px; height:0px; position:absolute;}
+.invisible {display: none; width:0px; height:0px; position:absolute;}
+
+.hidden{display: none;}
 
 .bgDark{
   background-color: #efefef;
@@ -14,12 +16,20 @@
 }
 
 .bgCol{
-  background-color: #f8f8f8;
+  /* background-color: #f8f8f8; */
+  background-color: white;
 }
-
+textarea, input{
+  font-family: inherit;
+}
 body {
+  font-family: Tahoma, sans-serif;
+  /*
   display: flex;
   flex-direction: column;
+  */
+  margin: 0px;
+  /* width: 100vw; */ /* Fix this piece of shit mobile web dev crap, still needed? */
 }
 
 #header {
@@ -28,14 +38,29 @@ body {
   width: 100%;
   z-index: 100;
 }
+#headerDescription {
+  resize: none;
+  text-overflow: ellipsis; /* ? */
+  
+  /* margin: 3px; */
+  border: 0px;
+  padding: 5px;
+}
 
+#dialogBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color:rgba(0, 0, 0,0.7);
+  z-index: 200;
+}
 
 .b { /*basic button*/
   display: inline-block; /* idk */
   align-self: flex-start; /*keep from resizing in flex*/
 
   font-size: 14px;
-  border: 1px solid transparent;
+  border: 2px solid black;
   padding: 2px 6px;
   margin: 0px;
   text-align: center;
@@ -46,8 +71,8 @@ body {
 .dot{
   display: inline-block;
   position: absolute;
-  right: 0px;
-  top: 0px;
+  right: -2px;
+  top: -2px;
 
   height: 15px;
   width: 15px;
@@ -55,8 +80,34 @@ body {
   border: 0px;
   padding: 0;
 
-  border-radius: 99px;
+  border-radius: 0px 4px 0px 4px;
+  border: 2px solid black;
 }
+
+
+.dialog{
+  position: absolute;
+
+  width: 80%;
+  height: 90%;
+  max-width: 700px;
+  max-height: 600px;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: white;
+  border: 3px solid black;
+}
+.dialog-header{
+  display: flex;
+}
+.dialog-body{
+  flex: 1;
+  height: 100%;
+}
+
 
 .statusIndicator {
   position: fixed;

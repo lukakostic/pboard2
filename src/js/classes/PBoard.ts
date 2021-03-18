@@ -26,8 +26,7 @@ interface BoardTypeT{ [index:string]: BTypeT }
 const BoardType :BoardTypeT = {
     Text : 1,
     Board : 2,
-    List : 3,
-    PBoard: 4 //whole new local board
+    List : 3
 }
 function BoardTypeName(val :number) :string|null{
     for(let k in BoardType)

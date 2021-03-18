@@ -167,11 +167,10 @@ function qSelAll(query :string,element :Element|Document = document){
     return element.querySelectorAll(query);
 }
 
-function nulledGetAttribute(el, attr :string) :string|null{
-    if(el.hasAttribute(attr))
-        return el.getAttribute(attr);
-    return null;
+function def(a :any, b :any, ifA :Function = x=>x!=null) :any{
+    return ifA(a)?a:b;
 }
+
 
 function EbyId(id :string) :HTMLElement|null{
     return document.getElementById(id);

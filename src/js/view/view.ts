@@ -3,9 +3,15 @@ const ViewMode :{[index:string]:ViewModeT} = {
    List :0,
    Board :1
 }
+const ViewMode2 :{[index:string]:ViewModeT} = {
+   None :0,
+   Notes :1,
+   Grid :2
+}
 
 let mainView :View = null; //current main, top level view
 let viewMode :ViewModeT = ViewMode.List;
+let viewMode2 :ViewModeT = ViewMode2.None;
 
 function setMainView(v :View) :void{
    mainView = v;
@@ -16,6 +22,8 @@ function setMainView(v :View) :void{
       viewMode = ViewMode.Board;
       html.main.setAttribute('data-view',"ViewModeBoard");
    }
+
+   loadHeaderData();
 }
 function clearMainView() :void{
    mainView = null;
@@ -27,6 +35,7 @@ interface View{ /* A (board kind) element display. Album, List, Tile. */
    id :string;
    parentEl : HTMLElement|Element;
    htmlEl : HTMLElement|Element;
+   index : number;
 
 
    buildSelf :Function; /* Create all html stuff needed to render MYSELF (not children too). Step before render. */
@@ -37,23 +46,23 @@ interface View{ /* A (board kind) element display. Album, List, Tile. */
 
 }
 /* generate required type based on board type */
-function generateView(_id :string, _parentEl :HTMLElement|Element) :AlbumView|ListView|TileView|null{
+function generateView(_id :string, _parentEl :HTMLElement|Element, _index :number) :AlbumView|ListView|TileView|null{
    let type = pb.boards[_id].type;
    if(_parentEl == html.main){
       if(type == BoardType.List)
-         return new ListView(_id, _parentEl);
+         return new ListView(_id, _parentEl,_index);
       if(type == BoardType.Text)
          throw "Trying to open text fullscreen";
       
       //Pboard, Board
-      return new AlbumView(_id, _parentEl);
+      return new AlbumView(_id, _parentEl,_index);
    }else if(viewMode == ViewMode.Board){
       /////////////////////TODO maybe i should remove the second check, it looks cool to have lists in lists..
       if(type == BoardType.List && _parentEl == (<HolderView>mainView).holderElement)
-         return new ListView(_id, _parentEl);
-      return new TileView(_id, _parentEl);
+         return new ListView(_id, _parentEl,_index);
+      return new TileView(_id, _parentEl,_index);
    }else if(viewMode == ViewMode.List){
-      return new TileView(_id, _parentEl);
+      return new TileView(_id, _parentEl,_index);
    }
    return null;
 }
@@ -64,14 +73,16 @@ abstract class HolderView implements View{
    id :string;
    parentEl : HTMLElement|Element;
    htmlEl : HTMLElement;
+   index : number;
 
    holderElement : HTMLElement; /* Element that holds other elements */
    elements : Array<View>; //holds every base type of element (view)
 
-   constructor(_id :string = "", _parentEl :HTMLElement|Element){
+   constructor(_id :string = "", _parentEl :HTMLElement|Element, _index :number){
       this.id = _id;
       this.parentEl = _parentEl;
       this.htmlEl = null;
+      this.index = _index;
 
       this.holderElement = null;
       this.elements = [];
@@ -91,10 +102,11 @@ abstract class HolderView implements View{
       for(let i = 0; i < len; i++){
 
          if(this.elements[i] == undefined || this.elements[i] == null)
-            this.elements[i] = generateView(pb.boards[this.id].content[i], this.holderElement);
-         else
+            this.elements[i] = generateView(pb.boards[this.id].content[i], this.holderElement, i);
+         else{
             this.elements[i].id = pb.boards[this.id].content[i];
-         
+            this.elements[i].index = i;
+         }
       }
    }
 
@@ -126,8 +138,8 @@ abstract class HolderView implements View{
 class AlbumView extends HolderView{ /*Has List adder thing at end*/
    adder: HTMLInputElement;
 
-   constructor(_id :string = "", _parentEl :HTMLElement|Element){
-      super(_id,_parentEl);
+   constructor(_id :string = "", _parentEl :HTMLElement|Element, _index :number){
+      super(_id,_parentEl, _index);
    }
    
    buildSelf() :void{
@@ -179,8 +191,8 @@ class ListView extends HolderView{ /*Has Board(Tile) adder thing at end*/
    adderList :HTMLElement;
    adderReference :HTMLElement;
 
-   constructor(_id :string = "", _parentEl :HTMLElement|Element){
-      super(_id,_parentEl);
+   constructor(_id :string = "", _parentEl :HTMLElement|Element, _index :number){
+      super(_id,_parentEl, _index);
    }
    
    buildSelf() :void{
@@ -279,6 +291,7 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
    id :string;
    parentEl : HTMLElement|Element;
    htmlEl : HTMLElement;
+   index : number;
    
    //view specific properties:
 
@@ -287,11 +300,12 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
    text : HTMLElement;
    textIcon : HTMLElement;
 
-   constructor(_id :string = "", _parentEl :HTMLElement|Element){
+   constructor(_id :string = "", _parentEl :HTMLElement|Element, _index :number){
       this.id = _id;
       
       this.parentEl = _parentEl;
       this.htmlEl = null;
+      this.index = _index;
 
  
       this.optionsBtn = null;
@@ -321,7 +335,9 @@ class TileView implements View{ /* Has no add ers, but has Title,Description,Ima
    render() :void{ /* Render elements held */
       this.buildSelf();
       
-      this.text.childNodes[2].nodeValue = pb.boards[this.id].name; /////////////// HIGHLY DEPENDENT ON HTML, even newlines affect. Test in browser if it fails.
+      let titleText = pb.boards[this.id].name;
+      if(titleText.trim()=='') titleText="\xa0"; //non breaking space
+      this.text.childNodes[2].nodeValue = titleText; /////////////// HIGHLY DEPENDENT ON HTML, even newlines affect. Test in browser if it fails.
       //$(this.text).contents()[1].nodeValue = pb.boards[this.id].name;
       //this.text.innerText = pb.boards[this.id].name; //Title   //////////////TODO how do i set text without fucking up icon?
       //this.text.innerText = pb.boards[this.id].content; //Text
@@ -359,11 +375,16 @@ function openBoard(id :string) :void{
 
    //// For textual open textDialog by id (you just pass id to open it! )
    if(pb.boards[id].type == BoardType.Text){
-      alert("Text!");
+      openTextBoard(id);
       return;
    }
    /// For board open it full window
    /// For list open it full window
    /// PBoard open it full window
    set_board(id);
+}
+
+
+function openTextBoard(id :string) :void{
+   openDialog(id,null,'textEditor');
 }

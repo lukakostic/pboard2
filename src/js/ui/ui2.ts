@@ -24,10 +24,18 @@ function stopLoadingIndicator() :void{
   html.loadingIndicator.style.display = 'none';
 }
 
+function moveBoards(
+  fromId:string,fromIndex:number,
+  toId:string,toIndex:number,
+  length:number=1
+){
+  let boards = pb.boards[fromId].content.splice(fromIndex,length);
+  pb.boards[toId].content.splice(toIndex,0, ...boards);
 
-function makeDraggable() :void{
-    return; ///////////////////////////TODO while texting View. Implement in View?
+  boardsUpdated([fromId,toId]);
+}
 
+function makeBoardsDraggable() :void{
   //make boards draggable
   let draggableLists = $('.draggableList')
   if(draggableLists.length !== 0)
@@ -49,9 +57,15 @@ function makeDraggable() :void{
         //actually move the board
         drags.newDragIndex = elementIndex(drags.dragItem[0])
         
-        
+        ////////////////////TODO not this
+        moveBoards(
+          dataId(drags.dragOld[0]),drags.oldDragIndex-1,
+          dataId(drags.dragNew[0]),drags.newDragIndex-1
+        );
+        /* //Previously:
         pb.boards[dataId(drags.dragOld[0])].content.splice(drags.oldDragIndex-1,1)
         pb.boards[dataId(drags.dragNew[0])].content.splice(drags.newDragIndex-1,0,dataId(drags.dragItem[0]))
+        */
         
         
         let clickItem = null //if it needs to click below
@@ -77,10 +91,10 @@ function makeDraggable() :void{
         fixListUI(drags.dragNew[0])
     },
     connectWith: ".draggableList"
-}).disableSelection()
+  }).disableSelection()
+}
 
-
-
+function makeListsDraggable():void{
   //make lists draggable
   let draggableAlbums = $('.draggableAlbum')
   if(draggableAlbums.length !== 0)
@@ -102,9 +116,15 @@ function makeDraggable() :void{
         drags.newDragIndex = elementIndex(drags.dragItem[0])
 
         
+        ////////////////////TODO not this
+        moveBoards(
+          board,drags.oldDragIndex,
+          board,drags.newDragIndex
+        );
+        /*//Previously:
         pb.boards[board].content.splice(drags.oldDragIndex,1)
         pb.boards[board].content.splice(drags.newDragIndex,0,dataId(drags.dragItem[0]))
-        
+        */
         drags.dragItem = null
         sync.saveAll()
 
@@ -117,6 +137,5 @@ function makeDraggable() :void{
         
       //fixNewListUI();
     }
-}).disableSelection()
-
+  }).disableSelection()
 }

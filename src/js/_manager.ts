@@ -70,8 +70,8 @@ function resetData() :void{
 function buildPBoard() :string{
   extensions.invoke('buildPBoard');
   let saveFile = {
-    syncTime: <number> sync.lastSyncTime,  
-    pb: <PBoard> pb
+    syncTime: sync.lastSyncTime,  
+    pb: pb
   };
   return JSON.stringify(saveFile);
 }

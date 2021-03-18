@@ -2,6 +2,28 @@
 //UI calculations interval, singleInstance check
 let autoUI :number = -1; /*interval id, -1 = unset*/ //set in htmlLoaded
 
+//#region Dialogs ////////~~~~~~~~~~~~~~~~~~~~~~~~~//////// {
+let dialogBoardID :string|null = null; //Id of currently open board in some dialog
+let dialogBoardView :View = null;
+let dialogs = {}; //Dialog objects add themselves here as properties
+
+function openDialog(boardId :string, boardView :View, dialog :string) :void{
+  closeDialog(); //close and reset all first
+  html.dialogBack.classList.toggle('hidden', false);
+  dialogBoardID = boardId;
+  dialogBoardView = boardView;
+  dialogs[dialog].open();
+}
+//close all
+function closeDialog(backClicked = false, all = true) :void{
+  if(all)
+  for(let k in dialogs)
+    dialogs[k].close(backClicked?null:false);
+  html.dialogBack.classList.toggle('hidden', true);
+  dialogBoardID = null;
+  dialogBoardView = null;
+}
+//#endregion Dialogs//////~~~~~~~~~~~~~~~~~~~~~~~~~////// }
 
 //Called only once
 function htmlLoaded() :void{
@@ -11,19 +33,9 @@ function htmlLoaded() :void{
     autoUI = setInterval(autoUI_function,100);
   
 
-  //newlist, used for adding lists in multi board
-  /* //////////////////////////////////////TODO this should be handled by AlbumView
-  EbyId('newlist').onsubmit = (event)=>{
-    event.preventDefault();
-    newList(event);
-  };
-  input.onkeypress = (event)=>{
-    if(event.key === 'Enter'){
-      event.preventDefault();
-      alert(input.value);
-    }
-  };
-  */
+  html.headerTitle.oninput = headerTitle_oninput;
+  html.headerDescription.oninput = headerDescription_oninput;
+  EbyId('headerExpand').onclick = headerExpand_onclick; 
 
   EbyId('homeBtn').onclick = goHome;
   EbyId('upBtn').onclick = goUp;
@@ -51,7 +63,12 @@ function htmlLoaded() :void{
     
   };
 
+  html.dialogBack.addEventListener('click',function(event){
+    if(event.target == this) //if no bubbling
+      closeDialog(true); //backClicked =true
+  },false);
 }
+
 
 function pageOpened() :void{
   log("pageOpened()");
@@ -70,36 +87,18 @@ function pageOpened() :void{
   extensions.execute();
 }
 
-
-////////////////////////////////////////////////// TODO move to View
-function clearBoards(no,nope,nopp,never) :void{}
-function clearLists(no,nope,nopp,never) :void{}
-/*
-function clearBoards(lst = null) :void{
-  log('clearBoards(',lst,')');
-
-  let lists :Array<Element>|NodeListOf<Element>
-   = [lst]; //Just one passed in,
-  if(lst == null) lists = qSelAll('.list:not([id])'); //or all lists
-  
-  logw('lists', lists);
-  
-  for(let j = 0; j < lists.length; j++){
-    let boards = qSelAll('.board:not([id])',lists[j]);//lists[j].childNodes
-    for (let i = boards.length-1; i > -1; i--)
-      $(boards[i]).remove();
-  }
+//Called when a new board is added, deleted, or changed
+//usually you pass parentId and boardId
+/* save: 0 = dont save, 1 = saveAll, 2 = save.dirty=true */
+function boardsUpdated(boards :Array<string>,save: 0|1|2 = 1){
+  pageOpened();
+  //save == 0 = dont save
+  if(save==1)
+    sync.saveAll(); // save now
+  else if(save == 2)
+    sync.save.dirty = true; //auto save
 }
 
-function clearLists() :void{
-  log('clearLists()');
-  let lists = EbyClass('list');
-    
-  for(let j = lists.length-1; j > -1; j--)
-    if (lists[j].id == "")
-      $(lists[j]).remove(); 
-}
-*/
 
 /*
 function draw() :void{
@@ -124,11 +123,8 @@ function draw() :void{
   setTimeout(()=>{expandInputAll()},200);
   setTimeout(()=>{expandInputAll()},1000);
 }
-*/
-////////////////////// TODO move to view
-function drawBoardAlbum(no,nope,nopp,never){}
-function drawListAlbum(no,nope,nopp,never){}
-/*
+
+
 function drawBoardAlbum() :void{
   log('drawBoardAlbum()')
   html.listAlbum.classList.add('d-none')

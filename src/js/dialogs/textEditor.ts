@@ -1,78 +1,64 @@
+(dialogs['textEditor'] = {
+   init() :void{
+      this.isOpen = false;
 
+      this.dialog = EbyId('dialog_textEditor');
+      this.textTitle = EbyName('textTitle',this.dialog);
+      this.textText = EbyName('textText',this.dialog);
+      this.textTitle.oninput = textareaAutoSize.bind(null,this.textTitle);
 
-let textBoardAtStart = null; //json of the board when selected, used for saving
-let textBoardGettingEdited = null; //ID //for saving too tho can be used for other
+      EbyName('closeBtn',this.dialog).onclick = this.closeNoSave.bind(this);
+      EbyName('fullscreenBtn',this.dialog).onclick = this.fullscreen.bind(this);
 
-function showTextBoardDialog(event){ ///////////TODO replace even for View. Why does this function need to grapple with HTML for tile, thats Views job
-    /*
-    console.log(event)
-    console.log('drag',dragItem[0], '!=',dragItem!=null)
-    console.log(event.srcElement==dragItem[0], '||',event.srcElement.parentNode == dragItem[0])
-    */
-    if(event.srcElement == null) event.srcElement = event.target
-    if(drags.dragItem!=null && ( event.srcElement==drags.dragItem[0] || event.srcElement.parentNode == drags.dragItem[0])) return; //If still dragging, prevent
-    //console.log('showTextBoard')
-    let textBtn = event.srcElement
+      //this.fullscreen(true); ////////////TODO add options?
+   },
+   open() :void{
+      this.isOpen = true;
 
-    let brdId = dataId(textBtn.parentNode)
-    let brd = pb.boards[brdId]
+      this.dialog.classList.toggle('hidden', false);
 
-    textBoardAtStart = JSON.stringify(brd)
-    textBoardGettingEdited = brdId
+      this.textTitle.value = pb.boards[dialogBoardID].name;
+      this.textText.value = pb.boards[dialogBoardID].content;
+      textareaAutoSize(this.textTitle);
 
-    if(brd==null) alert('Text board modal: brd == null')
+      if(this.textTitle.value == ""){
+         this.textTitle.select(); //auto select title
+      }else{
+         this.textText.select(); //auto select text
+         this.textText.setSelectionRange(0,0); //sel start
+      }
+   },
+   //save == null when autoclose
+   close(save:boolean|null = false) :void{
+      if(save === null) save = true; //either back clicked or specifically called to true
+      if(this.isOpen && save){
+         pb.boards[dialogBoardID].name = this.textTitle.value;
+         pb.boards[dialogBoardID].content = this.textText.value;
+         boardsUpdated([dialogBoardID]);  
+      }
+         
+      this.dialog.classList.toggle('hidden', true);
+      this.fullscreen(false); //reset fullscreen /////////TODO add options?
+      
+      this.isOpen = false;
 
-    $('#textBoardDialogTitle').val(brd.name)
-    let text = $('#textBoardDialogText')
-    text.val(brd.content)
-    let modal = $('#textBoardDialog')
-    set_dataId(modal[0],brd.id);
-    (<JQuery<any> &{modal:any}> modal).modal('show');
+      closeDialog(false,false);
+      
+   },
+   closeNoSave(force=false) :void{
+      let go = confirm("Exit without saving?");
+      if(go == false) return;
+      this.close(false);
+   },
 
-    //can do without timeout, but set timeout to like 0.8 seconds if you add 'modal fade' instead of just 'modal'
-    setTimeout(()=>{
-        expandInput(text[0]);
-        (<HTMLInputElement> EbyId('textBoardDialogTitle')).select();
-    },10)
-}
+   fullscreen(force :boolean|null = null){
+      if(force === false || this.dialog.style.maxWidth != ""){
+         this.dialog.style.maxWidth = "";
+         this.dialog.style.maxHeight = "";
+      }else{
+         this.dialog.style.maxWidth = "100%";
+         this.dialog.style.maxHeight = "100%";
+      }
+   },
 
-function closeTextBoardDialog(){
-    EbyId('textBoardDialog').click()
-}
-
-function textCloseClicked(event=null){
-    //save if text board changed. In case others fail to register change i guess
-    if(JSON.stringify(pb.boards[textBoardGettingEdited]) != textBoardAtStart)
-        sync.saveAll()
-}
-
-function textBackClicked(event){
-    if(event.target.id != 'textBoardDialog') return
-
-    //alert('closing back??'); //save now?
-    textCloseClicked()
-}
-
-function textTitleChanged(event){
-    
-    //alert("Text title changed");
-    let brdId = EbyId('textBoardDialog').getAttribute('data-id')
-    if(event.srcElement == null) event.srcElement = event.target
-    pb.boards[brdId].name = event.srcElement.value
-
-    loadAllBoardsByDataId(brdId)
-
-    sync.save.dirty = true 
-}
-
-function textDescriptionChanged(event){
-
-    //alert("Text description changed");
-    let brdId = EbyId('textBoardDialog').getAttribute('data-id')
-    if(event.srcElement == null) event.srcElement = event.target
-    pb.boards[brdId].content = event.srcElement.value
-
-    loadAllBoardsByDataId(brdId)
-
-    sync.save.dirty = true
-}
+}).init();

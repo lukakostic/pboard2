@@ -2,16 +2,6 @@ let AUTOUI_DISABLE = true; ///////////////TODO dont
 
 function autoUI_function() :void{
   if(AUTOUI_DISABLE) return;
-
-   //Fix this piece of shit mobile web dev crap
-   document.body.style.setProperty("width","100vw");
- 
-   //Resize main board so it doesnt take whole screen width, rather just the middle 'document' area
-   //Makes it easier to focus and see the boards than if they are spread thru whole width
-   if(window.innerWidth>1250)
-     html.listAlbum.style.width = '1250px';
-   else
-     html.listAlbum.style.width = '100%';
  
    //Make tab title same as board name
    if(pb != null){ //If loaded
@@ -24,7 +14,9 @@ function autoUI_function() :void{
    //singleInstanceCheck()////////////
  }
 
- 
+ function expandInputAll(A,B,C,D,E,F,G){}
+ function expandInput(A,B,C,D,E,F,G){}
+/*
 function expandInputAll() :void{
   let expandoInputs = EbyClass('expandInput');
   for (let i = 0; i < expandoInputs.length; i++)
@@ -37,8 +29,13 @@ function expandInput(el) :void{
   el.style.height = (1+el.scrollHeight)+'px';
   el.parentNode.style.height = el.style.height;
 }
+*/
 
-
+function textareaAutoSize(el) :void{
+  el.style.height = '1px';
+  el.style.height = (1+el.scrollHeight)+'px';
+//  el.parentNode.style.height = el.style.height;
+}
 
 
 
