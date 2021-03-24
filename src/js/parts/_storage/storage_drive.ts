@@ -1,22 +1,24 @@
 declare let gapi: any; //3rd party in external
 
-let driveAPI_Creds = {
+const driveAPI_Creds = {
   apiKey: 'AIzaSyDXQ9Z_V5TSX-yepF3DYKVjTIWVwpwuoXU',
   clientId: '644898318398-d8rbskiha2obkrrdfjf99qcg773n789i.apps.googleusercontent.com',
   discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
   scope: 'https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.file' //space separated
 }
 
-let drive_storage = {
+const drive_storage : StorageInterface & {
+  loaded:boolean
+} = {
   loaded: false,
 
   //Init drive api and listen for signIn changes
   OnStorageLoad() :void{
     function updateDriveSigninStatus(isSignedIn :boolean) :void{
       if(isSignedIn == false)
-        return goLogin();
+        return header.goLogin();
      this.loaded = true;
-      storage.StorageLoaded(StorageType.Drive);
+      storage.OnStorageLoad(StorageType.Drive);
     }
 
     gapi.load('client:auth2', ()=>{
@@ -28,7 +30,7 @@ let drive_storage = {
       },
       (error)=>{
         alog(error);
-        goLogin(); //error initing drive, probably not logged in
+        header.goLogin(); //error initing drive, probably not logged in
       });
     });
 

@@ -1,24 +1,29 @@
-(dialogs['textEditor'] = {
+unregisteredDialogs['textEditor'] = {
+   isOpen : <boolean> false,
+   dialog : <HTMLElement> null,
+
+   textTitle : <HTMLInputElement> null,
+   textText : <HTMLInputElement> null,
+
    init() :void{
       this.isOpen = false;
-
       this.dialog = EbyId('dialog_textEditor');
+
       this.textTitle = EbyName('textTitle',this.dialog);
       this.textText = EbyName('textText',this.dialog);
       this.textTitle.oninput = textareaAutoSize.bind(null,this.textTitle);
 
       EbyName('closeBtn',this.dialog).onclick = this.closeNoSave.bind(this);
       EbyName('fullscreenBtn',this.dialog).onclick = this.fullscreen.bind(this);
-
-      //this.fullscreen(true); ////////////TODO add options?
    },
    open() :void{
       this.isOpen = true;
-
       this.dialog.classList.toggle('hidden', false);
 
-      this.textTitle.value = pb.boards[dialogBoardID].name;
-      this.textText.value = pb.boards[dialogBoardID].content;
+      this.fullscreen(false); ////////////TODO add options?
+
+      this.textTitle.value = pb.boards[dialogManager.boardID].name;
+      this.textText.value = pb.boards[dialogManager.boardID].content;
       textareaAutoSize(this.textTitle);
 
       if(this.textTitle.value == ""){
@@ -27,23 +32,22 @@
          this.textText.select(); //auto select text
          this.textText.setSelectionRange(0,0); //sel start
       }
+
+      navigation.focus(this.textTitle);
    },
    //save == null when autoclose
    close(save:boolean|null = false) :void{
       if(save === null) save = true; //either back clicked or specifically called to true
-      if(this.isOpen && save){
-         pb.boards[dialogBoardID].name = this.textTitle.value;
-         pb.boards[dialogBoardID].content = this.textText.value;
-         boardsUpdated([dialogBoardID]);  
+
+      if(save){
+         pb.boards[dialogManager.boardID].name = this.textTitle.value;
+         pb.boards[dialogManager.boardID].content = this.textText.value;
+         boardsUpdated([dialogManager.boardID],false);  
       }
          
       this.dialog.classList.toggle('hidden', true);
-      this.fullscreen(false); //reset fullscreen /////////TODO add options?
-      
       this.isOpen = false;
-
-      closeDialog(false,false);
-      
+      dialogManager.closeDialog(false,false);
    },
    closeNoSave(force=false) :void{
       let go = confirm("Exit without saving?");
@@ -61,4 +65,4 @@
       }
    },
 
-}).init();
+} as DialogInterface;

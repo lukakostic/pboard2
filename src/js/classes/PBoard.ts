@@ -1,3 +1,15 @@
+declare type BoardTypeT = number;
+const BoardType = { //{[index:string]: BoardTypeT} & {toString(val:number):string|null} //wont work :(
+    Text : 1,
+    Board : 2,
+    List : 3,
+
+    toString(val :number) :string|null{
+        for(let k in this) if(this[k] == val) return k;
+        return null;
+    }
+}
+
 class PBoard {
     name :string;
     version :number;
@@ -21,30 +33,16 @@ class PBoard {
     }
 }
 
-declare type BTypeT = number;
-interface BoardTypeT{ [index:string]: BTypeT }
-const BoardType :BoardTypeT = {
-    Text : 1,
-    Board : 2,
-    List : 3
-}
-function BoardTypeName(val :number) :string|null{
-    for(let k in BoardType)
-        if(BoardType[k] == val)
-            return k;
-    return null;
-}
-
 class Board {
     id :string;
-    type :BTypeT;
+    type :BoardTypeT;
     name :string;
     content :any; //! can be PBoard too
     tags :Object;
     attributes :Object; //object (isBoard,onMain, etc.)
     
 
-    constructor(type :BTypeT, name :string, content :any,  attributes :any = {}, id :string|null = null) {
+    constructor(type :BoardTypeT, name :string, content :any,  attributes :any = {}, id :string|null = null) {
         if (id === null) id = Board.makeId(8)
         
         this.id = id;
@@ -99,14 +97,6 @@ class Board {
     //delete board by id, and dereference its children. Children get deleted if at 0 references.
     static deleteBoardById(id :string) :void{
         if(id=="") return;
-        if(pb.boards[id].type != BoardType.Text){ //since they cant contain other boards
-            for(let i = 0; i < pb.boards[id].content.length; i++){
-                pb.boards[pb.boards[id].content[i]].attributes['references']--;
-                if(pb.boards[pb.boards[id].content[i]].attributes['references']<=0)
-                    Board.deleteBoardById(pb.boards[id].content[i]);
-            }
-        }
-
         delete pb.boards[id];
         
         //go thru every board and remove the id from contents
@@ -122,5 +112,18 @@ class Board {
             }
         }
 
+        ////////////TODO:
+        //Now need to remove island boards
+
     }
+
+    static countReferences(id :string) :number{
+        let refs = 0;
+        for(let i in pb.boards)
+          if(i != id && Array.isArray(pb.boards[i].content))
+            for(let k = 0; k < pb.boards[i].content.length; k++)
+              if(id == pb.boards[i].content[k])
+                refs++;
+        return refs;
+      }
 }

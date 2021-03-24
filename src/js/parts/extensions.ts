@@ -1,6 +1,6 @@
 let EXTENSIONS_DISABLED = true; ////////////TODO load from preferences
 
-let extensions = {
+const extensions = {
   //arrays of callbacks that get called when event invoked
   listeners:
   {

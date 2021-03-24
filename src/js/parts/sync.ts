@@ -1,36 +1,82 @@
+let SAVING_DISASBLED = true;
+let SAVE_FILENAME = 'pboard.pb';
 
-let sync = {
+let sync : _Sync_ = null;
+class _Sync_ {
 
-  fileName: 'pboard.pb',
-  //fileId not yet used
-  fileId: null, //Use this fileId instead of looking for fileId by file name. Speeds up saving and loading since it doesnt need to find fileId
+  fileName: string;
+
+  lastSyncTime: number; //if older than cloud one, load the cloud version
+  syncedOnline: boolean; //synced from online (non cache) at least once
+
+  syncSkips: number; //if not in focus, see the load interval
+  syncSkipsTimes: number; //how many times to skip if not in focus
+
+  save :{dirty:boolean, interval:number|null};
+  load :{interval:number|null};
   
-  lastSyncTime: -1, //if older than cloud one, load the cloud version
-  syncedOnline: false, //synced from online (non cache) at least once
+  static init():void{if(sync==null)sync = new _Sync_();}
 
-  syncSkips: 0, //if not in focus, see the load interval
-  syncSkipsTimes: 5, //how many times to skip if not in focus
+  constructor(){
+    this.fileName = SAVE_FILENAME;
 
-  save: {
-    dirty: false, //when something changes and needs saving
-    interval: null,
-  },
+    this.lastSyncTime = -1; //if older than cloud one, load the cloud version
+    this.syncedOnline = false; //synced from online (non cache) at least once
   
-  load: {
-    interval: null,
-  },
+    this.syncSkips = 0; //if not in focus, see the load interval
+    this.syncSkipsTimes = 5; //how many times to skip if not in focus
+
+    
+    this.save = {
+      dirty: <boolean> false, //when something changes and needs saving
+      interval: <number|null> null,
+    }
+    
+    this.load = {
+      interval: <number|null> null,
+    }
+  }
+
+
+  start(autoSave = true, autoLoad = true) :void{
+
+    if(autoSave && pb.preferences['autoSaveInterval']!='0')
+    this.save.interval = setInterval(()=>{
+      if(sync.save.dirty == false) return;
+      
+      sync.save.dirty = false;
+      
+      log('sync save');
+      sync.saveAll();
+      
+    }, pb.preferences['autoSaveInterval']*1000);
+    
+    if(autoLoad && pb.preferences['autoLoadInterval']!='0')
+    this.load.interval = setInterval(()=>{
+      //let checksum = hash(buildPBoard())
+      //dont do if not in focus, save bandwith
+      if(document.hasFocus()){
+        sync.syncSkips = sync.syncSkips-1;
+      }else sync.syncSkips = 0;
+
+      if(sync.syncSkips<=0){
+        sync.syncSkips = sync.syncSkipsTimes;
+        sync.loadAll();
+      }
+    }, pb.preferences['autoLoadInterval']*1000);
+  }
   
 
   setSyncTime() :void{
     this.lastSyncTime = (new Date()).getTime();
-  },
+  }
 
   flashLoadingIndicator() :void{
     startLoadingIndicator();
     setTimeout(()=>{
       stopLoadingIndicator();
     },2000);
-  },
+  }
 
   //loads pb from cookies, if it exists, else returns false
   loadCachedContent() :boolean{
@@ -44,15 +90,15 @@ let sync = {
       logw('not loading from cache');
     extensions.invoke('loadCached');
     return true;
-  },
+  }
 
   saveCachedContent(contents) :void{
     window.localStorage.setItem('cached',contents);
     //setCookie('cached', contents)
-  },
+  }
 
-  saveAll(callback = null, really=false) :void{ ////Added the really? option
-    if(really == false) return; //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  saveAll(callback = null) :void{ ////Added the really? option
+    if(SAVING_DISASBLED) return;
 
     try{
 
@@ -83,7 +129,7 @@ let sync = {
       })
   
     }catch(e){ alog(e); }
-  },
+  }
 
   loadAll(callback = null) :void{
       try{
@@ -112,36 +158,8 @@ let sync = {
         })
   
     }catch(e){ alog(e) }
-  },
+  }
 
   
-
-  start(doAutoLoadSave = true) :void{
-
-    if(doAutoLoadSave == false || pb.preferences['autoLoadInterval'].toString()=="0") return;
-
-    this.save.interval = setInterval(()=>{
-      if(sync.save.dirty == false) return;
-      
-      sync.save.dirty = false;
-      
-      log('sync save');
-      sync.saveAll();
-      
-    }, pb.preferences['autoSaveInterval']*1000);
-
-    this.load.interval = setInterval(()=>{
-      //let checksum = hash(buildPBoard())
-      //dont do if not in focus, save bandwith
-      if(document.hasFocus()){
-        sync.syncSkips = sync.syncSkips-1;
-      }else sync.syncSkips = 0;
-
-      if(sync.syncSkips<=0){
-        sync.syncSkips = sync.syncSkipsTimes;
-        sync.loadAll();
-      }
-    }, pb.preferences['autoLoadInterval']*1000);
-  }
 
 }

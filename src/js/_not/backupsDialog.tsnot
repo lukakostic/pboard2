@@ -131,7 +131,7 @@ function renameBackupClicked(event){
 function loadBackupClicked(event){
 
     if(event.srcElement == null) event.srcElement = event.target
-    let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode))
+    let ind = findWithAttr(availableBackups,'id', dataId(event.srcElement.parentNode));
 
     storage.fileDownload(availableBackups[ind].name, (content)=>{
     //getBackups(function(){backupsSearched();});
@@ -141,6 +141,6 @@ function loadBackupClicked(event){
     pageOpened()
 
     alert('Loaded')
-    if(confirm('Save?')) sync.saveAll()
+    if(confirm('Save?')) sync.saveAll();
     })
 }

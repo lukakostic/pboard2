@@ -10,47 +10,47 @@
 
   /* View model specific options */
 
-  #main[data-view="ViewModeList"] [data-name="list-holder"]{
+  #main[data-viewMode="List"] [data-name="list-holder"]{
     display: flex;
     flex-flow: row wrap;
   }
-  #main[data-view="ViewModeList"]>.list{ /* Disable margins on mobile somehow? */
+  #main[data-viewMode="List"]>.list{ /* Disable margins on mobile somehow? */
     /*margin-left: 20px;*/
     /*margin-right: 20px;*/
     transform: none; /*Dont wanna leave css*/
   }
-  #main[data-view="ViewModeList"] .tile{
+  #main[data-viewMode="List"] .tile{
     height: 100px;
     width: 200px;
 
     margin: 10px 10px 10px 10px;
   }
-  #main[data-view="ViewModeList"] [data-name="list-adder"]{
+  #main[data-viewMode="List"] [data-name="list-adder"]{
     height: 50px;
     margin: 10px;
   }
-  #main[data-view="ViewModeList"] [data-name="list-adder"]>.b{
+  #main[data-viewMode="List"] [data-name="list-adder"]>.b{
     flex-grow: .03;
     height: 100%;
     font-weight: bold;
   }
 
-  #main[data-view="ViewModeBoard"] .list{
+  #main[data-viewMode="Board"] .list{
     width: 300px;
 
     margin: 0px 3px 0px 3px;
   }
-  #main[data-view="ViewModeBoard"] .tile{
+  #main[data-viewMode="Board"] .tile{
     /* height: 100px; */ /*we dont want this, so the tile would resize to full name text*/
     max-height: 154px; /* limit how many max lines */
     max-width: 300px;
 
     margin: 5px 0px 5px 0px;
   }
-  #main[data-view="ViewModeBoard"] [data-name="list-adder"]{
+  #main[data-viewMode="Board"] [data-name="list-adder"]{
     justify-content: center;
   }
-  #main[data-view="ViewModeBoard"] [data-name="list-adder"]>.b{
+  #main[data-viewMode="Board"] [data-name="list-adder"]>.b{
     flex: 1;
   }
   
@@ -74,6 +74,7 @@
     max-height: inherit; /* So tile can limit max line count */
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: pre-line;
 
     color: black;
     padding: 5px;
@@ -123,13 +124,54 @@
   /* Color differently based on board type: */
   
   [data-type="Text"]{
-    background-color:#c5c5a3;
+    background-color:#ffffe3;
   }
   [data-type="Board"]{
-    background-color:#aeaeae;
+    background-color:#f0f0f0;
   }
   [data-type="List"]{
-    background-color:#b8d3db;
+    background-color:#e7f9ff;
   }
   
+
+  [data-highlightId="highlighted"]{
+    outline-style: solid;
+    outline-width: 5px;
+    outline-offset: -3px;
+    outline-color: black;
+    animation: bw-outline 1s step-start 0s infinite;
+  }
+  [data-highlightId="highlighted-input"]{
+    outline-style: solid;
+    outline-width: 4px;
+    outline-offset: -2px;
+    outline-color: black;
+    animation: semiRainbow-outline 1s infinite;
+  }
+  @keyframes bw-outline{
+    50% {
+      outline-color: transparent;
+    }
+  }
+  @keyframes semiRainbow-outline{
+    100%,0% {outline-color: black;}
+    25% {outline-color: lime;}
+    50% {outline-color: cyan;}
+    75% {outline-color: red;}
+  }
+  @keyframes rainbow-outline{
+    100%,0% {outline-color: rgb(255,  0,0  );}
+    8%      {outline-color: rgb(255,127,0  );}
+    16%     {outline-color: rgb(255,255,0  );}
+    25%     {outline-color: rgb(127,255,0  );}
+    33%     {outline-color: rgb(0  ,255,0  );}
+    41%     {outline-color: rgb(0  ,255,127);}
+    50%     {outline-color: rgb(0  ,255,255);}
+    58%     {outline-color: rgb(0  ,127,255);}
+    66%     {outline-color: rgb(0  ,0  ,255);}
+    75%     {outline-color: rgb(127,0  ,255);}
+    83%     {outline-color: rgb(255,0  ,255);}
+    91%     {outline-color: rgb(255,0  ,127);}
+  }
+
 </style>

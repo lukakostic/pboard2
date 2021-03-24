@@ -18,7 +18,7 @@ function updateSaveFile(saveFile :any) :null|any /* null if finished, object if 
         let pref = copyNewProperties(new PBoard().preferences,saveFile.preferences);
         saveFile.preferences = pref;
         saveFile.version = 2;
-        return this.updateSaveFile(saveFile);
+        return updateSaveFile(saveFile);
     }
     //saveFile.version>=3
     if(saveFile['version'] == 2){
@@ -31,13 +31,22 @@ function updateSaveFile(saveFile :any) :null|any /* null if finished, object if 
             pb: saveFile
         }
         
-        return this.updateSaveFile(newSaveFile);
+        return updateSaveFile(newSaveFile);
     }
     if(saveFile['project'] != null && saveFile.project['version'] == 3){
         Object.defineProperty(saveFile, 'pb', Object.getOwnPropertyDescriptor(saveFile, 'project'));
         delete saveFile['project'];
         saveFile.pb.version = 3.1;
-        return this.updateSaveFile(saveFile);
+        return updateSaveFile(saveFile);
+    }
+    
+    if(saveFile['pb'] != null && saveFile.pb['version'] == 3.1){
+        ///////////TODO delete all 'refence' objects from board attributes
+        for(let i in saveFile.pb.boards)
+            delete saveFile.pb.boards[i].attributes['references'];
+        saveFile.pb.boards[''].attributes = {};
+        saveFile.pb.version = 4;
+        return updateSaveFile(saveFile);
     }
 
     return null; //failed to update said version

@@ -1,7 +1,9 @@
-(dialogs['optionsDialog'] = {
+unregisteredDialogs['optionsDialog'] = {
+  isOpen : <boolean> false,
+  dialog : <HTMLElement> null,
+
   init() :void{
      this.isOpen = false;
-
      this.dialog = EbyId('dialog_optionsDialog');
 
      EbyName('remove',this.dialog).onclick = this.remove_onclick.bind(this);
@@ -13,48 +15,50 @@
   open() :void{
      this.isOpen = true;
      this.dialog.classList.toggle('hidden', false);
+     
+     navigation.focus(EbyName('remove',this.dialog));
   },
   //save == null when autoclose
-  close(save:boolean|null = false) :void{
+  close() :void{
      this.dialog.classList.toggle('hidden', true);
      this.isOpen = false;
-     closeDialog(false,false);
+     dialogManager.closeDialog(false,false);
   },
 
   remove_onclick() :void{
-    if(brdAttr(dialogBoardID,'references')<=1 && confirm('This is the last reference to this board, really remove it? (Will delete the board)')==false) return;
+    let refCount = Board.countReferences(dialogManager.boardID);
+    if(refCount<=1 && confirm('This is the last reference to this board, really remove it? (Will delete the board)')==false) return;
 
     if(pb.boards[board].type == BoardType.Board){
-      pb.boards[board].content.splice(dialogBoardView.index-1,1); //////?????/////TODO test it out, not sure about index
+      pb.boards[board].content.splice(dialogManager.boardView.index-1,1); //////?????/////TODO test it out, not sure about index
     }else if(pb.boards[board].type == BoardType.List){
-      pb.boards[board].content.splice(dialogBoardView.index,1); //////?????/////TODO test it out, not sure about index
+      pb.boards[board].content.splice(dialogManager.boardView.index,1); //////?????/////TODO test it out, not sure about index
     }
   
-    pb.boards[dialogBoardID].attributes['references']--;
   
-    if(pb.boards[dialogBoardID].attributes['references']<=0)
-      Board.deleteBoardById(dialogBoardID);
+    if(refCount<=1) //is now 0
+      Board.deleteBoardById(dialogManager.boardID);
 
-    boardsUpdated([dialogBoardID]);
+    boardsUpdated([dialogManager.boardID],true);
     this.close();
   },
   delete_onclick() :void{
     if(confirm('Really delete this board, all references to it and its content (content will be removed, not deleted)?')==false) return;
-    Board.deleteBoardById(dialogBoardID);
-    boardsUpdated([dialogBoardID]); //////////////TODO see here i need to update every list that contains it, yet im not passing it in.
+    Board.deleteBoardById(dialogManager.boardID);
+    boardsUpdated([dialogManager.boardID],true); //////////////TODO see here i need to update every list that contains it, yet im not passing it in.
     this.close();
   },
   copy_onclick() :void{
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", dialogBoardID);
+    window.prompt("Copy to clipboard: Ctrl+C, Enter", dialogManager.boardID);
     this.close();
   },
   references_onclick() :void{ //////////////////TODO move this to separate dialog.. also this is a situation where one dialog opens a differeont one..
-    let brd = dialogBoardID;
-    let brdView = dialogBoardView;
+    let brdID = dialogManager.boardID;
+    let brdView = dialogManager.boardView;
     this.close();
-
+    /* //////////////////////TODO implement this
     
-    if(brdAttr(dialogBoardID,'references') == 1) return alert('This is the only reference');
+    if(brdAttr(dialogManager.boardID,'references') == 1) return alert('This is the only reference');
   
     let listReferences = [];
   
@@ -63,7 +67,7 @@
   
     for(let i = 0; i < ids.length; i++)
       if(pb.boards[ids[i]].type == BoardType.List)
-        if(pb.boards[ids[i]].content.includes(dialogBoardID))
+        if(pb.boards[ids[i]].content.includes(dialogManager.boardID))
           listReferences.push(ids[i]);
         
     
@@ -106,9 +110,10 @@
   
     set_dataId(modal[0], brd);
     (<JQuery<any> &{modal:any}> modal).modal('show');
+    */
   },
   extras_onclick() :void{
-    showExtras();////////////////////////////////////TODO/////////////////////////////////////////
+    //showExtras();////////////////////////////////////TODO/////////////////////////////////////////
   }
 
-}).init();
+}  as DialogInterface;
