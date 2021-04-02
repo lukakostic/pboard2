@@ -1,9 +1,26 @@
+const DBGC = { //debug colors
+	b: "background: #222; color: #bada55",
+}
 const dbg = function(){
-	for(let i = 0; i < arguments.length; i++)
-		 if(arguments[i] instanceof Error)
-			  alert(arguments[i]);
-	let color = "background: #222; color: #bada55";
-	return Function.prototype.bind.call(console.debug, console,'%c $ ', color);
+	for(let i = 0; i < arguments.length; i++){
+		if(arguments[i] instanceof Error)
+			alert(arguments[i]);
+	}
+
+	let color = DBGC.b;
+	for(let i = 0; i < arguments.length; i++) //Find color
+		if(typeof arguments[i] === 'string'){
+			let leave = false;
+			for(let c in DBGC)
+				if(arguments[i] == (DBGC as any)[c] ){
+					color = (DBGC as any)[c];
+					leave = true;
+					break;
+				}
+			if(leave) break;
+		}
+	
+	return Function.prototype.bind.call(console.debug, console,'%c#', color);
 	//let context = "My Descriptive Logger Prefix:";
 	//return Function.prototype.bind.call(console.log, console, context);
 }();
