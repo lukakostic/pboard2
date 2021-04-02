@@ -27,17 +27,17 @@ class PBoard {
         }
     }
 }
-
+declare type BoardId = string;
 class Board {
-    id :string;
+    id :BoardId;
     type :BoardTypeT;
     name :string;
-    content :any; //! can be PBoard too
+    content :Board[]|any; //! can be PBoard too
     tags :Object;
     attributes :{[index:string]: any} ; //object (isBoard,onMain, etc.)
     
 
-    constructor(type :BoardTypeT, name :string, content :any,  attributes :any = {}, id :string|null = null) {
+    constructor(type :BoardTypeT, name :string, content :any,  attributes :any = {}, id :BoardId|null = null) {
         if (id === null) id = Board.makeId(8)
         
         this.id = id;
@@ -54,7 +54,7 @@ class Board {
     }
 
     static idFromUrl(url :string) :string{
-        let boardId = "";
+        let boardId :BoardId = "";
         
         //get id from url
         if (url.includes('?b=')) {
@@ -90,7 +90,7 @@ class Board {
     }
 
     //delete board by id, and dereference its children. Children get deleted if at 0 references.
-    static deleteBoardById(id :string) :void{
+    static deleteBoardById(id :BoardId) :void{
         if(id=="") return;
         delete pb.boards[id];
         
@@ -112,7 +112,7 @@ class Board {
 
     }
 
-    static countReferences(id :string) :number{
+    static countReferences(id :BoardId) :number{
         let refs = 0;
         for(let i in pb.boards)
           if(i != id && Array.isArray(pb.boards[i].content))

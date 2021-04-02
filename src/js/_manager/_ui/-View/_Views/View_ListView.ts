@@ -9,7 +9,7 @@ class ListView extends ViewTree{ /*Has Board(Tile) adder thing at end*/
    adderList :HTMLElement;
    adderReference :HTMLElement;
 
-   constructor(_id :string = "", _parent : View|null,  _index :number){
+   constructor(_id :BoardId = "", _parent : View|null,  _index :number){
       super(_id, _parent, _index);
    }
    
@@ -25,7 +25,11 @@ class ListView extends ViewTree{ /*Has Board(Tile) adder thing at end*/
          this.title = <HTMLInputElement> EbyName('list-title',this.htmlEl);
          this.title.onkeyup = this.title_onkeyup.bind(this);
          this.title.onblur = this.title_onblur.bind(this);
-         (this.optionsBtn = EbyName('list-optionsBtn',this.htmlEl)).onclick = this.optionsBtn_onclick.bind(this);
+			
+			this.optionsBtn = EbyName('list-optionsBtn',this.htmlEl);
+			this.optionsBtn.onclick = this.optionsBtn_onclick.bind(this);
+			this.optionsBtn.addEventListener('openEvent',this.openEvent.bind(this),false); //for keyboard navigation
+			this.optionsBtn.addEventListener('identify',this.identify.bind(this),false);
 
          this.adder = EbyName('list-adder',this.htmlEl);
          (this.adderText = EbyName('list-adder-text',this.htmlEl)).onclick = this.adderText_onclick.bind(this);

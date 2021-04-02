@@ -4,7 +4,7 @@ class TileView extends View{ /* Has no add ers, but has Title,Description,Image 
    text : HTMLElement;
    textIcon : HTMLElement;
 
-   constructor(_id :string = "", _parent : View|null, _index :number){
+   constructor(_id :BoardId = "", _parent : View|null, _index :number){
       super(_id,_parent,_index);
  
       this.optionsBtn = null;
@@ -25,6 +25,7 @@ class TileView extends View{ /* Has no add ers, but has Title,Description,Image 
          this.textIcon = EbyName('tile-textIcon', <HTMLElement> this.htmlEl);
          
          this.optionsBtn.addEventListener('openEvent',this.openEvent.bind(this),false); //for keyboard navigation
+			this.optionsBtn.addEventListener('identify',this.identify.bind(this),false);
       }
       this.htmlEl.setAttribute('data-id',this.id);
    }
@@ -56,8 +57,5 @@ class TileView extends View{ /* Has no add ers, but has Title,Description,Image 
    text_onclick(event :Event) :void{
       //open tile. Since tile can be any type we better call special function:
       this.openEvent();
-   }
-   openEvent() :void{
-      openBoard(this.id, this);
    }
 }

@@ -1,10 +1,4 @@
 abstract class ViewTree extends View{
-   discarded :boolean; //if true its not in use and is waiting to be GC collected
-   id :string;
-   parent : View|null;
-   index : number;
-   htmlEl : HTMLElement;
-
    holderElement : HTMLElement; /* Element that holds other elements (views) */
    elements : View[];
 
@@ -46,7 +40,7 @@ abstract class ViewTree extends View{
       }
       super.clearHTML();
    }
-   update(_id:string,_index:number|null=null):View{
+   update(_id:BoardId,_index:number|null=null):View{
       let notSameId = (this.id != _id);
       if(super.update(_id,_index) == null) return null;
       if(notSameId)
@@ -59,7 +53,7 @@ abstract class ViewTree extends View{
       for(let i = 0; i < this.elements.length; i++)
          this.elements[i].render();
    }
-   renderById(_id :string) :void{
+   renderById(_id :BoardId) :void{
       super.renderById(_id);
       for(let i = 0; i < this.elements.length; i++)
          this.elements[i].renderById(_id);

@@ -1,4 +1,4 @@
-function newText(parentId :string, name:string|null = null) :string{
+function newText(parentId :BoardId, name:string|null = null) :string{
   if(name==null) name="";
 
   let brd = new Board(BoardType.Text,name,"");
@@ -10,7 +10,7 @@ function newText(parentId :string, name:string|null = null) :string{
 }
 
 
-function newBoard(parentId :string, name:string|null = null) :string{
+function newBoard(parentId :BoardId, name:string|null = null) :string{
   if(name==null) name="";//name="Board";
 
   let brd = new Board(BoardType.Board,name,[],{description:''});
@@ -23,7 +23,7 @@ function newBoard(parentId :string, name:string|null = null) :string{
 }
 
 
-function newList(parentId :string, name:string|null = null) :string{
+function newList(parentId :BoardId, name:string|null = null) :string{
   if(name==null) name="";//name="List";
 
   let brd = new Board(BoardType.List,name,[]);
@@ -35,7 +35,7 @@ function newList(parentId :string, name:string|null = null) :string{
 }
 
 
-function newReference(parentId :string, id :string|null = null) :string|null{
+function newReference(parentId :BoardId, id :string|null = null) :string|null{
   if(id == null){
     id = window.prompt("Write/Paste id of board to reference:");
 

@@ -1,5 +1,5 @@
 /* generate required type based on board type */
-function generateView(_id :string, _parent : View|null, _index :number) :AlbumView|ListView|TileView|null {
+function generateView(_id :BoardId, _parent : View|null, _index :number) :AlbumView|ListView|TileView|null {
 	//log('GenerateView ' + _id, _parent);
 	let type = pb.boards[_id].type;
 	if(_parent == null){  ////////// Main View

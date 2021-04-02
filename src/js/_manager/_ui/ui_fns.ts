@@ -26,7 +26,7 @@ function draw() :void{
 
 
 
-function loadBackground(el:HTMLElement, id :string) :void{ //////////TODO Use this, apply to html.main too!
+function loadBackground(el:HTMLElement, id :BoardId) :void{ //////////TODO Use this, apply to html.main too!
   el.style.backgroundImage = "url('"+brdAttr(id,'background')+"')";
   el.style.backgroundRepeat = "no-repeat";
   el.style.backgroundSize = "cover";

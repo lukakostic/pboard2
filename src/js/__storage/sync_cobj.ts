@@ -1,5 +1,6 @@
 let SAVING_DISASBLED = false;
 let CACHE_DISABLED = true;
+
 let SAVE_FILENAME = 'pboard.pb';
 
 let sync : _Sync_ = null;
@@ -108,16 +109,15 @@ class _Sync_ {
     try{
 
       extensions.invoke('pre_saveAll');
-      
+		
+		dbg('saveAll');
       
       this.setSyncTime();
       let saveFile = buildPBoard();
       
       
-      dbg('saveAll');
-      
       if(this.syncedOnline == false)
-        return console.warn('Wont save: Not once synced with online. Wait or refresh.');
+        return dbgw('Wont save: Not once synced with online. Wait or refresh.');
       
 
       startSavingIndicator();
@@ -130,8 +130,9 @@ class _Sync_ {
         stopSavingIndicator();
         extensions.invoke('saveAll');
         
-        sync.save.dirty = false;
-      })
+		  sync.save.dirty = false;
+		  
+		});
   
     }catch(e){ throw e; }
   }

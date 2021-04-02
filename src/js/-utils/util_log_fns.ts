@@ -1,13 +1,30 @@
 const DBGC = { //debug colors
 	b: "background: #222; color: #bada55",
 }
+
 const dbg = function(){
 	for(let i = 0; i < arguments.length; i++){
 		if(arguments[i] instanceof Error)
 			alert(arguments[i]);
 	}
+	return Function.prototype.bind.call(console.debug, console,'%c#', DBG_COL_FN(DBGC.b,arguments));
+}();
+const dbgw = function(){
+	for(let i = 0; i < arguments.length; i++){
+		if(arguments[i] instanceof Error)
+			alert(arguments[i]);
+	}
+	return Function.prototype.bind.call(console.warn, console,'%c#', DBG_COL_FN(DBGC.b,arguments));
+}();
+const s_dbg = function(){
+	return Function.prototype.bind.call(console.groupCollapsed, console);
+}();
+const e_dbg = function(){
+	return Function.prototype.bind.call(console.groupEnd, console);
+}();
 
-	let color = DBGC.b;
+function DBG_COL_FN(def:string,args:IArguments):string{
+	let color = def;
 	for(let i = 0; i < arguments.length; i++) //Find color
 		if(typeof arguments[i] === 'string'){
 			let leave = false;
@@ -19,28 +36,8 @@ const dbg = function(){
 				}
 			if(leave) break;
 		}
-	
-	return Function.prototype.bind.call(console.debug, console,'%c#', color);
-	//let context = "My Descriptive Logger Prefix:";
-	//return Function.prototype.bind.call(console.log, console, context);
-}();
-const s_dbg = function(){
-	for(let i = 0; i < arguments.length; i++)
-		 if(arguments[i] instanceof Error)
-			  alert(arguments[i]);
-
-	return Function.prototype.bind.call(console.groupCollapsed, console);
-	//let context = "My Descriptive Logger Prefix:";
-	//return Function.prototype.bind.call(console.log, console, context);
-}();
-const e_dbg = function(){
-	for(let i = 0; i < arguments.length; i++)
-		 if(arguments[i] instanceof Error)
-			  alert(arguments[i]);
-	return Function.prototype.bind.call(console.groupEnd, console);
-	//let context = "My Descriptive Logger Prefix:";
-	//return Function.prototype.bind.call(console.log, console, context);
-}();
+	return color;
+}
 
 /*
 //Debug logs, only used for debug and not actual messages.

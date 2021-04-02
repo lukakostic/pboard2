@@ -7,7 +7,7 @@ const boardHistory = {
     return this.history[this.history.length-1];
   },
   //add board to history, skip if already last
-  add(boardId :string) :void{
+  add(boardId :BoardId) :void{
 	  
 	dbg('bh add ("'+boardId+'")',this.history);
     if(boardId !== this.last())

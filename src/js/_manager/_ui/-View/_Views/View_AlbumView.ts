@@ -1,7 +1,7 @@
 class AlbumView extends ViewTree{ /*Has List adder thing at end*/
    adder: HTMLInputElement;
 
-   constructor(_id :string = "", _parent : View|null, _index :number){
+   constructor(_id :BoardId = "", _parent : View|null, _index :number){
       super(_id, _parent, _index);
    }
    

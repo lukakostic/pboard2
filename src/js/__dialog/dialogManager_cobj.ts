@@ -3,7 +3,7 @@ let unregisteredDialogs: {[index:string]:DialogInterface} = {};
 
 let dialogManager :_DialogManager_ = null;
 class _DialogManager_{
-  boardID :string|null;
+  boardID :BoardId|null;
   boardView :View;
   dialogs :{[index:string]:DialogInterface};
 
@@ -38,7 +38,7 @@ class _DialogManager_{
    this.dialogs[name] = dialog;
  }
 
- openDialog(dialog :string, boardId :string, boardView :View) :void{
+ openDialog(dialog :string, boardId :BoardId, boardView :View) :void{
    //this.closeDialog(false, true); //close and reset all first
    this.dialogBack.classList.toggle('hidden', false);
    this.boardID = boardId;

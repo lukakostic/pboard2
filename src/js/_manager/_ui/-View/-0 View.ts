@@ -1,11 +1,11 @@
 abstract class View{ /* A (board kind) element display. Album, List, Tile. */
    discarded :boolean; //if true its not in use and is waiting to be GC collected
-   id :string;
+   id :BoardId;
    parent : View|null;
    index : number;
-   htmlEl : HTMLElement|Element;
+   htmlEl : HTMLElement;
 
-   constructor(_id :string = "", _parent : View|null, _index :number){
+   constructor(_id :BoardId = "", _parent : View|null, _index :number){
       this.discarded = false;
       this.id = _id;
       this.parent = _parent;
@@ -38,7 +38,7 @@ abstract class View{ /* A (board kind) element display. Album, List, Tile. */
          html.main.appendChild(this.htmlEl);
       ///////
    }
-   update(_id:string,_index:number|null=null):View{
+   update(_id:BoardId,_index:number|null=null):View{
       let changed :boolean = false;
       if(this.id != _id) changed = true;
       if( pb.boards[this.id] == null || (changed && pb.boards[_id].type != pb.boards[this.id].type))
@@ -52,9 +52,19 @@ abstract class View{ /* A (board kind) element display. Album, List, Tile. */
       return this;
    }
    render():void{} /* Render yourself and call render on children (if any) */
-   renderById(_id:string):void{
+   renderById(_id:BoardId):void{
       if(this.id == _id)
          return this.render();
-   } /* Element gets called to render. If not current element, call render on children (if any) */
+	} /* Element gets called to render. If not current element, call render on children (if any) */
+	
+   openEvent() :void{
+      openBoard(this.id, this);
+   }
+	identify(viewIdentifyEvent :Event = null):View{ //to get called from html
+		//dbg('identify',viewIdentifyEvent);
+		if(viewIdentifyEvent && (viewIdentifyEvent as CustomEvent<Function>).detail)
+			(viewIdentifyEvent as CustomEvent<Function>).detail(this); //callback
+		return this;
+	}
 }
 
