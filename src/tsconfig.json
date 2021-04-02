@@ -5,13 +5,17 @@
     "outDir": "../../pb",
     "rootDir": "./",
     
+    "strict": true,
 	"declaration": false,
-    "noImplicitAny": false,
-    "removeComments": true,
+    "noImplicitAny": true,
+    "strictNullChecks": false,
+    "removeComments": false,
     "noLib": false
 },
 "include": [
-    "**/*"
+    "**/*",
+    "_site.js",
+    "_loaded.js"
 ],
 "exclude": [
     "node_modules",

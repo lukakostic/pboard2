@@ -4,16 +4,13 @@
   "description": "Concept management and categorization tool",
   "main": "index.js",
   "scripts": {
-    "build": "(npm run sergey ) & (npm run sergeyCopy ) & (npm run typescript ) & (npm run deleteTS ) & (npm run concatClasses) & (npm run deleteClasses) & (npm run concatParts) & (npm run deleteParts) & (npm run deletePartsFolder)",
+    "build": "(npm run sergey ) & (npm run sergeyCopy ) & (npm run typescript ) & (npm run deleteTS ) & (npm run concat) & (npm run deleteJSFolder)",
     "sergey": "sergey --root=./ --output=../sergeyOut/ --exclude=.flowconfig --imports=./_html/",
     "sergeyCopy": "(Xcopy /Y /E /I ..\\sergeyOut ..\\..\\pb ) & (RD /S /Q ..\\sergeyOut )",
     "typescript": "tsc",
     "deleteTS": "del /F /Q /S ..\\..\\pb\\*.ts",
-    "concatClasses": "concat-files-cli -i ../../pb/js/classes/* -o ../../pb/js/Classes_ALL.js",
-    "deleteClasses": "del /F /Q /S ..\\..\\pb\\js\\classes\\",
-    "concatParts": "concat-files-cli -i ../../pb/js/parts/* -o ../../pb/js/ALL.js",
-    "deleteParts": "del /F /Q /S ..\\..\\pb\\js\\parts\\",
-    "deletePartsFolder": "rmdir /Q /S ..\\..\\pb\\js\\parts\\"
+    "concat": "concat-files-cli -i ../../pb/js/* -o ../../pb/_ALL_JS.js",
+    "deleteJSFolder": "rmdir /Q /S ..\\..\\pb\\js"
   },
   "repository": {
     "type": "git",
