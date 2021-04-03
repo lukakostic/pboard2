@@ -1,0 +1,51 @@
+<style id="style">
+
+  /************* List */
+
+  #main[data-viewMode="List"] [data-name="list-holder"]{
+    display: flex;
+    flex-flow: row wrap;
+  }
+  #main[data-viewMode="List"]>.list{ /* Disable margins on mobile somehow? */
+    /*margin-left: 20px;*/
+    /*margin-right: 20px;*/
+    transform: none; /*Dont wanna leave css*/
+  }
+  #main[data-viewMode="List"] .tile{
+    height: 100px;
+    width: 150px;
+
+    margin: 10px 10px 10px 10px;
+  }
+  #main[data-viewMode="List"] [data-name="list-adder"]{
+    height: 50px;
+    margin: 10px;
+  }
+  #main[data-viewMode="List"] [data-name="list-adder"]>.b{
+    flex-grow: .03;
+    height: 100%;
+    font-weight: bold;
+  }
+
+
+  /************* Board */
+
+  #main[data-viewMode="Board"] .list{
+    width: 300px;
+
+    margin: 0px 3px 0px 3px;
+  }
+  #main[data-viewMode="Board"] .tile{
+    /* height: 100px; */ /*we dont want this, so the tile would resize to full name text*/
+    max-height: 154px; /* limit how many max lines */
+    max-width: 300px;
+
+    margin: 5px 0px 5px 0px;
+  }
+  #main[data-viewMode="Board"] [data-name="list-adder"]{
+    justify-content: center;
+  }
+  #main[data-viewMode="Board"] [data-name="list-adder"]>.b{
+    flex: 1;
+  }
+</style>

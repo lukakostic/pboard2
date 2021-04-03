@@ -3,13 +3,14 @@ abstract class ViewTree extends View{
    elements : View[];
 
    constructor(_id :string = "", _parent : View|null, _index :number){
-      super(_id,_parent,_index);
+		super(_id,_parent,_index);
+		this.type = ViewType.ViewTree;
 
       this.holderElement = null;
       this.elements = [];
 
       if(this.parent == null)
-         setMainView(this as View);
+         setMainView(this as ViewTree);
    }
 
    destructor():null{

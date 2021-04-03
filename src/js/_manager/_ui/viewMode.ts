@@ -9,11 +9,11 @@ const ViewMode2 :{[index:string]: ViewModeT} = {
    Grid :2,
 }
 
-let mainView :View = null; //current main, top level view
+let mainView :ViewTree = null; //current main, top level view
 let viewMode :ViewModeT = ViewMode.List;
 let viewMode2 :ViewModeT = ViewMode2.None;
 
-function setMainView(v :View) :void{
+function setMainView(v :ViewTree) :void{
    mainView = v;
 
    if(pb.boards[mainView.id].type == BoardType.List)

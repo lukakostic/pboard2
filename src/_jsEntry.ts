@@ -7,6 +7,8 @@ _Storage_.init(StorageType.ElectronLocal); //////init with desired StorageType
 _Header_.init();
 _DialogManager_.init();
 _Navigation_.init();
+//init shortcuts:
+document.body.addEventListener('keydown',shortcuts_onkeydown,true);
 
 storage.OnStorageLoad(StorageType.None); //None/Local/Cache storage loaded
 

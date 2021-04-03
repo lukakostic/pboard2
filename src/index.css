@@ -83,14 +83,14 @@ body {
   padding: 0;
 
   border-radius: 0px 4px 0px 4px;
-  border: 2px solid black;
+  border: 2px solid rgba(0, 0, 0, 0.3);
 }
 
 
 .dialog{
   position: absolute;
 
-  width: 80%;
+  width: 85%;
   height: 90%;
   max-width: 700px;
   max-height: 600px;

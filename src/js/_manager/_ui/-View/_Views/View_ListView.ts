@@ -10,7 +10,8 @@ class ListView extends ViewTree{ /*Has Board(Tile) adder thing at end*/
    adderReference :HTMLElement;
 
    constructor(_id :BoardId = "", _parent : View|null,  _index :number){
-      super(_id, _parent, _index);
+		super(_id, _parent, _index);
+		this.type = ViewType.ListView;
    }
    
    buildHTML() :void{

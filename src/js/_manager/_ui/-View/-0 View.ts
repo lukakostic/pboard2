@@ -1,12 +1,23 @@
+type ViewTypeT =  number;
+const ViewType = { //bit masked enum, powers of 2 !!
+	View: 0,
+	ViewTree: 1,
+	//we OR them since they are both!
+	TileView: 0|2,
+	ListView: 1|4,
+	AlbumView: 1|8,
+}
 abstract class View{ /* A (board kind) element display. Album, List, Tile. */
-   discarded :boolean; //if true its not in use and is waiting to be GC collected
+	type :ViewTypeT;
+	discarded :boolean; //if true its not in use and is waiting to be GC collected
    id :BoardId;
    parent : View|null;
    index : number;
    htmlEl : HTMLElement;
 
    constructor(_id :BoardId = "", _parent : View|null, _index :number){
-      this.discarded = false;
+		this.type = ViewType.View;
+		this.discarded = false;
       this.id = _id;
       this.parent = _parent;
       this.index = _index;
@@ -41,7 +52,7 @@ abstract class View{ /* A (board kind) element display. Album, List, Tile. */
    update(_id:BoardId,_index:number|null=null):View{
       let changed :boolean = false;
       if(this.id != _id) changed = true;
-      if( pb.boards[this.id] == null || (changed && pb.boards[_id].type != pb.boards[this.id].type))
+      if( pb.boards[this.id] == null || (changed && viewTypeForContext(this.id,this.parent) != viewTypeForContext(_id,this.parent)))
          return this.destructor(); //Incompatible type
       this.id = _id;
       if(_index!==null)

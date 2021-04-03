@@ -5,7 +5,8 @@ class TileView extends View{ /* Has no add ers, but has Title,Description,Image 
    textIcon : HTMLElement;
 
    constructor(_id :BoardId = "", _parent : View|null, _index :number){
-      super(_id,_parent,_index);
+		super(_id,_parent,_index);
+		this.type = ViewType.TileView;
  
       this.optionsBtn = null;
       this.text = null;

@@ -8,10 +8,10 @@ function draw() :void{
   //destructor above sets mainView to null
   
   if(mainView != null)
-    mainView = mainView.update(board,0); //sets to null if cant
+    mainView = mainView.update(board,0) as ViewTree; //sets to null if cant
 
   if(mainView == null)
-    mainView = generateView(board,null,0);
+    mainView = generateView(board,null,0) as ViewTree;
 
   setMainView(mainView);
   mainView.render();
