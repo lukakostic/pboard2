@@ -5,7 +5,11 @@ const html = {
 		let v = this._e[id];
 		return v?v: this._e[id]=(template?templateFChild(id):EbyId(id));
 	},
-
+	__(id:string,fn:Function):HTMLElement{ //lazy getter with custom function
+		let v = this._e[id];
+		return v?v: this._e[id]=fn();
+	},
+	
 	//Elements:
 
 	get main (){return this._('main')},
@@ -14,14 +18,12 @@ const html = {
 	get list2Template (){return this._('list-template',true)},
 	get tileTemplate (){return this._('tile-template',true)},
 
+	get dialogs (){return this._('dialogs')},
+	get dialogTemplates (){return this._('dialogTemplates')},
+
 	get tabStart (){return this._('tabStart')},
 	get tabEnd (){return this._('tabEnd')},
 
 	get loadingIndicator (){return this._('loadingIndicator')},
 	get savingIndicator (){return this._('savingIndicator')},
-
-	get extrasDialog (){return this._('extrasDialog')},
-	get extrasTitle (){return this._('extrasTitle')},
-	get extrasContent (){return this._('extrasContent')},
-	get extrasBack (){return this._('extrasBack')},
 };

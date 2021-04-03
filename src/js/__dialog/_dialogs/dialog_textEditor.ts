@@ -1,33 +1,23 @@
-//~!! See end of file below class, dialog gets added to unregisteredDialogs !!~//
+//~!! See end of file below class, dialog registers itself !!~//
 class _dialog_textEditor_ implements DialogInterface {
-   isOpen : boolean;
-   dialog : HTMLElement;
+	dialog : HTMLElement;
+	back :HTMLElement;
  
    textTitle : HTMLInputElement;
    textText : HTMLInputElement;
 
-   constructor(){
-      this.isOpen = false;
-      this.dialog = null;
-
-      this.textTitle = null;
-      this.textText = null;
-    }
-   init() :void{
-      this.isOpen = false;
-      this.dialog = EbyId('dialog_textEditor');
+   constructor(_back: HTMLElement, _dialog: HTMLElement){
+      this.dialog = _dialog;
+		this.back = _back;
 
       this.textTitle = EbyName('textTitle',this.dialog) as HTMLInputElement;
       this.textText = EbyName('textText',this.dialog) as HTMLInputElement;
       this.textTitle.oninput = textareaAutoSize.bind(null,this.textTitle);
 
       EbyName('closeBtn',this.dialog).onclick = this.closeNoSave.bind(this,false);
-      EbyName('fullscreenBtn',this.dialog).onclick = this.fullscreen.bind(this,null);
-   }
-   open() :void{
-      this.isOpen = true;
-      this.dialog.classList.toggle('hidden', false);
-
+		EbyName('fullscreenBtn',this.dialog).onclick = this.fullscreen.bind(this,null);
+		
+		
       this.fullscreen(false); ////////////TODO add options?
 
       this.textTitle.value = pb.boards[dialogManager.boardID].name;
@@ -41,21 +31,23 @@ class _dialog_textEditor_ implements DialogInterface {
          this.textText.setSelectionRange(0,0); //sel start
       }
 
-      navigation.focus(this.textTitle, true);
+		this.focus();
    }
+	focus():void{
+		navigation.focus(this.textTitle, true);
+	}
+	backClicked():void{
+		this.close();
+	}
    //save == null when autoclose
-   close(save:boolean|null = false) :void{
-      if(save === null) save = true; //either back clicked or specifically called to true
-
+   close(save:boolean = true) :boolean{
       if(save){
          pb.boards[dialogManager.boardID].name = this.textTitle.value;
          pb.boards[dialogManager.boardID].content = this.textText.value;
          boardsUpdated(UpdateSaveType.SaveNow, dialogManager.boardID);  
       }
-         
-      this.dialog.classList.toggle('hidden', true);
-      this.isOpen = false;
-      dialogManager.closeDialog(false,false);
+      
+		return dialogManager.disposeDialog(this);
    }
    closeNoSave(force=false) :void{
       let go = force;
@@ -75,4 +67,4 @@ class _dialog_textEditor_ implements DialogInterface {
    }
 
 }
-unregisteredDialogs['textEditor'] = new _dialog_textEditor_();
+dialogs['textEditor'] = _dialog_textEditor_;

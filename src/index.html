@@ -14,16 +14,17 @@
 
 
 <body>
-
-  <a id="tabStart" tabindex="0"></a>
+<a id="tabStart" tabindex="0"></a>
 
   <sergey-import src="style"/>
   <sergey-import src="style_viewModes"/>
 
   <sergey-import src="header"/>
 
-  <sergey-import src="dialogs"/>
-
+	<sergey-import src="dialogs"/>
+	
+	<!-- Dialogs are open inside here: -->
+	<div id="dialogs"></div>
 
   <!-- Status Indicators -->
   <img id="savingIndicator" src="./icons/saveIndicator.gif" class="statusIndicator" style="top: 30px; display: none;" tabindex="-1"></img>
@@ -37,7 +38,7 @@
   <div id="main" class="bgCol"></div>
 
   
-  <a id="tabEnd" tabindex="0"></a>
+<a id="tabEnd" tabindex="0"></a>
 </body>
 
 </html>

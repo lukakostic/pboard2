@@ -3,7 +3,7 @@ function shortcuts_onkeydown(event :KeyboardEvent) :void{
 	let shift = event.shiftKey;
 	let esc = (event.keyCode === 27 || event.key.startsWith("Esc"));
 	
-	let inDialog = (dialogManager.dialogBack.classList.contains('hidden')==false);
+	let inDialog = (dialogManager.dialogs.length)?true:false;
 	let inInput = false;
 	switch((<Element>event.target).tagName){
 		case 'TEXTAREA':
@@ -35,7 +35,8 @@ function shortcuts_handleKey(
 
 	if(esc){
 		if(inDialog)
-			dialogManager.closeDialog(!shift,true); //if shift held, dont save
+			dialogManager.backClicked();
+			//dialogManager.closeDialog(!shift,true); //if shift held, dont save
 		else{
 			if(shift)
 				header.homeBtn.click();

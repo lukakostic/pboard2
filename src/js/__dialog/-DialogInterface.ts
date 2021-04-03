@@ -1,8 +1,10 @@
 interface DialogInterface {
-   isOpen: boolean;
-   dialog: HTMLElement;
+	//constructor(back:HTMLElement)
+	dialog: HTMLElement;
+	back: HTMLElement;
 
-   init():void;
-   open : Function;
-   close : Function;
+	focus : Function;
+	close : Function;
+	
+	backClicked :Function;
 }

@@ -1,35 +1,31 @@
-//~!! See end of file below class, dialog gets added to unregisteredDialogs !!~//
+//~!! See end of file below class, dialog registers itself !!~//
 class _dialog_optionsDialog_ implements DialogInterface {
-  isOpen : boolean;
-  dialog : HTMLElement;
+	dialog : HTMLElement;
+	back : HTMLElement;
 
-  constructor(){
-    this.isOpen = false;
-    this.dialog = null;
+	constructor(_back: HTMLElement, _dialog: HTMLElement){
+		this.dialog = _dialog;
+		this.back = _back;
+
+		EbyName('remove',this.dialog).onclick = this.remove_onclick.bind(this);
+		EbyName('delete',this.dialog).onclick = this.delete_onclick.bind(this);
+		EbyName('copy',this.dialog).onclick = this.copy_onclick.bind(this);
+		EbyName('references',this.dialog).onclick = this.references_onclick.bind(this);
+		EbyName('extras',this.dialog).onclick = this.extras_onclick.bind(this);
+
+		
+		EbyName('board-title',this.dialog).innerText = '"'+dialogManager.boardID+'":'+pb.boards[dialogManager.boardID].name;
+		
+		this.focus();
+	}
+	focus():void{
+		navigation.focus(EbyName('remove',this.dialog));
+	}
+  backClicked():void{
+	  this.close();
   }
-  init() :void{
-     this.isOpen = false;
-	  this.dialog = EbyId('dialog_optionsDialog');
-	  
-     EbyName('remove',this.dialog).onclick = this.remove_onclick.bind(this);
-     EbyName('delete',this.dialog).onclick = this.delete_onclick.bind(this);
-     EbyName('copy',this.dialog).onclick = this.copy_onclick.bind(this);
-     EbyName('references',this.dialog).onclick = this.references_onclick.bind(this);
-     EbyName('extras',this.dialog).onclick = this.extras_onclick.bind(this);
-  }
-  open() :void{
-     this.isOpen = true;
-     this.dialog.classList.toggle('hidden', false);
-     
-	  EbyName('board-title',this.dialog).innerText = '"'+dialogManager.boardID+'":'+pb.boards[dialogManager.boardID].name;
-	  
-	  navigation.focus(EbyName('remove',this.dialog));
-  }
-  //save == null when autoclose
-  close() :void{
-     this.dialog.classList.toggle('hidden', true);
-     this.isOpen = false;
-     dialogManager.closeDialog(false,false);
+  close() :boolean{
+		return dialogManager.disposeDialog(this);
   }
 
   remove_onclick(event :Event) :void{
@@ -126,4 +122,4 @@ class _dialog_optionsDialog_ implements DialogInterface {
   }
 
 }
-unregisteredDialogs['optionsDialog'] = new _dialog_optionsDialog_();
+dialogs['optionsDialog'] = _dialog_optionsDialog_;
