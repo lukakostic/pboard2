@@ -55,7 +55,7 @@ function shortcuts_handleKey(
 			break;
 		case '~': // ` + shift  //focus first List or tile
 			if(shift)
-				navigation.focusView(mainView.elements[0]);
+				navigation.focusView(mainView.elements[0]);//first
 			break;
 		case 'q': //click/open
 			if(document.activeElement.classList.contains('dot'))
@@ -64,26 +64,27 @@ function shortcuts_handleKey(
 				(<HTMLElement>document.activeElement).click();
 			break;
 		case 'a': //Shift focus to list left
-			if(!shift)break;
-			if(mainView.type & ViewType.AlbumView)
+			if(shift)
 				navigation.shiftFocusToView(-1,0,true);
-			else
-				navigation.shiftFocusToView(0,-1);
 			break;
 		case 'd': //Shift focus to list right
-			if(!shift)break;
-			if(mainView.type & ViewType.AlbumView)
+			if(shift)
 				navigation.shiftFocusToView(1,0,true);
-			else
-				navigation.shiftFocusToView(0,1);
 			break;
 		case 'l': //Move right (L) or left (K)
 		case 'k':
 			if(navigation.selectedView && navigation.selectedView.parent){
-				let newPos:number = navigation.selectedView.index + ((shift?5:1)*((keyL == 'k')?1:-1));
+				let newPos:number = navigation.selectedView.index + ((shift?5:1)*((keyL == 'l')?1:-1));
+				//Save spatial View index
+				let ind = navigation.getFocusedViewIndexes_RootChild();
 				moveBoardTo(navigation.selectedView.index,newPos,navigation.selectedView.parent.id);
-				navigation.focusDefault();
-				//jumpList(newPos);
+				//move spatial View index
+				if(ind.child===null)
+					ind.root = newPos;
+				else
+					ind.child = newPos;
+				
+				navigation.jumpFocusToView(ind); //jump to new spatial index
 			}
 			break;
 	}

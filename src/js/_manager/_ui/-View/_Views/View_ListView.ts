@@ -56,7 +56,8 @@ class ListView extends ViewTree{ /*Has Board(Tile) adder thing at end*/
    
    title_onkeyup(event :KeyboardEvent) :void{
 		//if(event.key !== 'Enter') return;
-
+		if(this.title.value == pb.boards[this.id].name) return;
+		
       pb.boards[this.id].name = this.title.value;
 
       boardsUpdated(UpdateSaveType.AutoSave, this.id);
