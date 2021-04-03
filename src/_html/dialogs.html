@@ -27,7 +27,9 @@
   <div id="dialog_optionsDialog" class="dialog hidden" style="max-width:300px; max-height:200px;" tabindex="-1">
   <a data-tab="extras" tabindex="0"></a>
     <div class="dialog-body d-flex" style="flex-direction:column;justify-content:space-evenly;">
-      <button data-name="remove" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="removeClicked(event)">Remove</button>
+		<div data-name="board-title" style="font-size: 20px; width: 100%;"></div>
+		
+		<button data-name="remove" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="removeClicked(event)">Remove</button>
       <button data-name="delete" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="deleteClicked(event)">Delete</button>
       <button data-name="copy" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="copyIdClicked(event)">Copy ID (reference)</button>
       <button data-name="references" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="showSeeReferencesDialog(event)">See References</button>

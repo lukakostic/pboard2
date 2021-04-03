@@ -1,4 +1,4 @@
-let SAVING_DISASBLED = false;
+let SAVING_DISABLED = false;
 let CACHE_DISABLED = true;
 
 let SAVE_FILENAME = 'pboard.pb';
@@ -104,7 +104,7 @@ class _Sync_ {
 	  startDirtyIndicator();
   }
   saveAll(callback:Function = null) :void{ ////Added the really? option
-    if(SAVING_DISASBLED) return;
+    if(SAVING_DISABLED) return;
 
     try{
 

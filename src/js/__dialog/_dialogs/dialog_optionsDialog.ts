@@ -9,8 +9,8 @@ class _dialog_optionsDialog_ implements DialogInterface {
   }
   init() :void{
      this.isOpen = false;
-     this.dialog = EbyId('dialog_optionsDialog');
-
+	  this.dialog = EbyId('dialog_optionsDialog');
+	  
      EbyName('remove',this.dialog).onclick = this.remove_onclick.bind(this);
      EbyName('delete',this.dialog).onclick = this.delete_onclick.bind(this);
      EbyName('copy',this.dialog).onclick = this.copy_onclick.bind(this);
@@ -21,7 +21,9 @@ class _dialog_optionsDialog_ implements DialogInterface {
      this.isOpen = true;
      this.dialog.classList.toggle('hidden', false);
      
-     navigation.focus(EbyName('remove',this.dialog));
+	  EbyName('board-title',this.dialog).innerText = '"'+dialogManager.boardID+'":'+pb.boards[dialogManager.boardID].name;
+	  
+	  navigation.focus(EbyName('remove',this.dialog));
   }
   //save == null when autoclose
   close() :void{
@@ -34,23 +36,25 @@ class _dialog_optionsDialog_ implements DialogInterface {
     let refCount = Board.countReferences(dialogManager.boardID);
     if(refCount<=1 && confirm('This is the last reference to this board, really remove it? (Will delete the board)')==false) return;
 
-    if(pb.boards[board].type == BoardType.Board){
-      pb.boards[board].content.splice(dialogManager.boardView.index-1,1); //////?????/////TODO test it out, not sure about index
-    }else if(pb.boards[board].type == BoardType.List){
-      pb.boards[board].content.splice(dialogManager.boardView.index,1); //////?????/////TODO test it out, not sure about index
-    }
-  
-  
+	 if(dialogManager.boardView.parent)
+	 	pb.boards[dialogManager.boardView.parent.id].content.splice(dialogManager.boardView.index,1);
+	 else
+	 	throw new Error('remove_onclick boardView has no parent!!!');
+
     if(refCount<=1) //is now 0
       Board.deleteBoardById(dialogManager.boardID);
 
-    boardsUpdated(UpdateSaveType.SaveNow);
+	 boardsUpdated(UpdateSaveType.SaveNow);
+	 
+	 dialogManager.boardView = null; // just to let them know
     this.close();
   }
   delete_onclick(event :Event) :void{
     if(confirm('Really delete this board, all references to it and its content (content will be removed, not deleted)?')==false) return;
     Board.deleteBoardById(dialogManager.boardID);
-    boardsUpdated(UpdateSaveType.SaveNow);
+	 boardsUpdated(UpdateSaveType.SaveNow);
+	 
+	 dialogManager.boardView = null; // just to let them know
     this.close();
   }
   copy_onclick(event :Event) :void{

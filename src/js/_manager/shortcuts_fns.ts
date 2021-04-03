@@ -11,7 +11,9 @@ function shortcuts_onkeydown(event :KeyboardEvent) :void{
 			inInput = true;
 	}
 	
-	if(event.key !== 'Tab') //so we dont mess with tabbing
+	//so we dont mess with some key ones
+	dbg(event.key);
+	if(event.key !== 'Tab' && event.key !== 'Enter' && event.key !== ' ')
 		shortcuts_handleKey(event.key, inDialog,inInput, shift,ctrl,esc);
 }
 

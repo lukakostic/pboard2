@@ -95,21 +95,15 @@ class Board {
         delete pb.boards[id];
         
         //go thru every board and remove the id from contents
-        let ids = Object.keys(pb.boards);
+        for(let i in pb.boards){
+            if(pb.boards[i].type == BoardType.Text) continue;
 
-        for(let i = 0; i < ids.length; i++){
-            if(pb.boards[ids[i]].type == BoardType.Text) continue;
-
-            let ind = pb.boards[ids[i]].content.indexOf(id);
+            let ind = pb.boards[i].content.indexOf(id);
             while(ind!=-1){
-                pb.boards[ids[i]].content.splice(ind,1);
-                ind = pb.boards[ids[i]].content.indexOf(id);
+                pb.boards[i].content.splice(ind,1);
+                ind = pb.boards[i].content.indexOf(id);
             }
         }
-
-        ////////////TODO:
-        //Now need to remove island boards
-
     }
 
     static countReferences(id :BoardId) :number{

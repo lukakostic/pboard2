@@ -19,6 +19,7 @@ class _Navigation_ {
       document.addEventListener('focus',this.onfocus.bind(this), true);
    }
    onfocus() :void{
+		dbg('onfocus',document.activeElement);
       let element = document.activeElement;
 
       switch(element){
@@ -45,7 +46,7 @@ class _Navigation_ {
    focus(element : HTMLElement, click:boolean=false):void{
 		if(element == null) return this.focusDefault();
 		if(click) element.click();
-      (<HTMLElement>element).focus();
+      element.focus();
 		this.moveHighlight(element);
 
 		//get if theres a view thru identify event in View class

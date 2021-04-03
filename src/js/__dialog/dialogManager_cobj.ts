@@ -61,12 +61,9 @@ class _DialogManager_{
   so if we focus now, it will still get changed in page draw :(
   */
  
-  if(all == false){ //if all == false we are closing from dialog.close, so its the FIRST closing (backClick is second). So we still have our boardView
-    if(this.boardView!=null)
-        navigation.focusView(this.boardView);
-    else
-      navigation.focusDefault(); //reset
-  }
+  if(all == false) //if all == false we are closing from dialog.close, so its the FIRST closing (backClick is second). So we still have our boardView
+		navigation.focusView(this.boardView);
+  
   this.boardID = null;
   this.boardView = null;
 
