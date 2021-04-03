@@ -64,12 +64,18 @@ function shortcuts_handleKey(
 				(<HTMLElement>document.activeElement).click();
 			break;
 		case 'a': //Shift focus to list left
-			if(shift)
+			if(!shift)break;
+			if(mainView.type & ViewType.AlbumView)
 				navigation.shiftFocusToView(-1,0,true);
+			else
+				navigation.shiftFocusToView(0,-1);
 			break;
 		case 'd': //Shift focus to list right
-			if(shift)
+			if(!shift)break;
+			if(mainView.type & ViewType.AlbumView)
 				navigation.shiftFocusToView(1,0,true);
+			else
+				navigation.shiftFocusToView(0,1);
 			break;
 		case 'l': //Move right (L) or left (K)
 		case 'k':
