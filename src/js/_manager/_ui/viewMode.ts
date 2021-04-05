@@ -1,25 +1,27 @@
 type ViewModeT = number;
-const ViewMode :{[index:string]: ViewModeT} = {
+const ViewMode = {
    List :0,
    Board :1,
 }
-const ViewMode2 :{[index:string]: ViewModeT} = {
+const ViewTheme = {
    None :0,
    Notes :1,
-   Grid :2,
+   VerticalLists :2,
 }
 
 let mainView :ViewTree = null; //current main, top level view
 let viewMode :ViewModeT = ViewMode.List;
-let viewMode2 :ViewModeT = ViewMode2.None;
+let viewTheme :ViewModeT = ViewTheme.None;
 
 function setMainView(v :ViewTree) :void{
    mainView = v;
 
+	let theme = getBoardViewTheme(mainView.id);
+
    if(pb.boards[mainView.id].type == BoardType.List)
-      setViewMode(ViewMode.List,0);
+      setViewMode(ViewMode.List,theme);
    else
-      setViewMode(ViewMode.Board,0);
+      setViewMode(ViewMode.Board,theme);
    
 
    //Make tab title same as board name
@@ -29,9 +31,15 @@ function setMainView(v :ViewTree) :void{
    header.loadHeaderData();
 }
 
-function setViewMode(vm1 :ViewModeT, vm2 :ViewModeT):void{
-   viewMode = vm1;
-   html.main.setAttribute('data-viewMode',enumToStr(ViewMode, vm1));
-   viewMode2 = vm2;
-   html.main.setAttribute('data-viewMode2',enumToStr(ViewMode2, vm2));
+function setViewMode(vm :ViewModeT, vt :ViewModeT = ViewTheme.None):void{
+   viewMode = vm;
+   html.main.setAttribute('data-viewMode',enumToStr(ViewMode, vm));
+   viewTheme = vt;
+   html.main.setAttribute('data-viewTheme',enumToStr(ViewTheme, vt));
+}
+
+function getBoardViewTheme(id:BoardId):ViewModeT{
+	if('viewTheme' in pb.boards[id].attributes)
+		return pb.boards[id].attributes.viewTheme;
+	return ViewTheme.None;
 }

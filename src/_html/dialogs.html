@@ -4,6 +4,7 @@
 
 	<div data-name="_dialogBack_"></div>
 
+
   <div data-name="dialog_textEditor" class="dialog d-flex" tabindex="-1" style="flex-direction:column; background-color: black;">
   <a data-tab="textText" tabindex="1"></a>
     <div class="dialog-header">
@@ -12,7 +13,7 @@
       style="resize:none; max-height: 120px; flex: 1; font-size: 22px; padding: 2px 5px 2px 5px;"></textarea>
 
       <button data-name="fullscreenBtn" type="button" tabindex="4"><span>&#9744;</span></button>
-      <button data-name="closeBtn" type="button" tabindex="5"><span>&#215;</span></button>
+      <button data-name="closeBtn" type="button" tabindex="5"><span>&#x27F3;</span></button>
       
     </div>
 
@@ -25,18 +26,49 @@
 
 
   <div data-name="dialog_optionsDialog" class="dialog" style="max-width:300px; max-height:200px;" tabindex="-1">
-  <a data-tab="extras" tabindex="0"></a>
+  <a data-tab="convert" tabindex="0"></a>
     <div class="dialog-body d-flex" style="flex-direction:column;justify-content:space-evenly;">
-		<div data-name="board-title" style="font-size: 20px; width: 100%;"></div>
+		<div data-name="board-title" style="box-sizing: border-box;font-size: 20px;width: 100%;padding: 5px;background-color: white;"></div>
 		
-		<button data-name="remove" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="removeClicked(event)">Remove</button>
-      <button data-name="delete" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="deleteClicked(event)">Delete</button>
-      <button data-name="copy" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="copyIdClicked(event)">Copy ID (reference)</button>
-      <button data-name="references" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="showSeeReferencesDialog(event)">See References</button>
-      <button data-name="extras" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="showBoardExtrasDialog(event)">Extras</button>
+		<button data-name="remove" type="button" class="b" style="font-size: 20px; width: 100%;">Remove</button>
+      <button data-name="delete" type="button" class="b" style="font-size: 20px; width: 100%;">Delete</button>
+		<button data-name="attributes" type="button" class="b" style="font-size: 20px; width: 100%;">Attributes</button>
+      <button data-name="copy" type="button" class="b" style="font-size: 20px; width: 100%;">Copy ID (reference)</button>
+      <button data-name="references" type="button" class="b" style="font-size: 20px; width: 100%;">See References</button>
+		<button data-name="convert" type="button" class="b" style="font-size: 20px; width: 100%;">Convert Board/List</button>
     </div>
   <a data-tab="remove" tabindex="0"></a>
   </div>
+
+
+  <div data-name="dialog_viewThemes" class="dialog" style="max-width:300px; max-height:200px;" tabindex="-1">
+	<a data-tab="b" tabindex="0"></a>
+	  <div class="dialog-body d-flex" style="flex-direction:column;justify-content:space-evenly;">
+		 <div data-name="board-title" style="box-sizing: border-box;font-size: 20px;width: 100%;padding: 5px;background-color: white;"></div>
+		 
+		 <button data-name="b" type="button" class="b" style="font-size: 20px; width: 100%;">None</button>
+		 <button data-name="b" type="button" class="b" style="font-size: 20px; width: 100%;">Notes</button>
+		 <button data-name="b" type="button" class="b" style="font-size: 20px; width: 100%;">VerticalLists</button>
+		</div>
+	<a data-tab="b" tabindex="0"></a>
+	</div>
+
+
+	<div data-name="dialog_attributesDialog" class="dialog" style="max-width:300px; max-height:200px;" tabindex="-1">
+	 <a data-tab="attributes" tabindex="0"></a>
+		<div class="dialog-body d-flex" style="flex-direction:column;justify-content:space-evenly;">
+		  <div data-name="board-title" style="box-sizing: border-box;font-size: 20px;width: 100%;padding: 5px;background-color: white;"></div>
+		  <div data-name="attributes"></div>
+		  <div data-name="attributeTemplates" class="hidden">
+				<button data-name="att-button" data-name="b" type="button" class="b" style="font-size: 20px; width: 100%;"></button>
+				<div data-name="att-div" style="box-sizing: border-box;font-size: 20px;width: 100%;padding: 5px;background-color: white;"></div>
+				<input data-name="att-input" type="button" class="b" style="font-size: 20px; width: 100%;"></input>
+				<textarea data-name="att-textarea" wrap="on" autocomplete="off" rows="3" style="font-size: 18px;" ></textarea>
+			</div>
+		 </div>
+	 <a data-tab="attributes" tabindex="0"></a>
+	 </div>
+
 
   <div data-name="referencesDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document" style="width: 95%; max-width: 300px; background-color: #343434;border-radius: 5px;">
@@ -52,6 +84,29 @@
       </div>
     </div>
   </div>
+
+  
+  <div data-name="dialog_richTextEditor" class="dialog d-flex" tabindex="-1" style="flex-direction:column; background-color: black;">
+	<a data-tab="textText" tabindex="1"></a>
+	  <div class="dialog-header">
+	  
+		 <textarea data-name="textTitle" type="text" placeholder="Title" autocomplete="off"  tabindex="2"
+		 style="resize:none; max-height: 120px; flex: 1; font-size: 22px; padding: 2px 5px 2px 5px;"></textarea>
+ 
+		 <button data-name="fullscreenBtn" type="button" tabindex="4"><span>&#9744;</span></button>
+		 <button data-name="closeBtn" type="button" tabindex="5"><span>&#x27F3;</span></button>
+		 
+	  </div>
+ 
+	  <div class="dialog-body" style="position:relative;">
+		 <div data-name="textBack"
+		 style="position:absolute;z-index: -1;color:transparent; background-color: white;box-sizing: border-box;width:100%;height:100%;padding: 5px;margin: 1px;font-size: 18px;white-space: pre-wrap;overflow-y: scroll;overflow-wrap: break-word;" ></div>
+		 <textarea data-name="textText" wrap="on"  placeholder="Text" autocomplete="off" tabindex="3"
+		 style="background-color: transparent;box-sizing: border-box;resize: none;width:100%;height:100%;padding:5px;font-size: 18px;overflow-y: scroll;" ></textarea>
+	  </div>
+	<a data-tab="textTitle" tabindex="6"></a>
+	</div>
+
 
 </div>
 

@@ -42,10 +42,8 @@ abstract class ViewTree extends View{
       super.clearHTML();
    }
    update(_id:BoardId,_index:number|null=null):View{
-      let notSameId = (this.id != _id);
       if(super.update(_id,_index) == null) return null;
-      if(notSameId)
-         this.elementsToLength();
+      this.elementsToLength();
       return this;
    }
    render() :void{ /* Render elements held */
@@ -69,10 +67,8 @@ abstract class ViewTree extends View{
          for(let i = 0; i < dif; i++)
             this.elements.push(null); //will fill in update below
       }else if(dif<0){ //remove
-         for(let i = 0; i < -dif; i++){
-            this.elements[this.elements.length-1].destructor(); //properly dispose
-            this.elements.pop(); //remove
-         }
+         for(let i = 0; i < -dif; i++)
+            this.elements.pop().destructor(); //remove and properly dispose
       }
       //update/create all:
       for(let i = 0; i < this.elements.length; i++){

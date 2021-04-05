@@ -9,9 +9,10 @@ class _dialog_optionsDialog_ implements DialogInterface {
 
 		EbyName('remove',this.dialog).onclick = this.remove_onclick.bind(this);
 		EbyName('delete',this.dialog).onclick = this.delete_onclick.bind(this);
+		EbyName('attributes',this.dialog).onclick = this.attributes_onclick.bind(this);
 		EbyName('copy',this.dialog).onclick = this.copy_onclick.bind(this);
 		EbyName('references',this.dialog).onclick = this.references_onclick.bind(this);
-		EbyName('extras',this.dialog).onclick = this.extras_onclick.bind(this);
+		EbyName('convert',this.dialog).onclick = this.convert_onclick.bind(this);
 
 		
 		EbyName('board-title',this.dialog).innerText = '"'+dialogManager.boardID+'":'+pb.boards[dialogManager.boardID].name;
@@ -21,12 +22,13 @@ class _dialog_optionsDialog_ implements DialogInterface {
 	focus():void{
 		navigation.focus(EbyName('remove',this.dialog));
 	}
-  backClicked():void{
-	  this.close();
-  }
-  close() :boolean{
+	backClicked(ev:Event):void{
+		if(ev==null || ev.target == this.back)
+			this.close();
+	}
+	close() :boolean{
 		return dialogManager.disposeDialog(this);
-  }
+	}
 
   remove_onclick(event :Event) :void{
     let refCount = Board.countReferences(dialogManager.boardID);
@@ -56,6 +58,40 @@ class _dialog_optionsDialog_ implements DialogInterface {
   copy_onclick(event :Event) :void{
     window.prompt("Copy to clipboard: Ctrl+C, Enter", dialogManager.boardID);
     this.close();
+  }
+  convert_onclick(event :Event) :void{
+	  let id = dialogManager.boardID;
+	  if(id==null) return;
+	  //Board: get all lists contents, append to yourself (yes with already existing lists), and turn to list.
+	  if(pb.boards[id].type == BoardType.Board){
+			let newContent = pb.boards[id].content.slice() as BoardId[]; //copy array
+			//content is all list
+			(pb.boards[id].content as BoardId[]).forEach(listId=>{
+				newContent = newContent.concat(pb.boards[listId].content as BoardId[]) //concat content from each list
+			});
+
+			pb.boards[id].content = newContent;
+			pb.boards[id].type = BoardType.List;
+			boardsUpdated(UpdateSaveType.SaveNow);
+	  }
+	  //List: make yourself a board, make a new list and add to yourself. add all contents to it.
+	  else if(pb.boards[id].type == BoardType.List){
+		let content = pb.boards[id].content.slice() as BoardId[]; //copy array
+
+		let listId = newList(id,pb.boards[id].name);
+		pb.boards[listId].content = content;
+
+		pb.boards[id].content = [listId];
+
+		pb.boards[id].type = BoardType.Board;
+		boardsUpdated(UpdateSaveType.SaveNow);
+	  }
+	  else return;
+    this.close();
+  }
+  attributes_onclick() :void{
+	  dialogManager.openDialog('attributesDialog',dialogManager.boardID,dialogManager.boardView);
+	  this.close();
   }
   references_onclick(event :Event) :void{ //////////////////TODO move this to separate dialog.. also this is a situation where one dialog opens a differeont one..
     let brdID = dialogManager.boardID;
@@ -122,4 +158,4 @@ class _dialog_optionsDialog_ implements DialogInterface {
   }
 
 }
-dialogs['optionsDialog'] = _dialog_optionsDialog_;
+dialogs.optionsDialog = _dialog_optionsDialog_;

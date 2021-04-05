@@ -1,4 +1,4 @@
-
+let TileView_TooltipLength = 300;
 class TileView extends View{ /* Has no add ers, but has Title,Description,Image */
    optionsBtn : HTMLElement;
    text : HTMLElement;
@@ -41,8 +41,14 @@ class TileView extends View{ /* Has no add ers, but has Title,Description,Image 
       //this.text.innerText = pb.boards[this.id].content; //Text
       
       //To display text, check type.
-      this.htmlEl.setAttribute('data-type', enumToStr(BoardType, pb.boards[this.id].type));
-      
+		this.htmlEl.setAttribute('data-type', enumToStr(BoardType, pb.boards[this.id].type));
+		
+		//tooltip
+		if(pb.boards[this.id].type == BoardType.Text)
+			this.text.title = pb.boards[this.id].content.substring(0,TileView_TooltipLength); //max length
+		else
+			this.text.title = '';
+
       loadBackground(<HTMLElement> this.htmlEl,this.id);
 
       if(pb.boards[this.id].type == BoardType.Text && pb.boards[this.id].content.length>0) 

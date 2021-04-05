@@ -52,7 +52,7 @@ abstract class View{ /* A (board kind) element display. Album, List, Tile. */
    update(_id:BoardId,_index:number|null=null):View{
       let changed :boolean = false;
       if(this.id != _id) changed = true;
-      if( pb.boards[this.id] == null || (changed && viewTypeForContext(this.id,this.parent) != viewTypeForContext(_id,this.parent)))
+      if( pb.boards[this.id] == null || (this.type != viewTypeForContext(_id,this.parent)))
          return this.destructor(); //Incompatible type
       this.id = _id;
       if(_index!==null)

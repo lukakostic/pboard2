@@ -22,8 +22,11 @@ class _Header_{
       .oninput = this.headerTitle_oninput.bind(this);
       (this.headerDescription = <HTMLInputElement> EbyId('headerDescription'))
       .oninput = this.headerDescription_oninput.bind(this);
-      this.headerFold = EbyId('headerFold');
-
+		this.headerFold = EbyId('headerFold');
+		
+		EbyId('optionsBtn_main').onclick = ()=> openOptionsDialog(board,null);
+		EbyId('viewThemeBtn_main').onclick = ()=> dialogManager.openDialog('viewThemes',board,null);
+		
       (this.headerExpand = EbyId('headerExpand'))
       .onclick = this.headerExpand_onclick.bind(this); 
     

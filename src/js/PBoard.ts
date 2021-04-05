@@ -1,5 +1,5 @@
 declare type BoardTypeT = number;
-const BoardType :{[index:string]: BoardTypeT} = {
+const BoardType = {
     Text : 1,
     Board : 2,
     List : 3,
@@ -22,8 +22,8 @@ class PBoard {
         this.tags = {};
         this.attributes = attributes;
         this.preferences = {
-            'autoSaveInterval': 10,
-            'autoLoadInterval': 20
+            'autoSaveInterval': 7,
+            'autoLoadInterval': 15
         }
     }
 }
@@ -32,7 +32,7 @@ class Board {
     id :BoardId;
     type :BoardTypeT;
     name :string;
-    content :Board[]|any; //! can be PBoard too
+    content :BoardId[]|any; //! can be PBoard too
     tags :Object;
     attributes :{[index:string]: any} ; //object (isBoard,onMain, etc.)
     

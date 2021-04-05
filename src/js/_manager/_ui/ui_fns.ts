@@ -3,13 +3,11 @@ function draw() :void{
   dbg("draw()");
   extensions.invoke('pre_newPage');
 
-
-
-  //destructor above sets mainView to null
   
   if(mainView != null)
     mainView = mainView.update(board,0) as ViewTree; //sets to null if cant
 
+	 dbg('draw after update',mainView);
   if(mainView == null)
     mainView = generateView(board,null,0) as ViewTree;
 

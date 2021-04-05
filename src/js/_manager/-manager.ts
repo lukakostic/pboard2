@@ -57,16 +57,16 @@ function moveBoards(
   if(updateBoards) boardsUpdated(UpdateSaveType.SaveNow);
 }
 //Less verbose moving:
-function moveBoardTo(boardIndex:number,endIndex:number,parentId :BoardId = null):void{
+function moveBoardTo(boardIndex:number,endIndex:number,parentId :BoardId, updateBoards = true):void{
 	if(parentId === null) parentId = board;
 	let len = pb.boards[parentId].content.length;
 	let newPos = endIndex;
 	if(newPos>=len)newPos=len-1;
 	if(newPos<0)newPos = 0;
-	moveBoards(parentId,boardIndex,parentId,newPos,1,true);
+	moveBoards(parentId,boardIndex,parentId,newPos,1,updateBoards);
 }
-function moveBoardShift(boardIndex:number,shift:number,parentId :BoardId = null):void{
-	moveBoardTo(boardIndex, boardIndex+shift, parentId);
+function moveBoardShift(boardIndex:number,shift:number,parentId :BoardId,updateBoards = true):void{
+	moveBoardTo(boardIndex, boardIndex+shift, parentId,updateBoards);
 }
 
 
@@ -88,7 +88,7 @@ function boardsUpdated(save: UpdateSaveTypeT, boardToRedraw :string|null = null)
   if(boardToRedraw !== null)
     mainView.renderById(boardToRedraw);
   else
-    mainView.render();
+    draw(); //redraw all. old: //mainView.render();
   
   //save == 0 = dont save
   if(save == UpdateSaveType.SaveNow)
@@ -117,6 +117,8 @@ function openOptionsDialog(id :BoardId, view :View) :void{
 	dialogManager.openDialog('optionsDialog',id,view);
 }
 function openTextBoard(id :BoardId, view :View) :void{
+	if('noter' in pb.boards[id].attributes)
+		return dialogManager.openDialog('richTextEditor',id,view);
 	dialogManager.openDialog('textEditor',id,view);
 }
 

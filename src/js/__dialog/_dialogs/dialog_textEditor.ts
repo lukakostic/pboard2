@@ -4,7 +4,10 @@ class _dialog_textEditor_ implements DialogInterface {
 	back :HTMLElement;
  
    textTitle : HTMLInputElement;
-   textText : HTMLInputElement;
+	textText : HTMLInputElement;
+	
+	revertTitle :string;
+	revertText :string;
 
    constructor(_back: HTMLElement, _dialog: HTMLElement){
       this.dialog = _dialog;
@@ -12,7 +15,13 @@ class _dialog_textEditor_ implements DialogInterface {
 
       this.textTitle = EbyName('textTitle',this.dialog) as HTMLInputElement;
       this.textText = EbyName('textText',this.dialog) as HTMLInputElement;
-      this.textTitle.oninput = textareaAutoSize.bind(null,this.textTitle);
+		this.textTitle.addEventListener('input',textareaAutoSize.bind(null,this.textTitle));
+		
+		let oninput = function(this:_dialog_textEditor_){
+			this.save();
+		}.bind(this);
+      this.textTitle.addEventListener('input',oninput);
+      this.textText.addEventListener('input',oninput);
 
       EbyName('closeBtn',this.dialog).onclick = this.closeNoSave.bind(this,false);
 		EbyName('fullscreenBtn',this.dialog).onclick = this.fullscreen.bind(this,null);
@@ -31,29 +40,40 @@ class _dialog_textEditor_ implements DialogInterface {
          this.textText.setSelectionRange(0,0); //sel start
       }
 
+		this.revertTitle = pb.boards[dialogManager.boardID].name;
+		this.revertText = pb.boards[dialogManager.boardID].content;
 		this.focus();
    }
 	focus():void{
 		navigation.focus(this.textTitle, true);
 	}
-	backClicked():void{
-		this.close();
+	backClicked(ev:Event):void{
+		if(ev==null)
+			this.close();
+		else if(ev.target == this.back && window.getSelection().toString()=='') //stop from drag selecting on accident
+			this.close();
+	}
+	save(now:boolean = false):void{
+		pb.boards[dialogManager.boardID].name = this.textTitle.value;
+		pb.boards[dialogManager.boardID].content = this.textText.value;
+		boardsUpdated(now?UpdateSaveType.SaveNow:UpdateSaveType.AutoSave, dialogManager.boardID);  
 	}
    //save == null when autoclose
    close(save:boolean = true) :boolean{
       if(save){
-         pb.boards[dialogManager.boardID].name = this.textTitle.value;
-         pb.boards[dialogManager.boardID].content = this.textText.value;
-         boardsUpdated(UpdateSaveType.SaveNow, dialogManager.boardID);  
+			this.save(true);
       }
       
 		return dialogManager.disposeDialog(this);
    }
    closeNoSave(force=false) :void{
       let go = force;
-      if(go == false) go = confirm("Exit without saving?");
-      if(go == false) return;
-      this.close(false);
+      if(go == false) go = confirm("Revert changes?");
+		if(go == false) return;
+		
+		this.textTitle.value = this.revertTitle;
+		this.textText.value = this.revertText;
+      this.close(true);
    }
 
    fullscreen(force :boolean|null = null){
@@ -67,4 +87,4 @@ class _dialog_textEditor_ implements DialogInterface {
    }
 
 }
-dialogs['textEditor'] = _dialog_textEditor_;
+dialogs.textEditor = _dialog_textEditor_;

@@ -19,7 +19,7 @@ class _Navigation_ {
       document.addEventListener('focus',this.onfocus.bind(this), true);
    }
    onfocus() :void{
-		dbg('onfocus',document.activeElement);
+		//dbg('onfocus',document.activeElement);
       let element = document.activeElement;
 
       switch(element){

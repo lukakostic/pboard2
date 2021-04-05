@@ -48,4 +48,61 @@
   #main[data-viewMode="Board"] [data-name="list-adder"]>.b{
     flex: 1;
   }
+
+  
+  /************* Theme: VerticalLists */
+  #main[data-viewTheme="VerticalLists"] .album{
+    flex-flow: column;
+	 width: calc(100% - 3px); /*fixes some stuff adding scrollbar to page*/
+  }
+  #main[data-viewTheme="VerticalLists"] [data-name="album-holder"]{
+    flex-flow: column;
+  }
+  #main[data-viewTheme="VerticalLists"] [data-name="album-adder"]{
+    box-sizing: border-box;
+  }
+	#main[data-viewTheme="VerticalLists"] .list{
+		width: 100%;
+
+		margin: 3px 0px 3px 0px;
+	}
+
+	#main[data-viewTheme="VerticalLists"] [data-name="list-holder"]{
+    display: flex;
+    flex-flow: row wrap;
+  }
+  #main[data-viewTheme="VerticalLists"] .tile{
+    height: 100px;
+    width: 150px;
+
+    margin: 10px 10px 10px 10px;
+  }
+  #main[data-viewTheme="VerticalLists"] [data-name="list-adder"]{
+    height: 50px;
+    margin: 10px;
+	 justify-content: left;
+  }
+  #main[data-viewTheme="VerticalLists"] [data-name="list-adder"]>.b{
+    flex-grow: .03;
+    height: 100%;
+    font-weight: bold;
+  }
+
+
+
+  
+  /************* Theme: Notes */
+  
+  #main[data-viewTheme="Notes"] [data-name="tile-text"]{
+	  font-weight: bold;
+  }
+
+  #main[data-viewTheme="Notes"] [data-name="tile-text"]::after {
+		content: "\00000a" attr(title); /* \00000a is newline */
+		color: gray;
+		font-weight: normal;
+	}
+	#main[data-viewTheme="Notes"] .tile{
+    max-height: 100%; /* limit how many max lines, we want all */
+  }
 </style>

@@ -34,7 +34,7 @@ class _DialogManager_{
 
 	backClicked() :void{
 		if(this.dialogs.length == 0)return;
-		this.dialogs[this.dialogs.length-1].backClicked();
+		this.dialogs[this.dialogs.length-1].backClicked(null);
 	}
 	//close all
 	closeDialog(all :boolean) :void{

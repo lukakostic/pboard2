@@ -12,7 +12,7 @@ function shortcuts_onkeydown(event :KeyboardEvent) :void{
 	}
 	
 	//so we dont mess with some key ones
-	dbg(event.key);
+	//dbg(event.key);
 	if(event.key !== 'Tab' && event.key !== 'Enter' && event.key !== ' ')
 		shortcuts_handleKey(event.key, inDialog,inInput, shift,ctrl,esc);
 }
@@ -80,7 +80,8 @@ function shortcuts_handleKey(
 				let newPos:number = navigation.selectedView.index + ((shift?5:1)*((keyL == 'l')?1:-1));
 				//Save spatial View index
 				let ind = navigation.getFocusedViewIndexes_RootChild();
-				moveBoardTo(navigation.selectedView.index,newPos,navigation.selectedView.parent.id);
+				moveBoardTo(navigation.selectedView.index,newPos,navigation.selectedView.parent.id,false);
+				boardsUpdated(UpdateSaveType.AutoSave);
 				//move spatial View index
 				if(ind.child===null)
 					ind.root = newPos;
