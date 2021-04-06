@@ -13,6 +13,7 @@ class _dialog_optionsDialog_ implements DialogInterface {
 		EbyName('copy',this.dialog).onclick = this.copy_onclick.bind(this);
 		EbyName('references',this.dialog).onclick = this.references_onclick.bind(this);
 		EbyName('convert',this.dialog).onclick = this.convert_onclick.bind(this);
+		EbyName('pin',this.dialog).onclick = this.pin_onclick.bind(this);
 
 		
 		EbyName('board-title',this.dialog).innerText = '"'+dialogManager.boardID+'":'+pb.boards[dialogManager.boardID].name;
@@ -58,6 +59,19 @@ class _dialog_optionsDialog_ implements DialogInterface {
   copy_onclick(event :Event) :void{
     window.prompt("Copy to clipboard: Ctrl+C, Enter", dialogManager.boardID);
     this.close();
+  }
+  pin_onclick(event :Event) :void{
+	  if('pins' in pb.attributes == false)
+		  pb.attributes['pins'] = [];
+		let id = dialogManager.boardID;
+		let ind = pb.attributes['pins'].indexOf(id);
+		if(ind != -1){
+			pb.attributes['pins'].splice(ind,1);
+		}else{
+			pb.attributes['pins'].push(id);
+		}
+		boardsUpdated(UpdateSaveType.SaveNow);
+		sidebar.genBtns();
   }
   convert_onclick(event :Event) :void{
 	  let id = dialogManager.boardID;

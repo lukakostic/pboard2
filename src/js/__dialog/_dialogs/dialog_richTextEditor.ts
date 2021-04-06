@@ -99,9 +99,9 @@ class _dialog_richTextEditor_ implements DialogInterface {
 	}
 	
 	NoteParserStyles = {
-		'b1':'background-color:red;',
-		'b2':'background-color:green;',
-		'b3':'background-color:blue;',
+		'b1':'background-color:lightblue;',
+		'b2':'background-color:springgreen;',
+		'b3':'background-color:salmon;',
 	}
 
 	NoteParserTokens = {
@@ -109,7 +109,7 @@ class _dialog_richTextEditor_ implements DialogInterface {
 		line :{
 			/*specific combination of chars */
 			comb:{
-				'//':'b1',
+				'//':'b3',
 			} as {[index:string]:string},
 			/* repeated characters eg: ~~, ~~~, ##, ###. The parser counts them! But it also checks if not in comb. */
 			rep:{

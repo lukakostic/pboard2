@@ -28,7 +28,7 @@ class _Header_{
 		EbyId('viewThemeBtn_main').onclick = ()=> dialogManager.openDialog('viewThemes',board,null);
 		
       (this.headerExpand = EbyId('headerExpand'))
-      .onclick = this.headerExpand_onclick.bind(this); 
+      .onclick = this.headerExpand_onclick.bind(this);
     
       (this.homeBtn = EbyId('homeBtn')).onclick = this.goHome.bind(this);
       (this.upBtn = EbyId('upBtn')).onclick = this.goUp.bind(this);
