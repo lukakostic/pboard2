@@ -22,12 +22,18 @@ class _dialog_textEditor_ implements DialogInterface {
 		}.bind(this);
       this.textTitle.addEventListener('input',oninput);
       this.textText.addEventListener('input',oninput);
+		let onclick = function(this:_dialog_textEditor_,event:MouseEvent){ //ctrl click open link
+			if(event.ctrlKey)
+				linkClickTry((event.target as HTMLInputElement));
+		}.bind(this);
+      this.textTitle.addEventListener('click',onclick);
+      this.textText.addEventListener('click',onclick);
 
       EbyName('closeBtn',this.dialog).onclick = this.closeNoSave.bind(this,false);
 		EbyName('fullscreenBtn',this.dialog).onclick = this.fullscreen.bind(this,null);
 		
 		
-      this.fullscreen(false); ////////////TODO add options?
+      this.fullscreen(true); ////////////TODO add options?
 
       this.textTitle.value = pb.boards[dialogManager.boardID].name;
       this.textText.value = pb.boards[dialogManager.boardID].content;

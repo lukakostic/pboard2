@@ -1,7 +1,6 @@
 ///**************************************************/// Build
 //Returns JSON
 function buildPBoard() :string{
-	extensions.invoke('buildPBoard');
 	let saveFile :SaveFile = {
 		syncTime: sync.lastSyncTime,  
 		pb: pb

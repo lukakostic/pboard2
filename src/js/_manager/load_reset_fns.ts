@@ -8,7 +8,6 @@ function loadSaveFile(saveFile :SaveFile|string, checkTime :boolean = true) :boo
  
 	dbg('loadSaveFile');
 	
-	extensions.invoke('loadSaveFile');
  
 	saveFile = updateSaveFile(saveFile);
 	if(saveFile === null) return false; //outdated

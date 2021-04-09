@@ -1,3 +1,5 @@
+let ENABLE_NONLOAD_DRAW = false;
+
 let storage :_Storage_ = null;
 class _Storage_ implements StorageInterface {
   type : StorageTypeT;
@@ -19,11 +21,13 @@ class _Storage_ implements StorageInterface {
     if(this.type == StorageType.None) // Since we just loaded None type
       return resetPB();
 
+	if(ENABLE_NONLOAD_DRAW){
     if(sync.loadCachedContent() == false) //load from cache or reset
       resetPB();
     else
       draw(); //draw cache opened
-    
+	}
+	 draw_initialLoaded = true;
     sync.loadAll(); //sync with cloud
   
     sync.start(true, false); // dont want to auto load

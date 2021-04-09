@@ -70,6 +70,37 @@ function moveBoardShift(boardIndex:number,shift:number,parentId :BoardId,updateB
 }
 
 
+/*
+open any old url,
+but if its in the format
+id://<id>
+then open that board!
+*/
+function openUrl(url:string){
+	if(url.startsWith('id://')){
+		window.location.hash = url.replace('id://','');
+	}else{
+		window.open(url);
+	}
+}
+
+function linkClickTry(input:HTMLInputElement):void{
+	const urlRegex =/(\b(https?|ftp|file|id):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+ const text = input.value; 
+ const clickLoc = input.selectionStart;
+ let link = '';
+ let match :RegExpMatchArray = null;
+ while (match = urlRegex.exec(text)) {
+	 const start = match.index;
+	 const end = match.index + match[0].length;
+	 if(clickLoc >= start && clickLoc <= end){
+		 link = match[0];
+		 break;
+	 }
+ }
+ if(link == '') return;
+ else openUrl(link);
+}
  
 //Called when a new board is added, deleted, or changed
 //usually you pass parentId and boardId
@@ -184,4 +215,10 @@ function set_brdAttr(id :BoardId, attr:string|number, val :any) :void{
  //~~~~~~~~~~~~~~~~~~~~~~~~~ Board attribute ops }
 
 
+ function defaultPreferences(){
+	 return {
+		autoSaveInterval: 7,
+		autoLoadInterval: 15
+  	};
+ }
  

@@ -21,10 +21,7 @@ class PBoard {
         this.extensions = {};
         this.tags = {};
         this.attributes = attributes;
-        this.preferences = {
-            'autoSaveInterval': 7,
-            'autoLoadInterval': 15
-        }
+        this.preferences = defaultPreferences();
     }
 }
 declare type BoardId = string;
@@ -66,26 +63,9 @@ class Board {
     }
 
     static makeId(maxLength :number) :string{
-        let id = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
-
-        //find unique id
-        while(true){
-
-            id = "";
-                
-            //let length = Math.floor(Math.random() * maxLength) + 1;
-            let length = maxLength;
-
-            //generate rand chars and append
-            for (let i = 0; i < length; i++)
-                id += possible.charAt(Math.floor(Math.random() * possible.length));
-
-                
-            if(pb.boards[id] == null) break;
-
-        }
-
+        let id = randomStr(maxLength);
+        while(id in pb.boards)
+		  	id = randomStr(maxLength);
         return id;
     }
 

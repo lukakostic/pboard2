@@ -59,7 +59,8 @@ class _Header_{
       };
       (this.loadDownloadBtn = EbyId('loadDownloadBtn')).onclick = ()=>{
          let contents = prompt("Paste JSON pboard data:");
-         loadSaveFile(contents,false);
+			if(contents != null)
+         	loadSaveFile(contents,false);
       };
    }
 

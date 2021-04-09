@@ -90,7 +90,6 @@ class _Sync_ {
      dbg('loading from cache');
     else
       dbg('not loading from cache');
-    extensions.invoke('loadCached');
     return true;
   }
 
@@ -107,8 +106,6 @@ class _Sync_ {
     if(SAVING_DISABLED) return;
 
     try{
-
-      extensions.invoke('pre_saveAll');
 		
 		dbg('saveAll');
       
@@ -128,7 +125,6 @@ class _Sync_ {
   
         if(callback!=null) callback();
         stopSavingIndicator();
-        extensions.invoke('saveAll');
         
 		  sync.save.dirty = false;
 		  
@@ -140,7 +136,6 @@ class _Sync_ {
   loadAll(callback:Function = null) :void{
       try{
   
-        extensions.invoke('pre_loadAll')
         startLoadingIndicator();
   
         storage.fileDownload((contents:string)=>{
@@ -150,7 +145,6 @@ class _Sync_ {
             
             dbg('loadAll');
             loadSaveFile(contents);
-            extensions.invoke('loadAll');
         
           }else{
             

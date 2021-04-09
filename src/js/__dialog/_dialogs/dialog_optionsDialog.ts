@@ -14,6 +14,10 @@ class _dialog_optionsDialog_ implements DialogInterface {
 		EbyName('references',this.dialog).onclick = this.references_onclick.bind(this);
 		EbyName('convert',this.dialog).onclick = this.convert_onclick.bind(this);
 		EbyName('pin',this.dialog).onclick = this.pin_onclick.bind(this);
+		EbyName('setBoardId',this.dialog).onclick = this.setBoardId_onclick.bind(this);
+
+		
+		EbyName('preferences',this.dialog).onclick = this.preferences_onclick.bind(this);
 
 		
 		EbyName('board-title',this.dialog).innerText = '"'+dialogManager.boardID+'":'+pb.boards[dialogManager.boardID].name;
@@ -60,6 +64,10 @@ class _dialog_optionsDialog_ implements DialogInterface {
     window.prompt("Copy to clipboard: Ctrl+C, Enter", dialogManager.boardID);
     this.close();
   }
+  preferences_onclick(event :Event) :void{
+	dialogManager.openDialog('preferencesDialog',dialogManager.boardID,dialogManager.boardView);
+    this.close();
+  }
   pin_onclick(event :Event) :void{
 	  if('pins' in pb.attributes == false)
 		  pb.attributes['pins'] = [];
@@ -73,8 +81,36 @@ class _dialog_optionsDialog_ implements DialogInterface {
 		boardsUpdated(UpdateSaveType.SaveNow);
 		sidebar.genBtns();
   }
+  setBoardId_onclick(event :Event) :void{
+	const oldId = dialogManager.boardID;
+		let newId = window.prompt("Enter new id, should be 8 chars:",oldId);
+		if(newId == null) return;
+		if(newId in pb.boards){
+			window.alert('ID already exists.');
+			return;
+		}
+		pb.boards[newId] = Board.clone(pb.boards[oldId]);
+
+		for(let b in pb.boards){
+			if(Array.isArray(pb.boards[b].content) && typeof pb.boards[b].content !== 'string'){
+			   for(let i = 0; i < pb.boards[b].content.length; i++){
+					if(pb.boards[b].content[i] == oldId)
+						pb.boards[b].content[i] = newId;
+				}
+			}
+		}
+		delete pb.boards[oldId];
+
+		sync.saveAll();
+		
+		this.close();
+		if(board == oldId)
+			set_board(newId);
+		else
+			draw();
+  }
   convert_onclick(event :Event) :void{
-	  let id = dialogManager.boardID;
+	  const id = dialogManager.boardID;
 	  if(id==null) return;
 	  //Board: get all lists contents, append to yourself (yes with already existing lists), and turn to list.
 	  if(pb.boards[id].type == BoardType.Board){

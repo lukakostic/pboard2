@@ -1,8 +1,19 @@
 
+function draw_initial_fn() :void{
+	draw_initialLoaded = false;
+
+	dbg("draw_initial_fn()");
+
+	draw();
+
+	sidebar.sidebar_openClose(false); ///////TODO option
+}
+
+let draw_initialLoaded = false;
 function draw() :void{
   dbg("draw()");
-  extensions.invoke('pre_newPage');
 
+  if(draw_initialLoaded) return draw_initial_fn();
   
   if(mainView != null)
     mainView = mainView.update(board,0) as ViewTree; //sets to null if cant
@@ -15,8 +26,7 @@ function draw() :void{
   mainView.render();
     
 
-  extensions.invoke('newPage');
-  extensions.execute();
+  addonManager.reset();
 }
 
 

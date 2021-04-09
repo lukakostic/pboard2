@@ -4,111 +4,89 @@
 
 	<div data-name="_dialogBack_"></div>
 
+	<sergey-import src="dialogs/dialog_textEditor"/>
 
-  <div data-name="dialog_textEditor" class="dialog d-flex" tabindex="-1" style="flex-direction:column; background-color: black;">
-  <a data-tab="textText" tabindex="1"></a>
-    <div class="dialog-header">
-    
-      <textarea data-name="textTitle" type="text" placeholder="Title" autocomplete="off"  tabindex="2"
-      style="resize:none; max-height: 120px; flex: 1; font-size: 22px; padding: 2px 5px 2px 5px;"></textarea>
+	<sergey-import src="dialogs/dialog_optionsDialog"/>
 
-      <button data-name="fullscreenBtn" type="button" tabindex="4"><span>&#9744;</span></button>
-      <button data-name="closeBtn" type="button" tabindex="5"><span>&#x27F3;</span></button>
-      
-    </div>
+	<sergey-import src="dialogs/dialog_viewThemes"/>
 
-    <div class="dialog-body">
-      <textarea data-name="textText" wrap="on"  placeholder="Text" autocomplete="off" tabindex="3"
-      style="box-sizing: border-box; resize: none; width:100%;height:100%; padding:5px; font-size: 18px;" ></textarea>
-    </div>
-  <a data-tab="textTitle" tabindex="6"></a>
-  </div>
+	<sergey-import src="dialogs/dialog_attributesDialog"/>
+
+	<sergey-import src="dialogs/dialog_richTextEditor"/>
+
+	<sergey-import src="dialogs/dialog_preferencesDialog"/>
 
 
-  <div data-name="dialog_optionsDialog" class="dialog" style="max-width:300px; max-height:200px;" tabindex="-1">
-  <a data-tab="convert" tabindex="0"></a>
-    <div class="dialog-body d-flex" style="flex-direction:column;justify-content:space-evenly;">
-		<div data-name="board-title" style="box-sizing: border-box;font-size: 20px;width: 100%;padding: 5px;background-color: white;"></div>
-		
-		<button data-name="remove" type="button" class="b" style="font-size: 20px; width: 100%;">Remove</button>
-      <button data-name="delete" type="button" class="b" style="font-size: 20px; width: 100%;">Delete</button>
-		<button data-name="attributes" type="button" class="b" style="font-size: 20px; width: 100%;">Attributes</button>
-      <button data-name="copy" type="button" class="b" style="font-size: 20px; width: 100%;">Copy ID (reference)</button>
-      <button data-name="references" type="button" class="b" style="font-size: 20px; width: 100%;">See References</button>
-		<button data-name="convert" type="button" class="b" style="font-size: 20px; width: 100%;">Convert Board/List</button>
-		<button data-name="pin" type="button" class="b" style="font-size: 20px; width: 100%;">Pin/Unpin Board ⭐</button>
-    </div>
-  <a data-tab="remove" tabindex="0"></a>
-  </div>
-
-
-  <div data-name="dialog_viewThemes" class="dialog" style="max-width:300px; max-height:200px;" tabindex="-1">
-	<a data-tab="b" tabindex="0"></a>
-	  <div class="dialog-body d-flex" style="flex-direction:column;justify-content:space-evenly;">
-		 <div data-name="board-title" style="box-sizing: border-box;font-size: 20px;width: 100%;padding: 5px;background-color: white;"></div>
+ <div data-name="referencesDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document" style="width: 95%; max-width: 300px; background-color: #343434;border-radius: 5px;">
+	  <div class="modal-content bg-inherit" style="border-radius: 5px;">
 		 
-		 <button data-name="b" type="button" class="b" style="font-size: 20px; width: 100%;">None</button>
-		 <button data-name="b" type="button" class="b" style="font-size: 20px; width: 100%;">Notes</button>
-		 <button data-name="b" type="button" class="b" style="font-size: 20px; width: 100%;">VerticalLists</button>
-		</div>
-	<a data-tab="b" tabindex="0"></a>
-	</div>
-
-
-	<div data-name="dialog_attributesDialog" class="dialog" style="max-width:300px; max-height:200px;" tabindex="-1">
-	 <a data-tab="attributes" tabindex="0"></a>
-		<div class="dialog-body d-flex" style="flex-direction:column;justify-content:space-evenly;">
-		  <div data-name="board-title" style="box-sizing: border-box;font-size: 20px;width: 100%;padding: 5px;background-color: white;"></div>
-		  <div data-name="attributes"></div>
-		  <div data-name="attributeTemplates" class="hidden">
-				<button data-name="att-button" data-name="b" type="button" class="b" style="font-size: 20px; width: 100%;"></button>
-				<div data-name="att-div" style="box-sizing: border-box;font-size: 20px;width: 100%;padding: 5px;background-color: white;"></div>
-				<input data-name="att-input" type="button" class="b" style="font-size: 20px; width: 100%;"></input>
-				<textarea data-name="att-textarea" wrap="on" autocomplete="off" rows="3" style="font-size: 18px;" ></textarea>
-			</div>
+		 <template data-name="referencesDialogBtn">
+			<button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 18px;" data-data-name="" onclick="openBoard(boardId)">Remove</button>
+		 </template>
+ 
+		 <div data-name="referencesDialogList">
 		 </div>
-	 <a data-tab="attributes" tabindex="0"></a>
-	 </div>
-
-
-  <div data-name="referencesDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document" style="width: 95%; max-width: 300px; background-color: #343434;border-radius: 5px;">
-      <div class="modal-content bg-inherit" style="border-radius: 5px;">
-        
-        <template data-name="referencesDialogBtn">
-          <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 18px;" data-data-name="" onclick="openBoard(boardId)">Remove</button>
-        </template>
-  
-        <div data-name="referencesDialogList">
-        </div>
-  
-      </div>
-    </div>
-  </div>
-
-  
-  <div data-name="dialog_richTextEditor" class="dialog d-flex" tabindex="-1" style="flex-direction:column; background-color: black;">
-	<a data-tab="textText" tabindex="1"></a>
-	  <div class="dialog-header">
-	  
-		 <textarea data-name="textTitle" type="text" placeholder="Title" autocomplete="off"  tabindex="2"
-		 style="resize:none; max-height: 120px; flex: 1; font-size: 22px; padding: 2px 5px 2px 5px;"></textarea>
  
-		 <button data-name="fullscreenBtn" type="button" tabindex="4"><span>&#9744;</span></button>
-		 <button data-name="closeBtn" type="button" tabindex="5"><span>&#x27F3;</span></button>
-		 
 	  </div>
- 
-	  <div class="dialog-body" style="position:relative;">
-		 <div data-name="textBack"
-		 style="position:absolute;z-index: -1;color:transparent; background-color: white;box-sizing: border-box;width:100%;height:100%;padding: 5px;margin: 1px;font-size: 18px;white-space: pre-wrap;overflow-y: scroll;overflow-wrap: break-word;" ></div>
-		 <textarea data-name="textText" wrap="on"  placeholder="Text" autocomplete="off" tabindex="3"
-		 style="background-color: transparent;box-sizing: border-box;resize: none;width:100%;height:100%;padding:5px;font-size: 18px;overflow-y: scroll;" ></textarea>
-	  </div>
-	<a data-tab="textTitle" tabindex="6"></a>
+	</div>
+ </div>
+
+
+
+	<div id="addonEditor">
+		<a style="color: white; margin-bottom: 10px;">All Extensions</a>
+    
+		<form class="input-group-append" onsubmit="event.preventDefault(); extensionEditorSearched(event);" style="width:100%">
+			 <input id="extensionEditorSearch" oninput="extensionEditorSearched(event);" name="s" type="text" placeholder="Search Extensions" class="form-control">
+			 <input type="submit" class="btn btn-primary" value="Search">
+		</form>
+		
+		<div id = "allExtensionsFiltered" style="min-height: 10px; width: 100%; background-color: black; text-align: left;"></div>
+		
+	  <br> 
+  
+		<a id="extensionEditorSelected" style="color: white; font-size: 24px;">Selected: none</a><br>
+		
+		<form class="input-group-append" onsubmit="event.preventDefault(); extensionEditorNew(event);" style="width:100%">
+			 <input id="extensionEditorInput" name="sel" type="text" placeholder="Selected / New Extension" class="form-control" autocomplete="on">
+			 <input type="submit" class="btn btn-primary btn-spaced-1" value="New">
+			 <input type="button" class="btn btn-primary btn-spaced-1" onclick="extensionEditorSave(event);" value="Save">
+			 <input type="button" class="btn btn-primary btn-spaced-1" onclick="extensionEditorDelete(event);" value="Delete">
+		</form>
+		
+		<form class="row text bg-inherit" style="margin: 5px;">
+			 <textarea wrap="hard" class="expandInput card-name bg-inherit" id="extensionEditorDescription"
+			 style="resize: none; padding: 2px 2px 2px 5px; text-overflow: ellipsis; background-color: black; color: white; border: 0px; width: 100%; height: 59px; font-size: 18px;"
+			 oninput="expandInput(this);" placeholder="Description"></textarea>
+  
+			 <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
+		</form>
+  
+		<form class="row text bg-inherit" style="margin: 5px;">
+			 <textarea wrap="hard" class="expandInput card-name bg-inherit" id="extensionEditorCode"
+			 style="resize: none; padding: 2px 2px 2px 5px; text-overflow: ellipsis; background-color: black; color: white; border: 0px; width: 100%; height: 59px; font-size: 18px;"
+			 oninput="expandInput(this);" placeholder="Code"></textarea>
+  
+			 <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
+		</form>
 	</div>
 
 
+	<div id="addonDialog">
+		<a style="color: white;">Board extensions</a><br>
+		<div id = "boardExtensions" style="width: 100%; background-color: black; text-align: left;"></div>
+		<br>
+		<a style="color: white;">All extensions</a><br>
+		<form class="input-group-append" onsubmit="event.preventDefault(); extensionsDialogSearched(event);" style="width:100%">
+			 <input id="extensionsDialogSearch" oninput="extensionsDialogSearched(event);" name="s" type="text" placeholder="Search Extensions" class="form-control">
+			 <input type="submit" class="btn btn-primary" value="Search">
+		</form>
+		<br>
+		<div id = "allExtensionsFiltered" style="width: 100%; background-color: black; text-align: left;"></div>
+	</div>
+
+	
 </div>
 
 <!-- End Of Dialogs -->

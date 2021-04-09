@@ -23,7 +23,11 @@ class _Sidebar_{
    }
 
    sidebarExpand_onclick(){
-		this.sidebar.classList.toggle('hidden');
+		this.sidebar_openClose();
+	}
+
+	sidebar_openClose(force:boolean|undefined = undefined){
+		this.sidebar.classList.toggle('hidden',force);
 		let vis = !this.sidebar.classList.contains('hidden');
 		this.sidebar.style.width = this.sidebarWidth+'px';
 		html.main.style.marginLeft = vis?(this.sidebarWidth+'px'):'0px';

@@ -30,7 +30,7 @@ class _dialog_attributesDialog_ implements DialogInterface {
 	}
 
   choice_onclick(event :Event) :void{ /////////ViewTheme name is in textContent of button
-	 let theme = (event.target as HTMLElement).innerText;
+	 const theme = (event.target as HTMLElement).innerText;
 	 if(theme in ViewTheme == false)
 	 	throw new Error('bad viewTheme!');
 	 pb.boards[dialogManager.boardID].attributes.viewTheme = (ViewTheme as any)[theme];
@@ -39,12 +39,12 @@ class _dialog_attributesDialog_ implements DialogInterface {
   }
 
   makeField(type:string, id:string, value:string, enabled:boolean, ...options :any[]):HTMLElement{
-	let att_ = (name:string)=>{
+	const att_ = (name:string)=>{
 		let el = EbyName('att-'+name,this.templates).cloneNode(true) as HTMLElement;
 		this.attributes.appendChild(el);
 		return el;
 	};  
-	let att = {
+	const att = {
 		att_button : (onclick:any)=>{
 			let el = att_('button');
 			if(id!='') el.setAttribute('data-name',id);
@@ -55,12 +55,12 @@ class _dialog_attributesDialog_ implements DialogInterface {
 		}
 	};
 
-	  let el = (att as any)['att_'+type](...options);
-	  return el;
+	let el = (att as any)['att_'+type](...options);
+	return el;
   }
 
   genFields():void{
-	  let id = dialogManager.boardID;
+	  const id = dialogManager.boardID;
 	  this.attributes.innerHTML = '';
 	  /*Noter*/
 	  this.makeField('button','noter',

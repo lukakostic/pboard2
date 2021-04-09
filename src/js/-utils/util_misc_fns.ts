@@ -18,7 +18,13 @@ function hash(str :string) :number{
 	return hash;
 }
 
-
+function randomStr(length:number):string{
+	let id = new Array(length);
+	let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+	for (let i = 0; i < length; i++)
+		id[i] = possible.charAt(Math.floor(Math.random() * possible.length));
+	return String.prototype.concat(...id);
+}
 
 
 

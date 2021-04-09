@@ -1,5 +1,5 @@
-const DBGC = { //debug colors
-	b: "background: #222; color: #bada55",
+const DBG = { //debug colors
+	a: "/*#$_DBG_$#*/ background: #222; color: #bada55;",
 }
 
 const dbg = function(){
@@ -7,14 +7,14 @@ const dbg = function(){
 		if(arguments[i] instanceof Error)
 			alert(arguments[i]);
 	}
-	return Function.prototype.bind.call(console.debug, console,'%c#', DBG_COL_FN(DBGC.b,arguments));
+	return Function.prototype.bind.call(console.debug, console,'%c#', DBG_COL_FN(DBG.a,arguments));
 }();
 const dbgw = function(){
 	for(let i = 0; i < arguments.length; i++){
 		if(arguments[i] instanceof Error)
 			alert(arguments[i]);
 	}
-	return Function.prototype.bind.call(console.warn, console,'%c#', DBG_COL_FN(DBGC.b,arguments));
+	return Function.prototype.bind.call(console.warn, console,'%c#', DBG_COL_FN(DBG.a,arguments));
 }();
 const s_dbg = function(){
 	return Function.prototype.bind.call(console.groupCollapsed, console);
@@ -28,9 +28,9 @@ function DBG_COL_FN(def:string,args:IArguments):string{
 	for(let i = 0; i < arguments.length; i++) //Find color
 		if(typeof arguments[i] === 'string'){
 			let leave = false;
-			for(let c in DBGC)
-				if(arguments[i] == (DBGC as any)[c] ){
-					color = (DBGC as any)[c];
+			for(let c in DBG)
+				if(arguments[i] == (DBG as any)[c] ){
+					color = (DBG as any)[c];
 					leave = true;
 					break;
 				}
