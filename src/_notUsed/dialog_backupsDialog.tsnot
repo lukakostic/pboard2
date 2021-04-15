@@ -137,7 +137,7 @@ function loadBackupClicked(event){
     //getBackups(function(){backupsSearched();});
     
     resetPB()
-    loadSaveFile(content)
+    loadPacked(content)
     draw()
 
     alert('Loaded')

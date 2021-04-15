@@ -1,0 +1,15 @@
+_obj  - Object, could be dependent on other parts existing first ###### dependent on load order !!!!!!!!!
+_sobj - guaranteed independent _obj
+_lsobj - late safe object, dependent on html loaded
+
+_fobj - function with late added properties and function. So function used as an object. dependent !!!!!!!!!!!!!!!!!!!!!!
+_sfobj - guaranteed independent _fobj
+_lsfobj - late safe function object, dependent on html loaded
+
+_acobj - class object that constructs itself or adds itself somewhere, dependent on some other part !!!!!!!!!!!!!!!!! - eg dialogs, extensions, storages. Usually not needed to specify since they are loaded last anyways
+
+Anything starting capital letters - class, independent of load order but could be dependent on other classes (extending other classes), so manage that !!!!!!!!!
+
+_fns / _fn - Just functions. independent of load order
+_cobj - Singleton class object, usually has init function called after all loaded, so independent of load order
+_types - just typescript type declarations, safe

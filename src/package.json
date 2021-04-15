@@ -4,13 +4,12 @@
   "description": "Concept management and categorization tool",
   "main": "index.js",
   "scripts": {
-    "build": "(npm run sergey ) & (npm run sergeyCopy ) & (npm run typescript ) & (npm run deleteTS ) & (npm run concat) & (npm run deleteJSFolder)",
-    "sergey": "sergey --root=./ --output=../sergeyOut/ --exclude=.flowconfig --imports=./_html/",
-    "sergeyCopy": "(Xcopy /Y /E /I ..\\sergeyOut ..\\..\\pb ) & (RD /S /Q ..\\sergeyOut )",
-    "typescript": "tsc",
-    "deleteTS": "del /F /Q /S ..\\..\\pb\\*.ts",
-    "concat": "concat-files-cli -i ../../pb/js/* -o ../../pb/_ALL_JS.js",
-    "deleteJSFolder": "rmdir /Q /S ..\\..\\pb\\js"
+	 "build" : "(npm run clearPB ) & (npm run sergey ) & (npm run tsc )",
+    "buildClean": "(npm run clearPB ) & (npm run sergey ) & (npm run tsc ) & (npm run clean )",
+    "clearPB": "RD /S /Q ..\\..\\pb & MD ..\\..\\pb",
+	 "sergey": "sergey --root=./ --output=../../pb/ --exclude=.flowconfig --imports=./_html/",
+    "tsc": "tsc",
+    "clean": "RD /S /Q ..\\..\\pb\\ts"
   },
   "repository": {
     "type": "git",

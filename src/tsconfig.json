@@ -1,23 +1,24 @@
 {
 "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
-    "outDir": "../../pb",
-    "rootDir": "./",
-    
+	 
+	 "declaration": false,
+	 "allowJs": false,
     "strict": true,
-	"declaration": false,
     "noImplicitAny": true,
     "strictNullChecks": false,
     "removeComments": false,
-    "noLib": false
+    "noLib": false,
+
+	 
+    "outFile": "../../pb/_ALL_JS.js",
+    "rootDir": "./ts",
 },
 "include": [
-    "**/*",
-    "_site.js",
-    "_loaded.js"
+	"**/*",
 ],
 "exclude": [
     "node_modules",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "./login/*"
 ]}
